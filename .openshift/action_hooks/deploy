@@ -1,0 +1,121 @@
+#!/usr/bin/env perl
+
+use warnings;
+use strict;
+use Digest::MD5 qw| md5 md5_hex md5_base64 |;
+use WWW::Curl::Easy;   
+
+my $repodir = $ENV{OPENSHIFT_REPO_DIR};
+my $depdir = $ENV{OPENSHIFT_BUILD_DEPENDENCIES_DIR};
+my $tmpdir = $ENV{OPENSHIFT_TMP_DIR};
+my $datadir = $ENV{OPENSHIFT_DATA_DIR};
+
+$repodir =~ s/\/$//;
+$depdir =~ s/\/$//;
+$tmpdir =~ s/\/$//;
+$datadir =~ s/\/$//;
+
+my $docroot = "$repodir/php";
+my $ver_file = "$repodir/VERSION";
+my $wp_config = "$repodir/config/wp-config.php";
+my $wp_plugins = "$repodir/plugins";
+my $wp_themes = "$repodir/themes";
+my $install = "$datadir/current";
+
+my $stamp = time;
+my $curl = WWW::Curl::Easy->new;
+my $md5 = Digest::MD5->new;
+
+my $wpversion;
+if ( -e $ver_file ) {
+    open(WP_VERSION,"<$ver_file");
+    $wpversion = <WP_VERSION>;
+    chomp($wpversion);
+    close(WP_VERSION);
+} else {
+    $wpversion = "3.9.1";
+}
+
+my $build = "$depdir/$wpversion";
+
+sub getmd5 {
+    my ( $data, $pointer ) = @_;
+    ${$pointer} .= $data;
+    return length($data);
+}
+
+if ( not -f "$depdir/wordpress-$wpversion.tar.gz" ) {
+    print "Downloading WordPress Version $wpversion... \n";
+    my $dltmp;
+    open($dltmp,">$depdir/wordpress-$wpversion.tar.gz");
+    my $url = "http://wordpress.org/wordpress-$wpversion.tar.gz";
+    my $md5url = "$url.md5";
+    my $expected_md5;
+    $curl->setopt( CURLOPT_URL, $url );
+    $curl->setopt( CURLOPT_WRITEDATA, \$dltmp );
+    my $retcode = $curl->perform;
+    if ( $retcode == 0 ) {
+        print "Verifying archive integrity now... \n";
+        $curl = WWW::Curl::Easy->new;
+        $curl->setopt( CURLOPT_URL, $md5url );
+        $curl->setopt( CURLOPT_WRITEFUNCTION, \&getmd5 );
+        $curl->setopt( CURLOPT_FILE, \$expected_md5 );
+        my $gotmd5 = $curl->perform;
+        if ( $gotmd5 == 0 ) {
+            close($dltmp);
+            open($dltmp,"<$depdir/wordpress-$wpversion.tar.gz");
+            $md5->addfile($dltmp);
+            my $actual_md5 = $md5->hexdigest;
+            if ( $actual_md5 ne $expected_md5 ) {
+                warn "Downloaded archive does not match expected md5 checksum!";
+                print STDERR "expected $expected_md5 ... got $actual_md5";
+                exit 2;
+            }
+        } else {
+            warn "Failed to get md5 from wordpress.org!";
+            exit 2;
+        }
+    } else {
+        warn "failed to get archive from wordpress.org";
+        exit 2;
+    }
+    close($dltmp);
+}
+
+mkdir $build if not -d $build ;
+`/bin/tar --strip-components=1 -xzf $depdir/wordpress-$wpversion.tar.gz -C $build`;
+`/bin/rm -rf $docroot` if -d $docroot;
+unlink $docroot if -l $docroot;
+eval {
+    print "Copying Wordpress configuration in $wp_config...\n";
+    `cp -f $wp_config $build/wp-config.php`;
+} if -f $wp_config;
+
+if ( -d $install ) {
+    print "Removing installdir [$install] now... ";
+    `/bin/rm -rf $install`;
+    `rm -rf $datadir/{plugins,themes}`;
+    print "Done\n";
+} 
+
+print "Copying WordPress plugins from repository... ";
+`/usr/bin/rsync -az $wp_plugins/ $build/wp-content/plugins/ 2>/dev/null`;
+print "Done\nCopying WordPress themes from repository... ";
+`/usr/bin/rsync -az $wp_themes/ $build/wp-content/themes/ 2>/dev/null`;
+print "Done\n";
+
+print "Creating install directory [$install] now... ";
+mkdir $install;
+print "Done\nCopying build files to installdir now... ";
+`/usr/bin/rsync -avz --delete --force $build/ $install/ 2>/dev/null`;
+print "Done\n";
+
+mkdir "$datadir/uploads" if not -d "$datadir/uploads";
+mkdir "$datadir/blogs.dir" if not -d "$datadir/blogs.dir";
+
+symlink $install, $docroot;
+symlink "$datadir/blogs.dir", "$docroot/wp-content/blogs.dir";
+symlink "$datadir/plugins", "$docroot/wp-content/plugins";
+symlink "$datadir/themes", "$docroot/wp-content/themes";
+symlink "$datadir/uploads", "$docroot/wp-content/uploads";
+`rm -rf $build 2>/dev/null`;
