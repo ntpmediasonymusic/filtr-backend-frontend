@@ -13,7 +13,7 @@ class S3_Object_Storage extends AWS_Plugin_Base {
 
 		add_action( 'aws_admin_menu', array( $this, 'admin_menu' ) );
 
-		$this->plugin_title = __( 'DeSMan &#0153; Object Storage', 'as3cf' );
+		$this->plugin_title = __( 'DeSMan&#0153; Object Storage', 'as3cf' );
 		$this->plugin_menu_title = __( 'Object Storage','as3cf' );
 
 		add_action( 'wp_ajax_as3cf-create-bucket', array( $this, 'ajax_create_bucket' ) );
