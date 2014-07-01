@@ -26,7 +26,7 @@ class S3_Connector extends AWS_Plugin_Base {
 		}
 
 		$this->plugin_title = __( 'Object Storage', 's3-connector' );
-		$this->plugin_menu_title = __( 'DeSMan &#0153;', 's3-connector' );
+		$this->plugin_menu_title = __( 'DeSMan&#0153;', 's3-connector' );
 	}
 
 	function admin_menu() {
