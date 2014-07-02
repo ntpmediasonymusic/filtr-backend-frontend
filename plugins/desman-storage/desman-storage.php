@@ -1,7 +1,10 @@
 <?php
 /*
-Plugin Name: DeSMan &#0153; Object Storage
-Description: Automatically copies media uploads to S3 Object Storage.
+Plugin Name: DeSMan&#0153; Storage
+Description: This plugin will automatically copy any new uploads (media) to an S3 Object Store managed by DeSMan
+Author: Brad Tousenard (adapted by John Fanjoy <jfanjoy@inetu.net>)
+Version: 0.3.2a
+
 // Copyright (c) 2013 Brad Touesnard. All rights reserved.
 //
 // Released under the GPL license
@@ -46,8 +49,30 @@ add_action( 'plugins_loaded', 'as3cf_check_required_plugin' );
 
 function as3cf_init( $aws ) {
     global $as3cf;
-    require_once 'classes/s3-downloads.php';
-    $as3cf = new S3_Object_Storage( __FILE__, $aws );
+    try {
+        require_once 'classes/s3-downloads.php';
+        $as3cf = new S3_Object_Storage( __FILE__, $aws );
+        $bucket = array_shift($as3cf->get_buckets());
+        $default = $bucket['Name'];
+        $s3url = $default.".".parse_url(S3_BASE_URL,PHP_URL_HOST);
+        
+        # bucket and public url
+        $as3cf->set_setting('bucket',$default);
+        $as3cf->set_setting('cloudfront',$s3url);
+
+        # naming, paths, and cache settings
+        $as3cf->set_setting('expires',true);
+        $as3cf->set_setting('object-versioning',true);
+        $as3cf->set_setting('object-prefix',"wp-content/uploads/");
+
+        # media behaviors
+        $as3cf->set_setting('copy-to-s3',true);
+        $as3cf->set_setting('serve-from-s3',true);
+        $as3cf->set_setting('remove-local-file',true);
+
+    } catch ( Exception $e ) {
+        wp_die($e->getMessage());
+    }
 }
 
 add_action( 'aws_init', 'as3cf_init' );

@@ -48,22 +48,18 @@
 
         <h3>S3 Object Storage Access Keys</h3>
 
-        <p>
-                <?php _e('Please create a support request if the form below doesn\'t contain your access key id'); ?>
-        </p>
-
-
-        <?php wp_nonce_field( 'aws-save-settings' ) ?>
                 <div class="form-control">
                         <form class="form">
+                                <?php wp_nonce_field( 'aws-save-settings' ) ?>
                                 <div class="form-control-group">
                                 <input type="hidden" name="action" value="save" />
-                                <label for "access_key_id"><strong><?php _e( 'Access Key ID:', 'desman-connector' ); ?></strong>
+                                <label for="s3_host"><strong><?php _e( 'S3 Base URL:', 'desman-connector' ); ?></strong>
+                                        <input type="text" name="s3_host" value="<?php echo S3_BASE_URL; ?>" size="50" disabled="disabled" />
+                                </label><br /><label for "access_key_id"><strong><?php _e( 'Access Key ID:', 'desman-connector' ); ?></strong>
                                         <input type="text" name="access_key_id" value="<?php echo esc_attr( $this->get_access_key_id() ); ?>" size="50" disabled="disabled" />
                                 </label><br /><label for="secret_access_key"><strong><?php _e( 'Secret Access Key:', 'desman-connector' ); ?></strong>
                                         <input type="text" name="secret_access_key" value="<?php echo $this->get_secret_access_key() ?: 'Not defined'; ?>" size="50" disabled="disabled" />
                                 </label>
-
                                 </div>
 <?php 
 /**

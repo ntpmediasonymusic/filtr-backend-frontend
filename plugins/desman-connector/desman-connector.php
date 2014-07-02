@@ -2,10 +2,8 @@
 /*
 Plugin Name: DeSMan&#0153; Connector
 Description: This plugin connects WordPress to the resources provided by the INetU Developer Service Manager
-Author: John Fanjoy
-Version: alpha/0.3.1
-Author URI: http://bradt.ca/
-Network: True
+Author: Brad Touesnard (adapted by John Fanjoy)
+Version: 0.3.2a
 */
 
 /**

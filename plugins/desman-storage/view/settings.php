@@ -7,7 +7,7 @@ if ( is_wp_error( $buckets ) ) :
 	?>
 	<div class="error">
 		<p>
-			<?php _e( 'Error retrieving a list of your S3 buckets from AWS:', 'as3cf' ); ?>
+			<?php _e( 'Error retrieving a list of your S3 buckets from DeSMan&#0153 OBS:', 'as3cf' ); ?>
 			<?php echo $buckets->get_error_message(); ?>
 		</p>
 	</div>
@@ -74,15 +74,15 @@ if ( isset( $_GET['updated'] ) ) {
 		<h3><?php _e( 'Plugin Settings', 'as3cf' ); ?></h3>
 
 		<input type="checkbox" name="copy-to-s3" value="1" id="copy-to-s3" <?php echo $this->get_setting( 'copy-to-s3' ) ? 'checked="checked" ' : ''; ?> />
-		<label for="copy-to-s3"> <?php _e( 'Copy files to S3 as they are uploaded to the Media Library', 'as3cf' ); ?></label>
+		<label for="copy-to-s3"> <?php _e( 'Copy files to Object Storage as they are uploaded to the Media Library', 'as3cf' ); ?></label>
 		<br />
 
 		<input type="checkbox" name="serve-from-s3" value="1" id="serve-from-s3" <?php echo $this->get_setting( 'serve-from-s3' ) ? 'checked="checked" ' : ''; ?> />
-		<label for="serve-from-s3"> <?php _e( 'Point file URLs to S3/CloudFront for files that have been copied to S3', 'as3cf' ); ?></label>
+		<label for="serve-from-s3"> <?php _e( 'Point file URLs to public OBS URLs for files that have been copied to Object Storage', 'as3cf' ); ?></label>
 		<br />
 
 		<input type="checkbox" name="remove-local-file" value="1" id="remove-local-file" <?php echo $this->get_setting( 'remove-local-file' ) ? 'checked="checked" ' : ''; ?> />
-		<label for="remove-local-file"> <?php _e( 'Remove uploaded file from local filesystem once it has been copied to S3', 'as3cf' ); ?></label>
+		<label for="remove-local-file"> <?php _e( 'Remove uploaded file from local filesystem once it has been copied to Object Storage', 'as3cf' ); ?></label>
 		<br />
 
 		<input type="checkbox" name="force-ssl" value="1" id="force-ssl" <?php echo $this->get_setting( 'force-ssl' ) ? 'checked="checked" ' : ''; ?> />
@@ -90,13 +90,13 @@ if ( isset( $_GET['updated'] ) ) {
 		<br />
 
 		<input type="checkbox" name="hidpi-images" value="1" id="hidpi-images" <?php echo $this->get_setting( 'hidpi-images' ) ? 'checked="checked" ' : ''; ?> />
-		<label for="hidpi-images"> <?php _e( 'Copy any HiDPI (@2x) images to S3 (works with WP Retina 2x plugin)', 'as3cf' ); ?></label>
+		<label for="hidpi-images"> <?php _e( 'Copy any HiDPI (@2x) images to Object Storage (works with WP Retina 2x plugin)', 'as3cf' ); ?></label>
 
 	</td>
 </tr>
 <tr valign="top">
 	<td>
-		<button type="submit" class="button button-primary"><?php _e( 'Save Changes', 's3-connector' ); ?></button>
+		<button type="submit" class="button button-primary"><?php _e( 'Save Changes', 'desman-connector' ); ?></button>
 	</td>
 </tr>
 </table>
