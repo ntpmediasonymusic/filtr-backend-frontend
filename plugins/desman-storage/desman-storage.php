@@ -29,15 +29,14 @@ function as3cf_check_required_plugin() {
     require_once ABSPATH . '/wp-admin/includes/plugin.php';
     deactivate_plugins( __FILE__ );
 
-    $msg = sprintf( __( 'Object Storage is not yet activated as it requires the <a href="%s">DeSMan &#0153; S3 Connector</a> plugin.', 'as3cf' ), 'https://github.com/deliciousbrains/wp-amazon-web-services' ) . '<br /><br />';
+    $msg =  __( 'Object Storage is not yet activated as it requires the DeSMan&#0153; Connector plugin.', 'as3cf' );
     
-    if ( file_exists( WP_PLUGIN_DIR . '/s3-connector/s3-connector.php' ) ) {
-        $activate_url = wp_nonce_url( 'plugins.php?action=activate&amp;plugin=s3-connector/s3-connector.php', 'activate-plugin_s3-connector/s3-connector.php' );
+    if ( file_exists( WP_PLUGIN_DIR . '/desman-connector/desman-connector.php' ) ) {
+        $activate_url = wp_nonce_url( 'plugins.php?action=activate&amp;plugin=desman-connector/desman-connector.php', 'activate-plugin_desman-connector/desman-connector.php' );
         $msg .= sprintf( __( 'It appears to already be installed. <a href="%s">Click here to activate it.</a>', 'as3cf' ), $activate_url );
     }
     else {
-        $download_url = 'https://github.com/deliciousbrains/wp-amazon-web-services/releases/download/v0.1/amazon-web-services-0.1.zip';
-        $msg .= sprintf( __( '<a href="%s">Click here to download a zip of the latest version.</a> Then install and activate it. ', 'as3cf' ), $download_url );
+        $msg .= __("Please Contact Support for further assistance");
     }
 
     $msg .= '<br /><br />' . __( 'Once it has been activated, you can activate DeSMan Object Storage', 'as3cf' );
@@ -50,25 +49,28 @@ add_action( 'plugins_loaded', 'as3cf_check_required_plugin' );
 function as3cf_init( $aws ) {
     global $as3cf;
     try {
-        require_once 'classes/s3-downloads.php';
+        require_once 'classes/desman-storage.php';
         $as3cf = new S3_Object_Storage( __FILE__, $aws );
-        $bucket = array_shift($as3cf->get_buckets());
-        $default = $bucket['Name'];
-        $s3url = $default.".".parse_url(S3_BASE_URL,PHP_URL_HOST);
-        
-        # bucket and public url
-        $as3cf->set_setting('bucket',$default);
-        $as3cf->set_setting('cloudfront',$s3url);
+        # we only want this to run if it's not already set up
+        if ( ! $as3cf->get_setting('bucket') ) {
+            $bucket = array_shift($as3cf->get_buckets());
+            $default = $bucket['Name'];
+            $s3url = $default.".".parse_url(S3_BASE_URL,PHP_URL_HOST);
+            
+            # bucket and public url
+            $as3cf->set_setting('bucket',$default);
+            $as3cf->set_setting('cloudfront',$s3url);
 
-        # naming, paths, and cache settings
-        $as3cf->set_setting('expires',true);
-        $as3cf->set_setting('object-versioning',true);
-        $as3cf->set_setting('object-prefix',"wp-content/uploads/");
+            # naming, paths, and cache settings
+            $as3cf->set_setting('expires',true);
+            $as3cf->set_setting('object-versioning',true);
+            $as3cf->set_setting('object-prefix',"wp-content/uploads/");
 
-        # media behaviors
-        $as3cf->set_setting('copy-to-s3',true);
-        $as3cf->set_setting('serve-from-s3',true);
-        $as3cf->set_setting('remove-local-file',true);
+            # media behaviors
+            $as3cf->set_setting('copy-to-s3',true);
+            $as3cf->set_setting('serve-from-s3',true);
+            $as3cf->set_setting('remove-local-file',true);
+        }
 
     } catch ( Exception $e ) {
         wp_die($e->getMessage());

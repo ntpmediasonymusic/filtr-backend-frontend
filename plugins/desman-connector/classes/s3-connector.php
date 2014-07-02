@@ -25,7 +25,7 @@ class S3_Connector extends AWS_Plugin_Base {
 			$this->plugin_permission = 'manage_options';
 		}
 
-		$this->plugin_title = __( 'DeSMan&#0153; Connector', 'desman-connector' );
+		$this->plugin_title = __( 'DeSMan&#0153; Connector Settings', 'desman-connector' );
 		$this->plugin_menu_title = __( 'DeSMan&#0153;', 'desman-connector' );
 	}
 
@@ -140,7 +140,7 @@ class S3_Connector extends AWS_Plugin_Base {
 
 	function get_client() {
 		if ( !$this->get_access_key_id() || !$this->get_secret_access_key() ) {
-			return new WP_Error( 'access_keys_missing', __( 'You must first <a href="%s">set your AWS access keys</a> to use this addon.', 'desman-connector' ));
+			throw new WP_Error( 'access_keys_missing', __( 'You must first <a href="%s">set your OBS access keys</a> to use this addon.', 'desman-connector' ));
 		}
 
 		if ( is_null( $this->client ) ) {
