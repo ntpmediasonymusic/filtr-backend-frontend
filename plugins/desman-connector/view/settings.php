@@ -39,7 +39,7 @@
                                 </div>
                         <?php else: ?>
                                 <div class="alert alert-warning">
-                                        <p>MySQL information is only available in the devel and stage application.</p>
+                                        <p>MySQL information is only available in the devel and stage applications.</p>
                                 </div>
                         <?php endif; ?>
 
