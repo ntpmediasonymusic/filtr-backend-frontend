@@ -41,6 +41,42 @@ class S3_Object_Storage extends AWS_Plugin_Base {
 		return parent::get_setting( $key );
 	}
 
+	public function get_attachments() {
+		global $wpdb;
+		return $wpdb->get_results("
+			select post.id, meta.meta_value from 
+			 $wpdb->posts post join 
+			 $wpdb->postmeta meta on 
+			 post.id = meta.post_id where 
+			post.post_type = 'attachment' and meta.meta_key = '_wp_attached_file';
+		"); 
+	}
+
+	# run through the file attachment database rows and add a metakey wherever necessary to serve from s3
+	public function update_existing_metadata() {
+		global $wpdb;
+		$attachments = $this->get_attachments();
+		$insert = "INSERT INTO $wpdb->postmeta ( post_id, meta_key, meta_value ) VALUES ( %d , 'amazonS3_info', %s );";
+		$already_set = "SELECT COUNT(*) from $wpdb->postmeta where post_id = %d AND meta_key = 'amazonS3_info';";
+		$count = count($attachments);
+		$updir = wp_upload_dir();
+		$actual_path = preg_replace("/^\//","",parse_url($updir['baseurl'], PHP_URL_PATH));
+		$bucket = $this->get_setting( 'bucket' );
+                $counter = 0;
+                foreach( $attachments as $media ) { 
+                        $has_been = $wpdb->get_results($wpdb->prepare($already_set,$media->post_id),ARRAY_N);
+                        if ( is_array( $has_been ) && count( $has_been ) > 0 ) continue;
+                        try {
+                                $target = "$actual_path/$media->meta_value";
+                                $meta_value = serialize(array('bucket' => $bucket,'key' => $target));
+                                $counter += (int) $wpdb->query($wpdb->prepare($insert,$media->post_id,$meta_value));
+                        } catch ( Exception $e ) {
+                                # let's fire off an error and move on to the next media object
+                                trigger_error($e->getMessage());
+                        }
+                }
+                wp_die( "Updated $counter media objects metadata. <a href='admin.php?page=$this->plugin_slug&updated=1'>Back to Storage Settings</a>" ); 
+	}
     function delete_attachment( $post_id ) {
         if ( !$this->is_plugin_setup() ) {
             return;
@@ -397,7 +433,9 @@ class S3_Object_Storage extends AWS_Plugin_Base {
 
 	function admin_menu( $aws ) {
 		$hook_suffix = $aws->add_page( $this->plugin_title, $this->plugin_menu_title, 'manage_options', $this->plugin_slug, array( $this, 'render_page' ) );
+		$genstoremetahook = $aws->add_page($this->plugin_title . ": update existing metadata", __("Generate Storage Metadata"), 'manage_options', "update-existing",array($this,'generate_storage_meta_data') );
 		add_action( 'load-' . $hook_suffix , array( $this, 'plugin_load' ) );
+		add_action("load-$genstoremetahook",array($this,'plugin_load') );
 	}
 
 	function get_s3client() {
@@ -438,29 +476,63 @@ class S3_Object_Storage extends AWS_Plugin_Base {
 	}
 
 	function handle_post_request() {
-		if ( empty( $_POST['action'] ) || 'save' != $_POST['action'] ) {
-			return;
+		if ( empty( $_POST['action'] ) ) return;
+		switch ( $_POST['action'] ) {
+			case "save":
+				if ( empty( $_POST['_wpnonce'] ) || !wp_verify_nonce( $_POST['_wpnonce'], 'as3cf-save-settings' ) ) {
+					die( __( "Cheatin' eh?", 'amazon-web-services' ) );
+				}
+
+				$this->set_settings( array() );
+
+				$post_vars = array( 
+					'bucket', 
+					'virtual-host', 
+					'expires', 
+					'permissions', 
+					'cloudfront', 
+					'object-prefix', 
+					'copy-to-s3', 
+					'serve-from-s3', 
+					'remove-local-file', 
+					'force-ssl', 
+					'hidpi-images', 
+					'object-versioning' 
+				);
+				foreach ( $post_vars as $var ) {
+					if ( !isset( $_POST[$var] ) ) {
+						continue;
+					}
+
+					$this->set_setting( $var, $_POST[$var] );
+				}
+
+				$this->save_settings();
+
+				break;
+			case "update-existing":
+				if ( wp_verify_nonce( $_POST['_wpnonce'],'wpds-update-existing-metanonce') ) {
+					$this->update_existing_metadata();
+					break;
+				}
+			default:
+				trigger_error(sprintf("Action %s not supported by DeSMan Storage",$_POST['action']));
 		}
+		return wp_redirect( 'admin.php?page=' . $this->plugin_slug . '&updated=1' );
+	}
 
-		if ( empty( $_POST['_wpnonce'] ) || !wp_verify_nonce( $_POST['_wpnonce'], 'as3cf-save-settings' ) ) {
-			die( __( "Cheatin' eh?", 'amazon-web-services' ) );
+	public function generate_storage_meta_data() {
+		$this->aws->render_view( 'header', array( 'page_title' => $this->plugin_title ) );
+		
+		if ( is_wp_error( $aws_client ) ) {
+			$this->render_view( 'error', array( 'error' => $aws_client ) );
 		}
-
-		$this->set_settings( array() );
-
-		$post_vars = array( 'bucket', 'virtual-host', 'expires', 'permissions', 'cloudfront', 'object-prefix', 'copy-to-s3', 'serve-from-s3', 'remove-local-file', 'force-ssl', 'hidpi-images', 'object-versioning' );
-		foreach ( $post_vars as $var ) {
-			if ( !isset( $_POST[$var] ) ) {
-				continue;
-			}
-
-			$this->set_setting( $var, $_POST[$var] );
+		else {
+			$this->render_view( 'update-existing' );
 		}
+		
+		$this->aws->render_view( 'footer' );
 
-		$this->save_settings();
-
-		wp_redirect( 'admin.php?page=' . $this->plugin_slug . '&updated=1' );
-		exit;
 	}
 
 	function render_page() {
