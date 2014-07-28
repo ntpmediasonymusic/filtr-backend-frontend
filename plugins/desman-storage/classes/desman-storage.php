@@ -417,157 +417,160 @@ class S3_Object_Storage extends AWS_Plugin_Base {
         }
 
         echo json_encode( $out );
-        exit;ction create_bucket( $bucket_name ) {
-            try {
-                $this->get_s3client()->createBucket( array( 'Bucket' => $bucket_name ) );
-            }
-            catch ( Exception $e ) {
-                return new WP_Error( 'exception', $e->getMessage() );
-            }
+        exit;       
+    }
 
-            return true;
+    function create_bucket( $bucket_name ) {
+        try {
+            $this->get_s3client()->createBucket( array( 'Bucket' => $bucket_name ) );
+        }
+        catch ( Exception $e ) {
+            return new WP_Error( 'exception', $e->getMessage() );
         }
 
-        function admin_menu( $aws ) {
-            $hook_suffix = $aws->add_page( $this->plugin_title, $this->plugin_menu_title, 'manage_options', $this->plugin_slug, array( $this, 'render_page' ) );
-            $genstoremetahook = $aws->add_page($this->plugin_title . ": update existing metadata", __("Generate Storage Metadata"), 'manage_options', "update-existing",array($this,'generate_storage_meta_data') );
-            add_action( 'load-' . $hook_suffix , array( $this, 'plugin_load' ) );
-            add_action("load-$genstoremetahook",array($this,'plugin_load') );
+        return true;
+    }
+
+    function admin_menu( $aws ) {
+        $hook_suffix = $aws->add_page( $this->plugin_title, $this->plugin_menu_title, 'manage_options', $this->plugin_slug, array( $this, 'render_page' ) );
+        $genstoremetahook = $aws->add_page($this->plugin_title . ": update existing metadata", __("Generate Storage Metadata"), 'manage_options', "update-existing",array($this,'generate_storage_meta_data') );
+        add_action( 'load-' . $hook_suffix , array( $this, 'plugin_load' ) );
+        add_action("load-$genstoremetahook",array($this,'plugin_load') );
+    }
+
+    function get_s3client() {
+        if ( is_null( $this->s3client ) ) {
+            $this->s3client = $this->aws->get_client()->get( 's3' );
         }
 
-        function get_s3client() {
-            if ( is_null( $this->s3client ) ) {
-                $this->s3client = $this->aws->get_client()->get( 's3' );
+        return $this->s3client;
+    }
+
+    function get_buckets() {
+        try {
+            $result = $this->get_s3client()->listBuckets();
+        }
+        catch ( Exception $e ) {
+            return new WP_Error( 'exception', $e->getMessage() );
+        }
+
+        return $result['Buckets'];
+    }
+
+    function plugin_load() {
+        $src = plugins_url( 'assets/css/styles.css', $this->plugin_file_path );
+        wp_enqueue_style( 'as3cf-styles', $src, array(), $this->get_installed_version() );
+
+        $suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
+
+        $src = plugins_url( 'assets/js/script' . $suffix . '.js', $this->plugin_file_path );
+        wp_enqueue_script( 'as3cf-script', $src, array( 'jquery' ), $this->get_installed_version(), true );
+
+        wp_localize_script( 'as3cf-script', 'as3cf_i18n', array(
+            'create_bucket_prompt'  => __( 'Bucket Name:', 'as3cf' ),
+            'create_bucket_error'   => __( 'Error creating bucket: ', 'as3cf' ),
+            'create_bucket_nonce'   => wp_create_nonce( 'as3cf-create-bucket' )
+        ) );
+
+        $this->handle_post_request();
+    }
+
+    function handle_post_request() {
+        if ( empty( $_POST['action'] ) ) return;
+        switch ( $_POST['action'] ) {
+        case "save":
+            if ( empty( $_POST['_wpnonce'] ) || !wp_verify_nonce( $_POST['_wpnonce'], 'as3cf-save-settings' ) ) {
+                die( __( "Cheatin' eh?", 'amazon-web-services' ) );
             }
 
-            return $this->s3client;
-        }
+            $this->set_settings( array() );
 
-        function get_buckets() {
-            try {
-                $result = $this->get_s3client()->listBuckets();
-            }
-            catch ( Exception $e ) {
-                return new WP_Error( 'exception', $e->getMessage() );
-            }
-
-            return $result['Buckets'];
-        }
-
-        function plugin_load() {
-            $src = plugins_url( 'assets/css/styles.css', $this->plugin_file_path );
-            wp_enqueue_style( 'as3cf-styles', $src, array(), $this->get_installed_version() );
-
-            $suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
-
-            $src = plugins_url( 'assets/js/script' . $suffix . '.js', $this->plugin_file_path );
-            wp_enqueue_script( 'as3cf-script', $src, array( 'jquery' ), $this->get_installed_version(), true );
-
-            wp_localize_script( 'as3cf-script', 'as3cf_i18n', array(
-                'create_bucket_prompt'  => __( 'Bucket Name:', 'as3cf' ),
-                'create_bucket_error'=> __( 'Error creating bucket: ', 'as3cf' ),
-                'create_bucket_nonce'=> wp_create_nonce( 'as3cf-create-bucket' )
-            ) );
-
-            $this->handle_post_request();
-        }
-
-        function handle_post_request() {
-            if ( empty( $_POST['action'] ) ) return;
-            switch ( $_POST['action'] ) {
-            case "save":
-                if ( empty( $_POST['_wpnonce'] ) || !wp_verify_nonce( $_POST['_wpnonce'], 'as3cf-save-settings' ) ) {
-                    die( __( "Cheatin' eh?", 'amazon-web-services' ) );
+            $post_vars = array( 
+                'bucket', 
+                'virtual-host', 
+                'expires', 
+                'permissions', 
+                'cloudfront', 
+                'object-prefix', 
+                'copy-to-s3', 
+                'serve-from-s3', 
+                'remove-local-file', 
+                'force-ssl', 
+                'hidpi-images', 
+                'object-versioning' 
+            );
+            foreach ( $post_vars as $var ) {
+                if ( !isset( $_POST[$var] ) ) {
+                    continue;
                 }
 
-                $this->set_settings( array() );
+                $this->set_setting( $var, $_POST[$var] );
+            }
 
-                $post_vars = array( 
-                    'bucket', 
-                    'virtual-host', 
-                    'expires', 
-                    'permissions', 
-                    'cloudfront', 
-                    'object-prefix', 
-                    'copy-to-s3', 
-                    'serve-from-s3', 
-                    'remove-local-file', 
-                    'force-ssl', 
-                    'hidpi-images', 
-                    'object-versioning' 
-                );
-                foreach ( $post_vars as $var ) {
-                    if ( !isset( $_POST[$var] ) ) {
-                        continue;
-                    }
+            $this->save_settings();
 
-                    $this->set_setting( $var, $_POST[$var] );
-                }
-
-                $this->save_settings();
-
+            break;
+        case "update-existing":
+            if ( wp_verify_nonce( $_POST['_wpnonce'],'wpds-update-existing-metanonce') ) {
+                $this->update_existing_metadata();
                 break;
-            case "update-existing":
-                if ( wp_verify_nonce( $_POST['_wpnonce'],'wpds-update-existing-metanonce') ) {
-                    $this->update_existing_metadata();
-                    break;
-                }
-            default:
-                trigger_error(sprintf("Action %s not supported by DeSMan Storage",$_POST['action']));
             }
-            return wp_redirect( 'admin.php?page=' . $this->plugin_slug . '&updated=1' );
+        default:
+            trigger_error(sprintf("Action %s not supported by DeSMan Storage",$_POST['action']));
+        }
+        return wp_redirect( 'admin.php?page=' . $this->plugin_slug . '&updated=1' );
+    }
+
+    public function generate_storage_meta_data() {
+        $this->aws->render_view( 'header', array( 'page_title' => $this->plugin_title ) );
+
+        if ( is_wp_error( $aws_client ) ) {
+            $this->render_view( 'error', array( 'error' => $aws_client ) );
+        }
+        else {
+            $this->render_view( 'update-existing' );
         }
 
-        public function generate_storage_meta_data() {
-            $this->aws->render_view( 'header', array( 'page_title' => $this->plugin_title ) );
-
-            if ( is_wp_error( $aws_client ) ) {
-                $this->render_view( 'error', array( 'error' => $aws_client ) );
-            }
-            else {
-                $this->render_view( 'update-existing' );
-            }
-
-            $this->aws->render_view( 'footer' );
-
-        }
-
-        function render_page() {
-            $this->aws->render_view( 'header', array( 'page_title' => $this->plugin_title ) );
-
-            $aws_client = $this->aws->get_client();
-
-            if ( is_wp_error( $aws_client ) ) {
-                $this->render_view( 'error', array( 'error' => $aws_client ) );
-            }
-            else {
-                $this->render_view( 'settings' );
-            }
-
-            $this->aws->render_view( 'footer' );
-        }
-
-        function get_dynamic_prefix( $time = null ) {
-            $uploads = wp_upload_dir( $time );
-            return str_replace( $this->get_base_upload_path(), '', $uploads['path'] );
-        }
-
-        // Without the multisite subdirectory
-        function get_base_upload_path() {
-            if ( defined( 'UPLOADS' ) && ! ( is_multisite() && get_site_option( 'ms_files_rewriting' ) ) ) {
-                return ABSPATH . UPLOADS;
-            }
-
-            $upload_path = trim( get_option( 'upload_path' ) );
-
-            if ( empty( $upload_path ) || 'wp-content/uploads' == $upload_path ) {
-                return WP_CONTENT_DIR . '/uploads';
-            } elseif ( 0 !== strpos( $upload_path, ABSPATH ) ) {
-                // $dir is absolute, $upload_path is (maybe) relative to ABSPATH
-                return path_join( ABSPATH, $upload_path );
-            } else {
-                return $upload_path;
-            }
-        }
+        $this->aws->render_view( 'footer' );
 
     }
+
+    function render_page() {
+        $this->aws->render_view( 'header', array( 'page_title' => $this->plugin_title ) );
+
+        $aws_client = $this->aws->get_client();
+
+        if ( is_wp_error( $aws_client ) ) {
+            $this->render_view( 'error', array( 'error' => $aws_client ) );
+        }
+        else {
+            $this->render_view( 'settings' );
+        }
+
+        $this->aws->render_view( 'footer' );
+    }
+
+    function get_dynamic_prefix( $time = null ) {
+        $uploads = wp_upload_dir( $time );
+        return str_replace( $this->get_base_upload_path(), '', $uploads['path'] );
+    }
+
+    // Without the multisite subdirectory
+    function get_base_upload_path() {   
+        if ( defined( 'UPLOADS' ) && ! ( is_multisite() && get_site_option( 'ms_files_rewriting' ) ) ) {
+            return ABSPATH . UPLOADS;
+        }
+
+        $upload_path = trim( get_option( 'upload_path' ) );
+
+        if ( empty( $upload_path ) || 'wp-content/uploads' == $upload_path ) {
+            return WP_CONTENT_DIR . '/uploads';
+        } elseif ( 0 !== strpos( $upload_path, ABSPATH ) ) {
+            // $dir is absolute, $upload_path is (maybe) relative to ABSPATH
+            return path_join( ABSPATH, $upload_path );
+        } else {
+            return $upload_path;
+        }
+    }
+
+}
