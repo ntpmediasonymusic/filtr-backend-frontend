@@ -15,12 +15,11 @@ $depdir =~ s/\/$//;
 $tmpdir =~ s/\/$//;
 $datadir =~ s/\/$//;
 
-my $docroot = "$repodir/php";
+my ( $docroot, $confdir, $install ) = ( "$repodir/php", "$repodir/config","$datadir/current" );
 my $ver_file = "$repodir/VERSION";
-my $wp_config = "$repodir/config/wp-config.php";
+my $wp_config = "$confdir/wp-config.php";
 my $wp_plugins = "$repodir/plugins";
 my $wp_themes = "$repodir/themes";
-my $install = "$datadir/current";
 
 my $stamp = time;
 my $curl = WWW::Curl::Easy->new;
@@ -108,6 +107,10 @@ print "Creating install directory [$install] now... ";
 mkdir $install;
 print "Done\nCopying build files to installdir now... ";
 `/usr/bin/rsync -avz --delete --force $build/ $install/ 2>/dev/null`;
+print "Done\n";
+
+print "Checking for additional apache configuration directives... ";
+link "$confdir/.htaccess" , "$install/.htaccess" if -f "$confdir/.htaccess";
 print "Done\n";
 
 mkdir "$datadir/uploads" if not -d "$datadir/uploads";
