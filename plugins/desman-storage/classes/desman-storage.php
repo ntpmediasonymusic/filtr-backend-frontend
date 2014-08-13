@@ -57,19 +57,19 @@ class S3_Object_Storage extends AWS_Plugin_Base {
         global $wpdb;
         $attachments = $this->get_attachments();
         $insert = "INSERT INTO $wpdb->postmeta ( post_id, meta_key, meta_value ) VALUES ( %d , 'amazonS3_info', %s );";
-        $already_set = "SELECT COUNT(*) from $wpdb->postmeta where post_id = %d AND meta_key = 'amazonS3_info';";
+        $already_set = "SELECT count(*) from $wpdb->postmeta where post_id = %d AND meta_key = 'amazonS3_info';";
         $count = count($attachments);
         $updir = wp_upload_dir();
         $actual_path = preg_replace("/^\//","",parse_url($updir['baseurl'], PHP_URL_PATH));
         $bucket = $this->get_setting( 'bucket' );
         $counter = 0;
         foreach( $attachments as $media ) { 
-            $has_been = $wpdb->get_results($wpdb->prepare($already_set,$media->post_id),ARRAY_N);
-            if ( is_array( $has_been ) && count( $has_been ) > 0 ) continue;
+            $has_been = $wpdb->get_var($wpdb->prepare($already_set,$media->id));
+            if ( $has_been ) continue;
             try {
                 $target = "$actual_path/$media->meta_value";
                 $meta_value = serialize(array('bucket' => $bucket,'key' => $target));
-                $counter += (int) $wpdb->query($wpdb->prepare($insert,$media->post_id,$meta_value));
+                $counter += (int) $wpdb->query($wpdb->prepare($insert,$media->id,$meta_value));
             } catch ( Exception $e ) {
                 # let's fire off an error and move on to the next media object
                 trigger_error($e->getMessage());
