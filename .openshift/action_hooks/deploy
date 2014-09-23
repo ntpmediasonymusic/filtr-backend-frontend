@@ -47,7 +47,7 @@ if ( not -f "$depdir/wordpress-$wpversion.tar.gz" ) {
     print "Downloading WordPress Version $wpversion... \n";
     my $dltmp;
     open($dltmp,">$depdir/wordpress-$wpversion.tar.gz");
-    my $url = "http://wordpress.org/wordpress-$wpversion.tar.gz";
+    my $url = "http://www.wordpress.org/wordpress-$wpversion.tar.gz";
     my $md5url = "$url.md5";
     my $expected_md5;
     $curl->setopt( CURLOPT_URL, $url );
