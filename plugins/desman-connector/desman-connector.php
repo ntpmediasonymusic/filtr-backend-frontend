@@ -1,77 +1,55 @@
 <?php
-/*
-Plugin Name: DeSMan&#0153; Connector
-Description: This plugin connects WordPress to the resources provided by the INetU Developer Service Manager
-Author: Brad Touesnard (adapted by John Fanjoy)
-Version: 0.3.2a
-*/
-
 /**
- *
- * The S3 portion of this plugin was derived from the Amazon Web Services S3 WordPress plugin by Brad Touesnard.
- * The original copyright is below for historical purposes
- *
+ * Plugin Name: DeSMan&#0153; Connector
+ * Plugin URI: https://gitlab.inetu.org/jfanjoy/desman-connector
+ * Description: WordPress Plugin for managing DeSMan Storage connections and allow for object storage backing of all media uploads
+ * Version: 2.0
+ * Author: John Fanjoy <jfanjoy@inetu.net>
+ * Author URI: https://gitlab.inetu.org/u/jfanjoy
+ * License: WTFPL
  **/
+defined ( 'ABSPATH' ) or die (__("No Script Kiddies Please"));
+# composer autorequire and our connector class
+require_once 'vendor/autoload.php';
+require_once 'lib/connector.php';
 
-// Copyright (c) 2013 Brad Touesnard. All rights reserved.
-//
-// Released under the GPL license
-// http://www.opensource.org/licenses/gpl-license.php
-//
-// **********************************************************************
-// This program is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// **********************************************************************
+# add some hooks and register plugin
+register_activation_hook( __FILE__, 'dsman_activate');
+add_action( 'init','dsman_init' );
 
-function incompat($msg) {
-	require_once ABSPATH . '/wp-admin/includes/plugin.php';
-	deactivate_plugins( __FILE__ );
-    wp_die( $msg );
+# I believe this is run with each request. Keep this light to reduce impact on performance
+function dsman_init () {
+        global $dsman; # $dsman = new StorageConnector(__FILE__);
+        $dsman = new StorageConnector( __FILE__ );
+        return $dsman;
 }
 
-# we really only need to check the basics because we have complete control over the environment.
-
-if ( is_admin() && ( !defined( 'DOING_AJAX' ) || !DOING_AJAX ) ) {
-	if ( version_compare( PHP_VERSION, '5.3.3', '<' ) ) {
-		incompat( __( 'The version of PHP installed is not compatible with the s3 SDK'));
-	}
-	elseif ( !function_exists( 'curl_version' ) 
-		|| !( $curl = curl_version() ) || empty( $curl['version'] ) || empty( $curl['features'] )
-		|| version_compare( $curl['version'], '7.16.2', '<' ) )
-	{
-		incompat( __( 'The s3 SDK requires cURL > 7.16.2 to be installed and accessible to php'));
-	}
+# options get stored as a serialized array in wp_options under the optgroup_key defined in the storage connector class
+function dsman_activate() {
+        if ( envars_defined() ) {
+                $optgroup = StorageConnector::OPTGROUP_KEY;
+                $access_key = getenv("DESMAN_OBS_KEY_ID");
+                $secret = getenv("DESMAN_OBS_KEY_SECRET");
+                $baseurl = getenv("DESMAN_OBS_BASE_URL");
+                # this could fail IF the domain name is longer than 32 characters because the bucket would be longer than app_name
+                update_option( $optgroup, array(
+                        'id' => $access_key,
+                        'secret' => $secret,
+                        'endpoint' => $baseurl,
+                        'bucket' => getenv("OPENSHIFT_APP_NAME") . "-". getenv("OPENSHIFT_NAMESPACE"),
+                        'options' => intval(
+                                StorageConnector::OPTION_WP_UPLOADS | 
+                                StorageConnector::OPTION_COPY_TO_S3 | 
+                                StorageConnector::OPTION_SERVE_FROM_S3 | 
+                                StorageConnector::OPTION_REMOVE_LOCALS | 
+                                StorageConnector::OPTION_VERSIONING |
+				StorageConnector::OPTION_EXPIRATION_HEADER
+                        ),
+                        'prefix' => UPLOADS
+                ));
+        } else {
+                wp_die(__("Required Environment Variables are not defined!"));
+        }
 }
 
-require_once 'classes/aws-plugin-base.php';
-require_once 'classes/s3-connector.php';
-require_once 'vendor/aws/aws-autoloader.php';
-
-# for now this is the only connector that's required
-function s3_connector_init() {
-    global $s3_connector;
-    $s3_connector = new S3_Connector( __FILE__ );
-}
-
-add_action( 'init', 's3_connector_init' );
-
-function s3_connector_activation() {
-	if ( !( $as3cf = get_option( 'tantan_wordpress_s3' ) ) ) {
-		return;
-	}
-
-	if ( !isset( $as3cf['key'] ) || !isset( $as3cf['secret'] ) ) {
-		return;
-	}
-
-	if ( !get_site_option( S3_Connector::SETTINGS_KEY ) ) {
-		add_site_option( S3_Connector::SETTINGS_KEY, array(
-			'access_key_id' => getenv('DESMAN_OBS_KEY_ID'),
-			'secret_access_key' => getenv('DESMAN_OBS_KEY_SECRET')
-		) );
-	}
-
-	update_option( 'tantan_wordpress_s3', $as3cf );
-}
-register_activation_hook( __FILE__, 's3_connector_activation' );
+function envars_defined() { return (bool) getenv("DESMAN_OBS_BASE_URL"); }

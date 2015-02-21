@@ -2,23 +2,75 @@
 
 	$(document).ready(function() {
 
-		$('.aws-settings').each(function() {
+		$('.dsman-settings').each(function() {
 			var $container = $(this);
 
-			$('.reveal-form a', $container).click(function() {
-				var $form = $('form', $container);
-				if ('block' == $form.css('display')) {
-					$form.hide();
-				}
-				else {
-					$form.show();
-				}
-				return false;
-			});
-		});
+			$('select.bucket', $container).change(function() {
+				var $select = $(this);
 
-		$('.button.remove-keys').click(function() {
-			$('input[name=secret_access_key],input[name=access_key_id]').val('');
+				if ($select.val() !== 'new') {
+					return;
+				}
+
+				var error_func = function(jqXHR, textStatus, errorThrown) {
+					alert(dsman_i18n.create_bucket_error + errorThrown);
+					$select[0].selectedIndex = 0;
+					console.log( jqXHR );
+					console.log( textStatus );
+					console.log( errorThrown );
+				};
+
+				var success_func = function(data, textStatus, jqXHR) {
+					if (typeof data['success'] !== 'undefined') {
+						var opt = document.createElement('option');
+						opt.value = opt.innerHTML = bucket_name;
+						var inserted_at_position = 0;
+						$('option', $select).each(function() {
+							// For some reason, no error occurs when
+							// adding a bucket you've already added
+							if ($(this).val() == bucket_name) {
+								return false;
+							}
+							if ($(this).val() > bucket_name) {
+								$(opt).insertBefore($(this));
+								return false;
+							}
+							inserted_at_position = inserted_at_position + 1;
+						});
+						$select[0].selectedIndex = inserted_at_position;
+
+						// If they decided to create a new bucket before refreshing
+						// the page, we need another nonce
+						dsman_i18n.create_bucket_nonce = data['_nonce'];
+					}
+					else {
+						alert(dsman_i18n.create_bucket_error + data['error']);
+						$select[0].selectedIndex = 0;
+					}
+				};
+
+				var bucket_name = window.prompt(dsman_i18n.create_bucket_prompt);
+				if (!bucket_name) {
+					$select[0].selectedIndex = 0;
+					return;
+				}
+
+				var data = {
+					action: 		'dsman-create-bucket',
+					bucket_name: 	bucket_name,
+					_nonce:			dsman_i18n.create_bucket_nonce
+				};
+
+				$.ajax({
+					url:		ajaxurl,
+					type: 		'POST',
+					dataType: 	'JSON',
+					success: 	success_func,
+					error: 		error_func,
+					data: 		data
+				});
+			});
+
 		});
 
 	});
