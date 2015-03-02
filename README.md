@@ -25,8 +25,8 @@ There are several plugins included with this project to help secure the frontend
 storing uploaded media (i.e. `wp-content/uploads`)
 
 * WordFence
-* S3 Connector
-* S3 Object Storage
+* DeSMan Connector
+* DeSMan Storage
 
 
 
@@ -36,4 +36,3 @@ Extra information
 We've added the `.inetu` directory as a place to keep local copies of files on the sftp server without including
 them in the repository. Any MySQL exports and storage downloads __SHOULD__ be kept here or in another directory
 that has been added to `.gitignore` to avoid degrading repository performance.
-
