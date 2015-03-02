@@ -137,7 +137,7 @@ define( 'DISALLOW_FILE_MODS', getenv('OPENSHIFT_GEAR_PROFILE') == 'prod');
 if ( !defined('ABSPATH') )
   define('ABSPATH', dirname(__FILE__) . '/');
 
-if ( getenv("OPENSHIFT_DEPLOY_BRANCH") == "devel" ) define('SCRIPT_DEBUG',true);
+if ( getenv("OPENSHIFT_DEPLOYMENT_BRANCH") == "devel" ) define('SCRIPT_DEBUG',true);
 define('WP_HOME',"http://".$_SERVER['HTTP_HOST']);
 define('WP_SITEURL',WP_HOME);
 /** Tell WordPress where the plugins directory really is */
