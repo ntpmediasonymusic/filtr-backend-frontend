@@ -137,11 +137,10 @@ define( 'DISALLOW_FILE_MODS', getenv('OPENSHIFT_GEAR_PROFILE') == 'prod');
 if ( !defined('ABSPATH') )
   define('ABSPATH', dirname(__FILE__) . '/');
 
-/** Tell WordPress where the plugins directory really is */
+if ( getenv("OPENSHIFT_DEPLOYMENT_BRANCH") == "devel" ) define('SCRIPT_DEBUG',true);
 define('WP_HOME',"http://".$_SERVER['HTTP_HOST']);
 define('WP_SITEURL',WP_HOME);
-// define('SCRIPT_DEBUG',true);
-
+/** Tell WordPress where the plugins directory really is */
 if ( !defined('WP_CONTENT_DIR') ) define('WP_CONTENT_DIR',ABSPATH."/wp-content");
 if ( !defined('UPLOADS') ) define('UPLOADS',basename(WP_CONTENT_DIR).'/uploads');
 if ( !defined('WP_PLUGIN_DIR') && is_link(WP_CONTENT_DIR . '/plugins') ) define('WP_PLUGIN_DIR', realpath(WP_CONTENT_DIR . '/plugins'));
