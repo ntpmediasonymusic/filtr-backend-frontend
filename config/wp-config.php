@@ -138,8 +138,13 @@ if ( !defined('ABSPATH') )
   define('ABSPATH', dirname(__FILE__) . '/');
 
 /** Tell WordPress where the plugins directory really is */
-if ( !defined('WP_PLUGIN_DIR') && is_link(ABSPATH . '/wp-content/plugins') )
-  define('WP_PLUGIN_DIR', realpath(ABSPATH . '/wp-content/plugins'));
+define('WP_HOME',"http://".$_SERVER['HTTP_HOST']);
+define('WP_SITEURL',WP_HOME);
+// define('SCRIPT_DEBUG',true);
+
+if ( !defined('WP_CONTENT_DIR') ) define('WP_CONTENT_DIR',ABSPATH."/wp-content");
+if ( !defined('UPLOADS') ) define('UPLOADS',basename(WP_CONTENT_DIR).'/uploads');
+if ( !defined('WP_PLUGIN_DIR') && is_link(WP_CONTENT_DIR . '/plugins') ) define('WP_PLUGIN_DIR', realpath(WP_CONTENT_DIR . '/plugins'));
 
 /** Sets up WordPress vars and included files. */
 require_once(ABSPATH . 'wp-settings.php');

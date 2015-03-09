@@ -331,7 +331,7 @@ class StorageConnector {
 		global $wpdb;
 		$sql = "INSERT INTO $wpdb->postmeta ( post_id , meta_key, meta_value ) VALUES ( %d, 'amazonS3_info', %s);";
 		try {
-			$target = $this->get_base_upload_path() . "/$attachment->meta_value";
+			$target = UPLOADS . "/$attachment->meta_value";
 			$meta_value = serialize(array('bucket' => $this->get_option('bucket'), 'key' => $target));
 			return (int) $wpdb->query($wpdb->prepare($sql,$attachment->id, $meta_value));
 		} catch( Exception $e ) {
