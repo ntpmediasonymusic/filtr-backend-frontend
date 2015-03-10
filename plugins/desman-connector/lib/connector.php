@@ -527,7 +527,7 @@ class StorageConnector {
 	}
 	private function render_view( $template , $args = array() ) {
 		try {
-			explode($args);
+			extract($args);
 			# if header exists render it
             include $this->plugin_dir_path . "/view/$template.php";
 			# if footer exists render it
