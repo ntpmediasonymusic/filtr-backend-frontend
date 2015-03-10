@@ -3,7 +3,7 @@
  * Plugin Name: DeSMan&#0153; Connector
  * Plugin URI: https://gitlab.inetu.org/jfanjoy/desman-connector
  * Description: WordPress Plugin for managing DeSMan Storage connections and allow for object storage backing of all media uploads
- * Version: 2.0
+ * Version: 2.1
  * Author: John Fanjoy <jfanjoy@inetu.net>
  * Author URI: https://gitlab.inetu.org/u/jfanjoy
  * License: WTFPL
