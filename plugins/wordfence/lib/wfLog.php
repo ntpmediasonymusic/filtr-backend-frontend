@@ -70,12 +70,6 @@ class wfLog {
 		$id = get_current_user_id();
 		return $id ? $id : 0;
 	}
-	private function getPagename(){
-		global $wp_query;
-		$post = $wp_query->get_queried_object();
-		$pagename = $post->post_name;
-		return $pagename;
-	}
 	public function logLeechAndBlock($type){ //404 or hit
 		if(wfConfig::get('firewallEnabled')){
 			//Moved the following block into the "is fw enabled section" for optimization. 
@@ -140,6 +134,11 @@ class wfLog {
 					}
 				}
 			}
+			if(wfConfig::get('other_blockBadPOST') == '1' && $_SERVER['REQUEST_METHOD'] == 'POST' && empty($_SERVER['HTTP_USER_AGENT']) && empty($_SERVER['HTTP_REFERER'])){
+				$this->blockIP($IP, "POST received with blank user-agent and referer");
+				$this->do503(3600, "POST received with blank user-agent and referer");
+				//exits
+			}
 			if(isset($_SERVER['HTTP_USER_AGENT']) && wfCrawl::isCrawler($_SERVER['HTTP_USER_AGENT'])){
 				if($type == 'hit' && wfConfig::get('maxRequestsCrawlers') != 'DISABLED' && $hitsPerMinute > wfConfig::get('maxRequestsCrawlers')){
 					$this->takeBlockingAction('maxRequestsCrawlers', "Exceeded the maximum number of requests per minute for crawlers."); //may not exit
@@ -162,6 +161,11 @@ class wfLog {
 		}
 		//We now whitelist all private addrs 
 		if(wfUtils::isPrivateAddress($IP)){
+			return true;
+		}
+		//These belong to sucuri's scanning servers which will get blocked by Wordfence as a false positive if you try a scan. So we whitelisted them.
+		$externalWhite = array('97.74.127.171','69.164.203.172','173.230.128.135','66.228.34.49','66.228.40.185','50.116.36.92','50.116.36.93','50.116.3.171','198.58.96.212','50.116.63.221','192.155.92.112','192.81.128.31','198.58.106.244','192.155.95.139','23.239.9.227','198.58.112.103','192.155.94.43','162.216.16.33','173.255.233.124','173.255.233.124','192.155.90.179','50.116.41.217','192.81.129.227','198.58.111.80');
+		if(in_array($IP, $externalWhite)){
 			return true;
 		}
 		$list = wfConfig::get('whitelisted');
@@ -229,28 +233,33 @@ class wfLog {
 			if($elem['blockType'] != 'IU'){ continue; } //We only use IU type for now, but have this for future different block types.
 			$elem['ctimeAgo'] = wfUtils::makeTimeAgo($elem['ctimeAgo']);
 			if($elem['lastBlocked'] > 0){
-				$elem['lastBlockedAgo'] = wfUtils::makeTimeAgo($elem['lastBlockedAgo']);
+				$elem['lastBlockedAgo'] = wfUtils::makeTimeAgo($elem['lastBlockedAgo']) . ' ago';
 			} else {
 				$elem['lastBlockedAgo'] = 'Never';
 			}
 			$blockDat = explode('|', $elem['blockString']);
 			$elem['ipPattern'] = "";
-			$haveIPBLock = false;
-			$haveBrowserBlock = false;
+			$numBlockElements = 0;
 			if($blockDat[0]){
-				$haveIPBlock = true;
+				$numBlockElements++;
 				$ipDat = explode('-', $blockDat[0]);
 				$elem['ipPattern'] = "Block visitors with IP addresses in the range: " . wfUtils::inet_ntoa($ipDat[0]) . ' - ' . wfUtils::inet_ntoa($ipDat[1]);
 			} else {
 				$elem['ipPattern'] = 'Allow all IP addresses';
 			}
 			if($blockDat[1]){
-				$haveBrowserBlock = true;
+				$numBlockElements++;
 				$elem['browserPattern'] = "Block visitors whos browsers match the pattern: " . $blockDat[1];
 			} else {
 				$elem['browserPattern'] = 'Allow all browsers';
 			}
-			$elem['patternDisabled'] = (wfConfig::get('cacheType') == 'falcon' && $haveIPBlock && $haveBrowserBlock) ? true : false;
+			if($blockDat[2]){
+				$numBlockElements++;
+				$elem['refererPattern'] = "Block visitors from websites that match the pattern: " . $blockDat[2];
+			} else {
+				$elem['refererPattern'] = "Allow visitors arriving from all websites";
+			}
+			$elem['patternDisabled'] = (wfConfig::get('cacheType') == 'falcon' && $numBlockElements > 1) ? true : false;
 		}
 		return $results;
 	}
@@ -504,9 +513,14 @@ class wfLog {
 			$res['blocked'] = $this->getDB()->querySingle("select blockedTime from " . $this->blocksTable . " where IP=%s and (permanent = 1 OR (blockedTime + %s > unix_timestamp()))", $res['IP'], wfConfig::get('blockedTime'));
 			$res['IP'] = wfUtils::inet_ntoa($res['IP']); 
 			$res['extReferer'] = false;
+			if(isset( $res['referer'] ) && $res['referer']){
+				if(wfUtils::hasXSS($res['referer'] )){ //filtering out XSS
+					$res['referer'] = '';
+				}
+			}
 			if( isset( $res['referer'] ) && $res['referer']){
 				$refURL = parse_url($res['referer']);
-				if(is_array($refURL) && $refURL['host']){
+				if(is_array($refURL) && isset($refURL['host']) && $refURL['host']){
 					$refHost = strtolower(preg_replace('/^www\./i', '', $refURL['host']));
 					if($refHost != $ourHost){
 						$res['extReferer'] = true;
@@ -642,10 +656,12 @@ class wfLog {
 			if($blockRec['blockType'] == 'IU'){
 				$ipRangeBlocked = false;
 				$uaPatternBlocked = false;
+				$refBlocked = false;
 
 				$bDat = explode('|', $blockRec['blockString']);
 				$ipRange = $bDat[0];
 				$uaPattern = $bDat[1];
+				$refPattern = isset($bDat[2]) ? $bDat[2] : '';
 				if($ipRange){
 					$ips = explode('-', $ipRange);
 					if($IPnum >= $ips[0] && $IPnum <= $ips[1]){
@@ -657,23 +673,47 @@ class wfLog {
 						$uaPatternBlocked = true;
 					}
 				}
-				$rangeBlockReason = false;
+				if($refPattern){
+					if(wfUtils::isRefererBlocked($refPattern)){
+						$refBlocked = true;
+					}
+				}
+				$doBlock = false;
+				if($uaPattern && $ipRange && $refPattern){
+					if($uaPatternBlocked && $ipRangeBlocked && $refBlocked){
+						$doBlock = true;
+					}
+				}
 				if($uaPattern && $ipRange){
 					if($uaPatternBlocked && $ipRangeBlocked){
-						$rangeBlockReason = "Advanced pattern blocking in effect.";
+						$doBlock = true;
+					}
+				}
+				if($uaPattern && $refPattern){
+					if($uaPatternBlocked && $refBlocked){
+						$doBlock = true;
+					}
+				}
+				if($ipRange && $refPattern){
+					if($ipRangeBlocked && $refBlocked){
+						$doBlock = true;
 					}
 				} else if($uaPattern){
 					if($uaPatternBlocked){
-						$rangeBlockReason = "Advanced pattern blocking in effect.";
+						$doBlock = true;
 					}
 				} else if($ipRange){
 					if($ipRangeBlocked){
-						$rangeBlockReason = "Advanced pattern blocking in effect.";
+						$doBlock = true;
+					}
+				} else if($refPattern){
+					if($refBlocked){
+						$doBlock = true;
 					}
 				}
-				if($rangeBlockReason){
+				if($doBlock){
 					$this->getDB()->queryWrite("update " . $this->ipRangesTable . " set totalBlocked = totalBlocked + 1, lastBlocked = unix_timestamp() where id=%d", $blockRec['id']);
-					$this->do503(3600, $rangeBlockReason);
+					$this->do503(3600, "Advanced blocking in effect.");
 				}
 			}
 		}
@@ -697,19 +737,25 @@ class wfLog {
 			$skipCountryBlocking = true;
 		}
 			
-
 		if((! $skipCountryBlocking) && $blockedCountries && wfConfig::get('isPaid') && (! self::isCBLBypassCookieSet()) ){
 			if(is_user_logged_in() && (! wfConfig::get('cbl_loggedInBlocked', false)) ){ //User is logged in and we're allowing logins
 				//Do nothing
 			} else if(strpos($_SERVER['REQUEST_URI'], '/wp-login.php') !== false && (! wfConfig::get('cbl_loginFormBlocked', false))  ){ //It's the login form and we're allowing that
 				//Do nothing 
+			} else if(strpos($_SERVER['REQUEST_URI'], '/wp-login.php') === false && (! wfConfig::get('cbl_restOfSiteBlocked', false))  ){ //It's the rest of the site and we're allowing that 
+				//Do nothing
 			} else {
 				if($country = wfUtils::IP2Country($IP) ){
 					foreach(explode(',', $blockedCountries) as $blocked){
 						if(strtoupper($blocked) == strtoupper($country)){ //At this point we know the user has been blocked
 							if(wfConfig::get('cbl_action') == 'redir'){
 								$redirURL = wfConfig::get('cbl_redirURL');
-								if(wfUtils::extractBareURI($redirURL) == $bareRequestURI){ //Is this the URI we want to redirect to, then don't block it
+								$eRedirHost = wfUtils::extractHostname($redirURL);
+								$isExternalRedir = false;
+								if($eRedirHost && $eRedirHost != wfUtils::extractHostname(home_url())){ //It's an external redirect...
+									$isExternalRedir = true;
+								}
+								if( (! $isExternalRedir) && wfUtils::extractBareURI($redirURL) == $bareRequestURI){ //Is this the URI we want to redirect to, then don't block it
 									//Do nothing
 								/* Uncomment the following if page components aren't loading for the page we redirect to.
 								   Uncommenting is not recommended because it means that anyone from a blocked country
@@ -851,17 +897,16 @@ class wfLog {
 			}
 		}
 		$results = $this->getDB()->querySelect("select ctime, level, type, msg from " . $this->statusTable . " where ctime > %f order by ctime asc", $lastCtime);
-		$lastTime = false;
 		$timeOffset = 3600 * get_option('gmt_offset');
 		foreach($results as &$rec){
 			//$rec['timeAgo'] = wfUtils::makeTimeAgo(time() - $rec['ctime']);
 			$rec['date'] = date('M d H:i:s', $rec['ctime'] + $timeOffset);
+			$rec['msg'] = wp_kses_data( (string) $rec['msg']);
 		}
 		return $results;
 	}
 	public function getSummaryEvents(){
 		$results = $this->getDB()->querySelect("select ctime, level, type, msg from " . $this->statusTable . " where level = 10 order by ctime desc limit 100");
-		$lastTime = false;
 		$timeOffset = 3600 * get_option('gmt_offset');
 		foreach($results as &$rec){
 			$rec['date'] = date('M d H:i:s', $rec['ctime'] + $timeOffset);

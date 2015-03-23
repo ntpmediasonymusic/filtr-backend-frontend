@@ -2,23 +2,24 @@
 require_once('wfConfig.php');
 require_once('wfCountryMap.php');
 class wfUtils {
+	#We've modified this and removed some addresses which may be routable on the Net and cause auto-whitelisting. 
 	private static $privateAddrs = array(
-		array('0.0.0.0/8',0,16777215),
-		array('10.0.0.0/8',167772160,184549375),
-		array('100.64.0.0/10',1681915904,1686110207),
-		array('127.0.0.0/8',2130706432,2147483647),
-		array('169.254.0.0/16',2851995648,2852061183),
-		array('172.16.0.0/12',2886729728,2887778303),
-		array('192.0.0.0/29',3221225472,3221225479),
-		array('192.0.2.0/24',3221225984,3221226239),
-		array('192.88.99.0/24',3227017984,3227018239),
-		array('192.168.0.0/16',3232235520,3232301055),
-		array('198.18.0.0/15',3323068416,3323199487),
-		array('198.51.100.0/24',3325256704,3325256959),
-		array('203.0.113.0/24',3405803776,3405804031),
-		array('224.0.0.0/4',3758096384,4026531839),
-		array('240.0.0.0/4',4026531840,4294967295),
-		array('255.255.255.255/32',4294967295,4294967295)
+		//array('0.0.0.0/8',0,16777215), #Broadcast addr
+		array('10.0.0.0/8',167772160,184549375), #Private addrs
+		//array('100.64.0.0/10',1681915904,1686110207), #carrier-grade-nat for comms between ISP and subscribers
+		array('127.0.0.0/8',2130706432,2147483647), #loopback
+		//array('169.254.0.0/16',2851995648,2852061183), #link-local when DHCP fails e.g. os x
+		array('172.16.0.0/12',2886729728,2887778303), #private addrs
+		array('192.0.0.0/29',3221225472,3221225479), #used for NAT with IPv6, so basically a private addr
+		//array('192.0.2.0/24',3221225984,3221226239), #Only for use in docs and examples, not for public use
+		//array('192.88.99.0/24',3227017984,3227018239), #Used by 6to4 anycast relays
+		array('192.168.0.0/16',3232235520,3232301055), #Used for local communications within a private network
+		//array('198.18.0.0/15',3323068416,3323199487), #Used for testing of inter-network communications between two separate subnets
+		//array('198.51.100.0/24',3325256704,3325256959), #Assigned as "TEST-NET-2" in RFC 5737 for use solely in documentation and example source code and should not be used publicly.
+		//array('203.0.113.0/24',3405803776,3405804031), #Assigned as "TEST-NET-3" in RFC 5737 for use solely in documentation and example source code and should not be used publicly.
+		//array('224.0.0.0/4',3758096384,4026531839), #Reserved for multicast assignments as specified in RFC 5771
+		//array('240.0.0.0/4',4026531840,4294967295), #Reserved for future use, as specified by RFC 6890
+		//array('255.255.255.255/32',4294967295,4294967295) #Reserved for the "limited broadcast" destination address, as specified by RFC 6890
 	);
 	private static $isWindows = false;
 	public static $scanLockFH = false;
@@ -42,7 +43,6 @@ class wfUtils {
 			$minutes -= $hours * 60;
 			return self::pluralize($hours, 'hour', $minutes, 'min');
 		} else if($minutes) {
-			$secs -= $minutes * 60;
 			return self::pluralize($minutes, 'min');
 		} else {
 			if($noSeconds){
@@ -102,24 +102,20 @@ class wfUtils {
 		return plugins_url() . '/wordfence/';
 	}
 	public static function getPluginBaseDir(){
-		return WP_CONTENT_DIR . '/plugins/';
-		//return ABSPATH . 'wp-content/plugins/';
+		if(function_exists('wp_normalize_path')){ //Older WP versions don't have this func and we had many complaints before this check.
+			if(defined('WP_PLUGIN_DIR')) {
+				return wp_normalize_path(WP_PLUGIN_DIR . '/');
+			}
+			return wp_normalize_path(WP_CONTENT_DIR . '/plugins/');
+		} else {
+			if(defined('WP_PLUGIN_DIR')) {
+				return WP_PLUGIN_DIR . '/';
+			}
+			return WP_CONTENT_DIR . '/plugins/';
+		}
 	}
-	public static function defaultGetIP(){
-		$IP = 0;
-		if(isset($_SERVER['HTTP_X_FORWARDED_FOR'])){
-			$IP = $_SERVER['HTTP_X_FORWARDED_FOR'];
-			if(is_array($IP) && isset($IP[0])){ $IP = $IP[0]; } //It seems that some hosts may modify _SERVER vars into arrays.
-		}
-		if((! preg_match('/(\d+)\.(\d+)\.(\d+)\.(\d+)/', $IP)) && isset($_SERVER['HTTP_X_REAL_IP'])){
-			$IP = $_SERVER['HTTP_X_REAL_IP'];
-			if(is_array($IP) && isset($IP[0])){ $IP = $IP[0]; } //It seems that some hosts may modify _SERVER vars into arrays.
-		}
-		if((! preg_match('/(\d+)\.(\d+)\.(\d+)\.(\d+)/', $IP)) && isset($_SERVER['REMOTE_ADDR'])){
-			$IP = $_SERVER['REMOTE_ADDR'];
-			if(is_array($IP) && isset($IP[0])){ $IP = $IP[0]; } //It seems that some hosts may modify _SERVER vars into arrays.
-		}
-		return $IP;
+	public static function makeRandomIP(){
+		return rand(11,230) . '.' . rand(0,255) . '.' . rand(0,255) . '.' . rand(0,255);
 	}
 	public static function isPrivateAddress($addr){
 		$num = self::inet_aton($addr);
@@ -130,86 +126,92 @@ class wfUtils {
 		}
 		return false;
 	}
-	public static function makeRandomIP(){
-		return rand(11,230) . '.' . rand(0,255) . '.' . rand(0,255) . '.' . rand(0,255);
-	}
-	public static function getIP(){
-		//You can use the following examples to force Wordfence to think a visitor has a certain IP if you're testing. Remember to re-comment this out or you will break Wordfence badly. 
-		//return '1.2.3.4';
-		//return self::makeRandomIP();
-
-		$howGet = wfConfig::get('howGetIPs', false);
-		if($howGet){
-			$IP = $_SERVER[$howGet];
-			if( $howGet == "HTTP_CF_CONNECTING_IP" && (! self::isValidIP($IP)) ){
-				$IP = $_SERVER['REMOTE_ADDR'];
-			}
-		} else {
-			$IP = wfUtils::defaultGetIP();
-		}
-		if(preg_match('/,/', $IP)){
-			$parts = explode(',', $IP); //Some users have "unknown,100.100.100.100" for example so we take the first thing that looks like an IP.
-			foreach($parts as $part){
-				if(preg_match('/(\d+)\.(\d+)\.(\d+)\.(\d+)/', $part) && (! self::isPrivateAddress($part)) ){
-					$IP = trim($part);
-					break;
-				}
-			}
-		} else if(preg_match('/(\d+)\.(\d+)\.(\d+)\.(\d+)\s+(\d+)\.(\d+)\.(\d+)\.(\d+)/', $IP)){
-			$parts = explode(' ', $IP); //Some users have "unknown 100.100.100.100" for example so we take the first thing that looks like an IP.
-			foreach($parts as $part){
-				if(preg_match('/(\d+)\.(\d+)\.(\d+)\.(\d+)/', $part) && (! self::isPrivateAddress($part)) ){
-					$IP = trim($part);
-					break;
-				}
-			}
-			
-		}
-		if(preg_match('/:\d+$/', $IP)){
-			$IP = preg_replace('/:\d+$/', '', $IP);
-		}
-		if(self::isValidIP($IP)){
-			if(wfConfig::get('IPGetFail', false)){
-				if(self::isPrivateAddress($IP) ){
-					wordfence::status(1, 'error', "Wordfence is receiving IP addresses, but we received an internal IP of $IP so your config may still be incorrect.");
-				} else {
-					wordfence::status(1, 'error', "Wordfence is now receiving IP addresses correctly. We received $IP from a visitor.");
-				}
-				wfConfig::set('IPGetFail', '');
-			}
-			return $IP;
-		} else {
-			$xFor = "";
-			if(isset($_SERVER['HTTP_X_FORWARDED_FOR']) ){
-				$xFor = $_SERVER['HTTP_X_FORWARDED_FOR'];
-			}
-			$msg = "Wordfence can't get the IP of clients and therefore can't operate. We received IP: $IP. X-Forwarded-For was: " . $xFor . " REMOTE_ADDR was: " . $_SERVER['REMOTE_ADDR'];
-			$possible = array();
-			foreach($_SERVER as $key => $val){
-				if(is_string($val) && preg_match('/^\d+\.\d+\.\d+\.\d+/', $val) && strlen($val) < 255){
-					if($val != '127.0.0.1'){
-						$possible[$key] = $val;
+	private static function getCleanIP($arr){ //Expects an array of items. The items are either IP's or IP's separated by comma, space or tab. Or an array of IP's.
+						//  We then examine all IP's looking for a public IP and storing private IP's in an array. If we find no public IPs we return the first private addr we found.
+		$privates = array(); //Store private addrs until end as last resort. 
+		for($i = 0; $i < count($arr); $i++){ 
+			$item = $arr[$i];
+			if(is_array($item)){ 
+				foreach($item as $j){
+					$j = preg_replace('/:\d+$/', '', $j); //Strip off port
+					if(self::isValidIP($j)){
+						if(self::isPrivateAddress($j)){
+							$privates[] = $j;
+						} else {
+							return $j;
+						}
 					}
 				}
+				continue; //This was an array so we can skip to the next item
 			}
-			if(sizeof($possible) > 0){
-				$msg .= "  Headers that may contain the client IP: ";
-				foreach($possible as $key => $val){
-					$msg .= "$key => $val   ";
+			$skipToNext = false;
+			foreach(array(',', ' ', "\t") as $char){
+				if(strpos($item, $char) !== false){ 
+					$sp = explode($char, $item);
+					foreach($sp as $j){
+						$j = preg_replace('/:\d+$/', '', $j); //Strip off port
+						if(self::isValidIP($j)){
+							if(self::isPrivateAddress($j)){
+								$privates[] = $j;
+							} else {
+								return $j;
+							}
+						}
+					}
+					$skipToNext = true;
+					break;
 				}
 			}
-			wordfence::status(1, 'error', $msg);
-			wfConfig::set('IPGetFail', 1);
+			if($skipToNext){ continue; } //Skip to next item because this one had a comma, space or tab so was delimited and we didn't find anything.
+
+			$item = preg_replace('/:\d+$/', '', $item); //Strip off port
+			if(self::isValidIP($item)){
+				if(self::isPrivateAddress($item)){
+					$privates[] = $item;
+				} else {
+					return $item;
+				}
+			}
+		}
+		if(sizeof($privates) > 0){
+			return $privates[0]; //Return the first private we found so that we respect the order the IP's were passed to this function.
+		} else {
 			return false;
 		}
+	}
+	public static function extractHostname($str){
+		if(preg_match('/https?:\/\/([a-zA-Z0-9\.\-]+)(?:\/|$)/i', $str, $matches)){
+			return strtolower($matches[1]);
+		} else {
+			return false;
+		}
+	}
+	public static function getIP(){
+		//For debugging. 
+		//return '54.232.205.132';
+		//return self::makeRandomIP();
+		$howGet = wfConfig::get('howGetIPs', false);
+		if($howGet){
+			if($howGet == 'REMOTE_ADDR'){
+				$IP = self::getCleanIP(array($_SERVER['REMOTE_ADDR']));
+			} else {
+				$IP = self::getCleanIP(array($_SERVER[$howGet], $_SERVER['REMOTE_ADDR']));
+			}
+		} else {
+			$IPs = array($_SERVER['REMOTE_ADDR']);
+			if(isset($_SERVER['HTTP_X_FORWARDED_FOR'])){ $IPs[] = $_SERVER['HTTP_X_FORWARDED_FOR']; }
+			if(isset($_SERVER['HTTP_X_REAL_IP'])){ $IPs[] = $_SERVER['HTTP_X_REAL_IP']; }
+			$IP = self::getCleanIP($IPs); 
+		}
+		return $IP; //Returns a valid IP or false. 
 	}
 	public static function isValidIP($IP){
 		if(preg_match('/^(\d+)\.(\d+)\.(\d+)\.(\d+)$/', $IP, $m)){
 			if(
-				$m[0] >= 0 && $m[0] <= 255 &&
 				$m[1] >= 0 && $m[1] <= 255 &&
 				$m[2] >= 0 && $m[2] <= 255 &&
-				$m[3] >= 0 && $m[3] <= 255
+				$m[3] >= 0 && $m[3] <= 255 &&
+				$m[4] >= 0 && $m[4] <= 255
 			){
 				return true;
 			}
@@ -262,7 +264,6 @@ class wfUtils {
 	public static function lcmem(){
 		$trace=debug_backtrace(); 
 		$caller=array_shift($trace); 
-		$c2 = array_shift($trace);
 		$mem = memory_get_usage(true);
 		error_log("$mem at " . $caller['file'] . " line " . $caller['line']);
 	}
@@ -467,7 +468,9 @@ class wfUtils {
 		$host = $db->querySingle("select host from " . $reverseTable . " where IP=%s and unix_timestamp() - lastUpdate < %d", $IPn, WORDFENCE_REVERSE_LOOKUP_CACHE_TIME);
 		if(! $host){
 			$ptr = implode(".", array_reverse(explode(".",$IP))) . ".in-addr.arpa";
-			$host = @dns_get_record($ptr, DNS_PTR);
+			if (function_exists('dns_get_record')) {
+				$host = @dns_get_record($ptr, DNS_PTR);
+			}
 			if($host == null){
 				$host = 'NONE';
 			} else {
@@ -588,6 +591,9 @@ class wfUtils {
 	public static function isUABlocked($uaPattern){ // takes a pattern using asterisks as wildcards, turns it into regex and checks it against the visitor UA returning true if blocked
 		return fnmatch($uaPattern, $_SERVER['HTTP_USER_AGENT'], FNM_CASEFOLD);
 	}
+	public static function isRefererBlocked($refPattern){
+		return fnmatch($refPattern, $_SERVER['HTTP_REFERER'], FNM_CASEFOLD);
+	}
 	public static function rangeToCIDRs($startIP, $endIP){
 		$startIPBin = sprintf('%032b', $startIP);
 		$endIPBin = sprintf('%032b', $endIP);
@@ -615,7 +621,7 @@ class wfUtils {
 	public static function isNginx(){
 		$sapi = php_sapi_name();
 		$serverSoft = $_SERVER['SERVER_SOFTWARE'];
-		if($sapi == 'fpm-fcgi' || stripos($serverSoft, 'nginx') !== false){
+		if($sapi == 'fpm-fcgi' && stripos($serverSoft, 'nginx') !== false){
 			return true;
 		}
 	}
@@ -625,6 +631,28 @@ class wfUtils {
 			return $err['message'];
 		}
 		return '';
+	}
+	public static function hostNotExcludedFromProxy($url){
+		if(! defined('WP_PROXY_BYPASS_HOSTS')){
+			return true; //No hosts are excluded
+		}
+		$hosts = explode(',', WP_PROXY_BYPASS_HOSTS);
+		$url = preg_replace('/^https?:\/\//i', '', $url);
+		$url = preg_replace('/\/.*$/', '', $url);
+		$url = strtolower($url);
+		foreach($hosts as $h){
+			if(strtolower(trim($h)) == $url){
+				return false;
+			}
+		}
+		return true;
+	}
+	public static function hasXSS($URL){
+		if(! preg_match('/^https?:\/\/[a-z0-9\.\-]+\/[^\':<>\"\\\]*$/i', $URL)){
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
 

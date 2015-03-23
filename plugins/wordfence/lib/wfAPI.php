@@ -7,7 +7,6 @@ class wfAPI {
 	private $curlContent = 0;
 	private $APIKey = '';
 	private $wordpressVersion = '';
-	private static $maintMsg = "The Wordfence scanning server could not be contacted.";
 	public function __construct($apiKey, $wordpressVersion){
 		$this->APIKey = $apiKey;
 		$this->wordpressVersion = $wordpressVersion;
@@ -52,6 +51,13 @@ class wfAPI {
 			$this->curlDataWritten = 0;
 			$this->curlContent = "";
 			$curl = curl_init($url);
+			if(defined('WP_PROXY_HOST') && defined('WP_PROXY_PORT') && wfUtils::hostNotExcludedFromProxy($url) ){
+				curl_setopt($curl, CURLOPT_HTTPPROXYTUNNEL, 0);
+				curl_setopt($curl, CURLOPT_PROXY, WP_PROXY_HOST . ':' . WP_PROXY_PORT);
+				if(defined('WP_PROXY_USERNAME') && defined('WP_PROXY_PASSWORD')){
+					curl_setopt($curl, CURLOPT_PROXYUSERPWD, WP_PROXY_USERNAME . ':' . WP_PROXY_PASSWORD);
+				}
+			}
 			curl_setopt ($curl, CURLOPT_TIMEOUT, 900);
 			curl_setopt ($curl, CURLOPT_USERAGENT, "Wordfence.com UA " . (defined('WORDFENCE_VERSION') ? WORDFENCE_VERSION : '[Unknown version]') );
 			curl_setopt ($curl, CURLOPT_RETURNTRANSFER, TRUE);
@@ -62,7 +68,7 @@ class wfAPI {
 			curl_setopt($curl, CURLOPT_POST, true);
 			curl_setopt($curl, CURLOPT_POSTFIELDS, $postParams);
 			wordfence::status(4, 'info', "CURL fetching URL: " . $url);
-			$curlResult = curl_exec($curl);
+			curl_exec($curl);
 
 			$httpStatus = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 			$this->lastCurlErrorNo = curl_errno($curl);
@@ -90,7 +96,6 @@ class wfAPI {
 
 	}
 	private function fileGet($url, $postParams){
-		$body = "";
 		if(is_array($postParams)){
 			$bodyArr = array();
 			foreach($postParams as $key => $val){
@@ -115,6 +120,14 @@ class wfAPI {
 		$url = $this->getAPIURL() . '/v' . WORDFENCE_API_VERSION . '/?' . $this->makeAPIQueryString() . '&action=' . $func;
 		if(function_exists('curl_init')){
 			$curl = curl_init($url);
+			if(defined('WP_PROXY_HOST') && defined('WP_PROXY_PORT') && wfUtils::hostNotExcludedFromProxy($url) ){
+				error_log("BINCALL PROXY");
+				curl_setopt($curl, CURLOPT_HTTPPROXYTUNNEL, 0);
+				curl_setopt($curl, CURLOPT_PROXY, WP_PROXY_HOST . ':' . WP_PROXY_PORT);
+				if(defined('WP_PROXY_USERNAME') && defined('WP_PROXY_PASSWORD')){
+					curl_setopt($curl, CURLOPT_PROXYUSERPWD, WP_PROXY_USERNAME . ':' . WP_PROXY_PASSWORD);
+				}
+			}
 			curl_setopt ($curl, CURLOPT_TIMEOUT, 900);
 			//curl_setopt($curl, CURLOPT_VERBOSE, true);
 			curl_setopt ($curl, CURLOPT_USERAGENT, "Wordfence");

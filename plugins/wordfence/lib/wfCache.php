@@ -154,18 +154,18 @@ class wfCache {
 			$append .= "Time created on server: " . date('Y-m-d H:i:s T') . ". ";
 			$append .= "Is HTTPS page: " . (self::isHTTPSPage() ? 'HTTPS' : 'no') . ". ";
 			$append .= "Page size: " . strlen($buffer) . " bytes. ";
-			$append .= "Host: " . ($_SERVER['HTTP_HOST'] ? $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_NAME']) . ". ";
-			$append .= "Request URI: " . $_SERVER['REQUEST_URI'] . " ";
+			$append .= "Host: " . ($_SERVER['HTTP_HOST'] ? wp_kses($_SERVER['HTTP_HOST'], array()) : wp_kses($_SERVER['SERVER_NAME'], array())) . ". ";
+			$append .= "Request URI: " . wp_kses($_SERVER['REQUEST_URI'], array()) . " ";
 			$appendGzip = $append . " Encoding: GZEncode -->\n";
 			$append .= " Encoding: Uncompressed -->\n";
 		}
 
-		file_put_contents($file, $buffer . $append, LOCK_EX);
-		chmod($file, 0655);
+		@file_put_contents($file, $buffer . $append, LOCK_EX);
+		chmod($file, 0644);
 		if(self::$cacheType == 'falcon'){ //create gzipped files so we can send precompressed files
 			$file .= '_gzip';
-			file_put_contents($file, gzencode($buffer . $appendGzip, 9), LOCK_EX);
-			chmod($file, 0655);
+			@file_put_contents($file, gzencode($buffer . $appendGzip, 9), LOCK_EX);
+			chmod($file, 0644);
 		}
 		return $buffer;
 	}
@@ -193,7 +193,7 @@ class wfCache {
 	public static function makeDirIfNeeded($file){
 		$file = preg_replace('/\/[^\/]*$/', '', $file);
 		if(! is_dir($file)){
-			mkdir($file, 0755, true);
+			@mkdir($file, 0755, true);
 		}
 	}
 	public static function logout(){
@@ -383,7 +383,7 @@ class wfCache {
 			if(strpos($dir, 'wfcache/') === false){
 				self::$lastRecursiveDeleteError = "Not deleting directory $dir because it appears to be in the wrong path.";
 				self::$cacheStats['totalErrors']++;
-				return; //Safety check that we're in a subdir of the cache
+				return false; //Safety check that we're in a subdir of the cache
 			}
 			if(@rmdir($dir)){
 				self::$cacheStats['dirsDeleted']++;
@@ -396,7 +396,6 @@ class wfCache {
 		} else {
 			return true;
 		}
-		return true;
 	}
 	public static function addHtaccessCode($action){
 		if($action != 'add' && $action != 'remove'){
@@ -601,10 +600,10 @@ EOT;
 					$arr = explode('|', $r);
 					$range = isset($arr[0]) ? $arr[0] : false;
 					$browser = isset($arr[1]) ? $arr[1] : false;
+					$referer = isset($arr[2]) ? $arr[2] : false;
 
-					if($range && $browser){
-						continue; //Don't process browser and range combos
-					} else if($range){
+					if($range){
+						if($browser || $referer){ continue; } //We don't allow combos in falcon
 						$ips = explode('-', $range);
 						$cidrs = wfUtils::rangeToCIDRs($ips[0], $ips[1]);
 						$hIPs = wfUtils::inet_ntoa($ips[0]) . ' - ' . wfUtils::inet_ntoa($ips[1]);
@@ -616,10 +615,18 @@ EOT;
 							$lines[] = '#End of blocking code for IP range: ' . $hIPs . "\n";
 						}
 					} else if($browser){
+						if($range || $referer){ continue; }
 						$browserLines[] = "\t#Blocking code for browser pattern: $browser\n";
 						$browser = preg_replace('/([\-\_\.\+\!\@\#\$\%\^\&\(\)\[\]\{\}\/])/', "\\\\$1", $browser);
 						$browser = preg_replace('/\*/', '.*', $browser);
 						$browserLines[] = "\tSetEnvIf User-Agent " . $browser . " WordfenceBadBrowser=1\n";
+						$browserAdded = true;
+					} else if($referer){
+						if($browser || $range){ continue; }
+						$browserLines[] = "\t#Blocking code for referer pattern: $referer\n";
+						$referer = preg_replace('/([\-\_\.\+\!\@\#\$\%\^\&\(\)\[\]\{\}\/])/', "\\\\$1", $referer);
+						$referer = preg_replace('/\*/', '.*', $referer);
+						$browserLines[] = "\tSetEnvIf Referer " . $referer . " WordfenceBadBrowser=1\n";
 						$browserAdded = true;
 					}
 				}

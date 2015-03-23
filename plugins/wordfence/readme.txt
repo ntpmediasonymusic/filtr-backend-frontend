@@ -1,9 +1,9 @@
 === Wordfence Security ===
 Contributors: mmaunder 
 Tags: wordpress, security, performance, speed, caching, cache, caching plugin, wordpress cache, wordpress caching, wordpress security, security plugin, secure, anti-virus, malware, firewall, antivirus, virus, google safe browsing, phishing, scrapers, hacking, wordfence, securty, secrity, secure, two factor, cellphone sign-in, cellphone signin, cellphone, twofactor, security, secure, htaccess, login, log, users, login alerts, lock, chmod, maintenance, plugin, private, privacy, protection, permissions, 503, base64, injection, code, encode, script, attack, hack, hackers, block, blocked, prevent, prevention, RFI, XSS, CRLF, CSRF, SQL Injection, vulnerability, website security, WordPress security, security log, logging, HTTP log, error log, login security, personal security, infrastructure security, firewall security, front-end security, web server security, proxy security, reverse proxy security, secure website, secure login, two factor security, maximum login security, heartbleed, heart bleed, heartbleed vulnerability, openssl vulnerability, nginx, litespeed, php5-fpm, woocommerce support, woocommerce caching
-Requires at least: 3.3.1
-Tested up to: 3.9.1
-Stable tag: 5.1.4
+Requires at least: 3.9
+Tested up to: 4.1.1
+Stable tag: 5.3.8
 
 Wordfence Security is a free enterprise class security and performance plugin that makes your site up to 50 times faster and more secure. 
 
@@ -12,6 +12,8 @@ Wordfence Security is a free enterprise class security and performance plugin th
 Wordfence starts by checking if your site is already infected. We do a deep server-side scan of your source code comparing it to the Official WordPress repository for core, themes and plugins. Then Wordfence secures your site and makes it up to 50 times faster. 
 
 Wordfence Security is 100% free. We also offer a Premium API key that gives you access to our premium support ticketing system at [support.wordfence.com](http://support.wordfence.com/) along with two factor authentication via SMS, country blocking and the ability to schedule scans for specific times.
+
+You can find our official documentation at [docs.wordfence.com](http://docs.wordfence.com/) and our Frequently Asked Questions on our support portal at [support.wordfence.com](https://support.wordfence.com/solution/categories/1000023037/folders/1000035543). We are also active in our community support forums on [wordpress.org](https://wordpress.org/support/plugin/wordfence) if you are one of our free users.
 
 This is a brief introductory video for Wordfence:
 
@@ -89,7 +91,7 @@ To install Wordfence Security on WordPress Multi-Site installations:
 * Wordfence Security is the only security plugin that is fully integrated with it's own high speed caching engine to avoid security and caching conflicts. 
 * Wordfence Security actually verifies your website source code integrity against the official WordPress repository and shows you the changes. We are the only plugin to do this.
 * Wordfence Security provides two-factor authentication (Cellphone Sign-in) for paid members. We're the only plugin to offer this.
-* Wordfence Security includes comprehensive protection against DDoS attacks by giving you a performance boost up to 50X and giving you the option to disable XML-RPC among other features. 
+* Wordfence Security includes protection against DDoS attacks by giving you a performance boost up to 50X. 
 * Wordfence Security scans check all your files, comments and posts for URL's in Google's Safe Browsing list. We are the only plugin to offer this very important security enhancement.
 * Wordfence Security scans do not consume large amounts of your precious bandwidth because all security scans happen on your web server which makes them very fast.
 * Wordfence Security fully supports WordPress Multi-Site which means you can security scan every blog in your Multi-Site installation with one click.
@@ -162,6 +164,157 @@ cause a security hole on your site.
 5. If you're technically minded, this is the under-the-hood view of Wordfence Security options where you can fine-tune your security settings.
 
 == Changelog ==
+
+= 5.3.8 =
+* Customers running WP versions older than 3.9 don't support wp_normalize_path(). Added support for older WP versions to fix an error being thrown. 
+
+= 5.3.7 =
+* Improvement: Updated country blocking database to the newest version (March 2015)
+* Improvement: Added detection for many new samples we received (thanks all!) including a nasty polymorphic infection.
+* Fix: Changed the way we find the plugin directory to fix a possible issue that would cause alerts to return blank plugin names.
+* Fix: Improved Nginx detection so that we don't accidentally detect Nginx if you're running Apache.
+
+= 5.3.6 =
+* Feature: You can now block POST requests to your WordPress site that have an empty User-Agent and Referer header. This is a common pattern among badly written brute force bots. 
+* Feature: Added cron viewer at bottom of Wordfence options page. The plugin we were using to help diagnose customer issues is broken. Use this instead. 
+* Feature: Added DB table viewer at bottom of Wordfence options page. This is a read-only utility to view table names and detailed status. Also for customer diagnostic purposes. 
+* Improvement: Code cleanup after in-depth code analysis. Removed unused functions and variables and re-indented selected code.
+* Fix: Fixed issue that appeared after last release where raw HTML tags were appearing in email alerts. 
+* Fix: Tour behaved inconsistently under some conditions. Fixed. 
+* Fix: Mismatched HTML tags in some presentation code. Fixed.
+* Fix: When fetching theme list the interator had the same name as the array. Fixed. 
+* Fix: Detection for malware URLs in comments had a partial description in the issue. Was being overwritten when it should have been appended. Fixed.
+* Fix: Check if dns_get_record() exists before using it to avoid warnings.
+* Fix: If you have the wordfence security network disabled, the _wfVulnScanners table may have grown indefinitely. Fixed so it's regularly truncated. 
+* Fix: wordfence::getLog() was private and should be public. Fixed. 
+* Fix: Removed warning about _wfsf not being an element of GET params. Usually hidden, but in case something checks error_get_last()
+
+= 5.3.5 =
+* Update: Upgraded the geoIP country database to Jan 2015 version. 
+* Improvement: Added an option to disable execution of PHP code in the uploads directory as an added level of protection. Under "Other Options" on the Wordfence options page.
+* Improvement: We now email you any malware URLs encountered and they won't be filtered by your spam filter because the URL is included in the alert email as an image.
+* Fix: Fixed an issue that would cause multiple scans to be scheduled if the plugin was disabled and then reenabled. 
+* Fix: The name of malicious files detected are now included in the alert email sent containing the issues. 
+
+= 5.3.4 =
+* Changed FAQ link when locked out and email unlock doesn't work to correct link.
+* Falcon cache now creates files as mode 0644 for improved security. 
+* Updated GeoIP database to December 2014 version. 
+
+= 5.3.3 =
+* Security fix. Thanks Matt Barry.
+* Changed what we consider to be private addresses to a smaller range of addresses. See current range at: http://docs.wordfence.com/en/How_Wordfence_handles_Private_Addresses
+* Fixed a warning about an undefined value which appeared after we added referer blocking in 5.3.2.
+
+= 5.3.2 =
+* Feature: Advanced blocking now includes referer blocking. i.e. you can block visitors arriving from certain websites or pretending to. See updated http://docs.wordfence.com/en/Advanced_Blocking
+* Feature: Developers, you can now ask Wordfence to whitelist your server IP by calling wordfence::whitelistIP(). See http://docs.wordfence.com/en/WhitelistIP
+
+= 5.3.1 =
+* IP to Country database updated to November 4th 2014 version. 
+* Options export and import now also exports Country Blocking and Scan Schedule configuration.
+* Scans fully documented at docs.wordfence.com. Link on 'Scan' page under heading.
+* Live Traffic fully documented at docs.wordfence.com. Link on Live Traffic page.
+* Falcon Engine/Wordfence Caching fully documented. Link on Performance Setup page.
+* Blocked IPs, locking and throttling fully documented. Link on Blocked IPs page.
+* Cellphone Sign-in fully documented. Link under title on Cellphone sign-in page.
+* Country blocking fully documented. Link on Country blocking page. 
+* Scan Scheduling fully documented. Link on Scan Scheduling page under title.
+* Whois and Advanced Blocking documented including how Live Traffic, Whois and Advanced blocking work together.
+* Removed unnecessary text from several menu items and moved into official docs where needed. 
+
+= 5.2.9 =
+* Added ability to export Wordfence settings and reimport on one or many sites using secure token.
+* Added API function to programatically import Wordfence settings from another WordPress site. 
+* Upgraded to Wordfence API version 2.14. 
+
+= 5.2.8 =
+* Detailed documentation for all options on the Wordfence options page. Launching docs.wordfence.com wiki. 
+* Fixed server-side issue where diff'ing certain files would give a blank page or an API error. 
+* Removed now unused whois library because we're now using Wordfence API server to get around whois port blocking. 
+
+= 5.2.7 =
+* Fixed issue that would cause infected files with identical content to only have the first file found show up in scans and the rest would not appear. 
+* Whois queries now go via our own server as a workaround for hosting providers who block your web server's access to port 43 preventing you from making a direct whois query. 
+* Fixed issue that caused litespeed users to receive multiple warnings about the noabort issue. 
+* Added detection for 5 new malware variants. Thanks to Dave M. and others for the samples. Keep them coming folks! 
+* Updated Wordfence server API to version 2.12.
+* Added facility at bottom of Wordfence options page to send a test email from your WordPress sytem to check if email sending is working. 
+* Suppress LOCK_EX flock() warnings in falcon engine that were being generated by sites that use NFS and don't support flock() or reliable file locking.
+* Updated to the October 2014 version of the Geo IP country DB. (newest edition) 
+
+= 5.2.6 =
+* Fixed bug that caused country blocking and redirecting to an external URL to not work if the external URL's relative path matched the current page's relative path.
+* Made it clear that country blocking URL's require absolute URL's. 
+
+= 5.2.5 =
+* Security release. Update immediately. Thanks to Julio Potier. 
+* Code hardening including improved sanitization and an additional nonce for unlock email form. Special thanks to Ryan Satterfield for the hard work.
+* Stability of auto-update improved for LiteSpeed customers. We auto-detect if you don't have E=noabort:1 in your .htaccess and give you instructions. 
+* Auto-update also disabled now for LiteSpeed customers who don't have E=noabort:1 and you will get an email alert with an explanation.
+* Fixed a bug that may cause you to have advanced blocking patterns disabled with falcon engine enabled that should not be disabled. 
+* Removed a benign warning in wfCache.php. 
+* Added clarity to the banned URL option on the options page. All URL's must be relative.
+* Added a primary key to the wp_wfStatus table which is required for certain incremental backup plugins and utilities.
+* Fixed advanced country blocking which was not correctly displaying advanced options. 
+* Migrated to using wp_kses() for sanitization. 
+* Prevent IP spoofing in default Wordfence IP configuration. 
+* Change explanations of how Wordfence gets IP's to make it clear which to use to prevent spoofing. 
+* Make it clear that the option to have IP's immediately blocked when they access a URL requires relative URL's starting with a forward slash. 
+* Whitelist Sucuri's scanning IP addresses which were getting blocked because they triggered Wordfence blocking during a scan.
+* Improved Wordfence's code that acquires the visitor IP to block certain spoofing attacks, be more platform agnostic and deal with visits from private IP's more elegantly.
+
+= 5.2.4 =
+* Security release. Upgrade immediately. 
+* This release fixes an XSS vunlerability on Wordfence "view all traffic from IP" page. 
+* Also fixes a hard to exploit XSS which exists if you have your site as the default site on your web server, falcon enabled and debugging comments enabled. 
+* Improves Revolution Slider proteciton. 
+* Fixed bypass for fake googlebot blocking.  
+
+= 5.2.3 =
+* Updated Geo IP country database to newest version (September 2014 edition)
+* Security fix. Improved referrer sanitization in live traffic.  
+* Changed scan success messaging for clarity. 
+* Fixed minor bug in IP validation which manifested when users use IPv6 to IPv4 translation which produces 255.x.x.x addrs.
+
+= 5.2.2 =
+* Protection from the Slider Revolution Plugin arbitrary file download vulnerability announced today. Attempts to download any .php file including wp-config.php are denied. 
+* Changed the Wordfence Memory config option's label to make it clearer what the option does. 
+* Moved screenshots out of plugin distro directory to reduce plugin payload size.
+
+= 5.2.1 =
+* Fix: Users with large lists of blocked IP's (over 2,100) would receive a browser error "Uncaught RangeError: Maximum call stack size exceeded". Fixed. 
+* Improvement: Added detection for FOPO obfuscation often used by hackers to obfuscate PHP code. Will detect a range of newer infections. (Server-side code change)
+
+= 5.1.9 =
+* Fix: Crawler triggering update cron job threw error about show_message() being redeclared at end of update. Fixed. 
+* Fix: Live traffic cities were incorrect and did not match country blocking block effects under certain conditions. Fixed. 
+* Fix: If a site database contained a table with dashes in the table name, we would throw an error at the end of every scan. Fixed. 
+* Improvement: Upgraded country DB to newest version. 
+* Improvement: Changed live traffic geo location caching to be 24 hours instead of a week so that geo DB updates for live traffic on our servers take effect sooner. 
+* Improvement: Ignoring .sql files in scans which are usually backups and contain many false positives, unless high sensitivity scanning is enabled. 
+
+= 5.1.8 =
+* Fix: Option to disable config caching. You can find this new option at the bottom of the Wordfence options page. 
+* Note: If you are seeing the "cron key does not match the saved key" error, check the box to disable config caching at the bottom of the Wordfence options page, save and this will fix it.
+* Note: If you are trying to save your Wordfence options and the options keep reverting, enable the "disable config caching" at the bottom of your Wordfence options page, save and this will fix it.
+
+= 5.1.7 =
+* Improvement: Wordfence now supports websites behind proxy servers when communicating with the Wordfence API servers.
+* Fix: Removed old image files that were unused. 
+
+= 5.1.6 =
+* Feature: Country blocking now lets you block login page OR rest of site or any combination. So you can now block the login page only for example. 
+* Improvement: Upgraded the country blocking database to the newest version which is July 2014.
+* Improvement: Improved server-side performance for Wordfence scanning.
+* Improvement: Offer the option to keep Wordfence up-to-date automatically. 
+* Improvement: If file contains malicious code, include filename in email alert summary info.
+* Fix: Removed strings in readme.txt that were causing false positives in hosts own scanning software. 
+* Fix: Prevent lockout email alerts being sent for blank usernames. 
+
+= 5.1.5 =
+* Fix: Bing crawler was being misidentified as human. Fixed. 
+* Fix: Escaping HTML on whois records. Thanks Nikhil Srivastava, TechDefencelabs (http://techdefencelabs.com)
 
 = 5.1.4 =
 * Feature: Auto updates for Wordfence! This is a much-requested feature by our power admin's. Enable the "Update Wordfence automatically when a new version is released" option on the Wordfence options page. 
@@ -576,19 +729,7 @@ cause a security hole on your site.
 * Updated to the new Libyan flag.
 * Fixed mysql_ping() reconnection to DB generating warnings.
 * Fixed issue that caused scans to hang. Wordfence Security now processes smaller batches of files before checking if it needs to fork.
-* Security scan for backdoors: "s72 Shell",  "r57 kartal",  "r57shell",  "rootshell",  "r57",  "r57 Mohajer22",  "r57 iFX",  "php backdoor",  "phpRemoteView"
-* Security scan for backdoors: "nstview",  "nshell",  "mysql tool",  "nsTView",  "matamu",  "mysql shell",  "load shell",  "ironshell",  "lamashell",  "hiddens shell"
-* Security scan for backdoors: "h4ntu shell",  "go shell",  "dC3 Shell",  "gfs sh",  "cybershell",  "c99 w4cking",  "ctt sh"
-* Security scan for backdoors: "c99 madnet",  "c99 locus7s",  "c99 PSych0",  "c99",  "c0derz shell",  "accept language",  "Web shell"
-* Security scan for backdoors: "aZRaiLPhp",  "SnIpEr SA Shell",  "Safe0ver Shell"
-* Security scan for backdoors: "SimShell",  "Rootshell",  "Predator",  "PhpSpy",  "PHPJackal",  "PHANTASMA",  "PHP Shell"
-* Security scan for backdoors: "NTDaddy",  "NetworkFileManagerPHP",  "NIX REMOTE WEB SHELL",  "NGH"
-* Security scan for backdoors: "NFM",  "Mysql interface",  "NCC Shell",  "MySQL Web Interface",  "MyShell",  "Macker PHPShell"
-* Security scan for backdoors: "Loaderz WEB Shell",  "KA uShell",  "KAdot Universal Shell",  "Liz0ziM"
-* Security scan for backdoors: "Gamma Web Shell",  "JspWebshell",  "GRP WebShell",  "GFS web shell"
-* Security scan for backdoors: "GFS Web Shell",  "Dx",  "DxShell,  "Dive Shell",  "DTool Pro"
-* Security scan for backdoors: "Ajax PHP Command Shell",  "Antichat Shell",  "Ayyildiz Shell"
-* Security scan for backdoors: "C99 Shell", "C99 madShell",  "CTT Shell",  "CasuS",  "CmdAsp",  "Crystal Shell",  "Cyber Shell" 
+* NOTE: We removed a list of shells we're scanning for because they were yielding false positives on some host scanning software. 
 * DNS fix from previous release backed out because it's no longer needed. (We temporarily hardcoded an IP)
 
 = 3.1.6 =
