@@ -65,7 +65,6 @@ class wordfenceHash {
 			throw new Exception("Invalid response from Wordfence servers.");
 		}
 		wordfence::statusEnd($fetchCoreHashesStatus, false, true);
-
 		if($this->malwareEnabled){
 			$malwarePrefixStatus = wordfence::statusStart("Fetching list of known malware files from Wordfence");
 			$malwareData = $engine->api->getStaticURL('/malwarePrefixes.bin');
@@ -89,7 +88,6 @@ class wordfenceHash {
 		}
 		if(! is_readable($path)){
 			throw new Exception("Could not read directory " . $this->path . " to do scan.");
-			exit();
 		}
 		$this->haveIssues = array(
 			'core' => false,

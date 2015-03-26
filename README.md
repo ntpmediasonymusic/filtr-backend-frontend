@@ -26,7 +26,6 @@ storing uploaded media (i.e. `wp-content/uploads`)
 
 * WordFence
 * DeSMan Connector
-* DeSMan Storage
 
 
 

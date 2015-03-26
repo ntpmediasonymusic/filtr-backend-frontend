@@ -101,6 +101,9 @@ class wordfenceScanner {
 				if(preg_match('/^(?:jpg|jpeg|mp3|avi|m4v|gif|png)$/', $fileExt) && (! wfConfig::get('scansEnabled_scanImages')) ){
 					continue;
 				}
+				if( (! wfConfig::get('scansEnabled_highSense')) && strtolower($fileExt) == 'sql'){ //
+					continue;
+				}
 				if(wfUtils::fileTooBig($this->path . $file)){ //We can't use filesize on 32 bit systems for files > 2 gigs
 					//We should not need this check because files > 2 gigs are not hashed and therefore won't be received back as unknowns from the API server
 					//But we do it anyway to be safe.
@@ -157,7 +160,7 @@ class wordfenceScanner {
 									'severity' => 1,
 									'ignoreP' => $this->path . $file,
 									'ignoreC' => $fileSum,
-									'shortMsg' => "This file appears to be malicious",
+									'shortMsg' => "File appears to be malicious: " . $file,
 									'longMsg' => "This file appears to be installed by a hacker to perform malicious activity. If you know about this file you can choose to ignore it to exclude it from future scans. The text we found in this file that matches a known malicious file is: <strong style=\"color: #F00;\">\"" . $matches[1] . "\"</strong>.",
 									'data' => array(
 										'file' => $file,
@@ -177,7 +180,7 @@ class wordfenceScanner {
 									'severity' => 1,
 									'ignoreP' => $this->path . $file,
 									'ignoreC' => $fileSum,
-									'shortMsg' => "This file may contain malicious executable code",
+									'shortMsg' => "This file may contain malicious executable code: " . $this->path . $file,
 									'longMsg' => "This file is a PHP executable file and contains an " . $this->patterns['word1'] . " function and " . $this->patterns['word2'] . " decoding function on the same line. This is a common technique used by hackers to hide and execute code. If you know about this file you can choose to ignore it to exclude it from future scans.",
 									'data' => array(
 										'file' => $file,
@@ -206,7 +209,7 @@ class wordfenceScanner {
 										'severity' => 1,
 										'ignoreP' => $this->path . $file,
 										'ignoreC' => $fileSum,
-										'shortMsg' => "This file may contain malicious executable code",
+										'shortMsg' => "This file may contain malicious executable code" . $this->path . $file,
 										'longMsg' => "This file is a PHP executable file and contains the word 'eval' (without quotes) and the word '" . $badStringFound . "' (without quotes). The eval() function along with an encoding function like the one mentioned are commonly used by hackers to hide their code. If you know about this file you can choose to ignore it to exclude it from future scans.",
 										'data' => array(
 											'file' => $file,
@@ -233,7 +236,6 @@ class wordfenceScanner {
 					}
 				}
 				fclose($fh);
-				$mtime = sprintf("%.5f", microtime(true) - $stime);
 				$this->totalFilesScanned++;
 				if(microtime(true) - $this->lastStatusTime > 1){
 					$this->lastStatusTime = microtime(true);
@@ -301,19 +303,6 @@ class wordfenceScanner {
 	}
 	private function writeScanningStatus(){
 		wordfence::status(2, 'info', "Scanned contents of " . $this->totalFilesScanned . " additional files at " . sprintf('%.2f', ($this->totalFilesScanned / (microtime(true) - $this->startTime))) . " per second");
-	}
-	public static function containsCode($arr){
-		foreach($arr as $elem){
-			if(preg_match($this->patterns['pat3'], $elem)){
-				return true;
-			}
-		}
-		return false;
-	}
-
-	private static function hostInURL($host, $url){
-		$host = str_replace('.', '\\.', $host);
-		return preg_match('/(?:^|^http:\/\/|^https:\/\/|^ftp:\/\/)' . $host . '(?:$|\/)/i', $url);
 	}
 	private function addResult($result){
 		for($i = 0; $i < sizeof($this->results); $i++){
