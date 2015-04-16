@@ -50,6 +50,22 @@ if ( -e $ver_file ) {
     $wpversion = "3.9.1";
 }
 
+if ( not -f "$repodir/.inetu/salt.php" ) {
+  print "Writing new SALT... ";
+  my $saltf;
+  open($saltf,">$repodir/.inetu/salt.php");
+  print $saltf "<?php\n";
+  my $salturl = "https://api.wordpress.org/secret-key/1.1/salt/";
+  $curl->setopt( CURLOPT_URL, $salturl );
+  $curl->setopt( CURLOPT_WRITEDATA, \$saltf );
+  my $saltstat = $curl->perform;
+  if ( $saltstat == 0 ) {
+    print "Done\n";
+  } else {
+    warn "Failed to write new SALT";
+  }
+}
+
 my $build = "$depdir/$wpversion";
 
 sub getmd5 {
