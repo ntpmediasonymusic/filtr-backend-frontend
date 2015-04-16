@@ -3,24 +3,39 @@
 use warnings;
 use strict;
 use Digest::MD5 qw| md5 md5_hex md5_base64 |;
-use WWW::Curl::Easy;   
+use WWW::Curl::Easy;
+my ( $repodir, $depdir, $tmpdir, $datadir, $docroot, $confdir, $install, $ver_file, $wp_config, $wp_plugins, $wp_themes );
+if ( defined $ENV{DESMAN_ENV} ) {
+  use Cwd 'abs_path';
+  # This should be Gen2
+  $repodir = abs_path('./repo');
+  $depdir = abs_path('./deps');
+  $tmpdir = '/var/tmp';
+  $datadir = abs_path('./data');
+  $docroot = abs_path('./htdocs');
+  $confdir = "$repodir/config";
+  $install = $docroot;
+  $ver_file = "$repodir/VERSION";
+  $wp_config = "$confdir/wp-config.php";
+  $wp_plugins = "$repodir/plugins";
+  $wp_themes = "$repodir/themes";
+} else {
+  $repodir = $ENV{OPENSHIFT_REPO_DIR};
+  $depdir = $ENV{OPENSHIFT_BUILD_DEPENDENCIES_DIR};
+  $tmpdir = $ENV{OPENSHIFT_TMP_DIR};
+  $datadir = $ENV{OPENSHIFT_DATA_DIR};
 
-my $repodir = $ENV{OPENSHIFT_REPO_DIR};
-my $depdir = $ENV{OPENSHIFT_BUILD_DEPENDENCIES_DIR};
-my $tmpdir = $ENV{OPENSHIFT_TMP_DIR};
-my $datadir = $ENV{OPENSHIFT_DATA_DIR};
+  $repodir =~ s/\/$//;
+  $depdir =~ s/\/$//;
+  $tmpdir =~ s/\/$//;
+  $datadir =~ s/\/$//;
 
-$repodir =~ s/\/$//;
-$depdir =~ s/\/$//;
-$tmpdir =~ s/\/$//;
-$datadir =~ s/\/$//;
-
-my ( $docroot, $confdir, $install ) = ( "$repodir/php", "$repodir/config","$datadir/current" );
-my $ver_file = "$repodir/VERSION";
-my $wp_config = "$confdir/wp-config.php";
-my $wp_plugins = "$repodir/plugins";
-my $wp_themes = "$repodir/themes";
-
+  ( $docroot, $confdir, $install ) = ( "$repodir/php", "$repodir/config","$datadir/current" );
+  $ver_file = "$repodir/VERSION";
+  $wp_config = "$confdir/wp-config.php";
+  $wp_plugins = "$repodir/plugins";
+  $wp_themes = "$repodir/themes";
+}
 my $stamp = time;
 my $curl = WWW::Curl::Easy->new;
 my $md5 = Digest::MD5->new;
@@ -46,6 +61,7 @@ sub getmd5 {
 if ( not -f "$depdir/wordpress-$wpversion.tar.gz" ) {
     print "Downloading WordPress Version $wpversion... \n";
     my $dltmp;
+    mkdir $depdir if not -d $depdir ;
     open($dltmp,">$depdir/wordpress-$wpversion.tar.gz");
     my $url = "https://wordpress.org/wordpress-$wpversion.tar.gz";
     my $md5url = "$url.md5";
@@ -113,6 +129,7 @@ print "Checking for additional apache configuration directives... ";
 link "$confdir/.htaccess" , "$install/.htaccess" if -f "$confdir/.htaccess";
 print "Done\n";
 
+mkdir $datadir if not -d $datadir ;
 mkdir "$datadir/uploads" if not -d "$datadir/uploads";
 mkdir "$datadir/blogs.dir" if not -d "$datadir/blogs.dir";
 
