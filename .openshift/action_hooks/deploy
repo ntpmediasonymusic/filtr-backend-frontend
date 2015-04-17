@@ -129,8 +129,8 @@ if ( -d "$confdir/w3tc-config" ) {
   `cp -f $wp_plugins/w3-total-cache/wp-content/advanced-cache.php $build/wp-content/advanced-cache.php`;
   `cp -f $wp_plugins/w3-total-cache/wp-content/object-cache.php $build/wp-content/object-cache.php`;
   mkdir "$build/wp-content/cache" if not -d "$build/wp-content/cache";
-  `chown apache:nfsnobody $build/wp-content/cache $build/wp-content/w3tc-cache`;
-  `chmod 755 apache:nfsnobody $build/wp-content/cache $build/wp-content/w3tc-cache`;
+  `chown apache:nfsnobody $build/wp-content/cache $build/wp-content/w3tc-config`;
+  `chmod 755 $build/wp-content/cache $build/wp-content/w3tc-config`;
   print "Done\n";
 }
 
