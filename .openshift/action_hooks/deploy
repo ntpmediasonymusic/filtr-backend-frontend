@@ -123,8 +123,14 @@ eval {
 } if -f $wp_config;
 
 if ( -d "$confdir/w3tc-config" ) {
-  print "Copying W3 Total Cache config... ";
+  print "Setting up W3 Total Cache... ";
   `cp -rf $confdir/w3tc-config $build/wp-content/w3tc-config`;
+  `cp -f $confdir/w3tc-nginx.conf $build/nginx.conf` if -f "$confdir/w3tc-nginx.conf";
+  `cp -f $wp_plugins/w3-total-cache/wp-content/advanced-cache.php $build/wp-content/advanced-cache.php`;
+  `cp -f $wp_plugins/w3-total-cache/wp-content/object-cache.php $build/wp-content/object-cache.php`;
+  mkdir "$build/wp-content/cache" if not -d "$build/wp-content/cache";
+  `chown apache:nfsnobody $build/wp-content/cache $build/wp-content/w3tc-cache`;
+  `chmod 755 apache:nfsnobody $build/wp-content/cache $build/wp-content/w3tc-cache`;
   print "Done\n";
 }
 
