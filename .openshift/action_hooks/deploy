@@ -122,6 +122,12 @@ eval {
     `cp -f $wp_config $build/wp-config.php`;
 } if -f $wp_config;
 
+if ( -d "$confdir/w3tc-config" ) {
+  print "Copying W3 Total Cache config... ";
+  `cp -rf $confdir/w3tc-config $build/wp-content/w3tc-config`;
+  print "Done\n";
+}
+
 if ( -d $install ) {
     print "Removing installdir [$install] now... ";
     `/bin/rm -rf $install`;
