@@ -8,7 +8,7 @@ my ( $repodir, $depdir, $tmpdir, $datadir, $docroot, $confdir, $install, $ver_fi
 if ( defined $ENV{DESMAN_ENV} ) {
   use Cwd;
   # This should be Gen2
-  $basedir = cwd();
+  my $basedir = cwd();
   $basedir =~ s/.*(\/websites.*)/$1/;
   $repodir = "$basedir/repo";
   $depdir = "$basedir/deps";
