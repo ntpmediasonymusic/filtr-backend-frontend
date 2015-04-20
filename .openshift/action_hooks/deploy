@@ -129,8 +129,6 @@ if ( -d "$confdir/w3tc-config" ) {
   `cp -f $wp_plugins/w3-total-cache/wp-content/advanced-cache.php $build/wp-content/advanced-cache.php`;
   `cp -f $wp_plugins/w3-total-cache/wp-content/object-cache.php $build/wp-content/object-cache.php`;
   mkdir "$build/wp-content/cache" if not -d "$build/wp-content/cache";
-  `chown apache:nfsnobody $build/wp-content/cache $build/wp-content/w3tc-config`;
-  `chmod 755 $build/wp-content/cache $build/wp-content/w3tc-config`;
   print "Done\n";
 }
 
@@ -167,3 +165,13 @@ symlink "$datadir/plugins", "$docroot/wp-content/plugins";
 symlink "$datadir/themes", "$docroot/wp-content/themes";
 symlink "$datadir/uploads", "$docroot/wp-content/uploads";
 `rm -rf $build 2>/dev/null`;
+
+# Fix up permissions in IaaS
+if ( defined $ENV{DESMAN_ENV} ) {
+  `chown -R nfsnobody:nfsnobody $docroot`
+  `chown -R apache:nfsnobody  $datadir`
+  `find $datadir/uploads -type f -exec chmod 0644 {} \;`
+  `find $datadir/uploads -type d -exec chmod 2755 {} \;`
+  `chown apache:nfsnobody $build/wp-content/cache $build/wp-content/w3tc-config` if -d "$build/wp-content/w3tc-config";
+  `chmod 755 $build/wp-content/cache $build/wp-content/w3tc-config` if -d "$build/wp-content/w3tc-config";
+}
