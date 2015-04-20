@@ -6,13 +6,15 @@ use Digest::MD5 qw| md5 md5_hex md5_base64 |;
 use WWW::Curl::Easy;
 my ( $repodir, $depdir, $tmpdir, $datadir, $docroot, $confdir, $install, $ver_file, $wp_config, $wp_plugins, $wp_themes );
 if ( defined $ENV{DESMAN_ENV} ) {
-  use Cwd 'abs_path';
+  use Cwd;
   # This should be Gen2
-  $repodir = abs_path('./repo');
-  $depdir = abs_path('./deps');
+  $basedir = cwd();
+  $basedir =~ s/.*(\/websites.*)/$1/;
+  $repodir = "$basedir/repo";
+  $depdir = "$basedir/deps";
   $tmpdir = '/var/tmp';
-  $datadir = abs_path('./data');
-  $docroot = abs_path('./htdocs');
+  $datadir = "$basedir/data";
+  $docroot = "$basedir/htdocs";
   $confdir = "$repodir/config";
   $install = $docroot;
   $ver_file = "$repodir/VERSION";
