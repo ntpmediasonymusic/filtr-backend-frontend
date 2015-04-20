@@ -14,6 +14,12 @@
  * @package WordPress
  */
 
+/** Database Charset to use in creating database tables. */
+define('DB_CHARSET', 'utf8');
+
+/** The Database Collate type. Don't change this if in doubt. */
+define('DB_COLLATE', '');
+
 if ( getenv('DESMAN_ENV') ) {
   require_once(sprintf("%s/.dbc.php",dirname($_SERVER['DOCUMENT_ROOT'])));
   require_once(sprintf("%s/repo/.inetu/salt.php",dirname($_SERVER['DOCUMENT_ROOT'])));
@@ -31,11 +37,6 @@ if ( getenv('DESMAN_ENV') ) {
   /** MySQL hostname */
   define('DB_HOST', getenv('DESMAN_MYSQL_DB_HOST') . ':' . getenv('DESMAN_MYSQL_DB_PORT'));
 
-  /** Database Charset to use in creating database tables. */
-  define('DB_CHARSET', 'utf8');
-
-  /** The Database Collate type. Don't change this if in doubt. */
-  define('DB_COLLATE', '');
   /**#@+
    * Authentication Unique Keys and Salts.
    *
