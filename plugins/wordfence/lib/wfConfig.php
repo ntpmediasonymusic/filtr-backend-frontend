@@ -64,8 +64,11 @@ class wfConfig {
 				"startScansRemotely" => false,
 				"disableConfigCaching" => false,
 				"addCacheComment" => false,
+				"disableCodeExecutionUploads" => false,
 				"allowHTTPSCaching" => false,
-				"debugOn" => false
+				"debugOn" => false,
+				'email_summary_enabled' => true,
+				'email_summary_dashboard_widget_enabled' => true,
 			),
 			"otherParams" => array(
 				'securityLevel' => '0',
@@ -88,7 +91,9 @@ class wfConfig {
 				'max404Humans_action' => "throttle",
 				'maxScanHits' => "DISABLED",
 				'maxScanHits_action' => "throttle",
-				'blockedTime' => "300"
+				'blockedTime' => "300",
+				'email_summary_interval' => 'biweekly',
+				'email_summary_excluded_directories' => 'wp-content/cache,wp-content/wfcache,wp-content/plugins/wordfence/tmp',
 			)
 		),
 		array( //level 1
@@ -146,8 +151,11 @@ class wfConfig {
 				"startScansRemotely" => false,
 				"disableConfigCaching" => false,
 				"addCacheComment" => false,
+				"disableCodeExecutionUploads" => false,
 				"allowHTTPSCaching" => false,
-				"debugOn" => false
+				"debugOn" => false,
+				'email_summary_enabled' => true,
+				'email_summary_dashboard_widget_enabled' => true,
 			),
 			"otherParams" => array(
 				'securityLevel' => '1',
@@ -170,7 +178,9 @@ class wfConfig {
 				'max404Humans_action' => "throttle",
 				'maxScanHits' => "DISABLED",
 				'maxScanHits_action' => "throttle",
-				'blockedTime' => "300"
+				'blockedTime' => "300",
+				'email_summary_interval' => 'biweekly',
+				'email_summary_excluded_directories' => 'wp-content/cache,wp-content/wfcache,wp-content/plugins/wordfence/tmp',
 			)
 		),
 		array( //level 2
@@ -230,7 +240,9 @@ class wfConfig {
 				"addCacheComment" => false,
 				"disableCodeExecutionUploads" => false,
 				"allowHTTPSCaching" => false,
-				"debugOn" => false
+				"debugOn" => false,
+				'email_summary_enabled' => true,
+				'email_summary_dashboard_widget_enabled' => true,
 			),
 			"otherParams" => array(
 				'securityLevel' => '2',
@@ -253,7 +265,9 @@ class wfConfig {
 				'max404Humans_action' => "throttle",
 				'maxScanHits' => "DISABLED",
 				'maxScanHits_action' => "throttle",
-				'blockedTime' => "300"
+				'blockedTime' => "300",
+				'email_summary_interval' => 'biweekly',
+				'email_summary_excluded_directories' => 'wp-content/cache,wp-content/wfcache,wp-content/plugins/wordfence/tmp',
 			)
 		),
 		array( //level 3
@@ -311,8 +325,11 @@ class wfConfig {
 				"startScansRemotely" => false,
 				"disableConfigCaching" => false,
 				"addCacheComment" => false,
+				"disableCodeExecutionUploads" => false,
 				"allowHTTPSCaching" => false,
-				"debugOn" => false
+				"debugOn" => false,
+				'email_summary_enabled' => true,
+				'email_summary_dashboard_widget_enabled' => true,
 			),
 			"otherParams" => array(
 				'securityLevel' => '3',
@@ -335,7 +352,9 @@ class wfConfig {
 				'max404Humans_action' => "throttle",
 				'maxScanHits' => "30",
 				'maxScanHits_action' => "throttle",
-				'blockedTime' => "1800"
+				'blockedTime' => "1800",
+				'email_summary_interval' => 'biweekly',
+				'email_summary_excluded_directories' => 'wp-content/cache,wp-content/wfcache,wp-content/plugins/wordfence/tmp',
 			)
 		),
 		array( //level 4
@@ -393,8 +412,11 @@ class wfConfig {
 				"startScansRemotely" => false,
 				"disableConfigCaching" => false,
 				"addCacheComment" => false,
+				"disableCodeExecutionUploads" => false,
 				"allowHTTPSCaching" => false,
-				"debugOn" => false
+				"debugOn" => false,
+				'email_summary_enabled' => true,
+				'email_summary_dashboard_widget_enabled' => true,
 			),
 			"otherParams" => array(
 				'securityLevel' => '4',
@@ -417,7 +439,9 @@ class wfConfig {
 				'max404Humans_action' => "block",
 				'maxScanHits' => "10",
 				'maxScanHits_action' => "block",
-				'blockedTime' => "7200"
+				'blockedTime' => "7200",
+				'email_summary_interval' => 'biweekly',
+				'email_summary_excluded_directories' => 'wp-content/cache,wp-content/wfcache,wp-content/plugins/wordfence/tmp',
 			)
 		)
 	);
@@ -438,6 +462,12 @@ class wfConfig {
 		}
 		if(self::get('other_scanOutside', false) === false){
 			self::set('other_scanOutside', 0);
+		}
+
+		if (self::get('email_summary_enabled')) {
+			wfActivityReport::scheduleCronJob();
+		} else {
+			wfActivityReport::disableCronJob();
 		}
 	}
 	public static function getExportableOptionsKeys(){
@@ -759,8 +789,11 @@ class wfConfig {
 		return true;
 	}
 	public static function enableAutoUpdate(){
-		wfConfig::set('autoUpdate', '1');	
-		wp_schedule_event(time(), 'daily', 'wordfence_daily_autoUpdate');
+		wfConfig::set('autoUpdate', '1');
+		wp_clear_scheduled_hook('wordfence_daily_autoUpdate');
+		if (is_main_site()) {
+			wp_schedule_event(time(), 'daily', 'wordfence_daily_autoUpdate');
+		}
 	}
 	public static function disableAutoUpdate(){
 		wfConfig::set('autoUpdate', '0');	
@@ -790,7 +823,9 @@ class wfConfig {
 				function show_message($msg = 'null'){}
 			}
 			*/
-			define('FS_METHOD', 'direct');
+			if(! defined('FS_METHOD')){ 
+				define('FS_METHOD', 'direct'); //May be defined already and might not be 'direct' so this could cause problems. But we were getting reports of a warning that this is already defined, so this check added. 
+			}
 			require_once(ABSPATH . 'wp-includes/update.php');
 			require_once(ABSPATH . 'wp-admin/includes/file.php');
 			wp_update_plugins();
@@ -825,11 +860,12 @@ Options -ExecCGI
 		$upload_dir = wp_upload_dir();
 		return $upload_dir['basedir'] . '/.htaccess';
 	}
-	
+
 	/**
 	 * Add/Merge .htaccess file in the uploads directory to prevent code execution.
 	 *
 	 * @return bool
+	 * @throws wfConfigException
 	 */
 	public static function disableCodeExecutionForUploads() {
 		$uploads_htaccess_file_path = self::_uploadsHtaccessFilePath();
@@ -848,27 +884,32 @@ Options -ExecCGI
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Remove script execution protections for our the .htaccess file in the uploads directory.
 	 *
 	 * @return bool
+	 * @throws wfConfigException
 	 */
 	public static function removeCodeExecutionProtectionForUploads() {
 		$uploads_htaccess_file_path = self::_uploadsHtaccessFilePath();
 		if (file_exists($uploads_htaccess_file_path)) {
 			$htaccess_contents = file_get_contents($uploads_htaccess_file_path);
-			$htaccess_contents = str_replace(self::$_disable_scripts_htaccess, '', $htaccess_contents);
-			
-			$error_message = "Unable to remove code execution protections applied to the .htaccess file in the uploads directory.  Please check your permissions on that file.";
-			if (strlen(trim($htaccess_contents)) === 0) {
-				// empty file, remove it
-				if (!@unlink($uploads_htaccess_file_path)) {
+
+			// Check that it is in the file
+			if (strpos($htaccess_contents, self::$_disable_scripts_htaccess) !== false) {
+				$htaccess_contents = str_replace(self::$_disable_scripts_htaccess, '', $htaccess_contents);
+
+				$error_message = "Unable to remove code execution protections applied to the .htaccess file in the uploads directory.  Please check your permissions on that file.";
+				if (strlen(trim($htaccess_contents)) === 0) {
+					// empty file, remove it
+					if (!@unlink($uploads_htaccess_file_path)) {
+						throw new wfConfigException($error_message);
+					}
+
+				} elseif (@file_put_contents($uploads_htaccess_file_path, $htaccess_contents, LOCK_EX) === false) {
 					throw new wfConfigException($error_message);
 				}
-				
-			} elseif (@file_put_contents($uploads_htaccess_file_path, $htaccess_contents, LOCK_EX) === false) {
-				throw new wfConfigException($error_message);
 			}
 		}
 		return true;
