@@ -20,19 +20,18 @@ add_action( 'init','dsman_init' );
 # I believe this is run with each request. Keep this light to reduce impact on performance
 function dsman_init () {
         global $dsman; # $dsman = new StorageConnector(__FILE__);
-        $dsman = new StorageConnector( __FILE__ );
+        $dsman = new StorageConnector( __FILE__, sprintf('dsman_%s', getenv('OPENSHIFT_DEPLOYMENT_BRANCH') ?: getenv('DESMAN_ENV')) );
         return $dsman;
 }
 
 # options get stored as a serialized array in wp_options under the optgroup_key defined in the storage connector class
 function dsman_activate() {
         if ( envars_defined() ) {
-                $optgroup = StorageConnector::OPTGROUP_KEY;
                 $access_key = getenv("DESMAN_OBS_KEY_ID");
                 $secret = getenv("DESMAN_OBS_KEY_SECRET");
                 $baseurl = getenv("DESMAN_OBS_BASE_URL");
                 # this could fail IF the domain name is longer than 32 characters because the bucket would be longer than app_name
-                update_option( $optgroup, array(
+                update_option( sprintf('dsman_%s', getenv('OPENSHIFT_DEPLOYMENT_BRANCH') ?: getenv('DESMAN_ENV')), array(
                         'id' => $access_key,
                         'secret' => $secret,
                         'endpoint' => $baseurl,

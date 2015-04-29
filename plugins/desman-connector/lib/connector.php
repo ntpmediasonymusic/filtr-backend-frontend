@@ -4,7 +4,6 @@ use Aws\Common\Aws;
 use Aws\S3\S3Client;
 
 class StorageConnector {
-	const OPTGROUP_KEY = 'dsman';
 	const OPTION_WP_UPLOADS = 1;
 	const OPTION_COPY_TO_S3 = 2;
 	const OPTION_SERVE_FROM_S3 = 4;
@@ -18,7 +17,8 @@ class StorageConnector {
 	private $options;
 	public $default_prefix;
 
-	public function __construct( $plugin_file_path ) {
+  public function __construct( $plugin_file_path, $optgroup ) {
+    $this->optgroup = $optgroup;
 		$this->plugin_file_path = $plugin_file_path;
 		$this->plugin_dir_path = rtrim( plugin_dir_path( $plugin_file_path ), '/' );
 		$this->plugin_slug = basename( $this->plugin_dir_path );
@@ -71,7 +71,7 @@ class StorageConnector {
 	}
 
 	public function get_option( $key ) {
-		if ( is_null ($this->options) ) $this->options = get_option(self::OPTGROUP_KEY);
+		if ( is_null ($this->options) ) $this->options = get_option($this->optgroup);
 		if ( array_key_exists($key,$this->options) ) return $this->options[$key];
 		switch ( $key ) {
 			case 'copy-to-s3':
@@ -107,7 +107,7 @@ class StorageConnector {
 	# overloads the global wp function to update_options and writes options to a serialized array in wp_options table
 	# we need to rewrite the whole array each time so this just makes it easier to do
 	public function update_option( $key, $value ) {
-		if ( is_null( $this->options) ) $this->options = get_option(self::OPTGROUP_KEY);
+		if ( is_null( $this->options) ) $this->options = get_option($this->optgroup);
 		if ( array_key_exists($key, $this->options) ) {
 			$this->options[$key] = $value;
 		} else {
@@ -142,7 +142,7 @@ class StorageConnector {
 			}
 			$this->options['options'] = $options;
 		}
-		update_option(self::OPTGROUP_KEY,$this->options);
+		update_option($this->optgroup,$this->options);
 	}
 
 	# since most of our configuration options are bitmasked, this function retrieves a listing of the logical names
@@ -301,7 +301,7 @@ class StorageConnector {
 				try { 
 					$this->getClient()->deleteObject( array(
 						'Key' => $this->get_hidpi_file_path( $obj['Key'] ),
-						'Bucket' => $s3['bucket']
+						'Bucket' => $this->get_option('bucket')
 					));
 				} catch (Exception $e) {}
 
@@ -309,7 +309,7 @@ class StorageConnector {
 				try {
 					$this->getClient()->deleteObject( array(
 						'Key' => $obj['Key'],
-						'Bucket' => $s3['bucket']
+						'Bucket' => $this->get_option('bucket')
 					));
 				} catch ( Exception $e ) {
 					# trigger_error( 'Error removing files from S3: ' . $e->getMessage() );
@@ -375,15 +375,15 @@ class StorageConnector {
 		$key = $s3['key'];
 		if ( is_ssl() || $this->get_option('force-ssl') ) {
 			$scheme .= "s";
-			$bucket = "$host/".$s3['bucket'];
+			$bucket = "$host/".$this->get_option('bucket');
 		} else {
-			$bucket = $s3['bucket'] .".$host";
+			$bucket = $this->get_option('bucket') .".$host";
 		}
 		$url = "$scheme://$bucket/$key";
 		if ( !is_null ($expires) ) {
 			try {
 				$expires = time() + $expires;
-				$secure_url = $this->getClient()->getObjectUrl( $s3['bucket'],$s3['key'],$expires );
+				$secure_url = $this->getClient()->getObjectUrl( $this->get_option('bucket'),$s3['key'],$expires );
 				$url .= substr( $secure_url , $strpos( $secure_url,'?') );
 			} catch ( Exception $e ) {
 				return new WP_Error('exception' , $e->getMessage());
@@ -472,13 +472,16 @@ class StorageConnector {
 	}
 	public function get_folder_time( $post_id ) {
 		$time = current_time( 'timestamp' );
-
-		if ( 
-			( $attach = get_post( $post_id ) ) && 
-		 	 $attach->post_parent &&
-			 $post = get_post( $attach->post_parent) &&
-			( substr( $post->post_date_gmt, 0, 4 ) > 0 )
-			) return strtotime( $post->post_date_gmt. ' +0000' );
+		try {
+			$attach = get_post($post_id);
+			if ( is_object($attach) && $attach->post_parent) {
+				$post = get_post( $attach->post_parent );
+				if ( is_object($post) && ( substr( $post->post_date_gmt, 0, 4 ) > 0 ) )
+					return strtotime( $post->post_date_gmt. '+0000');
+			}
+		} catch( Exception $e ) {
+			trigger_error($e->getMessage(), E_USER_ERROR);
+		}
 		return $time;
 	}
 	# timestamped upload paths (for object-versioning)
