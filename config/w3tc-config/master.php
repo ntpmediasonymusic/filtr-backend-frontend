@@ -1,5 +1,7 @@
 <?php
 
+$engine = ( getenv("OPENSHIFT_DEPLOYMENT_BRANCH" ) ) ? "apc" : "memcached";
+
 switch (getenv('OPENSHIFT_DEPLOYMENT_BRANCH') ?: getenv('DESMAN_ENV')):
 case 'prod':
     $memcached_servers = array(
@@ -31,7 +33,7 @@ return array(
 	'cluster.messagebus.sns.topic_arn' => '',
 	'dbcache.debug' => false,
 	'dbcache.enabled' => false,
-	'dbcache.engine' => 'file',
+	'dbcache.engine' => $engine,
 	'dbcache.file.gc' => 3600,
 	'dbcache.file.locking' => false,
 	'dbcache.lifetime' => 180,
@@ -63,7 +65,7 @@ return array(
 	),
 	'objectcache.enabled' => true,
 	'objectcache.debug' => false,
-	'objectcache.engine' => 'memcached',
+	'objectcache.engine' => $engine,
 	'objectcache.file.gc' => 3600,
 	'objectcache.file.locking' => false,
 	'objectcache.memcached.servers' => $memcached_servers,
@@ -90,7 +92,7 @@ return array(
 	'objectcache.purge.all' => false,
 	'fragmentcache.enabled' => false,
 	'fragmentcache.debug' => false,
-	'fragmentcache.engine' => 'file',
+	'fragmentcache.engine' => $engine,
 	'fragmentcache.file.gc' => 3600,
 	'fragmentcache.file.locking' => false,
 	'fragmentcache.memcached.servers' => $memcached_servers,
@@ -101,7 +103,7 @@ return array(
 	'pgcache.enabled' => true,
 	'pgcache.comment_cookie_ttl' => 1800,
 	'pgcache.debug' => false,
-	'pgcache.engine' => 'memcached',
+	'pgcache.engine' => $engine,
 	'pgcache.file.gc' => 3600,
 	'pgcache.file.nfs' => false,
 	'pgcache.file.locking' => false,
@@ -183,7 +185,7 @@ return array(
 	'minify.enabled' => false,
 	'minify.auto' => true,
 	'minify.debug' => false,
-	'minify.engine' => 'file',
+	'minify.engine' => $engine,
 	'minify.file.gc' => 86400,
 	'minify.file.nfs' => false,
 	'minify.file.locking' => false,
