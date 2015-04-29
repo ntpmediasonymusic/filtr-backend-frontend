@@ -172,8 +172,8 @@ symlink "$datadir/uploads", "$docroot/wp-content/uploads";
 if ( defined $ENV{DESMAN_ENV} ) {
   `chown -R nfsnobody:nfsnobody $docroot`;
   `chown -R apache:nfsnobody  $datadir`;
-  `find $datadir/uploads -type f -exec chmod 0644 {} \;`;
-  `find $datadir/uploads -type d -exec chmod 2755 {} \;`;
+  `find $datadir/uploads -type f -exec chmod 0644 {} \\;`;
+  `find $datadir/uploads -type d -exec chmod 2755 {} \\;`;
   `chown apache:nfsnobody $docroot/wp-content/cache $docroot/wp-content/w3tc-config` if -d "$docroot/wp-content/w3tc-config";
   `chmod 755 $docroot/wp-content/cache $docroot/wp-content/w3tc-config` if -d "$docroot/wp-content/w3tc-config";
 }
