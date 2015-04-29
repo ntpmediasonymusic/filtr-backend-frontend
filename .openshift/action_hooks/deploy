@@ -4,6 +4,7 @@ use warnings;
 use strict;
 use Digest::MD5 qw| md5 md5_hex md5_base64 |;
 use WWW::Curl::Easy;
+die "Environment variables not set. Bailing.\n" if ( not defined $ENV{DESMAN_ENV} and not defined $ENV{OPENSHIFT_DEPLOYMENT_BRANCH} );
 my ( $repodir, $depdir, $tmpdir, $datadir, $docroot, $confdir, $install, $ver_file, $wp_config, $wp_plugins, $wp_themes );
 if ( defined $ENV{DESMAN_ENV} ) {
   use Cwd;
@@ -15,12 +16,14 @@ if ( defined $ENV{DESMAN_ENV} ) {
   $tmpdir = '/var/tmp';
   $datadir = "$basedir/data";
   $docroot = "$basedir/htdocs";
+  $uploads = "$docroot/wp-content/uploads";
   $confdir = "$repodir/config";
   $install = $docroot;
   $ver_file = "$repodir/VERSION";
   $wp_config = "$confdir/wp-config.php";
   $wp_plugins = "$repodir/plugins";
   $wp_themes = "$repodir/themes";
+  die "$uploads is not a link, continuing would overwrite. Halting instead.\n" if -d $uploads and not -l $uploads;
 } else {
   $repodir = $ENV{OPENSHIFT_REPO_DIR};
   $depdir = $ENV{OPENSHIFT_BUILD_DEPENDENCIES_DIR};
@@ -165,7 +168,7 @@ symlink $install, $docroot;
 symlink "$datadir/blogs.dir", "$docroot/wp-content/blogs.dir";
 symlink "$datadir/plugins", "$docroot/wp-content/plugins";
 symlink "$datadir/themes", "$docroot/wp-content/themes";
-symlink "$datadir/uploads", "$docroot/wp-content/uploads";
+symlink "$datadir/uploads", $uploads;
 `rm -rf $build 2>/dev/null`;
 
 # Fix up permissions in IaaS
