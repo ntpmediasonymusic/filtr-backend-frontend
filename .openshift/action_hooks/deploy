@@ -5,7 +5,7 @@ use strict;
 use Digest::MD5 qw| md5 md5_hex md5_base64 |;
 use WWW::Curl::Easy;
 die "Environment variables not set. Bailing.\n" if ( not defined $ENV{DESMAN_ENV} and not defined $ENV{OPENSHIFT_DEPLOYMENT_BRANCH} );
-my ( $repodir, $depdir, $tmpdir, $datadir, $docroot, $confdir, $install, $ver_file, $wp_config, $wp_plugins, $wp_themes );
+my ( $uploads, $repodir, $depdir, $tmpdir, $datadir, $docroot, $confdir, $install, $ver_file, $wp_config, $wp_plugins, $wp_themes );
 if ( defined $ENV{DESMAN_ENV} ) {
   use Cwd;
   # This should be Gen2
