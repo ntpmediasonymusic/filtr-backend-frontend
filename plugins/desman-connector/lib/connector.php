@@ -72,6 +72,7 @@ class StorageConnector {
 
 	public function get_option( $key ) {
 		if ( is_null ($this->options) ) $this->options = get_option($this->optgroup);
+                if ( !array_key_exists('ext-endpoint',$this->options) ) $this->options['ext-endpoint'] = $this->options['endpoint'];
 		if ( array_key_exists($key,$this->options) ) return $this->options[$key];
 		switch ( $key ) {
 			case 'copy-to-s3':
@@ -152,6 +153,7 @@ class StorageConnector {
 			'secret',
 			'bucket',
 			'endpoint',
+                        'ext-endpoint',
 			'prefix',
 			'copy-to-s3',
 			'serve-from-s3',
@@ -368,17 +370,15 @@ class StorageConnector {
 	}
 
 	public function get_attachment_url( $post_id, $expires = null ) {
-		$host = parse_url($this->get_option('endpoint'),PHP_URL_HOST);
+		$host = parse_url($this->get_option('ext-endpoint'),PHP_URL_HOST);
 		if ( !$this->get_option('serve-from-s3') || !( $s3 = $this->get_info($post_id) ) ) return false;
 		$bucket = ""; 
 		$scheme = "http";
 		$key = $s3['key'];
 		if ( is_ssl() || $this->get_option('force-ssl') ) {
 			$scheme .= "s";
-			$bucket = "$host/".$this->get_option('bucket');
-		} else {
-			$bucket = $this->get_option('bucket') .".$host";
 		}
+		$bucket = "$host/".$this->get_option('bucket');
 		$url = "$scheme://$bucket/$key";
 		if ( !is_null ($expires) ) {
 			try {
