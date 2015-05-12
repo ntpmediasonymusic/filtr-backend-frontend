@@ -81,14 +81,13 @@ sub getmd5 {
 
 if ( not -f "$depdir/wordpress-$wpversion.tar.gz" ) {
     print "Downloading WordPress Version $wpversion... \n";
-    my $dltmp;
     mkdir $depdir if not -d $depdir ;
-    open($dltmp,">$depdir/wordpress-$wpversion.tar.gz");
+    open(TARBALL,">","$depdir/wordpress-$wpversion.tar.gz");
     my $url = "https://wordpress.org/wordpress-$wpversion.tar.gz";
     my $md5url = "$url.md5";
     my $expected_md5;
     $curl->setopt( CURLOPT_URL, $url );
-    $curl->setopt( CURLOPT_WRITEDATA, \$dltmp );
+    $curl->setopt( CURLOPT_WRITEDATA, \*TARBALL );
     my $retcode = $curl->perform;
     if ( $retcode == 0 ) {
         print "Verifying archive integrity now... \n";
@@ -98,15 +97,16 @@ if ( not -f "$depdir/wordpress-$wpversion.tar.gz" ) {
         $curl->setopt( CURLOPT_FILE, \$expected_md5 );
         my $gotmd5 = $curl->perform;
         if ( $gotmd5 == 0 ) {
-            close($dltmp);
-            open($dltmp,"<$depdir/wordpress-$wpversion.tar.gz");
-            $md5->addfile($dltmp);
+            close(TARBALL);
+            open(TARBALL,"<","$depdir/wordpress-$wpversion.tar.gz");
+            $md5->addfile(\*TARBALL);
             my $actual_md5 = $md5->hexdigest;
             if ( $actual_md5 ne $expected_md5 ) {
                 warn "Downloaded archive does not match expected md5 checksum!";
                 print STDERR "expected $expected_md5 ... got $actual_md5";
                 exit 2;
             }
+            close(TARBALL);
         } else {
             warn "Failed to get md5 from wordpress.org!";
             exit 2;
@@ -115,7 +115,7 @@ if ( not -f "$depdir/wordpress-$wpversion.tar.gz" ) {
         warn "failed to get archive from wordpress.org";
         exit 2;
     }
-    close($dltmp);
+    close(TARBALL);
 }
 
 mkdir $build if not -d $build ;
