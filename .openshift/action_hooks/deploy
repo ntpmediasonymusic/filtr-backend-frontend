@@ -10,7 +10,6 @@ if ( defined $ENV{DESMAN_ENV} ) {
   use Cwd;
   # This should be Gen2
   my $basedir = cwd();
-  my $group = qx|basename `dirname $basedir`|;
   $basedir =~ s/.*(\/websites.*)/$1/;
   $repodir = "$basedir/repo";
   $depdir = "$basedir/deps";
@@ -179,8 +178,9 @@ if ( defined $ENV{DESMAN_ENV} ) {
   my $basedir = cwd();
   my $group = qx|basename `dirname $basedir`|;
   $group = $ENV{DESMAN_ENV} =~ 'devel' ? $group : 'nfsnobody';
+  chomp($group);
   qx|chown -R nfsnobody:nfsnobody $docroot|;
-  qx|chown -R apache:$group  $datadir|;
+  qx|chown -R apache:$group $datadir|;
   qx|find $datadir/uploads -type f -exec chmod 0644 {} \\;|;
   qx|find $datadir/uploads -type d -exec chmod 2755 {} \\;|;
   qx|chown apache:nfsnobody $docroot/wp-content/cache $docroot/wp-content/w3tc-config| if -d "$docroot/wp-content/w3tc-config";
