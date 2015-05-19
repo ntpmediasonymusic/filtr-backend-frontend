@@ -10,6 +10,7 @@ if ( defined $ENV{DESMAN_ENV} ) {
   use Cwd;
   # This should be Gen2
   my $basedir = cwd();
+  my $group = qx|basename `dirname $basedir`|;
   $basedir =~ s/.*(\/websites.*)/$1/;
   $repodir = "$basedir/repo";
   $depdir = "$basedir/deps";
@@ -173,10 +174,15 @@ symlink "$datadir/uploads", $uploads;
 
 # Fix up permissions in IaaS
 if ( defined $ENV{DESMAN_ENV} ) {
-  `chown -R nfsnobody:nfsnobody $docroot`;
-  `chown -R apache:nfsnobody  $datadir`;
-  `find $datadir/uploads -type f -exec chmod 0644 {} \\;`;
-  `find $datadir/uploads -type d -exec chmod 2755 {} \\;`;
-  `chown apache:nfsnobody $docroot/wp-content/cache $docroot/wp-content/w3tc-config` if -d "$docroot/wp-content/w3tc-config";
-  `chmod 755 $docroot/wp-content/cache $docroot/wp-content/w3tc-config` if -d "$docroot/wp-content/w3tc-config";
+  # set group to nfsnobody in stage and prod
+  use Cwd;
+  my $basedir = cwd();
+  my $group = qx|basename `dirname $basedir`|;
+  $group = $ENV{DESMAN_ENV} =~ 'devel' ? $group : 'nfsnobody';
+  qx|chown -R nfsnobody:nfsnobody $docroot|;
+  qx|chown -R apache:$group  $datadir|;
+  qx|find $datadir/uploads -type f -exec chmod 0644 {} \\;|;
+  qx|find $datadir/uploads -type d -exec chmod 2755 {} \\;|;
+  qx|chown apache:nfsnobody $docroot/wp-content/cache $docroot/wp-content/w3tc-config| if -d "$docroot/wp-content/w3tc-config";
+  qx|chmod 755 $docroot/wp-content/cache $docroot/wp-content/w3tc-config| if -d "$docroot/wp-content/w3tc-config";
 }
