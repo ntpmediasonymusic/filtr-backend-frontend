@@ -176,13 +176,19 @@ if ( defined $ENV{DESMAN_ENV} ) {
   # set group to nfsnobody in stage and prod
   use Cwd;
   my $basedir = cwd();
-  my $group = qx|basename `dirname $basedir`|;
-  $group = $ENV{DESMAN_ENV} =~ 'devel' ? $group : 'nfsnobody';
+  my $group = 'nfsnobody';
+  my $dperm = '2755';
+  my $fperm = '0644';
+  if ( $ENV{DESMAN_ENV} =~ /devel/ ) {
+    $group = qx|basename `dirname $basedir`|;
+    $dperm = '2775';
+    $fperm = '0664';
+  } 
   chomp($group);
   qx|chown -R nfsnobody:nfsnobody $docroot|;
   qx|chown -R apache:$group $datadir|;
-  qx|find $datadir/uploads -type f -exec chmod 0644 {} \\;|;
-  qx|find $datadir/uploads -type d -exec chmod 2755 {} \\;|;
+  qx|find $datadir/uploads -type f -exec chmod $fperm {} \\;|;
+  qx|find $datadir/uploads -type d -exec chmod $dperm {} \\;|;
   qx|chown apache:nfsnobody $docroot/wp-content/cache $docroot/wp-content/w3tc-config| if -d "$docroot/wp-content/w3tc-config";
   qx|chmod 755 $docroot/wp-content/cache $docroot/wp-content/w3tc-config| if -d "$docroot/wp-content/w3tc-config";
 }
