@@ -179,7 +179,7 @@ if ( defined $ENV{DESMAN_ENV} ) {
   my $group = 'nfsnobody';
   my $dperm = '2755';
   my $fperm = '0644';
-  if ( $ENV{DESMAN_ENV} =~ /devel/ ) {
+  if ( $ENV{DESMAN_ENV} eq 'devel' ) {
     $group = qx|basename `dirname $basedir`|;
     $dperm = '2775';
     $fperm = '0664';
