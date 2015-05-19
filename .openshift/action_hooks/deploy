@@ -177,12 +177,18 @@ if ( defined $ENV{DESMAN_ENV} ) {
   `chown -R apache:nfsnobody  $datadir`;
   `chown apache:nfsnobody $docroot/wp-content/cache $docroot/wp-content/w3tc-config` if -d "$docroot/wp-content/w3tc-config";
   `chmod 755 $docroot/wp-content/cache $docroot/wp-content/w3tc-config` if -d "$docroot/wp-content/w3tc-config";
-  if ( $ENV{DESMAN_ENV} == 'devel' ) {
+  if ( $ENV{DESMAN_ENV} eq 'devel' ) {
+    print "Setting group permissions for data/uploads... ";
     # Allow sftp uploads to devel
-    my $region = qx|basename $(dirname $(pwd))|;
-    `chgrp -R $region $datadir/uploads`;
-    `find $datadir/uploads -type f -exec chmod 0664 {} \\;`;
-    `find $datadir/uploads -type d -exec chmod 2775 {} \\;`;
+    my $region = qx|basename \$(dirname \$(pwd))|;
+    if ( getgrnam($region) gt 0 ) {
+      `chgrp -R $region $datadir/uploads`;
+      `find $datadir/uploads -type f -exec chmod 0664 {} \\;`;
+      `find $datadir/uploads -type d -exec chmod 2775 {} \\;`;
+      print "Done\n";
+    } else {
+      print "FAILED\nNot able to set uploads group - group does not exist: $region \n";
+    }
   } else {
     `find $datadir/uploads -type f -exec chmod 0644 {} \\;`;
     `find $datadir/uploads -type d -exec chmod 2755 {} \\;`;
