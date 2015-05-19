@@ -181,6 +181,7 @@ if ( defined $ENV{DESMAN_ENV} ) {
     print "Setting group permissions for data/uploads... ";
     # Allow sftp uploads to devel
     my $region = qx|basename \$(dirname \$(pwd))|;
+    chomp($region);
     if ( getgrnam($region) gt 0 ) {
       `chgrp -R $region $datadir/uploads`;
       `find $datadir/uploads -type f -exec chmod 0664 {} \\;`;
