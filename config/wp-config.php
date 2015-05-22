@@ -21,8 +21,15 @@ define('DB_CHARSET', 'utf8');
 define('DB_COLLATE', '');
 
 if ( getenv('DESMAN_ENV') ) {
-  require_once(sprintf("%s/.dbc.php",dirname($_SERVER['DOCUMENT_ROOT'])));
-  require_once(sprintf("%s/repo/.inetu/salt.php",dirname($_SERVER['DOCUMENT_ROOT'])));
+  if ( getenv('DESMAN_CONTAINERIZER') == 'docker' ) {
+    define('DB_NAME',getenv('DB_ENV_MYSQL_DATABASE') );
+    define('DB_USER',getenv('DB_ENV_MYSQL_USER') );
+    define('DB_PASSWORD',getenv('DB_ENV_MYSQL_PASSWORD') );
+    define('DB_HOST',getenv('DB_PORT_3306_TCP_ADDR') );
+  } else {
+    require_once(sprintf("%s/.dbc.php",dirname($_SERVER['DOCUMENT_ROOT'])));
+    require_once(sprintf("%s/repo/.inetu/salt.php",dirname($_SERVER['DOCUMENT_ROOT'])));
+  }
 } else {
   // ** MySQL settings - You can get this info from your web host ** //
   /** The name of the database for WordPress */

@@ -1,0 +1,72 @@
+Server {
+	Port = 9000
+	Type = fastcgi
+	ThreadCount = 10
+	SourceRoot = /var/www
+	EnableEarlyFlush = true
+	ForceChunkedEncoding = true
+}
+
+Eval {
+	Jit = true
+	CheckFlushOnUserClose = true
+}
+Log {
+	Level = Debug
+	UseLogFile = true
+	File = /var/log/hhvm/error.log
+	Access {
+		* {
+			File = /var/log/hhvm/access.log
+			Format = %h %l %u %t "%r" %>s %b
+		}
+	}
+}
+
+VirtualHost {
+	* {
+		Pattern = .*
+		RewriteRules {
+		    * {
+				conditions {
+					-d {
+					  pattern = ^/(.*)$
+					  to = /index.php
+					  qsa = true
+					  negate = true
+					}
+					-f {
+					  pattern = ^/(.*)$
+					  to = /index.php
+					  qsa = true
+					  negate = true
+					}
+				}
+			}
+		}
+	}
+}
+
+StaticFile {
+	FilesMatch {
+		* {
+			pattern = .*.(dll|exe)
+			headers {
+				* = Content-Disposition: attachment
+			}
+		}
+	}
+	Extensions {
+		js = text/javascript
+		css = text/css
+		gif = image/gif
+		html = text/html
+		jpe = image/jpeg
+		jpeg = image/jpeg
+		jpg = image/jpeg
+		png = image/png
+		tif = image/tiff
+		tiff = image/tiff
+		txt = text/plain
+	}
+}
