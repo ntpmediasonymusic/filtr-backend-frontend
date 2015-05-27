@@ -11,7 +11,7 @@ $prod_memcached_servers = array(
 
 switch (getenv('OPENSHIFT_DEPLOYMENT_BRANCH') ?: getenv('DESMAN_ENV')):
 case 'prod':
-    $memcached_servers = $prod_memcached_servers['45press']
+    $memcached_servers = $prod_memcached_servers['45press'];
     break;
 case 'stage':
     $memcached_servers = array(
