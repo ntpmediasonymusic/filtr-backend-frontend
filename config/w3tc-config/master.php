@@ -1,13 +1,17 @@
 <?php
 
 $engine = ( getenv("OPENSHIFT_DEPLOYMENT_BRANCH" ) ) ? "apc" : "memcached";
+$prod_memcached_servers = array(
+    '45press' => array(0 => '10.105.20.4:11211',1 => '10.105.20.12:11211'),
+    'usc' => array(0 => '10.105.20.16:11211',1 => '10.105.20.20:11211'),
+    'au' => array(0 => '10.105.20.7:11211',1 => '10.105.20.15:11211'),
+    'mx' => array(0 => '10.105.20.21:11211'),
+    '1d' => array(0 => '10.105.20.1:11211',1 => '10.105.20.2:11211',2 => '10.105.20.5:11211',3 => '10.105.20.6:11211',4 => '10.105.20.13:11211',5 => '10.105.20.14:11211')
+);
 
 switch (getenv('OPENSHIFT_DEPLOYMENT_BRANCH') ?: getenv('DESMAN_ENV')):
 case 'prod':
-    $memcached_servers = array(
-        0 => '10.105.20.4:11211',
-        1 => '10.105.20.12:11211',
-    );
+    $memcached_servers = $prod_memcached_servers['45press'];
     break;
 case 'stage':
     $memcached_servers = array(
