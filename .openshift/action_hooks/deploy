@@ -4,28 +4,25 @@ use warnings;
 use strict;
 use Digest::MD5 qw| md5 md5_hex md5_base64 |;
 use WWW::Curl::Easy;
-use Cwd;
 die "Environment variables not set. Bailing.\n" if ( not defined $ENV{DESMAN_ENV} and not defined $ENV{OPENSHIFT_DEPLOYMENT_BRANCH} );
-my ( $uploads, $depdir, $tmpdir, $install, $ver_file, $wp_config, $wp_plugins, $wp_themes );
-# default to using cwd as repodir
-my $repodir = cwd();
-my $basedir = $repodir;
-my $datadir = "/var/desman/data";
-my $docroot = "/var/www";
-my $confdir = "$repodir/config";
-  
+my ( $uploads, $repodir, $depdir, $tmpdir, $datadir, $docroot, $confdir, $install, $ver_file, $wp_config, $wp_plugins, $wp_themes );
 if ( defined $ENV{DESMAN_ENV} ) {
+  use Cwd;
   # This should be Gen2
+  my $basedir = cwd();
   $basedir =~ s/.*(\/websites.*)/$1/;
-  if ( not defined $ENV{DESMAN_CONTAINERIZER} ) {
-    $repodir = "$basedir/repo";
-    $datadir = "$basedir/data";
-    $docroot = "$basedir/htdocs";
-  }
+  $repodir = "$basedir/repo";
   $depdir = "$basedir/deps";
   $tmpdir = '/var/tmp';
+  $datadir = "$basedir/data";
+  $docroot = "$basedir/htdocs";
   $uploads = "$docroot/wp-content/uploads";
+  $confdir = "$repodir/config";
   $install = $docroot;
+  $ver_file = "$repodir/VERSION";
+  $wp_config = "$confdir/wp-config.php";
+  $wp_plugins = "$repodir/plugins";
+  $wp_themes = "$repodir/themes";
   die "$uploads is not a link, continuing would overwrite. Halting instead.\n" if -d $uploads and not -l $uploads;
 } else {
   $repodir = $ENV{OPENSHIFT_REPO_DIR};
@@ -38,13 +35,12 @@ if ( defined $ENV{DESMAN_ENV} ) {
   $tmpdir =~ s/\/$//;
   $datadir =~ s/\/$//;
 
-  ( $docroot, $install ) = ( "$repodir/php", "$datadir/current" );
+  ( $docroot, $confdir, $install ) = ( "$repodir/php", "$repodir/config","$datadir/current" );
+  $ver_file = "$repodir/VERSION";
+  $wp_config = "$confdir/wp-config.php";
+  $wp_plugins = "$repodir/plugins";
+  $wp_themes = "$repodir/themes";
 }
-
-$ver_file = "$repodir/VERSION";
-$wp_config = "$confdir/wp-config.php";
-$wp_plugins = "$repodir/plugins";
-$wp_themes = "$repodir/themes";
 my $stamp = time;
 my $curl = WWW::Curl::Easy->new;
 my $md5 = Digest::MD5->new;
@@ -62,7 +58,7 @@ if ( -e $ver_file ) {
 if ( not -f "$repodir/.inetu/salt.php" ) {
   print "Writing new SALT... ";
   my $saltf;
-  open($saltf,">","$repodir/.inetu/salt.php") or die "Failed to open salt: $!";
+  open($saltf,">$repodir/.inetu/salt.php");
   print $saltf "<?php\n";
   my $salturl = "https://api.wordpress.org/secret-key/1.1/salt/";
   $curl->setopt( CURLOPT_URL, $salturl );
@@ -141,7 +137,7 @@ if ( -d "$confdir/w3tc-config" ) {
   print "Done\n";
 }
 
-if ( -d $install and not defined $ENV{DESMAN_CONTAINERIZER} ) {
+if ( -d $install ) {
     print "Removing installdir [$install] now... ";
     `/bin/rm -rf $install`;
     `rm -rf $datadir/{plugins,themes}`;
@@ -154,13 +150,10 @@ print "Done\nCopying WordPress themes from repository... ";
 `/usr/bin/rsync -az $wp_themes/ $build/wp-content/themes/ 2>/dev/null`;
 print "Done\n";
 
-if ( not -d $install ) {
-  print "Creating install directory [$install] now... ";
-  mkdir $install;
-  print "Done\n";
-}
-print "Copying build files to installdir now... ";
-qx|/usr/bin/rsync -av --delete --force $build/ $install/ 2>/dev/null|;
+print "Creating install directory [$install] now... ";
+mkdir $install;
+print "Done\nCopying build files to installdir now... ";
+`/usr/bin/rsync -avz --delete --force $build/ $install/ 2>/dev/null`;
 print "Done\n";
 
 print "Checking for additional apache configuration directives... ";
@@ -171,33 +164,19 @@ mkdir $datadir if not -d $datadir ;
 mkdir "$datadir/uploads" if not -d "$datadir/uploads";
 mkdir "$datadir/blogs.dir" if not -d "$datadir/blogs.dir";
 
-symlink $install, $docroot if not defined $ENV{DESMAN_CONTAINERIZER};
+symlink $install, $docroot;
 symlink "$datadir/blogs.dir", "$docroot/wp-content/blogs.dir";
 symlink "$datadir/plugins", "$docroot/wp-content/plugins";
 symlink "$datadir/themes", "$docroot/wp-content/themes";
 symlink "$datadir/uploads", $uploads;
-qx|rm -rf $build 2>/dev/null|;
-if ( not defined $ENV{DESMAN_CONTAINERIZER} or $ENV{DESMAN_CONTAINERIZER} ne "docker" ) {
-  # Fix up permissions in IaaS
-  if ( defined $ENV{DESMAN_ENV} ) {
-    # set group to nfsnobody in stage and prod
-    my $group = 'nfsnobody';
-    my $dperm = '2755';
-    my $fperm = '0644';
-    if ( $ENV{DESMAN_ENV} eq 'devel' ) {
-      $group = qx|basename `dirname $basedir`|;
-      $dperm = '2775';
-      $fperm = '0664';
-    } 
-    chomp($group);
-    qx|chown -R nfsnobody:nfsnobody $docroot|;
-    qx|chown -R apache:$group $datadir|;
-    qx|find $datadir/uploads -type f -exec chmod $fperm {} \\;|;
-    qx|find $datadir/uploads -type d -exec chmod $dperm {} \\;|;
-    qx|chown apache:nfsnobody $docroot/wp-content/cache $docroot/wp-content/w3tc-config| if -d "$docroot/wp-content/w3tc-config";
-    qx|chmod 755 $docroot/wp-content/cache $docroot/wp-content/w3tc-config| if -d "$docroot/wp-content/w3tc-config";
-  }
-} else {
-  # do docker things
-  print "INSTALL: $install\nDOCROOT: $docroot\nDATADIR: $datadir\n";
+`rm -rf $build 2>/dev/null`;
+
+# Fix up permissions in IaaS
+if ( defined $ENV{DESMAN_ENV} ) {
+  `chown -R nfsnobody:nfsnobody $docroot`;
+  `chown -R apache:nfsnobody  $datadir`;
+  `find $datadir/uploads -type f -exec chmod 0644 {} \\;`;
+  `find $datadir/uploads -type d -exec chmod 2755 {} \\;`;
+  `chown apache:nfsnobody $docroot/wp-content/cache $docroot/wp-content/w3tc-config` if -d "$docroot/wp-content/w3tc-config";
+  `chmod 755 $docroot/wp-content/cache $docroot/wp-content/w3tc-config` if -d "$docroot/wp-content/w3tc-config";
 }
