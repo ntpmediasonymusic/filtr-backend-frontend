@@ -8,8 +8,8 @@ RUN apt-get update && \
     apt-get install -qq -y rsync libwww-curl-perl
 ADD . /var/www/repo
 
-RUN /var/www/repo/.desman/deploy
-WORKDIR /var/www/html
-
-# these will be removed in final image
+RUN /var/www/repo/.desman/deploy && \
+    cp /var/www/repo/config/nginx.conf /etc/nginx/conf.d/default.conf && \
+    cp /var/www/repo/config/w3tc-nginx.conf /etc/nginx/w3tc
+WORKDIR /var/www
 CMD ["/var/www/repo/.desman/start"]
