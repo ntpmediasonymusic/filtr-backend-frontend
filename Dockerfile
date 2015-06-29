@@ -3,13 +3,13 @@ FROM inetu/nginx-fpm:5.5
 MAINTAINER John Fanjoy <jfanjoy@inetu.net>
 
 ENV DESMAN_CONTAINERIZER docker
-RUN apt-get install -qq -y rsync libwww-curl-perl
+
+RUN apt-get update && \
+    apt-get install -qq -y rsync libwww-curl-perl
 ADD . /var/www/repo
 
-RUN /var/www/repo/.desman/deploy
-WORKDIR /var/www/html
-
-# these will be removed in final image
-ENV DESMAN_ENV devel
-
+RUN /var/www/repo/.desman/deploy && \
+    cp /var/www/repo/config/nginx.conf /etc/nginx/conf.d/default.conf && \
+    cp /var/www/repo/config/w3tc-nginx.conf /etc/nginx/w3tc
+WORKDIR /var/www
 CMD ["/var/www/repo/.desman/start"]
