@@ -154,7 +154,7 @@ if ( (getenv("OPENSHIFT_DEPLOYMENT_BRANCH") ?: getenv("DESMAN_ENV")) == "devel" 
 define('WP_HOME',"http://".$_SERVER['HTTP_HOST']);
 define('WP_SITEURL',WP_HOME);
 /** Tell WordPress where the plugins directory really is */
-if ( !defined('WP_CONTENT_DIR') ) define('WP_CONTENT_DIR',ABSPATH."/wp-content");
+if ( !defined('WP_CONTENT_DIR') ) define('WP_CONTENT_DIR',ABSPATH."wp-content");
 if ( !defined('UPLOADS') ) define('UPLOADS',basename(WP_CONTENT_DIR).'/uploads');
 if ( !defined('WP_PLUGIN_DIR') && is_link(WP_CONTENT_DIR . '/plugins') ) define('WP_PLUGIN_DIR', realpath(WP_CONTENT_DIR . '/plugins'));
 /** Enable W3 Total Cache */
