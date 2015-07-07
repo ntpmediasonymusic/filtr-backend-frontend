@@ -26,6 +26,15 @@ class wordfenceHash {
 	private $only = false;
 	private $totalForks = 0;
 
+	/**
+	 * @param string $striplen
+	 * @param string $path
+	 * @param array $only
+	 * @param array $themes
+	 * @param array $plugins
+	 * @param wfScanEngine $engine
+	 * @throws Exception
+	 */
 	public function __construct($striplen, $path, $only, $themes, $plugins, $engine){
 		$this->striplen = $striplen;
 		$this->path = $path;
@@ -206,10 +215,10 @@ class wordfenceHash {
 			wordfence::status(4, 'info', "Skipping file larger than max size: $realFile");
 			return;
 		}
-		if(function_exists('memory_get_usage')){
-                       wordfence::status(4, 'info', "Scanning: $realFile (Mem:" . sprintf('%.1f', memory_get_usage(true) / (1024 * 1024)) . "M)");
+		if (function_exists('memory_get_usage')) {
+			wordfence::status(4, 'info', "Scanning: $realFile (Mem:" . sprintf('%.1f', memory_get_usage(true) / (1024 * 1024)) . "M)");
 		} else {
-                       wordfence::status(4, 'info', "Scanning: $realFile");
+			wordfence::status(4, 'info', "Scanning: $realFile");
 		}
 		$wfHash = self::wfHash($realFile); 
 		if($wfHash){
