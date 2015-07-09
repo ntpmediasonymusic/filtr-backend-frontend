@@ -144,4 +144,4 @@ symlink "$datadir/uploads", $uploads;
 
 qx|rm -rf $build 2>/dev/null|;
 
-qx|chown www-data. -vR $docroot/wp-content/{cache,w3tc-config}/ |;
+qx|chown www-data. -vR $docroot/wp-content/cache/ $docroot/wp-content/w3tc-config/ $datadir/uploads |;
