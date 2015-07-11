@@ -30,11 +30,13 @@ function dsman_activate() {
                 $access_key = getenv("DESMAN_OBS_KEY_ID");
                 $secret = getenv("DESMAN_OBS_KEY_SECRET");
                 $baseurl = getenv("DESMAN_OBS_BASE_URL");
+		$ext_endpoint = getenv("DESMAN_OBS_EXT_URL") ?: $baseurl;
                 # this could fail IF the domain name is longer than 32 characters because the bucket would be longer than app_name
                 update_option( sprintf('dsman_%s', getenv('OPENSHIFT_DEPLOYMENT_BRANCH') ?: getenv('DESMAN_ENV')), array(
                         'id' => $access_key,
                         'secret' => $secret,
                         'endpoint' => $baseurl,
+                        'ext-endpoint' => $ext_endpoint,
                         'bucket' => getenv("OPENSHIFT_APP_NAME") . "-". getenv("OPENSHIFT_NAMESPACE"),
                         'options' => intval(
                                 StorageConnector::OPTION_WP_UPLOADS | 
