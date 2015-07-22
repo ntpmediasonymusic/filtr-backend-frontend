@@ -140,6 +140,7 @@ mkdir "$datadir/blogs.dir" if not -d "$datadir/blogs.dir";
 symlink "$datadir/blogs.dir", "$docroot/wp-content/blogs.dir";
 symlink "$plugins", "$docroot/wp-content/plugins";
 symlink "$themes", "$docroot/wp-content/themes";
+symlink "$repodir/languages", "$docroot/wp-content/languages" if -d "$repodir/languages";
 symlink "$datadir/uploads", $uploads;
 
 qx|rm -rf $build 2>/dev/null|;
