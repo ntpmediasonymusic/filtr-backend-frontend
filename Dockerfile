@@ -1,4 +1,4 @@
-FROM registry.smehost.net:5000/inetu/nginx-fpm:5.5
+FROM registry.ccs.inetu.org:5000/inetu/nginx-fpm:5.5
 
 MAINTAINER John Fanjoy <jfanjoy@inetu.net>
 
