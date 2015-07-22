@@ -168,6 +168,7 @@ symlink $install, $docroot;
 symlink "$datadir/blogs.dir", "$docroot/wp-content/blogs.dir";
 symlink "$datadir/plugins", "$docroot/wp-content/plugins";
 symlink "$datadir/themes", "$docroot/wp-content/themes";
+symlink "$repodir/languages", "$docroot/wp-content/languages" if -d "$repodir/languages";
 symlink "$datadir/uploads", $uploads;
 `rm -rf $build 2>/dev/null`;
 
