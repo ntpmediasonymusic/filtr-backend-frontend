@@ -1,3 +1,8 @@
 #!/usr/bin/env bash
-
-nginx && php-fpm
+if [ $DESMAN_ENV = 'devel' ]
+then 
+        export FPM_OPTS='-d display_errors=on'
+else
+        export FPM_OPTS='-d display_errors=off'
+fi
+nginx && php-fpm $FPM_OPTS
