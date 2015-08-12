@@ -143,7 +143,7 @@ if ( -d $install ) {
     `rm -rf $datadir/{plugins,themes}`;
     print "Done\n";
 } 
-
+qx|rm -rf $build/wp-content/plugins/akismet|;
 print "Copying WordPress plugins from repository... ";
 `/usr/bin/rsync -az $wp_plugins/ $build/wp-content/plugins/ 2>/dev/null`;
 print "Done\nCopying WordPress themes from repository... ";
