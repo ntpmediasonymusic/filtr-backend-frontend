@@ -122,7 +122,7 @@ if ( -d "$confdir/w3tc-config" ) {
   mkdir "$build/wp-content/cache" if not -d "$build/wp-content/cache";
   print "Done\n";
 }
-
+qx|rm -rf $build/wp-content/plugins/akismet|;
 print "Copying WordPress plugins from repository... ";
 `/usr/bin/rsync -r $plugins/ $build/wp-content/plugins/ 2>/dev/null`;
 print "Done\nCopying WordPress themes from repository... ";
