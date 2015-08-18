@@ -149,7 +149,7 @@ print "Copying WordPress plugins from repository... ";
 print "Done\nCopying WordPress themes from repository... ";
 `/usr/bin/rsync -az $wp_themes/ $build/wp-content/themes/ 2>/dev/null`;
 print "Done\n";
-
+qx|cp $repodir/health.php $build/health.php|;
 print "Creating install directory [$install] now... ";
 mkdir $install;
 print "Done\nCopying build files to installdir now... ";
