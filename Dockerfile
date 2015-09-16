@@ -10,9 +10,7 @@ ADD . /var/www/repo
 
 RUN /var/www/repo/.desman/deploy && \
     cp /var/www/repo/config/nginx.conf /etc/nginx/conf.d/main.conf && \
-    cp /var/www/repo/config/w3tc-nginx.conf /etc/nginx/w3tc && \
-    echo "fastcgi_param  SCRIPT_FILENAME  \$document_root\$fastcgi_script_name;" | tee /etc/nginx/fastcgi.d/script_filename && \
-    echo "fastcgi_param HTTPS \$fe_https if_not_empty;" | tee /etc/nginx/fastcgi.d/https
+    cp /var/www/repo/config/w3tc-nginx.conf /etc/nginx/w3tc
 
 EXPOSE 80
 
