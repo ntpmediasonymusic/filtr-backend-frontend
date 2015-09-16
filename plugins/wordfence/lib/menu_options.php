@@ -782,7 +782,7 @@ $w = new wfConfig();
 					           name="loginSec_blockAdminReg" <?php $w->cb( 'loginSec_blockAdminReg' ); ?> /></td>
 				</tr>
 				<tr>
-					<th>Prevent discovery of usernames through '?/author=N' scans<a
+					<th>Prevent discovery of usernames through '/?author=N' scans<a
 							href="http://docs.wordfence.com/en/Wordfence_options#Prevent_discovery_of_usernames_through_.27.3F.2Fauthor.3DN.27_scans"
 							target="_blank" class="wfhelp"></a></th>
 					<td><input type="checkbox" id="loginSec_disableAuthorScan" class="wfConfigElem"
@@ -834,6 +834,16 @@ $w = new wfConfig();
 						them.<br/>
 						All URL's must start with a '/' without quotes and must be relative. e.g. /badURLone/,
 						/bannedPage.html, /dont-access/this/URL/
+						<br/><br/></th>
+				</tr>
+
+				<tr>
+					<th style="vertical-align: top;">Whitelisted 404 URLs (one per line). </th>
+					<td><textarea name="allowed404s" id="" cols="40" rows="4"><?php echo $w->getHTML( 'allowed404s' ); ?></textarea></td>
+				</tr>
+				<tr>
+					<th colspan="2" style="color: #999;">These URL patterns will be excluded from
+						the throttling rules used to limit crawlers.
 						<br/><br/></th>
 				</tr>
 
