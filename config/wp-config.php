@@ -25,7 +25,8 @@ if ( getenv('DESMAN_ENV') ) {
     define('DB_NAME',getenv('DESMAN_DB_ENV_MYSQL_DATABASE') );
     define('DB_USER',getenv('DESMAN_DB_ENV_MYSQL_USER') );
     define('DB_PASSWORD',getenv('DESMAN_DB_ENV_MYSQL_PASSWORD') );
-    define('DB_HOST',getenv('DESMAN_DB_PORT_3306_TCP_ADDR') );
+    define("DB_PORT" , getenv("DESMAN_DB_PORT_3306_TCP_PORT") ?: 3306 );
+    define('DB_HOST',getenv('DESMAN_DB_PORT_3306_TCP_ADDR') . ":" . DB_PORT );
   } else {
     require_once(sprintf("%s/.dbc.php",dirname($_SERVER['DOCUMENT_ROOT'])));
     require_once(sprintf("%s/repo/.inetu/salt.php",dirname($_SERVER['DOCUMENT_ROOT'])));
@@ -41,7 +42,7 @@ if ( getenv('DESMAN_ENV') ) {
   /** MySQL database password */
   define('DB_PASSWORD', getenv('DESMAN_MYSQL_DB_PASSWORD'));
 
-  /** MySQL hostname */
+  /** MySQL hostname within Openshift. */
   define('DB_HOST', getenv('DESMAN_MYSQL_DB_HOST') . ':' . getenv('DESMAN_MYSQL_DB_PORT'));
 
   /**#@+
