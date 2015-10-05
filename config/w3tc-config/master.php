@@ -27,7 +27,7 @@ default:
     break;
 endswitch;
 
-$memcached_servers = getenv('DESMAN_MEMCACHE_SERVERS') ? explode(',',getenv('DESMAN_MEMCACHE_SERVERS')) : $memcached_servers);
+$memcached_servers = getenv('DESMAN_MEMCACHE_SERVERS') ? explode(',',getenv('DESMAN_MEMCACHE_SERVERS')) : $memcached_servers;
 
 return array(
 	'version' => '0.9.4.1',
