@@ -9,12 +9,13 @@
   <div class="dsman-content dsman-settings">
     <?php if ( $this->are_key_constants_set() ) : ?>
       <?php
-      $access_key = $this->get_option('id');
-      $access_sec = $this->get_option('secret');
+      $access_key = $this->key_id;
+      $access_sec = $this->secret_key;
       $dbuser = getenv("DESMAN_DB_ENV_MYSQL_DB_USER");
       $dbpass = getenv("DESMAN_DB_ENV_MYSQL_DB_PASSWORD");
-      $dbname = getenv("DESMAN_MYSQL_DATABASE");
-      $dbhost = getenv("DESMAN_DB_PORT_3306_TCP_ADDR").":".getenv("DESMAN_DB_PORT_3306_TCP_PORT");
+      $dbname = getenv("DESMAN_DB_ENV_MYSQL_DATABASE");
+      $dbport = getenv("DESMAN_DB_PORT_3306_TCP_PORT") ?: 3306; # add a fallback for the port
+      $dbhost = getenv("DESMAN_DB_PORT_3306_TCP_ADDR").":$dbport";
       $domain = WP_SITEURL;
       endif;
   # we only want to display this information for devel and stage
@@ -44,9 +45,9 @@
       <label for="s3_host"><strong><?php _e( 'S3 Base URL:', 'desman-connector' ); ?></strong>
         <input type="text" name="s3_host" value="<?php echo S3_BASE_URL; ?>" size="50" disabled="disabled" />
       </label><br /><label for "access_key_id"><strong><?php _e( 'Access Key ID:', 'desman-connector' ); ?></strong>
-      <input type="text" name="access_key_id" value="<?php echo $this->get_option("id"); ?>" size="50" disabled="disabled" />
+      <input type="text" name="access_key_id" value="<?php echo $this->key_id; ?>" size="50" disabled="disabled" />
     </label><br /><label for="secret_access_key"><strong><?php _e( 'Secret Access Key:', 'desman-connector' ); ?></strong>
-    <input type="text" name="secret_access_key" value="<?php echo $this->get_option("secret") ?: 'Not defined'; ?>" size="50" disabled="disabled" />
+    <input type="text" name="secret_access_key" value="<?php echo $this->secret_key ?: 'Not defined'; ?>" size="50" disabled="disabled" />
   </label>
 </div>
 </form>
@@ -83,7 +84,7 @@ endif;
           <select name="bucket" class="bucket">
             <option>-- <?php _e( 'Select an S3 Bucket', 'dsman' ); ?> --</option>
             <?php if ( is_array( $buckets ) ) foreach ( $buckets as $bucket ): ?>
-              <option value="<?php echo esc_attr( $bucket['Name'] ); ?>" <?php if ( $bucket['Name'] == $this->get_option( 'bucket' ) ) echo 'selected="selected"'; ?> ><?php echo esc_html( $bucket['Name'] ); ?> </option>
+              <option value="<?php echo esc_attr( $bucket['Name'] ); ?>" <?php if ( $bucket['Name'] == $this->default_bucket ) echo 'selected="selected"'; ?> ><?php echo esc_html( $bucket['Name'] ); ?> </option>
             <?php endforeach;?>
             <option value="new"><?php _e( 'Create a new bucket...', 'dsman' ); ?></option>
           </select><br />
@@ -106,7 +107,7 @@ endif;
           <h3><?php _e( 'Public (web) access settings', 'dsman' ); ?></h3>
 
           <label><?php _e( 'Domain Name', 'dsman' ); ?></label><br />
-          <?php $cfurl = esc_attr( $this->get_option('cloudfront') ) ?: esc_attr( $this->get_option('bucket') ) .".". parse_url(S3_BASE_URL,PHP_URL_HOST); ?>
+          <?php $cfurl = esc_attr( $this->get_option('cloudfront') ) ?: esc_attr( $this->default_bucket ) .".". parse_url(S3_BASE_URL,PHP_URL_HOST); ?>
           <input type="text" name="bucket-url" value="<?php echo $cfurl; ?>" size="50" disabled="disabled" />
           <br />
 
