@@ -11,10 +11,10 @@
 	<?php
                 $access_key = $this->get_option('id');
                 $access_sec = $this->get_option('secret');
-                $dbuser = getenv("DESMAN_MYSQL_DB_USERNAME");
-                $dbpass = getenv("DESMAN_MYSQL_DB_PASSWORD");
-                $dbname = getenv("DESMAN_MYSQL_DB_NAME");
-                $dbhost = getenv("DESMAN_MYSQL_DB_HOST");
+                $dbuser = getenv("DESMAN_DB_ENV_MYSQL_DB_USER");
+                $dbpass = getenv("DESMAN_DB_ENV_MYSQL_DB_PASSWORD");
+                $dbname = getenv("DESMAN_MYSQL_DATABASE");
+                $dbhost = getenv("DESMAN_DB_PORT_3306_TCP_ADDR").":".getenv("DESMAN_DB_PORT_3306_TCP_PORT");
                 $domain = WP_SITEURL;
 	endif;
 	# we only want to display this information for devel and stage

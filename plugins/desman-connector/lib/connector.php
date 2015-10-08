@@ -16,14 +16,24 @@ class StorageConnector {
 	protected $plugin_file_path, $plugin_dir_path, $plugin_slug, $plugin_basename, $plugin_title, $plugin_menu_title, $Aws, $s3Client;
 	private $options;
 	public $default_prefix;
+	public $key_id;
+	public $secret_key;
+	public $default_bucket;
+	public $endpoint;
+	public $public;
 
-  public function __construct( $plugin_file_path, $optgroup ) {
-    $this->optgroup = $optgroup;
+  	public function __construct( $plugin_file_path, $optgroup ) {
+	    $this->optgroup = $optgroup;
 		$this->plugin_file_path = $plugin_file_path;
 		$this->plugin_dir_path = rtrim( plugin_dir_path( $plugin_file_path ), '/' );
 		$this->plugin_slug = basename( $this->plugin_dir_path );
 		$this->plugin_basename = plugin_basename( $plugin_file_path );
 		$this->default_prefix = UPLOADS;
+		$this->key_id = getenv("DESMAN_OBS_KEY_ID");
+		$this->secret_key = getenv("DESMAN_OBS_KEY_SECRET");
+		$this->default_bucket = getenv("DESMAN_OBS_BUCKET");
+		$this->endpoint = getenv("DESMAN_OBS_BASE_URL");
+		$this->public = getenv("DESMAN_OBS_EXT_URL") ?: $this->endpoint;
 		do_action( 'dsman_init', $this );
 		if ( is_admin() ) do_action( 'dsman_admin_init', $this );
 		if ( is_multisite() ) {
@@ -247,9 +257,9 @@ class StorageConnector {
 	public function getClient() {
 		if ( is_null($this->s3Client ) ) {
 			$opts = array(
-				'key' => $this->get_option('id'),
-				'secret' => $this->get_option('secret'),
-				'base_url' => $this->get_option('endpoint')
+				'key' => $this->key_id,
+				'secret' => $this->secret_key,
+				'base_url' => $this->endpoint
 			);
 			$this->Aws = Aws::factory($opts);
 			$this->s3Client = $this->Aws->get('s3');
@@ -301,6 +311,9 @@ class StorageConnector {
 			foreach ( $objects as $obj ) {
 				# we don't really care about logging errors for hidpi images
 				try { 
+					# if we use default_bucket here we will no longer be able to
+					# allow users to create buckets. This is not something many users
+					# do currently, but it could be useful in the future
 					$this->getClient()->deleteObject( array(
 						'Key' => $this->get_hidpi_file_path( $obj['Key'] ),
 						'Bucket' => $this->get_option('bucket')
