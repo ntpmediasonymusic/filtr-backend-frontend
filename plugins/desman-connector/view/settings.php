@@ -11,8 +11,8 @@
       <?php
       $access_key = $this->key_id;
       $access_sec = $this->secret_key;
-      $dbuser = getenv("DESMAN_DB_ENV_MYSQL_DB_USER");
-      $dbpass = getenv("DESMAN_DB_ENV_MYSQL_DB_PASSWORD");
+      $dbuser = getenv("DESMAN_DB_ENV_MYSQL_USER");
+      $dbpass = getenv("DESMAN_DB_ENV_MYSQL_PASSWORD");
       $dbname = getenv("DESMAN_DB_ENV_MYSQL_DATABASE");
       $dbport = getenv("DESMAN_DB_PORT_3306_TCP_PORT") ?: 3306; # add a fallback for the port
       $dbhost = getenv("DESMAN_DB_PORT_3306_TCP_ADDR").":$dbport";
