@@ -19,34 +19,34 @@ add_action( 'init','dsman_init' );
 
 # I believe this is run with each request. Keep this light to reduce impact on performance
 function dsman_init () {
-        global $dsman; # $dsman = new StorageConnector(__FILE__);
-        $dsman = new StorageConnector( __FILE__, sprintf('dsman_%s', getenv('OPENSHIFT_DEPLOYMENT_BRANCH') ?: getenv('DESMAN_ENV')) );
-        return $dsman;
-      }
+  global $dsman; # $dsman = new StorageConnector(__FILE__);
+  $dsman = new StorageConnector( __FILE__, "dsman" );
+  return $dsman;
+}
 
 # options get stored as a serialized array in wp_options under the optgroup_key defined in the storage connector class
-      function dsman_activate() {
-        if ( envars_defined() ) {
-          try {
-            $connector = new StorageConnector(__FILE__, sprintf('dsman_%s', getenv('OPENSHIFT_DEPLOYMENT_BRANCH') ?: getenv('DESMAN_ENV')));
-                        # this could fail IF the domain name is longer than 32 characters because the bucket would be longer than app_name
-            update_option( sprintf('dsman_%s', getenv('OPENSHIFT_DEPLOYMENT_BRANCH') ?: getenv('DESMAN_ENV')), array(
-              'options' => intval(
-                StorageConnector::OPTION_WP_UPLOADS | 
-                StorageConnector::OPTION_COPY_TO_S3 | 
-                StorageConnector::OPTION_SERVE_FROM_S3 | 
-                StorageConnector::OPTION_REMOVE_LOCALS | 
-                StorageConnector::OPTION_VERSIONING |
-                StorageConnector::OPTION_EXPIRATION_HEADER
-                ),
-              'prefix' => UPLOADS
-              ));
-          } catch ( Exception $e ) { wp_die($e->getMessage()); }
-        } elseif (get_option(sprintf('dsman_%s', getenv('DESMAN_ENV')), False)){
-                # Correct options table entry exists.
-        } else {
-          wp_die(__("Required Environment Variables are not defined!"));
-        }
-      }
+function dsman_activate() {
+  if ( envars_defined() ) {
+    try {
+      $connector = new StorageConnector(__FILE__, "dsman");
+                  # this could fail IF the domain name is longer than 32 characters because the bucket would be longer than app_name
+      update_option( "dsman", array(
+        'options' => intval(
+          StorageConnector::OPTION_WP_UPLOADS | 
+          StorageConnector::OPTION_COPY_TO_S3 | 
+          StorageConnector::OPTION_SERVE_FROM_S3 | 
+          StorageConnector::OPTION_REMOVE_LOCALS | 
+          StorageConnector::OPTION_VERSIONING |
+          StorageConnector::OPTION_EXPIRATION_HEADER
+          ),
+        'prefix' => UPLOADS
+        ));
+    } catch ( Exception $e ) { wp_die($e->getMessage()); }
+  } elseif (get_option( "dsman" , False)){
+          # Correct options table entry exists.
+  } else {
+    wp_die(__("Required Environment Variables are not defined!"));
+  }
+}
 
-      function envars_defined() { return (bool) getenv("DESMAN_OBS_BASE_URL"); }
+function envars_defined() { return (bool) getenv("DESMAN_OBS_BASE_URL"); }
