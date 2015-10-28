@@ -2,7 +2,6 @@
 defined ( 'ABSPATH' ) or die (__("No Script Kiddies Please"));
 use Aws\Common\Aws;
 use Aws\S3\S3Client;
-
 class StorageConnector {
   const OPTION_WP_UPLOADS = 1;
   const OPTION_COPY_TO_S3 = 2;
@@ -12,25 +11,48 @@ class StorageConnector {
   const OPTION_FORCE_SSL = 32;
   const OPTION_EXPIRATION_HEADER = 64;
   const OPTION_HIDPI = 128;
-
   protected $plugin_file_path, $plugin_dir_path, $plugin_slug, $plugin_basename, $plugin_title, $plugin_menu_title, $Aws, $s3Client;
   private $options;
   public $default_prefix;
   public $id, $secret_key, $bucket, $endpoint, $ext_endpoint;
 
   public function __construct( $plugin_file_path, $optgroup ) {
+    $this->default_options = array('wp-uploads' => True, 'copy-to-s3' => True, 'serve-from-s3' => True, 'remove-local-file' => True, 'versioning' => False, 'force-ssl' => False, 'expiration-header' => True, 'hidpi' => False);
     $this->optgroup = $optgroup;
     $this->plugin_file_path = $plugin_file_path;
     $this->plugin_dir_path = rtrim( plugin_dir_path( $plugin_file_path ), '/' );
     $this->plugin_slug = basename( $this->plugin_dir_path );
     $this->plugin_basename = plugin_basename( $plugin_file_path );
     $this->default_prefix = UPLOADS;
+    $this->prefix = UPLOADS;
+    $this->error = False;
     $this->id = getenv("DESMAN_OBS_KEY_ID");
+    $this->env = getenv('DESMAN_ENV');
     $this->secret_key = getenv("DESMAN_OBS_KEY_SECRET");
     $this->bucket = getenv("DESMAN_OBS_BUCKET");
     $this->endpoint = getenv("DESMAN_OBS_BASE_URL");
     $this->ext_endpoint = getenv("DESMAN_OBS_EXT_URL") ?: $this->endpoint;
-    do_action( 'dsman_init', $this );
+    if (!$this->id) {
+        if (!$this->env) {
+            # We don't have the variables we need
+            $this->error = 'Missing settings - env';
+        } else {
+            $options = get_option(sprintf('dsman_%s', $this->env));
+            if (!$options) {
+                # We don't have the variables we need
+                $this->error = 'Missing settings - opt';
+            } else {
+                # Set from DB
+                $this->id = $options['id'];
+                $this->secret_key = $options['secret'];
+                $this->bucket = $options['bucket'];
+                $this->endpoint = $options['endpoint'];
+                $this->ext_endpoint = $options['ext-endpoint'] ?: $this->endpoint;
+            }
+        }
+    }
+    $this->general_options = get_option('desman_options', $this->default_options);
+#    do_action( 'dsman_init', $this );
     if ( is_admin() ) do_action( 'dsman_admin_init', $this );
     if ( is_multisite() ) {
       add_action( 'network_admin_menu', array( $this, 'admin_menu' ) );
@@ -55,9 +77,6 @@ class StorageConnector {
     return ( !isset( $plugins[$this->plugin_basename]['Version'] ) ) ? $plugins[$this->plugin_basename]['Version'] : false;
   }
 
-  public function are_key_constants_set() {
-    return defined( 'DESMAN_OBS_KEY_ID' ) && defined( 'DESMAN_OBS_KEY_SECRET' );
-  }
   /**
    * These functions relate to the admin screens and updating settings
    *
@@ -260,8 +279,8 @@ class StorageConnector {
   public function getClient() {
     if ( is_null($this->s3Client ) ) {
       $opts = array(
-        'key' => $this->get_option('id'),
-        'secret' => $this->get_option('secret_key'),
+        'key' => $this->id,
+        'secret' => $this->secret_key,
         'base_url' => $this->endpoint
         );
       $this->Aws = Aws::factory($opts);
@@ -290,7 +309,7 @@ class StorageConnector {
     return true;
   }
   public function delete_attachment( $post_id ) {
-    if ( !$this->are_key_constants_set() ) return;
+    if ( $this->error ) return;
     $backup_sizes = get_post_meta( $post_id , '_wp_attachment_backup_sizes', true);
     $intermediates = array();
     foreach ( get_intermediate_image_sizes() as $size ) {
@@ -319,7 +338,7 @@ class StorageConnector {
           # do currently, but it could be useful in the future
           $this->getClient()->deleteObject( array(
             'Key' => $this->get_hidpi_file_path( $obj['Key'] ),
-            'Bucket' => $this->get_option('bucket')
+            'Bucket' => $this->bucket
             ));
         } catch (Exception $e) {}
 
@@ -327,7 +346,7 @@ class StorageConnector {
         try {
           $this->getClient()->deleteObject( array(
             'Key' => $obj['Key'],
-            'Bucket' => $this->get_option('bucket')
+            'Bucket' => $this->bucket
             ));
         } catch ( Exception $e ) {
           # trigger_error( 'Error removing files from S3: ' . $e->getMessage() );
@@ -350,7 +369,7 @@ class StorageConnector {
     $sql = "INSERT INTO $wpdb->postmeta ( post_id , meta_key, meta_value ) VALUES ( %d, 'amazonS3_info', %s);";
     try {
       $target = UPLOADS . "/$attachment->meta_value";
-      $meta_value = serialize(array('bucket' => $this->get_option('bucket'), 'key' => $target));
+      $meta_value = serialize(array('bucket' => $this->bucket, 'key' => $target));
       return (int) $wpdb->query($wpdb->prepare($sql,$attachment->id, $meta_value));
     } catch( Exception $e ) {
       trigger_error($e->getMessage());
@@ -386,20 +405,20 @@ class StorageConnector {
   }
 
   public function get_attachment_url( $post_id, $expires = null ) {
-    $host = parse_url($this->get_option('ext-endpoint'),PHP_URL_HOST);
-    if ( !$this->get_option('serve-from-s3') || !( $s3 = $this->get_info($post_id) ) ) return false;
+    $host = parse_url($this->ext_endpoint,PHP_URL_HOST);
+    if ( !$this->general_options['serve-from-s3'] || !( $s3 = $this->get_info($post_id) ) ) return false;
     $bucket = ""; 
     $scheme = "http";
     $key = $s3['key'];
-    if ( is_ssl() || $this->get_option('force-ssl') ) {
+    if ( is_ssl() || $this->general_options['force-ssl'] ) {
       $scheme .= "s";
     }
-    $bucket = "$host/".$this->get_option('bucket');
+    $bucket = "$host/".$this->bucket;
     $url = "$scheme://$bucket/$key";
     if ( !is_null ($expires) ) {
       try {
         $expires = time() + $expires;
-        $secure_url = $this->getClient()->getObjectUrl( $this->get_option('bucket'),$s3['key'],$expires );
+        $secure_url = $this->getClient()->getObjectUrl( $this->bucket,$s3['key'],$expires );
         $url .= substr( $secure_url , $strpos( $secure_url,'?') );
       } catch ( Exception $e ) {
         return new WP_Error('exception' , $e->getMessage());
@@ -408,12 +427,12 @@ class StorageConnector {
     return apply_filters( 'dsman_get_attachment_url', $url, $s3, $post_id, $expires );
   }
   public function gen_metadata( $data, $post_id ) {
-    if ( !$this->get_option('copy-to-s3') ) return $data;
+    if ( !$this->general_options['copy-to-s3'] ) return $data;
     $time = $this->get_folder_time( $post_id );
     $time = date('Y/m',$time );
-    $prefix = ltrim( trailingslashit( $this->get_option( 'prefix' ) ), '/' );
+    $prefix = ltrim( trailingslashit( $this->prefix ), '/' );
     $prefix .= ltrim( trailingslashit( $this->get_dynamic_prefix( $time ) ),'/');
-    if ( $this->get_option('object-versioning') ) $prefix .= $this->get_version_string( $post_id );
+    if ( $this->general_options['object-versioning'] ) $prefix .= $this->get_version_string( $post_id );
     $type = get_post_mime_type( $post_id );
       # exit(json_encode(array("response" => "Here we go!",'prefix' => $prefix,'data' => $data, 'post' => $post_id)));
     $file_path = get_attached_file( $post_id, true );
@@ -424,19 +443,18 @@ class StorageConnector {
       $file_name = basename ( $file_path ) ;
       $remove = array( $file_path );
       $client = $this->getClient();
-      $bucket = $this->get_option('bucket');
       $args = array(
-        'Bucket' => $bucket,
+        'Bucket' => $this->bucket,
         'Key' => $prefix. $file_name,
         'SourceFile' => $file_path,
         'ACL' => $acl
         );
-      if ( $this->get_option( 'expires' ) ) $args['Expires'] = date( 'D, d M Y H:i:s 0', tiem()+315360000);
+      if ( $this->get_option( 'expires' ) ) $args['Expires'] = date( 'D, d M Y H:i:s 0', time()+315360000);
       try {
         $success = $client->putObject($args);
         delete_post_meta( $post_id , 'amazonS3_info' );
         add_post_meta( $post_id , 'amazonS3_info', array(
-          'bucket' => $bucket,
+          'bucket' => $this->bucket,
           'key' => $prefix.$file_name
           ));
       } catch( Exception $e ) {
@@ -460,7 +478,7 @@ class StorageConnector {
           $remove[] = $path;
         }
       }
-      if ( $this->get_option('hidpi-images') ) {
+      if ( $this->general_options['hidpi-images']) {
         $images = array();
         foreach( $additional as $image ) {
           $hidpi_path = $this->get_hidpi_file_path( $image['SourceFile'] );
@@ -482,7 +500,7 @@ class StorageConnector {
           trigger_error( "Error Uploading ". $args["SourceFile"]. " to S3: " . $e->getMessage() );
         }
       }
-      if ( $this->get_option('remove-local-file') ) $this->remove_local($remove);
+      if ( $this->general_options['remove-local-file'] ) $this->remove_local($remove);
     }
     return $data;
   }
@@ -512,8 +530,7 @@ class StorageConnector {
   }
 
   private function get_version_string( $post_id ) {
-    if ( get_option('uploads_use_yearmonth_folders') ) $fmt = 'dHis';
-    else $fmt = 'YmdHis';
+    $fmt = 'YmdHis';
     $time = $this->get_folder_time( $post_id );
     $ver = date( $fmt, $time ) . "/";
     return $ver;
