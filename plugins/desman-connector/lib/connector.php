@@ -449,7 +449,7 @@ class StorageConnector {
         'SourceFile' => $file_path,
         'ACL' => $acl
         );
-      if ( $this->get_option( 'expires' ) ) $args['Expires'] = date( 'D, d M Y H:i:s 0', time()+315360000);
+      if ( $this->general_options['expiration-header'] ) $args['Expires'] = date( 'D, d M Y H:i:s 0', time()+315360000);
       try {
         $success = $client->putObject($args);
         delete_post_meta( $post_id , 'amazonS3_info' );
