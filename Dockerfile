@@ -10,7 +10,8 @@ ADD . /var/www/repo
 
 RUN /var/www/repo/.desman/deploy && \
     cp /var/www/repo/config/nginx.conf /etc/nginx/conf.d/main.conf && \
-    cp /var/www/repo/config/w3tc-nginx.conf /etc/nginx/w3tc
+    cp /var/www/repo/config/w3tc-nginx.conf /etc/nginx/w3tc && \
+    find /var/www/repo/cron.d/ -type f -and ! -name README.md -exec chmod 2755 {} \;
 
 EXPOSE 80
 
