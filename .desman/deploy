@@ -36,7 +36,7 @@ if ( -e $ver_file ) {
     $wp_version = <WP_VERSION>;
     close(WP_VERSION);
 } else {
-    $wp_version = "4.2.2";
+    $wp_version = "4.3.1";
 }
 
 chomp($wp_version);
