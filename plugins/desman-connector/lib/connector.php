@@ -69,6 +69,7 @@ class StorageConnector {
     add_filter( 'wp_get_attachment_url' , array( $this, 'wp_get_attachment_url' ) , 9, 2 );
     add_filter( 'wp_generate_attachment_metadata', array( $this, 'gen_metadata'), 20, 2);
     add_filter( 'delete_attachment', array( $this, 'delete_attachment'), 20 );
+    add_filter( 'wp_calculate_image_srcset', array( $this, 'wp_calculate_image_srcset'), 20, 5 );
   }
 
   public function get_installed_version() {
@@ -402,6 +403,15 @@ class StorageConnector {
 
   public function get_info( $post_id ) {
     return get_post_meta($post_id, 'amazonS3_info', true);
+  }
+  public function wp_calculate_image_srcset($sources, $size_array, $image_src, $image_meta, $attachment_id){
+    $main = parse_url($image_src);
+    $source_out = array();
+    foreach($sources as $size => $info){
+      $info['url'] = sprintf('//%s%s/%s', $main['host'], dirname($main['path']), basename(parse_url($info['url'], PHP_URL_PATH)));
+      $source_out[$size] = $info;
+    }
+    return $source_out;
   }
 
   public function get_attachment_url( $post_id, $expires = null ) {
