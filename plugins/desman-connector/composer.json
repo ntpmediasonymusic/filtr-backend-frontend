@@ -1,6 +1,6 @@
 {
  "name": "inetu/desman-connector",
- "version": "2.6",
+ "version": "2.6.1",
  "require" : {
   "aws/aws-sdk-php": "*"
  }

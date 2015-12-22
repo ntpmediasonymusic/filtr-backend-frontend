@@ -19,7 +19,7 @@
       $domain = WP_SITEURL;
       endif;
   # we only want to display this information for devel and stage
-      if ( preg_match("/$baseurl/",$domain ) && preg_match("/(devel|stage)/",$domain) ): ?>
+      if (preg_match("/(devel|stage)/",$domain)): ?>
 
       <div class="form-control">
         <h3>MySQL Credential Information</h3>

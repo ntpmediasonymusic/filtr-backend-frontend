@@ -17,7 +17,7 @@ class StorageConnector {
   public $id, $secret_key, $bucket, $endpoint, $ext_endpoint;
 
   public function __construct( $plugin_file_path, $optgroup ) {
-    $this->default_options = array('wp-uploads' => True, 'copy-to-s3' => True, 'serve-from-s3' => True, 'remove-local-file' => True, 'versioning' => False, 'force-ssl' => False, 'expiration-header' => True, 'hidpi' => False);
+    $this->default_options = array('wp-uploads' => True, 'copy-to-s3' => True, 'serve-from-s3' => True, 'remove-local-file' => True, 'object-versioning' => False, 'force-ssl' => False, 'expiration-header' => True, 'hidpi-images' => False);
     $this->optgroup = $optgroup;
     $this->plugin_file_path = $plugin_file_path;
     $this->plugin_dir_path = rtrim( plugin_dir_path( $plugin_file_path ), '/' );
