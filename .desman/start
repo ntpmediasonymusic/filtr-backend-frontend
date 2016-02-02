@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-if [ $DESMAN_ENV = 'devel' ] ; then
-        export FPM_OPTS='-d display_errors=on'
-else
-        export FPM_OPTS='-d display_errors=off'
-fi
-[ "${DESMAN_SMTP_RELAY}x" != "x" ] && sed -i "s/\(mailhub=\).*/\1${DESMAN_SMTP_RELAY}/;s/\(hostname=\).*/\1smehost.net/" /etc/ssmtp/ssmtp.conf
-nginx && php-fpm $FPM_OPTS
