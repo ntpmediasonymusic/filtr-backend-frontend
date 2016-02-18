@@ -133,10 +133,10 @@ if ( -d "$extradir" ) {
   # incase the devs delete it
   print "Done\nAdding files from the repo extras directory to the docroot... ";
   qx|/bin/rm -f $extradir/README.md $extradir/.gitempty|;
-  qx|/usr/bin/rsync -av --delete --force $extradir/ $docroot/ 2>/dev/null|;
+  qx|/usr/bin/rsync -av --force $extradir/ $docroot/ 2>/dev/null|;
 }
 print "Done\nCopying build files to installdir now... ";
-qx|/usr/bin/rsync -av --delete --force $build/ $docroot/ 2>/dev/null|;
+qx|/usr/bin/rsync -av --force $build/ $docroot/ 2>/dev/null|;
 print "Done\n";
 
 mkdir $datadir if not -d $datadir ;
