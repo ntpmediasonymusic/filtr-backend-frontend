@@ -1,0 +1,3 @@
+## Extras
+
+This directory is where any non-wordpress files should be stored. Any files or directories you place here will be installed in the docroot of your container before wordpress is installed. This is done to prevent any accidental modifications to the wordpress core which could lead to tough to troubleshoot issues or unexpected vulnerabilities. For example, if you add a file named `index.php` to this directory it will be replaced by the one included with wordpress. However if you create a file named `landing.php` it will be included because it does not conflict with Wordpress. You can also create directories and include any files you'd like inside of those directories as long as the directory names do not conflict with Wordpress core directory structure.

@@ -29,6 +29,7 @@ $wp_config = "$confdir/wp-config.php";
 $plugins = "$repodir/plugins";
 $themes = "$repodir/themes";
 $depdir = "$tmpdir/build";
+$extradir = "$repodir/extras";
 mkdir $depdir if not -d $depdir;
 
 if ( -e $ver_file ) {
@@ -127,9 +128,14 @@ print "Copying WordPress plugins from repository... ";
 `/usr/bin/rsync -r $plugins/ $build/wp-content/plugins/ 2>/dev/null`;
 print "Done\nCopying WordPress themes from repository... ";
 `/usr/bin/rsync -r $themes/ $build/wp-content/themes/ 2>/dev/null`;
-print "Done\n";
 qx|cp $repodir/health.php $build/health.php|;
-print "Copying build files to installdir now... ";
+if ( -d "$extradir" ) {
+  # incase the devs delete it
+  print "Done\nAdding files from the repo extras directory to the docroot... ";
+  qx|/bin/rm -f $extradir/README.md $extradir/.gitempty|;
+  qx|/usr/bin/rsync -av --delete --force $extradir/ $docroot/ 2>/dev/null|;
+}
+print "Done\nCopying build files to installdir now... ";
 qx|/usr/bin/rsync -av --delete --force $build/ $docroot/ 2>/dev/null|;
 print "Done\n";
 
