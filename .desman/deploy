@@ -29,7 +29,7 @@ $wp_config = "$confdir/wp-config.php";
 $plugins = "$repodir/plugins";
 $themes = "$repodir/themes";
 $depdir = "$tmpdir/build";
-$extradir = "$repodir/extras";
+my $extradir = "$repodir/extras";
 mkdir $depdir if not -d $depdir;
 
 if ( -e $ver_file ) {
