@@ -5,7 +5,7 @@ use strict;
 use Digest::MD5 qw| md5 md5_hex md5_base64 |;
 use WWW::Curl::Easy;
 die "Environment variables not set. Bailing.\n" if ( not defined $ENV{DESMAN_ENV} and not defined $ENV{OPENSHIFT_DEPLOYMENT_BRANCH} );
-my ( $uploads, $repodir, $depdir, $tmpdir, $datadir, $docroot, $confdir, $install, $ver_file, $wp_config, $wp_plugins, $wp_themes );
+my ( $uploads, $repodir, $depdir, $tmpdir, $datadir, $docroot, $confdir, $install, $ver_file, $wp_config, $wp_plugins, $wp_themes, $extradir );
 if ( defined $ENV{DESMAN_ENV} ) {
   use Cwd;
   # This should be Gen2
@@ -23,7 +23,7 @@ if ( defined $ENV{DESMAN_ENV} ) {
   $wp_config = "$confdir/wp-config.php";
   $wp_plugins = "$repodir/plugins";
   $wp_themes = "$repodir/themes";
-  my $extradir = "$repodir/extras";
+  $extradir = "$repodir/extras";
   die "$uploads is not a link, continuing would overwrite. Halting instead.\n" if -d $uploads and not -l $uploads;
 } else {
   $repodir = $ENV{OPENSHIFT_REPO_DIR};
