@@ -23,6 +23,7 @@ if ( defined $ENV{DESMAN_ENV} ) {
   $wp_config = "$confdir/wp-config.php";
   $wp_plugins = "$repodir/plugins";
   $wp_themes = "$repodir/themes";
+  my $extradir = "$repodir/extras";
   die "$uploads is not a link, continuing would overwrite. Halting instead.\n" if -d $uploads and not -l $uploads;
 } else {
   $repodir = $ENV{OPENSHIFT_REPO_DIR};
@@ -152,8 +153,13 @@ print "Done\n";
 qx|cp $repodir/health.php $build/health.php|;
 print "Creating install directory [$install] now... ";
 mkdir $install;
+if ( -d "$extradir" ) {
+  print "Done\nAdding files from the repo extras directory to the docroot... ";
+  qx|/bin/rm -f $extradir/README.md $extradir/.gitempty|;
+  qx|/usr/bin/rsync -av --force $extradir/ $install/ 2>/dev/null|;
+}
 print "Done\nCopying build files to installdir now... ";
-`/usr/bin/rsync -avz --delete --force $build/ $install/ 2>/dev/null`;
+`/usr/bin/rsync -avz --force $build/ $install/ 2>/dev/null`;
 print "Done\n";
 
 print "Checking for additional apache configuration directives... ";
