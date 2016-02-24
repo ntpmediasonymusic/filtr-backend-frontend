@@ -152,7 +152,8 @@ if ( !defined('ABSPATH') )
   define('ABSPATH', dirname(__FILE__) . '/');
 
 if ( (getenv("OPENSHIFT_DEPLOYMENT_BRANCH") ?: getenv("DESMAN_ENV")) == "devel" ) define('SCRIPT_DEBUG',true);
-define('WP_HOME',"http://".$_SERVER['HTTP_HOST']);
+$scheme = $_SERVER['HTTP_X_FORWARDED_PROTO'] ?: 'http';
+define('WP_HOME',$scheme."://".$_SERVER['HTTP_HOST']);
 define('WP_SITEURL',WP_HOME);
 /** Tell WordPress where the plugins directory really is */
 if ( !defined('WP_CONTENT_DIR') ) define('WP_CONTENT_DIR',ABSPATH."wp-content");
