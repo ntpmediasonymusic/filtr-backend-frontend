@@ -5,7 +5,7 @@ $count = count($attachments);
 <div class="wp-desman-storage dsman-media-import-existing">
 
 <p>
-This page is intended to help with migrating an existing wordpress site to the DeSMan system. No media should be included in the project repo, but there may be existing database records for uploaded media that need extra metadata in order to be served from DeSMan Object Storage. <strong>There are <?php echo $count; ?> media objects in the database which may not have the necessary metadata. </strong>Click the button below to perform a onetime batch operation to add the meta data to all objects.</p>
+This page is intended to help with migrating an existing wordpress site to the DeSMan system. No media should be included in the project repo, but there may be existing database records for uploaded media that need extra metadata in order to be served from DeSMan Object Storage. <strong>There are at least <?php echo $count; ?> media objects in the database which do not have the necessary metadata. </strong>Click the button below to perform a onetime batch operation to add the meta data to these objects. <strong>Note:</strong> If there are more than 10,000 items to process, you will need to repeat this process until all of them have been updated.</p>
 
 <form method="POST">
 <?php wp_nonce_field( 'dsman-update-metanonce' ) ?>

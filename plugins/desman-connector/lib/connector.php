@@ -388,7 +388,7 @@ class StorageConnector {
       if ( $has_been ) continue;
       $counter += $this->insert_metadata($media);
     }
-    wp_die("Updated $counter/$count media objects metadata. <a href='admin.php?page=$this->plugin_slug&updated=1'>Back to Storage Settings</a>");
+    wp_die("Updated $counter/$count media objects metadata. <a href='admin.php?page=update-metadata&updated=1'>Back to Storage Settings</a>");
   }
   public function get_attachments() {
     global $wpdb;
@@ -397,7 +397,7 @@ class StorageConnector {
       $wpdb->posts post join 
       $wpdb->postmeta meta on 
       post.id = meta.post_id where 
-      post.post_type = 'attachment' and meta.meta_key = '_wp_attached_file';
+      post.post_type = 'attachment' and meta.meta_key = '_wp_attached_file' and (select count(*) from wp_postmeta where post_id = post.id and meta_key = 'amazonS3_info') = 0 limit 10000;
       ");
   }
 
