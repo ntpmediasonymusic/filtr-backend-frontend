@@ -70,6 +70,8 @@ class StorageConnector {
     add_filter( 'wp_generate_attachment_metadata', array( $this, 'gen_metadata'), 20, 2);
     add_filter( 'delete_attachment', array( $this, 'delete_attachment'), 20 );
     add_filter( 'wp_calculate_image_srcset', array( $this, 'wp_calculate_image_srcset'), 20, 5 );
+    add_action( 'wpml_media_create_duplicate_attachment', array($this, 'update_existing_metadata'), 10, 2);
+    add_action( 'icl_make_duplicate', array($this, 'update_wpml_meta'), 10, 4);
   }
 
   public function get_installed_version() {
@@ -377,8 +379,16 @@ class StorageConnector {
       return false;
     }
   }
-  public function update_existing_metadata() {
+  public function update_existing_metadata($old_post=null, $new_post=null) {
     global $wpdb;
+    if ($new_post) {
+      $attached_file_query = "SELECT post_id as id, meta_value from $wpdb->postmeta where meta_key = '_wp_attached_file' and post_id = %d";
+      $attachment = $wpdb->get_row($wpdb->prepare($attached_file_query, $new_post));
+      if ($attachment){
+        $this->insert_metadata($attachment);
+      }
+      return;
+    }
     $attachments = $this->get_attachments();
     $already_set = "SELECT count(*) from $wpdb->postmeta where post_id = %d AND meta_key = 'amazonS3_info';";
     $count = count($attachments);
@@ -390,6 +400,15 @@ class StorageConnector {
     }
     wp_die("Updated $counter/$count media objects metadata. <a href='admin.php?page=update-metadata&updated=1'>Back to Storage Settings</a>");
   }
+  public function update_wpml_metadata($master_post, $lang, $post_array, $duplicate_id){
+      global $wpdb;
+      $sql = "select ID from $wpdb->posts where post_parent = %d";
+      $ids = $wpdb->get_results($wpdb->prepare($sql, $duplicate_id));
+      foreach ($ids as $an_id) {
+          $this->update_existing_metadata(null, $an_id->ID);
+      }
+  }
+
   public function get_attachments() {
     global $wpdb;
     return $wpdb->get_results("
