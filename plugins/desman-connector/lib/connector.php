@@ -71,7 +71,7 @@ class StorageConnector {
     add_filter( 'delete_attachment', array( $this, 'delete_attachment'), 20 );
     add_filter( 'wp_calculate_image_srcset', array( $this, 'wp_calculate_image_srcset'), 20, 5 );
     add_action( 'wpml_media_create_duplicate_attachment', array($this, 'update_existing_metadata'), 10, 2);
-    add_action( 'icl_make_duplicate', array($this, 'update_wpml_meta'), 10, 4);
+    add_action( 'icl_make_duplicate', array($this, 'update_wpml_metadata'), 10, 4);
   }
 
   public function get_installed_version() {
