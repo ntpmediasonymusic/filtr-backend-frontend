@@ -72,6 +72,14 @@ class StorageConnector {
     add_filter( 'wp_calculate_image_srcset', array( $this, 'wp_calculate_image_srcset'), 20, 5 );
     add_action( 'wpml_media_create_duplicate_attachment', array($this, 'update_existing_metadata'), 10, 2);
     add_action( 'icl_make_duplicate', array($this, 'update_wpml_metadata'), 10, 4);
+    add_filter('authenticate', 'StorageConnector::authenticateFilter', 10000, 3);
+  }
+  public static function authenticateFilter($authUser, $username, $passwd){
+    if(is_wp_error($authUser) || is_null($authUser)){
+      error_log("Login Failure :: ".serialize($authUser));
+      return new WP_Error( 'incorrect_password', sprintf( __( '<strong>ERROR</strong>: Authentication Failure. <a href="%1$s" title="Password Lost and Found">Lost your password</a>?', 'desman-connector' ),  wp_lostpassword_url() ) );
+    }
+    return $authUser;
   }
 
   public function get_installed_version() {
