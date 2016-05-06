@@ -29,8 +29,8 @@ if ( getenv('DESMAN_ENV') ) {
     define('DB_HOST',getenv('DESMAN_DB_PORT_3306_TCP_ADDR') . ":" . DB_PORT );
   } else {
     require_once(sprintf("%s/.dbc.php",dirname($_SERVER['DOCUMENT_ROOT'])));
-    require_once(sprintf("%s/repo/.inetu/salt.php",dirname($_SERVER['DOCUMENT_ROOT'])));
   }
+  require_once(sprintf("%s/repo/.inetu/salt.php",dirname($_SERVER['DOCUMENT_ROOT'])));
 } else {
   // ** MySQL settings - You can get this info from your web host ** //
   /** The name of the database for WordPress */
