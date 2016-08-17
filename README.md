@@ -5,7 +5,7 @@ This repo contains the build scripts necessary to deploy Highly Available WordPr
 DeSMan Object Storage for uploads and git version control for all code provided by the project team.
 The WordPress core is _not_ tracked as part of this repository. A collection of plugins have been included
 which will make the installation more secure, and custom configuration is included to link the application
-that is deployed in Openshift to the Infrastructure we've included in the environment for object storage
+that is deployed in DeSMan to the Infrastructure we've included in the environment for object storage
 and MySQL databases.
 
 Recently, we've added the necessary files for deploying this repo as a Docker container. Checkout the docker
@@ -29,6 +29,9 @@ storing uploaded media (i.e. `wp-content/uploads`)
 
 * WordFence
 * DeSMan Connector
+* wp-google-authenticator
+* mainwp-child
+* w3-total-cache
 
 Docker
 ----------

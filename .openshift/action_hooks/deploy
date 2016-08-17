@@ -53,7 +53,7 @@ if ( -e $ver_file ) {
     chomp($wpversion);
     close(WP_VERSION);
 } else {
-    $wpversion = "3.9.1";
+    $wpversion = "4.6";
 }
 
 if ( not -f "$repodir/.inetu/salt.php" ) {
