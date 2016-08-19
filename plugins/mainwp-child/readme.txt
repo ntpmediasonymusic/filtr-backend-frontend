@@ -6,8 +6,8 @@ Author: mainwp
 Author URI: https://mainwp.com
 Plugin URI: https://mainwp.com
 Requires at least: 3.6
-Tested up to: 4.5.3
-Stable tag: 3.1.6
+Tested up to: 4.6
+Stable tag: 3.1.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html 
 
@@ -56,6 +56,10 @@ To see full documentation and FAQs please visit [MainWP Documentation](http://do
 9. Global Dashboard Screen
 
 == Changelog ==
+
+= 3.1.7 - 8-18-16 =
+* Fixed: Issues with PHP 7 - The MainWP Child is now PHP 7 friendly! :-) 
+* Added: Support for an upcoming extension (BacukpBuddy Extension)
 
 = 3.1.6 - 8-2-16 =
 * Fixed: an issue with loading too much data from the Broken Links Checker
