@@ -1,0 +1,6 @@
+# Example config:
+# plugins:
+#   - slug: facebook-comments
+#   - url: https://URL.FOR/DOWNLOAD/PLUGIN.ZIP
+#     slug: slug-for-downloaded-plugin
+plugins:
