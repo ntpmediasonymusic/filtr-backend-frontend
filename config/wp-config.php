@@ -70,6 +70,9 @@ define('FORCE_SSL_ADMIN', true);
 /* Disable plugin install in prod */
 define( 'DISALLOW_FILE_MODS', getenv("DESMAN_ENV") == 'prod');
 
+/* Disable use of load-scripts.php */
+define( 'CONCATENATE_SCRIPTS', false );
+
 /* That's all, stop editing! Happy blogging. */
 
 /** Absolute path to the WordPress directory. */
