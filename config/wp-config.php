@@ -67,8 +67,9 @@ define('WP_DEBUG', false);
  */
 define('FORCE_SSL_ADMIN', true);
 
-/* Disable plugin install in prod */
-define( 'DISALLOW_FILE_MODS', getenv("DESMAN_ENV") == 'prod');
+/* Disable plugin install and auto-update */
+define( 'DISALLOW_FILE_MODS', true);
+define('FS_METHOD', 'direct');
 
 /* Disable use of load-scripts.php */
 define( 'CONCATENATE_SCRIPTS', false );
