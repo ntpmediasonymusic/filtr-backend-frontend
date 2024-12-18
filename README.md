@@ -2,25 +2,26 @@ WordPress as a Platform Application
 ================
 
 This repo contains the build scripts necessary to deploy Highly Available WordPress Applications using
-DeSMan Object Storage for uploads and git version control for all code provided by the project team.
+AWS Object Storage for uploads and git version control for all code provided by the project team.
 The WordPress core is _not_ tracked as part of this repository. A collection of plugins have been included
 which will make the installation more secure, and custom configuration is included to link the application
-that is deployed in DeSMan to the Infrastructure we've included in the environment for object storage
+that is deployed in DeSMan to the infrastructure we've included in the environment for object storage
 and MySQL databases.
 
-Recently, we've added the necessary files for deploying this repo as a Docker container. Checkout the docker
+Recently, we've added the necessary files for deploying this repo as a Docker container. Checkout the Docker
 section for more information on how to build the image locally.
 
 Updating
 -------
 
-To update WordPress, Simply replace the version number in `VERSION` to the exact version number of the 
-preferred release in the base-wordpress layer. You can also downgrade in a similar fashion. Any plugins 
-or themes you add should be added to the appropriate `plugins` or `themes` directories in the root of the 
-repository.
+Flexential is responsible for testing and building the base image which includes the latest version of Wordpress. 
 
 If a newer version of a plugin or theme is released, it's installed automatically from the slugs listed 
-in the plugins.yaml. Plugins in the `plugins` folder will need to be updated manually
+in the plugins.yaml. Plugins in the `plugins` folder will need to be updated manually.
+
+Any plugins or themes you add should be added to the appropriate `plugins` or `themes` directories in the root of the 
+repository.
+
 
 Plugins
 ------------
@@ -28,12 +29,10 @@ Plugins
 There are several plugins included with this project to help secure the frontend and provide a means for
 storing uploaded media (i.e. `wp-content/uploads`)
 
-* WordFence
 * DeSMan Connector
-* mainwp-child
-* w3-total-cache
 * SME-Tools
 * SME-Security
+* SME-Cache
 
 Docker
 ----------
