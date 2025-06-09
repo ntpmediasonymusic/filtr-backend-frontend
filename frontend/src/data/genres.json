@@ -1,0 +1,102 @@
+{
+  "genres": [
+    {
+      "name": "Baladas Románticas",
+      "urlImageHeader": "",
+      "abbreviation": "Románticas",
+      "backgroundColor": "#FF6B81",
+      "textColor": "#3B0D2B"
+    },
+    {
+      "name": "Éxitos",
+      "urlImageHeader": "",
+      "abbreviation": "Éxitos",
+      "backgroundColor": "#FFD700",
+      "textColor": "#003300"
+    },
+    {
+      "name": "Novedades",
+      "urlImageHeader": "",
+      "abbreviation": "Novedades",
+      "backgroundColor": "#00B4D8",
+      "textColor": "#0D341E"
+    },
+    {
+      "name": "Pop",
+      "urlImageHeader": "",
+      "abbreviation": "Pop",
+      "backgroundColor": "#FF69B4",
+      "textColor": "#2E003E"
+    },
+    {
+      "name": "Urbano",
+      "urlImageHeader": "",
+      "abbreviation": "Urbano",
+      "backgroundColor": "#1D3557",
+      "textColor": "#FFD700"
+    },
+    {
+      "name": "Artistas Femeninas",
+      "urlImageHeader": "",
+      "abbreviation": "Femeninas",
+      "backgroundColor": "#FFB5E8",
+      "textColor": "#5E2E8C"
+    },
+    {
+      "name": "Música Mexicana",
+      "urlImageHeader": "",
+      "abbreviation": "Mexicana",
+      "backgroundColor": "#4CAF50",
+      "textColor": "#8B4513"
+    },
+    {
+      "name": "Electrónica",
+      "urlImageHeader": "",
+      "abbreviation": "Electrónica",
+      "backgroundColor": "#8E44AD",
+      "textColor": "#00FFAA"
+    },
+    {
+      "name": "Tropical",
+      "urlImageHeader": "",
+      "abbreviation": "Tropical",
+      "backgroundColor": "#FFD166",
+      "textColor": "#206819"
+    },
+    {
+      "name": "Indie",
+      "urlImageHeader": "",
+      "abbreviation": "Indie",
+      "backgroundColor": "#E76F51",
+      "textColor": "#073D3B"
+    },
+    {
+      "name": "Temporadas",
+      "urlImageHeader": "",
+      "abbreviation": "Temporadas",
+      "backgroundColor": "#7F8C8D",
+      "textColor": "#1835bb"
+    },
+    {
+      "name": "Rock",
+      "urlImageHeader": "",
+      "abbreviation": "Rock",
+      "backgroundColor": "#2E2E2E",
+      "textColor": "#AA0000"
+    },
+    {
+      "name": "Reggae",
+      "urlImageHeader": "",
+      "abbreviation": "Reggae",
+      "backgroundColor": "#F87217",
+      "textColor": "#117A65"
+    },
+    {
+      "name": "Musica Cristiana",
+      "urlImageHeader": "",
+      "abbreviation": "Cristiana",
+      "backgroundColor": "#89CFF0",
+      "textColor": "#0A3D62"
+    }
+  ]
+}

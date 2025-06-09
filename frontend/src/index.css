@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Modak&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oi&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --font-modak:'Modak', 'system-ui';
+  --font-oi:'Oi', 'serif';
+}
+
+::-webkit-scrollbar {
+  width: 6px; /* Ancho de la scrollbar */
+  height: 6px; /* Altura en scroll horizontal */
+}
+
+::-webkit-scrollbar-track {
+  background: #363636; /* Color de fondo */
+  border-radius: 10px; /* Bordes redondeados */
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(225deg, #FF3CAC 0%, #ffffff 50%, #2B86C5 100%); /* Gradiente */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ffffff; /* Color al pasar el mouse */
+}
+
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}

@@ -1,0 +1,39 @@
+{
+  "moods": [
+    {
+      "name": "Fiesta",
+      "urlImageHeader": "",
+      "abbreviation": "Fiesta",
+      "backgroundColor": "#FFA726",
+      "textColor": "#4A148C"
+    },
+    {
+      "name": "Romance",
+      "urlImageHeader": "",
+      "abbreviation": "Romance",
+      "backgroundColor": "#E91E63",
+      "textColor": "#1A1A1A"
+    },
+    {
+      "name": "Despecho",
+      "urlImageHeader": "",
+      "abbreviation": "Despecho",
+      "backgroundColor": "#D32F2F",
+      "textColor": "#F9A825"
+    },
+    {
+      "name": "Chill",
+      "urlImageHeader": "",
+      "abbreviation": "Chill",
+      "backgroundColor": "#26C6DA",
+      "textColor": "#1B263B"
+    },
+    {
+      "name": "Mood booster",
+      "urlImageHeader": "",
+      "abbreviation": "Booster",
+      "backgroundColor": "#CDDC39",
+      "textColor": "#0D47A1"
+    }
+  ]
+}

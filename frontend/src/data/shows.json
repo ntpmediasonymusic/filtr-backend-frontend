@@ -1,0 +1,102 @@
+{
+  "shows": [
+    {
+      "artist":"Incubus",
+      "showName": "Incubus",
+      "urlShow": "https://www.sonymusic.co.cr/",
+      "urlShowImage": "https://cdn.wyng.com/54ac3103ef95a67c1cff8ef2/67a5b05e905d566d090b27ec.PNG",
+      "description": "Incubus show description",
+      "date": "23/03/2025",
+      "place": {
+        "location": "Costa Rica",
+        "venue": "Estadio Nacional"
+      },
+      "region": "Centroamérica y Caribe",
+      "priority": 1
+    },
+    {
+      "artist": "Primate",
+      "showName": "Primate",
+      "urlShow": "https://www.sonymusic.co.cr/",
+      "urlShowImage": "https://cdn.wyng.com/54ac3103ef95a67c1cff8ef2/67a5b0639a933f2d834b191f.PNG",
+      "description": "Primate show description",
+      "date": "04/12/2025",
+      "place": {
+        "location": "Costa Rica",
+        "venue": "Estadio Nacional"
+      },
+      "region": "Centroamérica y Caribe",
+      "priority": 1
+    },
+    {
+      "artist": "Grupo Niche",
+      "showName": "Grupo Niche",
+      "urlShow": "https://www.sonymusic.co.cr/",
+      "urlShowImage": "https://cdn.wyng.com/54ac3103ef95a67c1cff8ef2/67a5b069617295753c99a0a9.PNG",
+      "description": "Grupo Niche show description",
+      "date": "20/12/2025",
+      "place": {
+        "location": "Costa Rica",
+        "venue": "Estadio Nacional"
+      },
+      "region": "Centroamérica y Caribe",
+      "priority": 1
+    },
+    {
+      "artist": "Carl Cox y John Digweed",
+      "showName": "Carl Cox y John Digweed",
+      "urlShow": "https://www.sonymusic.co.cr/",
+      "urlShowImage": "https://cdn.wyng.com/54ac3103ef95a67c1cff8ef2/67a5b0741c2be2764e7238cc.PNG",
+      "description": "Carl Cox y John Digweed show description",
+      "date": "10/01/2025",
+      "place": {
+        "location": "Costa Rica",
+        "venue": "Estadio Nacional"
+      },
+      "region": "Centroamérica y Caribe",
+      "priority": 1
+    },
+    {
+      "artist": "Oculus",
+      "showName": "Oculus (Col) en Costa Rica",
+      "urlShow": "https://www.sonymusic.co.cr/",
+      "urlShowImage": "https://cdn.wyng.com/54ac3103ef95a67c1cff8ef2/67a5b079ed90df7046657e6e.PNG",
+      "description": "Oculus (Col) en Costa Rica show description",
+      "date": "15/03/2025",
+      "place": {
+        "location": "Costa Rica",
+        "venue": "Estadio Nacional"
+      },
+      "region": "Centroamérica y Caribe",
+      "priority": 1
+    },
+    {
+      "artist": "Hot Mulligan",
+      "showName": "Hot Mulligan",
+      "urlShow": "https://www.sonymusic.co.cr/",
+      "urlShowImage": "https://cdn.wyng.com/54ac3103ef95a67c1cff8ef2/67a5b09181a1aadd510c0577.PNG",
+      "description": "Hot Mulligan show description",
+      "date": "28/03/2025",
+      "place": {
+        "location": "Costa Rica",
+        "venue": "Estadio Nacional"
+      },
+      "region": "Centroamérica y Caribe",
+      "priority": 1
+    },
+    {
+      "artist": "Nosferatu",
+      "showName": "Nosferatu",
+      "urlShow": "https://www.sonymusic.co.cr/",
+      "urlShowImage": "https://cdn.wyng.com/54ac3103ef95a67c1cff8ef2/67a5b095cbaa56af6054e6b8.PNG",
+      "description": "Nosferatu show description",
+      "date": "08/04/2025",
+      "place": {
+        "location": "Costa Rica",
+        "venue": "Estadio Nacional"
+      },
+      "region": "Centroamérica y Caribe",
+      "priority": 1
+    }
+  ]
+}
