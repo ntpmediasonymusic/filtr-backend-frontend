@@ -47,8 +47,8 @@ exports.register = async (req, res, next) => {
     // Generar token de verificación
     const emailToken = jwt.sign(
       { userId: user.id, type: "emailVerify" },
-      process.env.JWT_SECRET,
-      { expiresIn: process.env.EMAIL_TOKEN_EXPIRES_IN }
+      process.env.DESMAN_USER_JWT_SECRET,
+      { expiresIn: process.env.DESMAN_USER_EMAIL_TOKEN_EXPIRES_IN }
     );
 
     // Enviar correo con enlace de verificación
@@ -79,8 +79,8 @@ exports.login = async (req, res, next) => {
 
     const token = jwt.sign(
       { id: user.id, email: user.email },
-      process.env.JWT_SECRET,
-      { expiresIn: process.env.JWT_EXPIRES_IN }
+      process.env.DESMAN_USER_JWT_SECRET,
+      { expiresIn: process.env.DESMAN_USER_JWT_EXPIRES_IN }
     );
     const { password: _pwd, ...userData } = user.toJSON();
 
@@ -128,8 +128,8 @@ exports.confirmEmail = async (req, res, next) => {
     // generar JWT de sesión para devolverlo
     const sessionToken = jwt.sign(
       { id: user.id, email: user.email },
-      process.env.JWT_SECRET,
-      { expiresIn: process.env.JWT_EXPIRES_IN }
+      process.env.DESMAN_USER_JWT_SECRET,
+      { expiresIn: process.env.DESMAN_USER_JWT_EXPIRES_IN }
     );
 
     // Devolver mensaje y token para que se inicie sesión directamente
@@ -182,8 +182,8 @@ exports.resendVerification = async (req, res, next) => {
     // Generar nuevo token de verificación
     const emailToken = jwt.sign(
       { userId: user.id, type: "emailVerify" },
-      process.env.JWT_SECRET,
-      { expiresIn: process.env.EMAIL_TOKEN_EXPIRES_IN }
+      process.env.DESMAN_USER_JWT_SECRET,
+      { expiresIn: process.env.DESMAN_USER_EMAIL_TOKEN_EXPIRES_IN }
     );
     await sendVerificationEmail(user.email, emailToken);
     return res.json({ message: "Se ha reenviado el correo de verificación." });

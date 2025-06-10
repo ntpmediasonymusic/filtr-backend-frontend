@@ -2,7 +2,7 @@
 
 
 # Imagen base para Node.js
-FROM node:18
+FROM node:20
 
 # Crear directorio de trabajo
 WORKDIR /app

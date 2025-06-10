@@ -1,11 +1,11 @@
 const sgMail = require("@sendgrid/mail");
 require("dotenv").config();
 
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+sgMail.setApiKey(process.env.DESMAN_USER_SENDGRID_API_KEY);
 
 async function sendVerificationEmail(to, token) {
-  const from = process.env.SENDGRID_FROM_EMAIL;
-  const frontendUrl = process.env.FRONTEND_BASE_URL;
+  const from = process.env.DESMAN_USER_SENDGRID_FROM_EMAIL;
+  const frontendUrl = process.env.DESMAN_USER_FRONTEND_BASE_URL;
 
   const verifyLink = `${frontendUrl}/verify-email?token=${token}`;
 

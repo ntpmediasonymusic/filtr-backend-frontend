@@ -8,7 +8,7 @@ function protect(req, res, next) {
   }
   const token = auth.split(" ")[1];
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.DESMAN_USER_JWT_SECRET);
     req.user = decoded; // { id, email, iat, exp }
     next();
   } catch (err) {
