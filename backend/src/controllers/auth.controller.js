@@ -231,7 +231,7 @@ exports.resetPassword = async (req, res, next) => {
   }
   try {
     // Verificar y decodificar token
-    const payload = jwt.verify(token, process.env.JWT_SECRET);
+    const payload = jwt.verify(token, process.env.DESMAN_USER_JWT_SECRET);
     if (payload.type !== "passwordReset") {
       return res.status(400).json({ message: "Token inválido" });
     }
