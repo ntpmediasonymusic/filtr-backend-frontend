@@ -24,7 +24,7 @@ const Home = () => {
   // Vista normal sin búsqueda
   return (
     <>
-      <div className="px-6 py-5 md:py-10">
+      <div className="px-6 py-10 md:py-10">
         <PageHeader welcomeMsg={"Tu vida suena así"} />
       </div>
 

@@ -8,7 +8,7 @@ const MainCategoryPreview = ({ title, playlists }) => {
       <div>
         {/* Título y Botón */}
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-sm md:text-3xl sm:text-lg text-white font-semibold">
+          <h2 className="font-montserrat font-bold text-sm md:text-2xl sm:text-lg text-white">
             {title}
           </h2>
           {/* <NavLink

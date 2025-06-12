@@ -2,7 +2,11 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { User } = require("../models");
 require("dotenv").config();
-const { sendVerificationEmail } = require("../utils/email");
+const {
+  sendVerificationEmail,
+  sendResetPasswordEmail,
+} = require("../utils/email");
+
 
 exports.register = async (req, res, next) => {
   try {
@@ -22,7 +26,7 @@ exports.register = async (req, res, next) => {
     // Verifica que el email no exista
     const exists = await User.findOne({ where: { email } });
     if (exists) {
-      return res.status(400).json({ message: "El correo ya está registrado." });
+      return res.status(400).json({ message: "El correo ya está registrado" });
     }
 
     // Hasheamos la contraseña
@@ -57,7 +61,7 @@ exports.register = async (req, res, next) => {
     // No se devuelve el token de sesión aún: indicamos que revise su correo
     return res.status(201).json({
       message:
-        "Usuario registrado. Por favor revisa tu correo para verificar tu cuenta.",
+        "Usuario registrado. Por favor revisa tu correo para verificar tu cuenta",
     });
   } catch (err) {
     next(err);
@@ -73,9 +77,9 @@ exports.login = async (req, res, next) => {
     }
 
     // Verificar si está confirmado su correo
-    // if (!user.isVerified) {
-    //   return res.status(403).json({ message: "Verifica tu correo." });
-    // }
+    if (!user.isVerified) {
+      return res.status(403).json({ message: "Verifica tu correo para tener acceso" });
+    }
 
     const token = jwt.sign(
       { id: user.id, email: user.email },
@@ -102,23 +106,23 @@ exports.confirmEmail = async (req, res, next) => {
   const { token } = req.query; 
 
   if (!token) {
-    return res.status(400).json({ message: "Token de verificación faltante." });
+    return res.status(400).json({ message: "Token de verificación faltante" });
   }
 
   try {
     // Verificar JWT
-    const payload = jwt.verify(token, process.env.JWT_SECRET);
+    const payload = jwt.verify(token, process.env.DESMAN_USER_JWT_SECRET);
     if (payload.type !== "emailVerify") {
-      return res.status(400).json({ message: "Token inválido." });
+      return res.status(400).json({ message: "Token inválido" });
     }
 
     // Buscar usuario y verificar su estado
     const user = await User.findByPk(payload.userId);
     if (!user) {
-      return res.status(404).json({ message: "Usuario no encontrado." });
+      return res.status(404).json({ message: "Usuario no encontrado" });
     }
     if (user.isVerified) {
-      return res.status(400).json({ message: "Tu cuenta ya está verificada." });
+      return res.status(400).json({ message: "Tu cuenta ya está verificada" });
     }
 
     // Marcar como verificado
@@ -134,7 +138,7 @@ exports.confirmEmail = async (req, res, next) => {
 
     // Devolver mensaje y token para que se inicie sesión directamente
     return res.json({
-      message: "Correo verificado exitosamente. Puedes iniciar sesión.",
+      message: "Correo verificado exitosamente. Puedes iniciar sesión",
       token: `Bearer ${sessionToken}`,
       user: {
         id: user.id,
@@ -156,16 +160,16 @@ exports.confirmEmail = async (req, res, next) => {
     if (err.name === "TokenExpiredError") {
       return res
         .status(400)
-        .json({ message: "El enlace de verificación expiró." });
+        .json({ message: "El enlace de verificación expiró" });
     }
-    return res.status(400).json({ message: "Token inválido o mal formado." });
+    return res.status(400).json({ message: "Token inválido o mal formado" });
   }
 };
 
 exports.resendVerification = async (req, res, next) => {
   const { email } = req.body;
   if (!email) {
-    return res.status(400).json({ message: "El correo es obligatorio." });
+    return res.status(400).json({ message: "El correo es obligatorio" });
   }
 
   try {
@@ -173,10 +177,10 @@ exports.resendVerification = async (req, res, next) => {
     if (!user) {
       return res
         .status(200)
-        .json({ message: "Si existe esa cuenta, se enviará un nuevo correo." });
+        .json({ message: "Si existe esa cuenta, se enviará un nuevo correo" });
     }
     if (user.isVerified) {
-      return res.status(400).json({ message: "Tu cuenta ya está verificada." });
+      return res.status(400).json({ message: "Tu cuenta ya está verificada" });
     }
 
     // Generar nuevo token de verificación
@@ -186,8 +190,78 @@ exports.resendVerification = async (req, res, next) => {
       { expiresIn: process.env.DESMAN_USER_EMAIL_TOKEN_EXPIRES_IN }
     );
     await sendVerificationEmail(user.email, emailToken);
-    return res.json({ message: "Se ha reenviado el correo de verificación." });
+    return res.json({ message: "Se ha reenviado el correo de verificación" });
   } catch (err) {
     next(err);
+  }
+};
+
+exports.forgotPassword = async (req, res, next) => {
+  const { email } = req.body;
+  if (!email) {
+    return res.status(400).json({ message: "El correo es obligatorio" });
+  }
+  try {
+    const user = await User.findOne({ where: { email } });
+    if (user) {
+      const resetToken = jwt.sign(
+        { userId: user.id, type: "passwordReset" },
+        process.env.DESMAN_USER_JWT_SECRET,
+        { expiresIn: "1h" }
+      );
+      // Enviar correo de recuperación
+      await sendResetPasswordEmail(user.email, resetToken);
+    }
+    return res
+      .status(200)
+      .json({
+        message: "Si existe esa cuenta, recibirás un correo con instrucciones.",
+      });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.resetPassword = async (req, res, next) => {
+  const { token, newPassword } = req.body;
+  if (!token || !newPassword) {
+    return res
+      .status(400)
+      .json({ message: "Token y nueva contraseña son obligatorios" });
+  }
+  try {
+    // Verificar y decodificar token
+    const payload = jwt.verify(token, process.env.JWT_SECRET);
+    if (payload.type !== "passwordReset") {
+      return res.status(400).json({ message: "Token inválido" });
+    }
+    const user = await User.findByPk(payload.userId);
+    if (!user) {
+      return res.status(404).json({ message: "Usuario no encontrado" });
+    }
+    // Hashear y guardar nueva contraseña
+    const salt = await bcrypt.genSalt(12);
+    user.password = await bcrypt.hash(newPassword, salt);
+    await user.save();
+
+    const sessionToken = jwt.sign(
+      { id: user.id, email: user.email },
+      process.env.DESMAN_USER_JWT_SECRET,
+      { expiresIn: process.env.DESMAN_USER_JWT_EXPIRES_IN }
+    );
+    const { password: _pwd, ...userData } = user.toJSON();
+
+    return res.json({
+      message: "Contraseña restablecida exitosamente.",
+      token: `Bearer ${sessionToken}`,
+      user: userData,
+    });
+  } catch (err) {
+    if (err.name === "TokenExpiredError") {
+      return res
+        .status(400)
+        .json({ message: "El enlace de recuperación expiró." });
+    }
+    return res.status(400).json({ message: "Token inválido o mal formado." });
   }
 };

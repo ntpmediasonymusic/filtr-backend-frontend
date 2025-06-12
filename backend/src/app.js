@@ -8,6 +8,7 @@ const swaggerSpec = require("./config/swagger");
 const authRoutes = require("./routes/auth.routes");
 const userRoutes = require("./routes/user.routes");
 const playlistRoutes = require("./routes/playlist.routes");
+const spotifyRoutes = require("./routes/spotify.routes");
 const { errorHandler, notFound } = require("./middleware/error.middleware");
 const path = require("path");
 
@@ -29,6 +30,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/users", playlistRoutes); // endpoints de playlists anidados bajo /users/:userId
+app.use("/api", spotifyRoutes);
 
 app.use((req, res, next) => {
   res.setHeader(

@@ -3,6 +3,7 @@ import Filter from "../components/filter/filter";
 import ComingSoon from "../components/ui/ComingSoon";
 import PageHeader from "../components/ui/PageHeader";
 import { useSearch } from "../context/SearchContext";
+import MusicBanner from "../components/ui/MusicBanner";
 
 const Prizes = () => {
   useEffect(() => {
@@ -18,10 +19,13 @@ const Prizes = () => {
 
   return (
     <>
-      <div className="px-6 py-5 md:py-10">
+      <div className="px-6 py-10 md:py-10">
         <PageHeader welcomeMsg={"A ganar"} />
       </div>
-      <ComingSoon color="#c43ea0" />
+
+      <MusicBanner type="premios" />
+
+      <div className="px-6 pb-[50px] md:pb-[50px]"><ComingSoon color="#c43ea0" /></div>
     </>
   );
 };

@@ -10,13 +10,16 @@ import Footer from "./components/ui/Footer";
 import NavMenu from "./components/ui/navMenu/NavMenu";
 import { PlaylistProvider } from "./context/PlaylistContext";
 import { PageTitleProvider } from "./context/pageTitleContext";
+import { SearchProvider } from "./context/SearchContext";
 import Trending from "./pages/Trending";
 import Prizes from "./pages/Prizes";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import EditAccount from "./pages/EditAccount";
-import { SearchProvider } from "./context/SearchContext";
 import FavoritePlaylists from "./pages/FavoritePlaylists";
+import VerifyEmail from "./pages/VerifyEmail";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 
 function App() {
   return (
@@ -43,6 +46,9 @@ function App() {
                   path="/favorite-playlists"
                   element={<FavoritePlaylists />}
                 />
+                <Route path="/verify-email" element={<VerifyEmail />} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
+                <Route path="/reset-password" element={<ResetPassword />} />
               </Routes>
             </PlaylistProvider>
           </PageTitleProvider>

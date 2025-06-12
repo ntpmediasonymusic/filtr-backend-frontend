@@ -48,6 +48,15 @@ export const PageTitleProvider = ({ children }) => {
       case "/favorite-playlists":
         document.title = "Mis Playlist favoritas";
         break;
+      case "/verify-email":
+        document.title = "Verificar correo";
+        break;
+      case "/forgot-password":
+        document.title = "Recuperar contraseña";
+        break;
+      case "/reset-password":
+        document.title = "Recuperar contraseña";
+        break;
       default:
         document.title = "Filtr";
     }

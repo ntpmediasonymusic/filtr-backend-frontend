@@ -12,35 +12,56 @@ const Footer = () => {
       }}
     >
       {/* Logo */}
-      <img src={logo} alt="Filtr Logo" className="w-16 md:w-24 mb-4" />
+      <img src={logo} alt="Filtr Logo" className="w-24 md:w-24 mb-4" />
 
       {/* Redes Sociales */}
-      <div className="flex space-x-5 md:space-x-9">
+      <div className="flex space-x-6 md:space-x-9 mb-6">
         <a
-          href="https://www.instagram.com"
+          href="https://www.instagram.com/filtr.cac/"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-white text-3xl md:text-5xl transition transform hover:text-gray-300 hover:scale-120"
+          className="text-white text-5xl md:text-5xl transition transform hover:text-gray-300 hover:scale-120"
         >
           <FaInstagram />
         </a>
 
         <a
-          href="https://www.tiktok.com"
+          href="https://www.tiktok.com/@sonymusiccentroamerica"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-white text-3xl md:text-5xl transition transform hover:text-gray-300 hover:scale-120"
+          className="text-white text-5xl md:text-5xl transition transform hover:text-gray-300 hover:scale-120"
         >
           <FaTiktok />
         </a>
 
         <a
-          href="https://www.spotify.com"
+          href="https://open.spotify.com/user/filtrcac"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-white text-3xl md:text-5xl transition transform hover:text-gray-300 hover:scale-120"
+          className="text-white text-5xl md:text-5xl transition transform hover:text-gray-300 hover:scale-120"
         >
           <FaSpotify />
+        </a>
+      </div>
+
+      {/* Enlaces legales */}
+      <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4 text-white text-xl">
+        <a
+          href="https://sonymusic.co.cr/politica-de-privacidad/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:text-gray-300 transition-colors underline"
+        >
+          Términos y Condiciones
+        </a>
+        <span className="hidden md:inline">|</span>
+        <a
+          href="https://www.sonymusic.com/terms-and-conditions/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:text-gray-300 transition-colors underline"
+        >
+          Política de Privacidad
         </a>
       </div>
     </footer>

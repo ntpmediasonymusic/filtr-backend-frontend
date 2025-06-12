@@ -93,7 +93,7 @@ const Filter = () => {
 
     return (
       <>
-        <div className="px-6 py-5 md:py-10">
+        <div className="px-6 py-10 md:py-10">
           <PageHeader
             welcomeMsg={
               searchQuery ? `Resultados para "${searchQuery}"` : "Filtro"
@@ -101,7 +101,7 @@ const Filter = () => {
           />
         </div>
 
-            <div className="px-8 pb-4">
+            <div className="">
                 <GenresHeader
                     genres={filteredGenres}
                     selectedGenre={selectedGenre}
@@ -110,7 +110,7 @@ const Filter = () => {
                 />
             </div>
 
-            <div className="px-8 pb-4">
+            <div className="">
                 <MoodsHeader
                     moods={filteredMoods}
                     selectedMood={selectedMood}
@@ -126,7 +126,7 @@ const Filter = () => {
             </p>
           </div>
         ) : (
-          <div className="gap-[50px] md:gap-[50px] px-8 py-[50px] md:py-[50px]">
+          <div className="gap-[50px] md:gap-[50px] md:px-8 py-[50px] md:py-[50px]">
             <PlaylistsContainerGrid currentPlaylists={filteredPlaylists} />
           </div>
         )}

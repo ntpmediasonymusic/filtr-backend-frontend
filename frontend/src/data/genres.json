@@ -4,99 +4,73 @@
       "name": "Baladas Románticas",
       "urlImageHeader": "",
       "abbreviation": "Románticas",
-      "backgroundColor": "#FF6B81",
-      "textColor": "#3B0D2B"
+      "backgroundColor": "#EAD1E2",
+      "textColor": "#692356",
+      "desktopImage": "/generos/desktop/G_dsk_Romantica-100.jpg",
+      "mobileImage": "/generos/mobile/G_mov_Romantica-100.jpg"
     },
     {
       "name": "Éxitos",
       "urlImageHeader": "",
       "abbreviation": "Éxitos",
-      "backgroundColor": "#FFD700",
-      "textColor": "#003300"
+      "backgroundColor": "#0B2E4E",
+      "textColor": "#5ADBFF",
+      "desktopImage": "/generos/desktop/G_dsk_Exitos-100.jpg",
+      "mobileImage": "/generos/mobile/G_mov_Exitos-100.jpg"
     },
     {
       "name": "Novedades",
       "urlImageHeader": "",
       "abbreviation": "Novedades",
-      "backgroundColor": "#00B4D8",
-      "textColor": "#0D341E"
-    },
-    {
-      "name": "Pop",
-      "urlImageHeader": "",
-      "abbreviation": "Pop",
-      "backgroundColor": "#FF69B4",
-      "textColor": "#2E003E"
-    },
-    {
-      "name": "Urbano",
-      "urlImageHeader": "",
-      "abbreviation": "Urbano",
-      "backgroundColor": "#1D3557",
-      "textColor": "#FFD700"
-    },
-    {
-      "name": "Artistas Femeninas",
-      "urlImageHeader": "",
-      "abbreviation": "Femeninas",
-      "backgroundColor": "#FFB5E8",
-      "textColor": "#5E2E8C"
-    },
-    {
-      "name": "Música Mexicana",
-      "urlImageHeader": "",
-      "abbreviation": "Mexicana",
-      "backgroundColor": "#4CAF50",
-      "textColor": "#8B4513"
-    },
-    {
-      "name": "Electrónica",
-      "urlImageHeader": "",
-      "abbreviation": "Electrónica",
-      "backgroundColor": "#8E44AD",
-      "textColor": "#00FFAA"
-    },
-    {
-      "name": "Tropical",
-      "urlImageHeader": "",
-      "abbreviation": "Tropical",
-      "backgroundColor": "#FFD166",
-      "textColor": "#206819"
-    },
-    {
-      "name": "Indie",
-      "urlImageHeader": "",
-      "abbreviation": "Indie",
-      "backgroundColor": "#E76F51",
-      "textColor": "#073D3B"
-    },
-    {
-      "name": "Temporadas",
-      "urlImageHeader": "",
-      "abbreviation": "Temporadas",
-      "backgroundColor": "#7F8C8D",
-      "textColor": "#1835bb"
+      "backgroundColor": "#56314D",
+      "textColor": "#FF10CB",
+      "desktopImage": "/generos/desktop/G_dsk_Novedades-100.jpg",
+      "mobileImage": "/generos/mobile/G_mov_Novedades.png"
     },
     {
       "name": "Rock",
       "urlImageHeader": "",
       "abbreviation": "Rock",
       "backgroundColor": "#2E2E2E",
-      "textColor": "#AA0000"
+      "textColor": "#AA0000",
+      "desktopImage": "/generos/desktop/G_dsk_Rock-100.jpg",
+      "mobileImage": "/generos/mobile/G_mov_Rock-100.jpg"
     },
     {
-      "name": "Reggae",
+      "name": "Indie",
       "urlImageHeader": "",
-      "abbreviation": "Reggae",
-      "backgroundColor": "#F87217",
-      "textColor": "#117A65"
+      "abbreviation": "Indie",
+      "backgroundColor": "#E76F51",
+      "textColor": "#073D3B",
+      "desktopImage": "/generos/desktop/G_dsk_indie.png",
+      "mobileImage": "/generos/mobile/G_mov_Indie-100.jpg"
+    },
+    {
+      "name": "Temporadas",
+      "urlImageHeader": "",
+      "abbreviation": "Temporadas",
+      "backgroundColor": "#7F8C8D",
+      "textColor": "#1835bb",
+      "desktopImage": "/generos/desktop/G_dsk_Temporadas-100.jpg",
+      "mobileImage": "/generos/mobile/G_mov_Temporadas-100.jpg"
     },
     {
       "name": "Musica Cristiana",
       "urlImageHeader": "",
       "abbreviation": "Cristiana",
       "backgroundColor": "#89CFF0",
-      "textColor": "#0A3D62"
+      "textColor": "#0A3D62",
+      "desktopImage": "/generos/desktop/G_dsk_Cristiana-100.jpg",
+      "mobileImage": "/generos/mobile/G_mov_Cristiana-100.jpg"
+    },
+    {
+      "name": "Decadas",
+      "urlImageHeader": "",
+      "abbreviation": "Décadas",
+      "backgroundColor": "#3498DB",
+      "textColor": "#ECF0F1",
+      "desktopImage": "/generos/desktop/G_dsk_Decadas-100.jpg",
+      "mobileImage": "/generos/mobile/G_mov_Decadas-100.jpg"
     }
   ]
 }

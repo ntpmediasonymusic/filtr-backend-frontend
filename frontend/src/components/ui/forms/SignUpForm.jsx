@@ -2,16 +2,15 @@ import { useState } from "react";
 import UserIcon from "../../../assets/icons/UserIcon";
 import EnvelopeIcon from "../../../assets/icons/EnvelopeIcon";
 import LockIcon from "../../../assets/icons/LockIcon";
-import { FaRegCalendarAlt, FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { MdOutlinePlace } from "react-icons/md";
+import { LiaBirthdayCakeSolid } from "react-icons/lia";
 import { TbPhone } from "react-icons/tb";
 import { PiMusicNotes } from "react-icons/pi";
 import { register } from "../../../api/backendApi";
-import { useNavigate } from "react-router-dom";
+import VerificationEmailSent from "./VerificationEmailSent";
 
 const SignUpForm = () => {
-  const navigate = useNavigate();
-
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -23,7 +22,15 @@ const SignUpForm = () => {
   const [optInSony, setOptInSony] = useState(true);
   const [optInFiltr, setOptInFiltr] = useState(true);
   const [showPwd, setShowPwd] = useState(false);
+
+  // Para validaciones campo a campo
   const [errors, setErrors] = useState({});
+  // Para mostrar mensajes genéricos del backend (400, “correo ya registrado”, etc.)
+  const [apiError, setApiError] = useState("");
+
+  // Estado para “Verifica tu correo”
+  const [showVerifyNotice, setShowVerifyNotice] = useState(false);
+  const [registeredEmail, setRegisteredEmail] = useState("");
 
   const countries = [
     "Costa Rica",
@@ -69,9 +76,16 @@ const SignUpForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Limpiamos mensajes previos
+    setErrors({});
+    setApiError("");
+
     const errs = validate();
-    setErrors(errs);
-    if (Object.keys(errs).length) return;
+    if (Object.keys(errs).length) {
+      setErrors(errs);
+      return;
+    }
 
     const payload = {
       firstName,
@@ -80,31 +94,50 @@ const SignUpForm = () => {
       password,
       dateOfBirth: birthdate,
       phone,
-      country: country,
+      country,
       favoriteMethod: listening,
       optInSony,
       optInFiltr,
     };
 
     try {
-      const { data } = await register(payload);
-      // almacena token y usuario en localStorage
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("user", JSON.stringify(data.user));
-      // redirige directo
-      navigate("/");
+      const response = await register(payload);
+
+      // Si el servidor responde “Usuario registrado. Por favor revisa tu correo…”
+      // con status 201, mostramos el componente de verificación
+      if (
+        response.status === 201 &&
+        response.data.message?.includes("revisa tu correo")
+      ) {
+        setRegisteredEmail(email);
+        setShowVerifyNotice(true);
+        return;
+      }
     } catch (err) {
+      //Si el back devuelve errores de validación de campos:
       if (err.response?.status === 400 && err.response.data.errors) {
         const apiErrs = {};
         err.response.data.errors.forEach((e) => {
           apiErrs[e.param] = e.msg;
         });
         setErrors(apiErrs);
-      } else {
-        console.error(err);
+      }
+      //Si el back devuelve un mensaje genérico (e.g. “El correo ya está registrado.”):
+      else if (err.response?.status === 400 && err.response.data.message) {
+        setApiError(err.response.data.message);
+      }
+      //Cualquier otro error:
+      else {
+        console.error("Error en registro:", err);
+        setApiError("Ocurrió un error inesperado. Intenta de nuevo.");
       }
     }
   };
+
+  // Si ya hemos registrado y el back nos pidió verificar, mostramos el aviso:
+  if (showVerifyNotice) {
+    return <VerificationEmailSent email={registeredEmail} />;
+  }
 
   return (
     <form
@@ -239,7 +272,7 @@ const SignUpForm = () => {
         <div className="w-full sm:w-1/2">
           <div className="flex items-center bg-white border border-[#262627] rounded-[8px] p-3 sm:p-4 gap-2">
             <div className="w-6 h-6 sm:w-8 sm:h-8 flex justify-center items-center">
-              <FaRegCalendarAlt className="text-[#ca249c] w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
+              <LiaBirthdayCakeSolid className="text-[#ca249c] w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
             </div>
             <input
               type="date"
@@ -333,21 +366,26 @@ const SignUpForm = () => {
         </label>
       </div>
 
+      {/* Mostrar mensaje genérico de error del backend, si existe */}
+      {apiError && (
+        <p className="text-center text-red-600 font-bold text-sm">{apiError}</p>
+      )}
+
       {/* Botón Principal */}
       <button
         type="submit"
-        className="w-full py-2.5 sm:py-3 mt-3 sm:mt-6 bg-[#ca249c] text-white font-semibold rounded-lg transition hover:opacity-90 text-sm sm:text-base"
+        className="w-full py-2.5 sm:py-3 bg-[#ca249c] text-white font-semibold rounded-lg transition hover:opacity-90 text-sm sm:text-base"
       >
         Crear cuenta
       </button>
 
-      {/* Link Sign Up */}
+      {/* Link “¿Ya tienes cuenta? Accede Aquí” */}
       <div className="text-center text-[#131517] mt-1 sm:mt-2">
         <span className="text-sm sm:text-base">¿Ya tienes una cuenta?</span>
         <br />
         <a
           href="/login"
-          className="font-semibold text-[#131517] text-sm sm:text-base"
+          className="font-semibold underline underline-offset-2 text-[#131517] text-sm sm:text-base"
         >
           Accede Aquí
         </a>

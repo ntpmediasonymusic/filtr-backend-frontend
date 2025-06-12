@@ -280,4 +280,116 @@ router.post(
  */
 router.post("/logout", authCtrl.logout);
 
+
+/**
+ * @swagger
+ * tags:
+ *   name: Auth
+ *   description: Operaciones de autenticación y recuperación de contraseña
+ */
+
+/**
+ * @swagger
+ * /auth/forgot-password:
+ *   post:
+ *     tags:
+ *       - Auth
+ *     summary: Solicita enlace de recuperación de contraseña
+ *     description: >
+ *       Envía un correo con un enlace para restablecer la contraseña si la
+ *       dirección de email está registrada en el sistema.  
+ *       Por razones de seguridad, la respuesta siempre será 200.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 example: usuario@ejemplo.com
+ *     responses:
+ *       "200":
+ *         description: Mensaje genérico indicando que se enviará correo si existe la cuenta
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Si existe esa cuenta, recibirás un correo con instrucciones.
+ *       "400":
+ *         description: Email faltante o inválido
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
+router.post("/forgot-password", authCtrl.forgotPassword);
+
+
+/**
+ * @swagger
+ * /auth/reset-password:
+ *   post:
+ *     tags:
+ *       - Auth
+ *     summary: Restablece la contraseña de un usuario
+ *     description: >
+ *       Verifica un token JWT de restablecimiento y, si es válido,
+ *       actualiza la contraseña del usuario. Devuelve un nuevo token
+ *       de sesión para iniciar sesión automáticamente.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - token
+ *               - newPassword
+ *             properties:
+ *               token:
+ *                 type: string
+ *                 description: Token JWT de recuperación
+ *               newPassword:
+ *                 type: string
+ *                 description: Nueva contraseña
+ *                 example: NuevaClave@123
+ *     responses:
+ *       "200":
+ *         description: Contraseña restablecida con éxito
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Contraseña restablecida exitosamente.
+ *                 token:
+ *                   type: string
+ *                   description: Token de sesión (Bearer ...)
+ *                 user:
+ *                   $ref: '#/components/schemas/User'
+ *       "400":
+ *         description: Token inválido, expirado o datos faltantes
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       "404":
+ *         description: Usuario no encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
+router.post("/reset-password", authCtrl.resetPassword);
+
 module.exports = router;

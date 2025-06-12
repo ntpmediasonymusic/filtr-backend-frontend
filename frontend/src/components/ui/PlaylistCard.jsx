@@ -8,6 +8,7 @@ import {
   removeFavoritePlaylist,
 } from "../../api/backendApi";
 import { usePlaylists } from "../../context/PlaylistContext";
+import LoginModal from "./LoginModal";
 
 /* eslint-disable react/prop-types */
 const PlaylistCard = ({
@@ -17,6 +18,7 @@ const PlaylistCard = ({
   isFavorite,
 }) => {
   const [showShareModal, setShowShareModal] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
   const [favorited, setFavorited] = useState(!!isFavorite);
   const { refreshPlaylists } = usePlaylists();
 
@@ -29,7 +31,11 @@ const PlaylistCard = ({
   const playlistId = urlPlaylist.split("/playlist/")[1].split("?")[0];
 
   const handleToggleFavorite = async () => {
-    if (!loggedIn) return;
+    if (!loggedIn) {
+      setShowLoginModal(true);
+      return;
+    }
+
     try {
       if (!favorited) {
         await addFavoritePlaylist(user.id, playlistId);
@@ -69,23 +75,25 @@ const PlaylistCard = ({
         </h6>
 
         <div className="flex items-center gap-2">
-          {loggedIn && (
-            <button
-              onClick={handleToggleFavorite}
-              className="flex-shrink-0 cursor-pointer"
-            >
-              {favorited ? (
-                <FaHeart className="w-6 h-6 text-red-500 transform scale-110 transition-transform duration-200" />
-              ) : (
-                <FaRegHeart className="w-6 h-6 text-[#e72b36bf] transition-transform duration-200" />
-              )}
-            </button>
-          )}
+          <button
+            onClick={handleToggleFavorite}
+            className="flex-shrink-0 cursor-pointer"
+          >
+            {loggedIn && favorited ? (
+              <FaHeart className="w-6 h-6 text-red-500 transform scale-110 transition-transform duration-200" />
+            ) : (
+              <FaRegHeart className="w-6 h-6 text-white transition-transform duration-200 hover:scale-110" />
+            )}
+          </button>
           <button
             onClick={() => setShowShareModal((v) => !v)}
             className="flex-shrink-0 cursor-pointer"
           >
-            <SharePaperPlaneIcon className="w-6 h-6 text-[#00DAF0]" />
+            {loggedIn ? (
+              <SharePaperPlaneIcon className="w-6 h-6 text-white" />
+            ) : (
+              <SharePaperPlaneIcon className="w-6 h-6 text-white" />
+            )}
           </button>
         </div>
       </div>
@@ -95,6 +103,11 @@ const PlaylistCard = ({
           link={urlPlaylist}
           onClose={() => setShowShareModal(false)}
         />
+      )}
+
+      {/* Modal de Login */}
+      {showLoginModal && (
+        <LoginModal onClose={() => setShowLoginModal(false)} />
       )}
     </div>
   );

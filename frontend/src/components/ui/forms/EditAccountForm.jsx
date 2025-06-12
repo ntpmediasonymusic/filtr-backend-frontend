@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import { updateProfile, deleteAccount } from "../../../api/backendApi";
 import UserIcon from "../../../assets/icons/UserIcon";
 import LockIcon from "../../../assets/icons/LockIcon";
-import { FaEye, FaEyeSlash, FaRegCalendarAlt } from "react-icons/fa";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { LiaBirthdayCakeSolid } from "react-icons/lia";
 import { MdOutlinePlace } from "react-icons/md";
 import { TbPhone } from "react-icons/tb";
 import { PiMusicNotes } from "react-icons/pi";
@@ -133,7 +134,7 @@ export default function EditAccountForm({ user, setUser }) {
       setTimeout(() => {
         localStorage.clear();
         navigate("/");
-      }, 5000);
+      }, 1000);
     } catch (err) {
       setDeletionMsg("Error al eliminar la cuenta.");
       setShowDeleteModal(false);
@@ -262,7 +263,7 @@ export default function EditAccountForm({ user, setUser }) {
           </div>
           <div className="w-full sm:w-1/2">
             <div className="flex items-center bg-white border border-[#262627] rounded-[8px] p-3 sm:p-4 gap-2">
-              <FaRegCalendarAlt className="text-[#ca249c] w-6 h-6" />
+              <LiaBirthdayCakeSolid className="text-[#ca249c] w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
               <input
                 type="date"
                 value={birthdate}
@@ -353,7 +354,7 @@ export default function EditAccountForm({ user, setUser }) {
         <button
           type="button"
           onClick={() => setShowDeleteModal(true)}
-          className="w-full mt-3 py-2 bg-red-600 text-white font-medium rounded-lg transition hover:bg-red-500 text-sm sm:text-sm"
+          className="w-full mt-3 py-2 underline underline-offset-2 text-red-600 font-medium text-sm sm:text-sm"
         >
           Eliminar mi cuenta
         </button>

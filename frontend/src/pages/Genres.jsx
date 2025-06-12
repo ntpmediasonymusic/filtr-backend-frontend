@@ -6,6 +6,7 @@ import genresData from "../data/genres.json";
 import PageHeader from "../components/ui/PageHeader";
 import { useSearch } from "../context/SearchContext";
 import Filter from "../components/filter/filter";
+import MusicBanner from "../components/ui/MusicBanner";
 
 const Genres = () => {
   useEffect(() => {
@@ -32,9 +33,12 @@ const Genres = () => {
 
   return (
     <>
-      <div className="px-6 py-5 md:py-10">
+      <div className="px-6 py-10 md:py-10">
         <PageHeader welcomeMsg={"¿Qué género quieres escuchar hoy?"} />
       </div>
+
+      <MusicBanner type="generos" />
+
       <div className="flex flex-col px-6 pb-[50px] md:pb-[50px] gap-[35px] md:gap-[100px]">
         <GenresHeader
           genres={genresData.genres}
