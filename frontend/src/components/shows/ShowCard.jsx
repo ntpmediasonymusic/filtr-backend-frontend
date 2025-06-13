@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import MapMarker from "../../assets/icons/MapMarker";
-// import MarketCartIcon from "../../assets/icons/MarketCartIcon";
+import { IoTicketOutline } from "react-icons/io5";
 import useFormattedDate from "../../hooks/shows/useFormattedDate";
 
 const ShowCard = ({ artist, showName, urlShow, urlShowImage, date, place }) => {
   return (
-    <div className="flex flex-col xl:flex-row w-[100%] xl:w-[512px] h-[100%] xl:h-[251px] bg-[#262627] rounded-lg p-4 gap-5">
+    <div className="flex flex-col xl:flex-row w-[100%] xl:w-[660px] h-[100%] xl:h-[251px] bg-[#262627] rounded-lg p-4 gap-5">
       {/* Show Image */}
       <div className="w-[100%] xl:w-[225px] h-[225px] flex-shrink-0 rounded-md overflow-hidden">
         <a href={urlShow} target="_blank" rel="noopener noreferrer">
@@ -39,15 +39,17 @@ const ShowCard = ({ artist, showName, urlShow, urlShowImage, date, place }) => {
           </h2>
         </div>
 
-        {/* <a
+        <a
           href={urlShow}
           className="group text-[#00DAF0] hover:text-[#7cf3ff] transition xl:ml-8"
         >
-          <div className="flex items-center gap-3">
-            <MarketCartIcon className="w-[21px] h-[22px] text-current" />
-            <span className="text-sm">Dónde comprar</span>
+          <div className="flex items-center gap-2 text-lg">
+            <IoTicketOutline />
+            <span className="text-md underline underline-offset-2">
+              Ver evento
+            </span>
           </div>
-        </a> */}
+        </a>
       </div>
     </div>
   );
