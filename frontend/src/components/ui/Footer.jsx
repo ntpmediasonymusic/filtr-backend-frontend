@@ -1,5 +1,5 @@
 import { FaInstagram, FaTiktok, FaSpotify } from "react-icons/fa";
-import logo from "../../assets/images/filtr_logo_white.png";
+import logo from "../../assets/images/filtr_logo_white.svg";
 
 const Footer = () => {
   return (
@@ -12,12 +12,12 @@ const Footer = () => {
       }}
     >
       {/* Logo */}
-      <img src={logo} alt="Filtr Logo" className="w-24 md:w-24 mb-4" />
+      <img src={logo} alt="Filtr Logo" className="w-40 md:w-50 mb-8" />
 
       {/* Redes Sociales */}
       <div className="flex space-x-6 md:space-x-9 mb-6">
         <a
-          href="https://www.instagram.com/filtr.cac/"
+          href=" https://www.instagram.com/somosfiltr"
           target="_blank"
           rel="noopener noreferrer"
           className="text-white text-5xl md:text-5xl transition transform hover:text-gray-300 hover:scale-120"
@@ -26,7 +26,7 @@ const Footer = () => {
         </a>
 
         <a
-          href="https://www.tiktok.com/@sonymusiccentroamerica"
+          href="https://www.tiktok.com/@somosfiltr"
           target="_blank"
           rel="noopener noreferrer"
           className="text-white text-5xl md:text-5xl transition transform hover:text-gray-300 hover:scale-120"
@@ -45,9 +45,9 @@ const Footer = () => {
       </div>
 
       {/* Enlaces legales */}
-      <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4 text-white text-xl">
+      <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4 text-white text-md">
         <a
-          href="https://sonymusic.co.cr/politica-de-privacidad/"
+          href="/terms-and-conditions"
           target="_blank"
           rel="noopener noreferrer"
           className="hover:text-gray-300 transition-colors underline"
@@ -56,7 +56,7 @@ const Footer = () => {
         </a>
         <span className="hidden md:inline">|</span>
         <a
-          href="https://www.sonymusic.com/terms-and-conditions/"
+          href="/privacy-policy"
           target="_blank"
           rel="noopener noreferrer"
           className="hover:text-gray-300 transition-colors underline"

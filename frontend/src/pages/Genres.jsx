@@ -39,7 +39,7 @@ const Genres = () => {
 
       <MusicBanner type="generos" />
 
-      <div className="flex flex-col px-6 pb-[50px] md:pb-[50px] gap-[35px] md:gap-[100px]">
+      <div className="flex flex-col px-6 pb-[50px] md:pb-[50px] gap-[35px] md:gap-[80px]">
         <GenresHeader
           genres={genresData.genres}
           selectedGenre={selectedGenre}

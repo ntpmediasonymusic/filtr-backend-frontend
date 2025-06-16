@@ -1,47 +1,53 @@
-// eslint-disable-next-line react/prop-types
-const MusicBanner = ({ type = 'generos' }) => {
+/* eslint-disable react/prop-types */
+const MusicBanner = ({ type = "generos" }) => {
   // Mapeo de tipos a nombres de archivo reales
   const imageMap = {
     generos: {
-      desktop: '/Header_generos_dsk@2x-100.jpg',
-      mobile: '/Header_generos_mobile@2x-100.jpg'
+      desktop:
+        "/assets/images/page-banner-header/desktop/generos-page-banner-header-desktop.png",
+      mobile:
+        "/assets/images/page-banner-header/mobile/generos-page-banner-header-mobile.png",
     },
     moods: {
-      desktop: '/Header_moods_dsk@2x-100.jpg',
-      mobile: '/Header_moods_mobile@2x-100.jpg'
+      desktop:
+        "/assets/images/page-banner-header/desktop/moods-page-banner-header-desktop.png",
+      mobile:
+        "/assets/images/page-banner-header/mobile/moods-page-banner-header-mobile.png",
     },
     trending: {
-      desktop: '/Header_tranding_dsk@2x-100.jpg',
-      mobile: '/Header_trending_mobile@2x-100.jpg'
+      desktop:
+        "/assets/images/page-banner-header/desktop/tranding-page-banner-header-desktop.png",
+      mobile:
+        "/assets/images/page-banner-header/mobile/trending-page-banner-header-mobile.png",
     },
     shows: {
-      desktop: '/Header_shows_dsk@2x-100.jpg',
-      mobile: '/Header_shows_mobile@2x-100.jpg'
+      desktop:
+        "/assets/images/shows-banner-header/desktop/shows-banner-header-desktop-1.png",
+      mobile:
+        "/assets/images/shows-banner-header/mobile/shows-banner-header-mobile-1.png",
     },
     premios: {
-      desktop: '/Header_premios_dsk@2x-100.jpg',
-      mobile: '/Header_premios_mobile@2x-100.jpg'
-    }
+      desktop:
+        "/assets/images/page-banner-header/desktop/premios-page-banner-header-desktop.png",
+      mobile:
+        "/assets/images/page-banner-header/mobile/premios-page-banner-header-mobile.png",
+    },
   };
 
-  // Obtener las imágenes correspondientes al tipo
   const images = imageMap[type] || imageMap.generos;
 
   return (
     <div className="px-6 pb-5 md:pb-10">
-      {/* Imagen para escritorio - visible solo en md y superiores */}
-      <img 
-        src={images.desktop} 
-        alt={`Banner ${type} desktop`}
-        className="hidden md:block w-full h-auto object-cover rounded-[10px]"
-      />
-      
-      {/* Imagen para móvil - visible solo en pantallas pequeñas */}
-      <img 
-        src={images.mobile} 
-        alt={`Banner ${type} mobile`}
-        className="block md:hidden w-full h-auto object-cover rounded-[10px]"
-      />
+      <picture className="w-full block rounded-[10px] overflow-hidden">
+        {/* Imagen de escritorio para pantallas md en adelante */}
+        <source media="(min-width: 768px)" srcSet={images.desktop} />
+        {/* Imagen de móvil para pantallas <768px */}
+        <img
+          src={images.mobile}
+          alt={`Banner ${type}`}
+          className="w-full h-auto object-cover"
+        />
+      </picture>
     </div>
   );
 };

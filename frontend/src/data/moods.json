@@ -2,48 +2,28 @@
   "moods": [
     {
       "name": "Fiesta",
-      "urlImageHeader": "",
-      "abbreviation": "Fiesta",
-      "backgroundColor": "#00120B",
-      "textColor": "#31E981",
-      "desktopImage": "/moods/desktop/M_dsk_fiesta-100.jpg",
-      "mobileImage": "/moods/mobile/M_mov_Fiesta.png"
+      "desktopImage": "/assets/images/cards-moods/desktop/cards-moods-desktop-fiesta.png",
+      "mobileImage": "/assets/images/cards-moods/mobile/cards-moods-mobile-fiesta.png"
     },
     {
       "name": "Romance",
-      "urlImageHeader": "",
-      "abbreviation": "Romance",
-      "backgroundColor": "#EAD1E2",
-      "textColor": "#692356",
-      "desktopImage": "/moods/desktop/M_dsk_Romance-100.jpg",
-      "mobileImage": "/moods/mobile/M_mov_Romance.png"
+      "desktopImage": "/assets/images/cards-moods/desktop/cards-moods-desktop-romance.png",
+      "mobileImage": "/assets/images/cards-moods/mobile/cards-moods-mobile-romance.png"
     },
     {
       "name": "Despecho",
-      "urlImageHeader": "",
-      "abbreviation": "Despecho",
-      "backgroundColor": "#0B2E4E",
-      "textColor": "#5ADBFF",
-      "desktopImage": "/moods/desktop/M_dsk_Despecho-100.jpg",
-      "mobileImage": "/moods/mobile/M_mov_Despecho.png"
+      "desktopImage": "/assets/images/cards-moods/desktop/cards-moods-desktop-despecho.png",
+      "mobileImage": "/assets/images/cards-moods/mobile/cards-moods-mobile-despecho.png"
     },
     {
       "name": "Chill",
-      "urlImageHeader": "",
-      "abbreviation": "Chill",
-      "backgroundColor": "#56314D",
-      "textColor": "#FF10CB",
-      "desktopImage": "/moods/desktop/M_dsk_Chill-100.jpg",
-      "mobileImage": "/moods/mobile/M_mov_Chill.png"
+      "desktopImage": "/assets/images/cards-moods/desktop/cards-moods-desktop-chill.png",
+      "mobileImage": "/assets/images/cards-moods/mobile/cards-moods-mobile-chill.png"
     },
     {
       "name": "Mood booster",
-      "urlImageHeader": "",
-      "abbreviation": "Booster",
-      "backgroundColor": "#F71735",
-      "textColor": "#FDFFFC",
-      "desktopImage": "/moods/desktop/M_dsk_Mood booster-100.jpg",
-      "mobileImage": "/moods/mobile/M_mov_Mood booster.png"
+      "desktopImage": "/assets/images/cards-moods/desktop/cards-moods-desktop-booster.png",
+      "mobileImage": "/assets/images/cards-moods/mobile/cards-moods-mobile-booster.png"
     }
   ]
 }

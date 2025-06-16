@@ -2,75 +2,73 @@
   "genres": [
     {
       "name": "Baladas Románticas",
-      "urlImageHeader": "",
-      "abbreviation": "Románticas",
-      "backgroundColor": "#EAD1E2",
-      "textColor": "#692356",
-      "desktopImage": "/generos/desktop/G_dsk_Romantica-100.jpg",
-      "mobileImage": "/generos/mobile/G_mov_Romantica-100.jpg"
+      "desktopImage": "/assets/images/cards-genres/desktop/cards-genres-desktop-romantica.png",
+      "mobileImage": "/assets/images/cards-genres/mobile/cards-genres-mobile-romantica.png"
     },
     {
       "name": "Éxitos",
-      "urlImageHeader": "",
-      "abbreviation": "Éxitos",
-      "backgroundColor": "#0B2E4E",
-      "textColor": "#5ADBFF",
-      "desktopImage": "/generos/desktop/G_dsk_Exitos-100.jpg",
-      "mobileImage": "/generos/mobile/G_mov_Exitos-100.jpg"
+      "desktopImage": "/assets/images/cards-genres/desktop/cards-genres-desktop-exitos.png",
+      "mobileImage": "/assets/images/cards-genres/mobile/cards-genres-mobile-exitos.png"
     },
     {
       "name": "Novedades",
-      "urlImageHeader": "",
-      "abbreviation": "Novedades",
-      "backgroundColor": "#56314D",
-      "textColor": "#FF10CB",
-      "desktopImage": "/generos/desktop/G_dsk_Novedades-100.jpg",
-      "mobileImage": "/generos/mobile/G_mov_Novedades.png"
+      "desktopImage": "/assets/images/cards-genres/desktop/cards-genres-desktop-novedades.png",
+      "mobileImage": "/assets/images/cards-genres/mobile/cards-genres-mobile-novedades.png"
     },
     {
-      "name": "Rock",
-      "urlImageHeader": "",
-      "abbreviation": "Rock",
-      "backgroundColor": "#2E2E2E",
-      "textColor": "#AA0000",
-      "desktopImage": "/generos/desktop/G_dsk_Rock-100.jpg",
-      "mobileImage": "/generos/mobile/G_mov_Rock-100.jpg"
+      "name": "Pop",
+      "desktopImage": "/assets/images/cards-genres/desktop/cards-genres-desktop-pop.png",
+      "mobileImage": "/assets/images/cards-genres/mobile/cards-genres-mobile-pop.png"
+    },
+    {
+      "name": "Urbano",
+      "desktopImage": "/assets/images/cards-genres/desktop/cards-genres-desktop-urbano.png",
+      "mobileImage": "/assets/images/cards-genres/mobile/cards-genres-mobile-urbano.png"
+    },
+    {
+      "name": "Voces Femeninas",
+      "desktopImage": "/assets/images/cards-genres/desktop/cards-genres-desktop-femeninas.png",
+      "mobileImage": "/assets/images/cards-genres/mobile/cards-genres-mobile-femeninas.png"
+    },
+    {
+      "name": "Música Mexicana",
+      "desktopImage": "/assets/images/cards-genres/desktop/cards-genres-desktop-mexicana.png",
+      "mobileImage": "/assets/images/cards-genres/mobile/cards-genres-mobile-mexicana.png"
+    },
+    {
+      "name": "Electrónica",
+      "desktopImage": "/assets/images/cards-genres/desktop/cards-genres-desktop-electronica.png",
+      "mobileImage": "/assets/images/cards-genres/mobile/cards-genres-mobile-electronica.png"
+    },
+    {
+      "name": "Tropical",
+      "desktopImage": "/assets/images/cards-genres/desktop/cards-genres-desktop-tropical.png",
+      "mobileImage": "/assets/images/cards-genres/mobile/cards-genres-mobile-tropical.png"
     },
     {
       "name": "Indie",
-      "urlImageHeader": "",
-      "abbreviation": "Indie",
-      "backgroundColor": "#E76F51",
-      "textColor": "#073D3B",
-      "desktopImage": "/generos/desktop/G_dsk_indie.png",
-      "mobileImage": "/generos/mobile/G_mov_Indie-100.jpg"
+      "desktopImage": "/assets/images/cards-genres/desktop/cards-genres-desktop-indie.png",
+      "mobileImage": "/assets/images/cards-genres/mobile/cards-genres-mobile-indie.png"
     },
     {
       "name": "Temporadas",
-      "urlImageHeader": "",
-      "abbreviation": "Temporadas",
-      "backgroundColor": "#7F8C8D",
-      "textColor": "#1835bb",
-      "desktopImage": "/generos/desktop/G_dsk_Temporadas-100.jpg",
-      "mobileImage": "/generos/mobile/G_mov_Temporadas-100.jpg"
+      "desktopImage": "/assets/images/cards-genres/desktop/cards-genres-desktop-temporadas.png",
+      "mobileImage": "/assets/images/cards-genres/mobile/cards-genres-mobile-temporadas.png"
+    },
+    {
+      "name": "Rock",
+      "desktopImage": "/assets/images/cards-genres/desktop/cards-genres-desktop-rock.png",
+      "mobileImage": "/assets/images/cards-genres/mobile/cards-genres-mobile-rock.png"
     },
     {
       "name": "Musica Cristiana",
-      "urlImageHeader": "",
-      "abbreviation": "Cristiana",
-      "backgroundColor": "#89CFF0",
-      "textColor": "#0A3D62",
-      "desktopImage": "/generos/desktop/G_dsk_Cristiana-100.jpg",
-      "mobileImage": "/generos/mobile/G_mov_Cristiana-100.jpg"
+      "desktopImage": "/assets/images/cards-genres/desktop/cards-genres-desktop-cristiana.png",
+      "mobileImage": "/assets/images/cards-genres/mobile/cards-genres-mobile-cristiana.png"
     },
     {
       "name": "Decadas",
-      "urlImageHeader": "",
-      "abbreviation": "Décadas",
-      "backgroundColor": "#3498DB",
-      "textColor": "#ECF0F1",
-      "desktopImage": "/generos/desktop/G_dsk_Decadas-100.jpg",
-      "mobileImage": "/generos/mobile/G_mov_Decadas-100.jpg"
+      "desktopImage": "/assets/images/cards-genres/desktop/cards-genres-desktop-decadas.png",
+      "mobileImage": "/assets/images/cards-genres/mobile/cards-genres-mobile-decadas.png"
     }
   ]
 }

@@ -9,7 +9,7 @@ import { LiaBirthdayCakeSolid } from "react-icons/lia";
 import { MdOutlinePlace } from "react-icons/md";
 import { TbPhone } from "react-icons/tb";
 import { PiMusicNotes } from "react-icons/pi";
-import DeleteAccountModal from "../DeleteAccountModal";
+import DeleteAccountModal from "../../ui/modal/DeleteAccountModal";
 import { useNavigate } from "react-router-dom";
 
 export default function EditAccountForm({ user, setUser }) {

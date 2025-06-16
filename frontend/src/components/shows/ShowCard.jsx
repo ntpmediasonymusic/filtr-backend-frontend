@@ -41,6 +41,8 @@ const ShowCard = ({ artist, showName, urlShow, urlShowImage, date, place }) => {
 
         <a
           href={urlShow}
+          target="_blank"
+          rel="noopener noreferrer"
           className="group text-[#00DAF0] hover:text-[#7cf3ff] transition xl:ml-8"
         >
           <div className="flex items-center gap-2 text-lg">

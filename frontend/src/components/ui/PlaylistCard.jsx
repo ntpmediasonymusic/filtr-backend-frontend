@@ -1,6 +1,6 @@
 import { useState } from "react";
 import PlaylistPlayButton from "../../assets/icons/PlaylistPlayButton";
-import ShareModal from "./ShareModal";
+import ShareModal from "./modal/ShareModal";
 import SharePaperPlaneIcon from "../../assets/icons/SharePaperPlaneIcon";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import {
@@ -8,7 +8,7 @@ import {
   removeFavoritePlaylist,
 } from "../../api/backendApi";
 import { usePlaylists } from "../../context/PlaylistContext";
-import LoginModal from "./LoginModal";
+import LoginModal from "./modal/LoginModal";
 
 /* eslint-disable react/prop-types */
 const PlaylistCard = ({

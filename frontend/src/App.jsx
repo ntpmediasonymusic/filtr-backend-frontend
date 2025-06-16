@@ -1,6 +1,5 @@
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
-import Explore from "./pages/Explore";
 import Genres from "./pages/Genres";
 import Moods from "./pages/Moods";
 import Quizzes from "./pages/Quizzes";
@@ -20,6 +19,9 @@ import FavoritePlaylists from "./pages/FavoritePlaylists";
 import VerifyEmail from "./pages/VerifyEmail";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import CookieConsentBanner from "./components/ui/modal/CookieConsentBanner";
+import TermsAndConditions from "./pages/TermsAndConditions";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 
 function App() {
   return (
@@ -31,7 +33,6 @@ function App() {
             <PlaylistProvider>
               <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/explore" element={<Explore />} />
                 <Route path="/genres" element={<Genres />} />
                 <Route path="/moods" element={<Moods />} />
                 <Route path="/quizzes" element={<Quizzes />} />
@@ -49,11 +50,17 @@ function App() {
                 <Route path="/verify-email" element={<VerifyEmail />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />
                 <Route path="/reset-password" element={<ResetPassword />} />
+                <Route
+                  path="/terms-and-conditions"
+                  element={<TermsAndConditions />}
+                />
+                <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               </Routes>
             </PlaylistProvider>
           </PageTitleProvider>
         </SearchProvider>
       </div>
+      <CookieConsentBanner />
       <Footer />
     </div>
   );

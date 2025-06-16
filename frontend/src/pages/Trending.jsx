@@ -4,7 +4,7 @@ import Filter from "../components/filter/filter";
 import PageHeader from "../components/ui/PageHeader";
 import { usePlaylists } from "../context/PlaylistContext";
 import { useSearch } from "../context/SearchContext";
-import TrendingPlaylistsContainerGrid from "../components/ui/TrendingPlaylistsContainerGrid";
+import TrendingPlaylistsContainerGrid from "../components/trending/TrendingPlaylistsContainerGrid";
 import MusicBanner from "../components/ui/MusicBanner";
 
 const Trending = () => {

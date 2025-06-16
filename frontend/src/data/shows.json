@@ -1,12 +1,26 @@
 {
   "shows": [
     {
-      "artist":"Incubus",
-      "showName": "Incubus",
-      "urlShow": "https://www.sonymusic.co.cr/",
-      "urlShowImage": "https://cdn.wyng.com/54ac3103ef95a67c1cff8ef2/67a5b05e905d566d090b27ec.PNG",
-      "description": "Incubus show description",
-      "date": "23/03/2025",
+      "artist":"Sixpence None The Richer",
+      "showName": "Sixpence None The Richer",
+      "urlShow": "",
+      "urlShowImage": "",
+      "description": "Sixpence None The Richer",
+      "date": "20/06/2025",
+      "place": {
+        "location": "Costa Rica",
+        "venue": "Rio Campo"
+      },
+      "region": "Centroamérica y Caribe",
+      "priority": 1
+    },
+    {
+      "artist":"Fabulosos Cadillacs",
+      "showName": "Fabulosos Cadillacs",
+      "urlShow": "",
+      "urlShowImage": "",
+      "description": "Fabulosos Cadillacs",
+      "date": "22/06/2025",
       "place": {
         "location": "Costa Rica",
         "venue": "Estadio Nacional"
@@ -15,12 +29,152 @@
       "priority": 1
     },
     {
-      "artist": "Primate",
-      "showName": "Primate",
-      "urlShow": "https://www.sonymusic.co.cr/",
-      "urlShowImage": "https://cdn.wyng.com/54ac3103ef95a67c1cff8ef2/67a5b0639a933f2d834b191f.PNG",
-      "description": "Primate show description",
-      "date": "04/12/2025",
+      "artist":"Tiny Moving Parts",
+      "showName": "Tiny Moving Parts",
+      "urlShow": "",
+      "urlShowImage": "",
+      "description": "Tiny Moving Parts",
+      "date": "05/07/2025",
+      "place": {
+        "location": "Costa Rica",
+        "venue": "Amón Solar"
+      },
+      "region": "Centroamérica y Caribe",
+      "priority": 1
+    },
+    {
+      "artist":"Stryper",
+      "showName": "Stryper",
+      "urlShow": "",
+      "urlShowImage": "",
+      "description": "Stryper",
+      "date": "16/07/2025",
+      "place": {
+        "location": "Costa Rica",
+        "venue": "Pepper Disco Club"
+      },
+      "region": "Centroamérica y Caribe",
+      "priority": 1
+    },
+    {
+      "artist":"Testament",
+      "showName": "Testament",
+      "urlShow": "",
+      "urlShowImage": "",
+      "description": "Testament",
+      "date": "06/08/2025",
+      "place": {
+        "location": "Costa Rica",
+        "venue": "TBD"
+      },
+      "region": "Centroamérica y Caribe",
+      "priority": 1
+    },
+    {
+      "artist":"Manuel Turizo",
+      "showName": "Manuel Turizo",
+      "urlShow": "",
+      "urlShowImage": "",
+      "description": "Manuel Turizo",
+      "date": "09/08/2025",
+      "place": {
+        "location": "Costa Rica",
+        "venue": "Parque Viva"
+      },
+      "region": "Centroamérica y Caribe",
+      "priority": 1
+    },
+    {
+      "artist":"Carlos Vives y Fonseca",
+      "showName": "Carlos Vives y Fonseca",
+      "urlShow": "",
+      "urlShowImage": "",
+      "description": "Carlos Vives y Fonseca",
+      "date": "16/08/2025",
+      "place": {
+        "location": "Costa Rica",
+        "venue": "Centro de Eventos Pedregal"
+      },
+      "region": "Centroamérica y Caribe",
+      "priority": 1
+    },
+    {
+      "artist":"Reels B",
+      "showName": "Reels B",
+      "urlShow": "",
+      "urlShowImage": "",
+      "description": "Reels B",
+      "date": "17/08/2025",
+      "place": {
+        "location": "Costa Rica",
+        "venue": "Centro de Eventos Pedregal"
+      },
+      "region": "Centroamérica y Caribe",
+      "priority": 1
+    },
+    {
+      "artist":"Paulo Londa",
+      "showName": "Paulo Londa",
+      "urlShow": "",
+      "urlShowImage": "",
+      "description": "Paulo Londa",
+      "date": "23/08/2025",
+      "place": {
+        "location": "Costa Rica",
+        "venue": "TBD"
+      },
+      "region": "Centroamérica y Caribe",
+      "priority": 1
+    },
+    {
+      "artist":"Los Pericos",
+      "showName": "Los Pericos",
+      "urlShow": "",
+      "urlShowImage": "",
+      "description": "Los Pericos",
+      "date": "30/08/2025",
+      "place": {
+        "location": "Costa Rica",
+        "venue": "Skatedra"
+      },
+      "region": "Centroamérica y Caribe",
+      "priority": 1
+    },
+    {
+      "artist":"Boston Manor",
+      "showName": "Boston Manor",
+      "urlShow": "",
+      "urlShowImage": "",
+      "description": "Boston Manor",
+      "date": "06/09/2025",
+      "place": {
+        "location": "Costa Rica",
+        "venue": "Amón Solar"
+      },
+      "region": "Centroamérica y Caribe",
+      "priority": 1
+    },
+    {
+      "artist":"Beto Cuevas",
+      "showName": "Beto Cuevas",
+      "urlShow": "",
+      "urlShowImage": "",
+      "description": "Beto Cuevas",
+      "date": "20/09/2025",
+      "place": {
+        "location": "Costa Rica",
+        "venue": "TBD"
+      },
+      "region": "Centroamérica y Caribe",
+      "priority": 1
+    },
+    {
+      "artist":"Guns and Roses",
+      "showName": "Guns and Roses",
+      "urlShow": "",
+      "urlShowImage": "",
+      "description": "Guns and Roses",
+      "date": "01/10/2025",
       "place": {
         "location": "Costa Rica",
         "venue": "Estadio Nacional"
@@ -29,68 +183,54 @@
       "priority": 1
     },
     {
-      "artist": "Grupo Niche",
-      "showName": "Grupo Niche",
-      "urlShow": "https://www.sonymusic.co.cr/",
-      "urlShowImage": "https://cdn.wyng.com/54ac3103ef95a67c1cff8ef2/67a5b069617295753c99a0a9.PNG",
-      "description": "Grupo Niche show description",
-      "date": "20/12/2025",
+      "artist":"Bandalos Chinos",
+      "showName": "Bandalos Chinos",
+      "urlShow": "",
+      "urlShowImage": "",
+      "description": "Bandalos Chinos",
+      "date": "12/10/2025",
       "place": {
         "location": "Costa Rica",
-        "venue": "Estadio Nacional"
+        "venue": "Pepper Disco Club"
       },
       "region": "Centroamérica y Caribe",
       "priority": 1
     },
     {
-      "artist": "Carl Cox y John Digweed",
-      "showName": "Carl Cox y John Digweed",
-      "urlShow": "https://www.sonymusic.co.cr/",
-      "urlShowImage": "https://cdn.wyng.com/54ac3103ef95a67c1cff8ef2/67a5b0741c2be2764e7238cc.PNG",
-      "description": "Carl Cox y John Digweed show description",
-      "date": "10/01/2025",
+      "artist":"Debi Nova",
+      "showName": "Debi Nova",
+      "urlShow": "",
+      "urlShowImage": "",
+      "description": "Debi Nova",
+      "date": "18/10/2025",
       "place": {
         "location": "Costa Rica",
-        "venue": "Estadio Nacional"
+        "venue": "Parque Viva"
       },
       "region": "Centroamérica y Caribe",
       "priority": 1
     },
     {
-      "artist": "Oculus",
-      "showName": "Oculus (Col) en Costa Rica",
-      "urlShow": "https://www.sonymusic.co.cr/",
-      "urlShowImage": "https://cdn.wyng.com/54ac3103ef95a67c1cff8ef2/67a5b079ed90df7046657e6e.PNG",
-      "description": "Oculus (Col) en Costa Rica show description",
-      "date": "15/03/2025",
+      "artist":"El Zar",
+      "showName": "El Zar",
+      "urlShow": "",
+      "urlShowImage": "",
+      "description": "El Zar",
+      "date": "22/10/2025",
       "place": {
         "location": "Costa Rica",
-        "venue": "Estadio Nacional"
+        "venue": "Jazz Café"
       },
       "region": "Centroamérica y Caribe",
       "priority": 1
     },
     {
-      "artist": "Hot Mulligan",
-      "showName": "Hot Mulligan",
-      "urlShow": "https://www.sonymusic.co.cr/",
-      "urlShowImage": "https://cdn.wyng.com/54ac3103ef95a67c1cff8ef2/67a5b09181a1aadd510c0577.PNG",
-      "description": "Hot Mulligan show description",
-      "date": "28/03/2025",
-      "place": {
-        "location": "Costa Rica",
-        "venue": "Estadio Nacional"
-      },
-      "region": "Centroamérica y Caribe",
-      "priority": 1
-    },
-    {
-      "artist": "Nosferatu",
-      "showName": "Nosferatu",
-      "urlShow": "https://www.sonymusic.co.cr/",
-      "urlShowImage": "https://cdn.wyng.com/54ac3103ef95a67c1cff8ef2/67a5b095cbaa56af6054e6b8.PNG",
-      "description": "Nosferatu show description",
-      "date": "08/04/2025",
+      "artist":"Bad Bunny",
+      "showName": "Bad Bunny",
+      "urlShow": "",
+      "urlShowImage": "",
+      "description": "Bad Bunny",
+      "date": "05/12/2025",
       "place": {
         "location": "Costa Rica",
         "venue": "Estadio Nacional"
@@ -98,5 +238,6 @@
       "region": "Centroamérica y Caribe",
       "priority": 1
     }
+    
   ]
 }

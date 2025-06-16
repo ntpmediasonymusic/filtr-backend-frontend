@@ -12,9 +12,6 @@ export const PageTitleProvider = ({ children }) => {
       case "/":
         document.title = "Filtr";
         break;
-      case "/explore":
-        document.title = "Explorar";
-        break;
       case "/genres":
         document.title = "Géneros";
         break;
@@ -56,6 +53,12 @@ export const PageTitleProvider = ({ children }) => {
         break;
       case "/reset-password":
         document.title = "Recuperar contraseña";
+        break;
+      case "/terms-and-conditions":
+        document.title = "Términos y Condiciones";
+        break;
+      case "/privacy-policy":
+        document.title = "Política de Privacidad";
         break;
       default:
         document.title = "Filtr";

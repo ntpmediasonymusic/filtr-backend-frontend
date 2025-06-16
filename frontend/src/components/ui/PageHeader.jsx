@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import SearchIcon from "../../assets/icons/SearchIcon";
 import UserCircleIcon from "../../assets/icons/UserCircleIcon";
-import ProfileModal from "./ProfileModal";
+import ProfileModal from "./modal/ProfileModal";
 import { FaSignInAlt, FaUserPlus } from "react-icons/fa";
 import { useSearch } from "../../context/SearchContext";
 

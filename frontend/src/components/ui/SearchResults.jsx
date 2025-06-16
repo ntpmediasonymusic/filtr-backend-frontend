@@ -1,7 +1,6 @@
-// components/search/SearchResults.jsx
+/* eslint-disable react/prop-types */
 import PlaylistsContainerGrid from "../ui/PlaylistsContainerGrid";
 
-// eslint-disable-next-line react/prop-types
 const SearchResults = ({ searchResults, searchQuery }) => {
   if (!searchQuery) return null;
 

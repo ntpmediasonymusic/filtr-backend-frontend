@@ -47,7 +47,7 @@
       "urlPlaylist": "https://open.spotify.com/playlist/3SdPPKCc7rRRvyOpqnRWhf?si=5f4fef1cee4b400c&nd=1&dlsi=d167ae64f334464c",
       "urlCoverImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da841a9903b87781662a0a3700e4",
       "mainCategory": [],
-      "genre": ["Baladas Románticas", "Artistas Femeninas","Pop"],
+      "genre": ["Baladas Románticas", "Voces Femeninas","Pop"],
       "moods": ["Romance", "Despecho"],
       "region": "Centroamérica y Caribe",
       "priority": 1
@@ -57,7 +57,7 @@
       "urlPlaylist": "https://open.spotify.com/playlist/2odLZBqJe1IEjK1vGPDIjd?si=b146e319e1464d88&nd=1&dlsi=ee6fbacdf40f4cb7",
       "urlCoverImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da847bef5fcfa0aabed1ed1686e1",
       "mainCategory": [],
-      "genre": ["Baladas Románticas", "Artistas Femeninas", "Pop"],
+      "genre": ["Baladas Románticas", "Voces Femeninas", "Pop"],
       "moods": ["Romance", "Despecho"],
       "region": "Centroamérica y Caribe",
       "priority": 1
@@ -77,7 +77,7 @@
       "urlPlaylist": "https://open.spotify.com/playlist/0NsJ2uXtwnS5tGDY8dvXvW?si=2a2e6741d0284400&nd=1&dlsi=4b2f4ef3f34a49f2",
       "urlCoverImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000d72cca284ba8380737be5d08c8c5",
       "mainCategory": ["Novedades y Éxitos"],
-      "genre": ["Éxitos"],
+      "genre": ["Éxitos", "Novedades"],
       "moods": ["Fiesta"],
       "region": "Centroamérica y Caribe",
       "priority": 1,
@@ -159,7 +159,7 @@
       "urlCoverImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da841a0c3c966bb3e35a82cdfdc7",
       "mainCategory": ["Power Up"],
       "genre": ["Pop", "Urbano"],
-      "moods": [],
+      "moods": ["Mood booster"],
       "region": "Centroamérica y Caribe",
       "priority": 1
     },
@@ -168,8 +168,8 @@
       "urlPlaylist": "https://open.spotify.com/playlist/1Jx7AdqyAGUMWBavwSN5vt?si=5ef950e9c0ef42b4&nd=1&dlsi=fe9169f829384cd8",
       "urlCoverImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da8425a4dd355a791f753edeb40a",
       "mainCategory": ["Power Up"],
-      "genre": ["Pop", "Artistas Femeninas"],
-      "moods": [],
+      "genre": ["Pop", "Voces Femeninas"],
+      "moods": ["Mood booster"],
       "region": "Centroamérica y Caribe",
       "priority": 1
     },
@@ -179,7 +179,7 @@
       "urlCoverImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000d72cd10587fcebe0f51ea8a8e610",
       "mainCategory": ["Power Up"],
       "genre": ["Pop"],
-      "moods": [],
+      "moods": ["Mood booster"],
       "region": "Centroamérica y Caribe",
       "priority": 1
     },
@@ -229,7 +229,7 @@
       "urlCoverImage": "https://image-cdn-fa.spotifycdn.com/image/ab67706c0000da8409f03b5216ba4570ec4a82ec",
       "mainCategory": [],
       "genre": ["Pop"],
-      "moods": [],
+      "moods": ["Mood booster"],
       "region": "Centroamérica y Caribe",
       "priority": 1
     },
@@ -258,7 +258,7 @@
       "urlPlaylist": "https://open.spotify.com/playlist/4FCH4P4roIvejnnfynM1HH?si=c93c6ba94ff14e0d&nd=1&dlsi=6b395d8fc1a94c48",
       "urlCoverImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da8486e39af5ce7dfb466d311047",
       "mainCategory": [],
-      "genre": ["Urbano", "Artistas Femeninas"],
+      "genre": ["Urbano", "Voces Femeninas"],
       "moods": [],
       "region": "Centroamérica y Caribe",
       "priority": 1
@@ -268,7 +268,7 @@
       "urlPlaylist": "https://open.spotify.com/playlist/74og7yeY9DsNBmj9uUXRe6?si=6f1a3d8861304ee5&nd=1&dlsi=30cdfe66a0d44a80",
       "urlCoverImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da846416cab69c888f4a68cb7715",
       "mainCategory": [],
-      "genre": ["Urbano", "Artistas Femeninas"],
+      "genre": ["Urbano", "Voces Femeninas"],
       "moods": [],
       "region": "Centroamérica y Caribe",
       "priority": 1
@@ -298,7 +298,7 @@
       "urlPlaylist": "https://open.spotify.com/playlist/2tX56rjkc0SlJ8DNhGtkDZ?si=39f0ba5ddf2e4297&nd=1&dlsi=b9c5031430ed4db0",
       "urlCoverImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000d72c9d70cfe470b9ce202a2927ab",
       "mainCategory": ["Novedades y Éxitos"],
-      "genre": ["Urbano"],
+      "genre": ["Novedades","Urbano"],
       "moods": [],
       "region": "Centroamérica y Caribe",
       "priority": 1
@@ -348,7 +348,7 @@
       "urlPlaylist": "https://open.spotify.com/playlist/5qPPM2GpHSTYO16ZGdPZSO?si=06e12070327f4a72&nd=1&dlsi=b265affb45264d9d",
       "urlCoverImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84c85f4d88c3939c6bf678f5cd",
       "mainCategory": [],
-      "genre": ["Artistas Femeninas", "Indie"],
+      "genre": ["Voces Femeninas", "Indie"],
       "moods": ["Despecho"],
       "region": "Centroamérica y Caribe",
       "priority": 1
@@ -379,7 +379,7 @@
       "urlCoverImage": "https://image-cdn-fa.spotifycdn.com/image/ab67706c0000d72cec3a5c77c75dee8075a6f7dd",
       "mainCategory": [],
       "genre": ["Tropical"],
-      "moods": ["Fiesta"],
+      "moods": ["Fiesta, Mood booster"],
       "region": "Centroamérica y Caribe",
       "priority": 1
     },
@@ -438,8 +438,8 @@
       "urlPlaylist": "https://open.spotify.com/playlist/7K6XsP9sTUPbbj8eyhlOtK?si=5f80e3a810c44213&nd=1&dlsi=7b27fb7f53134c67",
       "urlCoverImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84a62c8225310073a31e5d7384",
       "mainCategory": [],
-      "genre": ["Indie"],
-      "moods": [],
+      "genre": [],
+      "moods": ["Mood booster"],
       "region": "Centroamérica y Caribe",
       "priority": 1
     },
@@ -518,7 +518,7 @@
       "urlPlaylist": "https://open.spotify.com/playlist/3QCz8Iea4Xj7qIVOAjsWwc?si=c14d71eecd25488c&nd=1&dlsi=a1c4ba5415404d24",
       "urlCoverImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84b86971ecb43c01d1a26e6a14",
       "mainCategory": [],
-      "genre": ["Rock"],
+      "genre": ["Rock", "Indie"],
       "moods": [],
       "region": "Centroamérica y Caribe",
       "priority": 1
@@ -538,7 +538,7 @@
       "urlPlaylist": "https://open.spotify.com/playlist/2nj9GB7pYJmV7ln4SBxNxz?si=1909f2714a8d4759&nd=1&dlsi=c44bbbdae72d4eeb",
       "urlCoverImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84d1658ad5c48e8aa10ef0e837",
       "mainCategory": [],
-      "genre": ["Reggae"],
+      "genre": ["Reggae", "Tropical"],
       "moods": ["Chill"],
       "region": "Centroamérica y Caribe",
       "priority": 1
@@ -644,6 +644,26 @@
       "region": "Centroamérica y Caribe",
       "priority": 1,
       "trending": 5
+    },
+    {
+      "playlistName": "Indie Vibes - New Alternative Tracks",
+      "urlPlaylist": "https://open.spotify.com/playlist/1bITtFrlPY17DETjQssYQh?si=81763fb4b9244524&nd=1&dlsi=fd4c023a69c64d7f",
+      "urlCoverImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84a9fd47e5ec74e27a4a0c3bbf",
+      "mainCategory": [],
+      "genre": ["Indie", "Rock"],
+      "moods": [],
+      "region": "Centroamérica y Caribe",
+      "priority": 1
+    },
+    {
+      "playlistName": "Alt Vibes – New Indie Rock and Alternative Songs",
+      "urlPlaylist": "https://open.spotify.com/playlist/48LD0JyeJ3gwgxYMQENrai?si=b9c2833a677c4271&nd=1&dlsi=975726549afe4017",
+      "urlCoverImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84b427ff3dd6f84eefa934fddd",
+      "mainCategory": [],
+      "genre": ["Indie", "Rock"],
+      "moods": [],
+      "region": "Centroamérica y Caribe",
+      "priority": 1
     }
   ]
 }

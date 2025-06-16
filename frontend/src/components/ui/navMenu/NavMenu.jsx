@@ -3,7 +3,7 @@ import { FaBars, FaTimes } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import NavMenuItem from "./NavMenuItem";
 import MobileMenu from "./MobileMenu";
-import logo from "../../../assets/images/filtr_logo_white.png";
+import logo from "../../../assets/images/filtr_logo_white.svg";
 import GenresIcon from "../../../assets/icons/GenresIcon";
 import HomeIcon from "../../../assets/icons/HomeIcon";
 import MoodsIcon from "../../../assets/icons/MoodsIcon";
@@ -63,7 +63,7 @@ const NavMenu = () => {
           <img
             src={logo}
             alt="Logo Filtr"
-            className="w-12 md:w-20 cursor-pointer"
+            className="w-40 md:w-50 cursor-pointer"
           />
         </NavLink>
       </div>

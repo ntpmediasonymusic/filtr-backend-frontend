@@ -177,7 +177,8 @@ const LoginForm = () => {
 
       {/* Link a signup */}
       <div className="text-center text-[#131517] mt-1 sm:mt-2 text-sm sm:text-base">
-        ¿No tienes una cuenta?{" "}
+        Aún no soy miembro FILTRCA
+        <br />
         <a href="/signup" className="underline font-semibold">
           Regístrate Aquí
         </a>

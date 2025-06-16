@@ -40,7 +40,7 @@ const Moods = () => {
 
       <MusicBanner type="moods" />
 
-      <div className="flex flex-col pb-[50px] md:pb-[50px] gap-[35px] md:gap-[50px]">
+      <div className="flex flex-col px-6 pb-[50px] md:pb-[50px] gap-[35px] md:gap-[80px]">
         <MoodsHeader
           moods={moodsData.moods}
           selectedMood={selectedMood}
