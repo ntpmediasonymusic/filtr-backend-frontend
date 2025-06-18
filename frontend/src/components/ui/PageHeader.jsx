@@ -90,14 +90,15 @@ const PageHeader = ({ welcomeMsg }) => {
               className="flex items-center gap-2 px-2 py-2 text-white text-lg font-normal hover:opacity-60 whitespace-nowrap"
             >
               <FaSignInAlt />
-              <span>Login</span>
+              <span>Acceder</span>
             </NavLink>
+            <div className="h-6 w-px bg-white mx-0" />
             <NavLink
               to="/signup"
               className="flex items-center gap-2 px-2 py-2 text-white text-lg font-normal hover:opacity-60 whitespace-nowrap"
             >
               <FaUserPlus />
-              <span>Sign Up</span>
+              <span>Registrarse</span>
             </NavLink>
           </div>
         ) : (

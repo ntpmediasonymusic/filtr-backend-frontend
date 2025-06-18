@@ -24,9 +24,6 @@ export const PageTitleProvider = ({ children }) => {
       case "/shows":
         document.title = "Shows";
         break;
-      case "/main-category":
-        document.title = "Categoría";
-        break;
       case "/trending":
         document.title = "Trending";
         break;
@@ -34,10 +31,10 @@ export const PageTitleProvider = ({ children }) => {
         document.title = "Premios";
         break;
       case "/login":
-        document.title = "Login";
+        document.title = "Acceder";
         break;
       case "/signup":
-        document.title = "SignUp";
+        document.title = "Registrarse";
         break;
       case "/edit-account":
         document.title = "Editar perfil";

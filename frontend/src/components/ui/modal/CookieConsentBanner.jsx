@@ -130,15 +130,15 @@ const CookieConsentBanner = () => {
         <div className="flex flex-col md:flex-row gap-2 md:justify-end">
           <button
             onClick={() => handleConsent("rejected")}
-            className="bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded transition-colors"
+            className="bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded transition-colors text-sm"
           >
-            Rechazar
+            RECHAZAR
           </button>
           <button
             onClick={() => handleConsent("accepted")}
-            className="bg-[#ca249c] text-white font-semibold py-2 px-4 rounded transition-colors"
+            className="bg-[#ca249c] text-white font-semibold py-2 px-4 rounded transition-colors text-sm"
           >
-            Aceptar cookies
+            ACEPTAR COOKIES
           </button>
         </div>
       </div>

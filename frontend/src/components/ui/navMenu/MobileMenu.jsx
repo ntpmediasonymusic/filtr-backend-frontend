@@ -59,7 +59,7 @@ const MobileMenu = ({ menuOptions, toggleMenu }) => {
             className="flex items-center space-x-2 text-lg font-medium px-2 py-2 text-white hover:text-[#ffeda8] transition duration-300"
           >
             <FaSignInAlt className="text-xl" />
-            <span>Login</span>
+            <span>Acceder</span>
           </NavLink>
 
           <NavLink
@@ -68,7 +68,7 @@ const MobileMenu = ({ menuOptions, toggleMenu }) => {
             className="flex items-center space-x-2 text-lg font-medium px-2 py-2 text-white hover:text-[#ffeda8] transition duration-300"
           >
             <FaUserPlus className="text-xl" />
-            <span>Sign Up</span>
+            <span>Registrarse</span>
           </NavLink>
         </>
       )}

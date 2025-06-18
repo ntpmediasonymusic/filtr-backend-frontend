@@ -1,0 +1,29 @@
+{
+  "moods": [
+    {
+      "name": "Fiesta",
+      "desktopImage": "/assets/images/cards-moods/desktop/cards-moods-desktop-fiesta.png",
+      "mobileImage": "/assets/images/cards-moods/mobile/cards-moods-mobile-fiesta.png"
+    },
+    {
+      "name": "Romance",
+      "desktopImage": "/assets/images/cards-moods/desktop/cards-moods-desktop-romance.png",
+      "mobileImage": "/assets/images/cards-moods/mobile/cards-moods-mobile-romance.png"
+    },
+    {
+      "name": "Despecho",
+      "desktopImage": "/assets/images/cards-moods/desktop/cards-moods-desktop-despecho.png",
+      "mobileImage": "/assets/images/cards-moods/mobile/cards-moods-mobile-despecho.png"
+    },
+    {
+      "name": "Chill",
+      "desktopImage": "/assets/images/cards-moods/desktop/cards-moods-desktop-chill.png",
+      "mobileImage": "/assets/images/cards-moods/mobile/cards-moods-mobile-chill.png"
+    },
+    {
+      "name": "Mood booster",
+      "desktopImage": "/assets/images/cards-moods/desktop/cards-moods-desktop-booster.png",
+      "mobileImage": "/assets/images/cards-moods/mobile/cards-moods-mobile-booster.png"
+    }
+  ]
+}

@@ -39,7 +39,7 @@ const LoginModal = ({ onClose }) => {
               onClick={() => navigate("/login")}
               className="w-full bg-[#B9F2CD] text-black py-3 px-6 rounded-[8px] font-semibold hover:bg-[#a8e3bc] transition-all duration-200 cursor-pointer"
             >
-              Iniciar sesión
+              INICIAR SESIÓN
             </button>
           </div>
           {/* Botón de cerrar */}

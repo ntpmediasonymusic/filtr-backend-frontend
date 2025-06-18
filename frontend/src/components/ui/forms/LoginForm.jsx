@@ -90,7 +90,7 @@ const LoginForm = () => {
       className="bg-white p-6 sm:p-10 rounded-[22px] max-w-[800px] w-full mx-auto flex flex-col gap-4 sm:gap-5"
     >
       <div className="w-full flex items-center justify-center">
-        <UserBigCircleIcon />
+        <UserBigCircleIcon className="w-28 h-28 md:w-48 md:h-48" />
       </div>
 
       {/* E-mail */}
@@ -172,15 +172,15 @@ const LoginForm = () => {
         type="submit"
         className="w-full py-2.5 sm:py-3 bg-[#ca249c] cursor-pointer text-white font-semibold rounded-lg hover:opacity-90 transition text-sm sm:text-base"
       >
-        Entrar
+        ACCEDER
       </button>
 
       {/* Link a signup */}
       <div className="text-center text-[#131517] mt-1 sm:mt-2 text-sm sm:text-base">
-        Aún no soy miembro FILTRCA
+        ¿Aún no eres miembro FILTRCA?
         <br />
         <a href="/signup" className="underline font-semibold">
-          Regístrate Aquí
+          Regístrate aquí
         </a>
       </div>
     </form>

@@ -58,8 +58,8 @@ const ForgotPasswordForm = () => {
         ¿Olvidaste tu contraseña?
       </h2>
       <p className="text-center leading-tight sm:leading-normal text-sm">
-        Descuida, ingresa tu correo y enviaremos un enlace seguro para crear una
-        nueva contraseña.
+        Ingresa tu correo electrónico y espera un enlace seguro para restablecer
+        tu contraseña.
       </p>
 
       {/* E-mail */}
@@ -93,14 +93,15 @@ const ForgotPasswordForm = () => {
         type="submit"
         className="w-full py-2.5 sm:py-3 bg-[#ca249c] cursor-pointer text-white font-semibold rounded-lg hover:opacity-90 transition text-sm sm:text-base"
       >
-        Enviar
+        ENVIAR
       </button>
 
       {/* Link a signup */}
       <div className="text-center text-[#131517] mt-1 sm:mt-2 text-sm sm:text-base">
-        ¿No tienes una cuenta?{" "}
+        ¿Aún no eres miembro FILTRCA?
+        <br />
         <a href="/signup" className="underline font-semibold">
-          Regístrate Aquí
+          Regístrate aquí
         </a>
       </div>
     </form>

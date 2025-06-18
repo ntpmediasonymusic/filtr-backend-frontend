@@ -53,7 +53,7 @@ const ProfileModal = ({ onClose }) => {
         className="flex flex-row items-center gap-4 py-2 pl-2 hover:bg-white/10 rounded text-left"
       >
         <FaSignOutAlt />
-        <span>Log Out</span>
+        <span>Cerrar sesión</span>
       </button>
     </div>
   );

@@ -102,13 +102,13 @@ export default function MoodsHeader({
                 onClick={() => handleClick(mood)}
                 onMouseDown={(e) => e.stopPropagation()}
                 className={`cursor-pointer rounded-2xl md:rounded-3xl box-border border-2 md:border-4
-                  w-[100px] min-w-[100px]
+                  w-[110px] min-w-[110px]
                   sm:w-[180px] sm:min-w-[180px]
                   md:w-[160px] md:min-w-[160px]
                   lg:w-[200px] lg:min-w-[200px]
                   xl:w-[240px] xl:min-w-[240px]
                   transform-gpu overflow-hidden
-                  h-12 sm:h-24 md:h-24 lg:h-28 xl:h-32
+                  h-16 sm:h-24 md:h-24 lg:h-28 xl:h-32
                   ${
                     isSelected
                       ? "border-[#ffffff] scale-105 relative z-10"
@@ -140,7 +140,7 @@ export default function MoodsHeader({
           <button
             onClick={() => scrollByOffset(-300)}
             disabled={!canScrollLeft}
-            className={`absolute z-12 top-1/2 left-0 transform -translate-y-1/2 bg-[#252733] p-2 rounded-full transition-opacity
+            className={`absolute z-12 top-1/2 left-0 transform -translate-y-1/2 bg-[#252733] p-0.5 md:p-2 w-10 h-10 md:w-16 md:h-16 rounded-full transition-opacity
               ${
                 canScrollLeft
                   ? "hover:opacity-80"
@@ -149,8 +149,7 @@ export default function MoodsHeader({
             `}
           >
             <svg
-              width="44"
-              height="44"
+              className="w-full h-full"
               viewBox="0 0 44 44"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -170,7 +169,7 @@ export default function MoodsHeader({
           <button
             onClick={() => scrollByOffset(300)}
             disabled={!canScrollRight}
-            className={`absolute z-12 top-1/2 right-0 transform -translate-y-1/2 bg-[#252733] p-2 rounded-full transition-opacity ml-2
+            className={`absolute z-12 top-1/2 right-0 transform -translate-y-1/2 bg-[#252733] p-0.5 md:p-2 w-10 h-10 md:w-16 md:h-16 rounded-full transition-opacity ml-2
               ${
                 canScrollRight
                   ? "hover:opacity-80"
@@ -179,8 +178,7 @@ export default function MoodsHeader({
             `}
           >
             <svg
-              width="44"
-              height="44"
+              className="w-full h-full"
               viewBox="0 0 44 44"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"

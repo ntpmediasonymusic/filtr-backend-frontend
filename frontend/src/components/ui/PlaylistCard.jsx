@@ -50,7 +50,7 @@ const PlaylistCard = ({
   };
 
   return (
-    <div className="flex flex-col w-full md:w-60 sm:w-40 flex-shrink-0 bg-[#282534] rounded-lg p-3 gap-2.5">
+    <div className="flex flex-col w-full max-w-40 md:max-w-60 sm:max-w-50 flex-shrink-0 bg-[#282534] rounded-lg p-3 gap-2.5">
       <a
         href={urlPlaylist}
         target="_blank"
@@ -69,12 +69,12 @@ const PlaylistCard = ({
         </div>
       </a>
 
-      <div className="flex w-full justify-between items-center gap-2.5">
+      <div className="flex w-full flex-col md:flex-row justify-between items-center gap-2.5">
         <h6 className="flex-1 text-white text-left line-clamp-2 min-h-[3rem]">
           {playlistName}
         </h6>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3 md:gap-2 w-full md:w-auto justify-end">
           <button
             onClick={handleToggleFavorite}
             className="flex-shrink-0 cursor-pointer"

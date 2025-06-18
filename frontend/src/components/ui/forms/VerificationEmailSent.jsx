@@ -83,10 +83,10 @@ const VerificationEmailSent = ({ email, fromLogin = "false" }) => {
           <span className="font-medium">{email}</span>
           <br />
           Por favor revisa tu bandeja y haz clic en el enlace de verificación
-          para activar tu cuenta antes de iniciar sesión.
+          para activar tu cuenta.
         </p>
         {apiMsg && (
-          <p className="mt-2 text-center text-sm text-green-600">{apiMsg}</p>
+          <p className="mt-2 text-center text-md text-green-600">{apiMsg}</p>
         )}
       </div>
 

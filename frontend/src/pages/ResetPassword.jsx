@@ -6,11 +6,14 @@ const ResetPassword = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center px-6 py-[50px] md:py-[50px]">
-      <div className="text-center mb-8 max-w-md">
+      <div className="flex flex-col text-center mb-8 max-w-md gap-2">
         <h2 className="text-white text-2xl md:text-3xl font-bold">
-          Disfruta de la mejor música y contenidos exclusivos
+          SOMOS FILTRCA
         </h2>
-        <p className="text-[#CFDD28] text-lg font-semibold mt-2">¡Entra ya!</p>
+        <p className="text-white/90 font-bold">
+          Una comunidad de apasionados por la música
+        </p>
+        <p className="text-[#CFDD28] font-semibold ">¡Entra ya!</p>
       </div>
       <ResetPasswordForm />
     </div>

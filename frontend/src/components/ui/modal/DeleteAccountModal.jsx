@@ -27,7 +27,8 @@ export default function DeleteAccountModal({ onConfirm, onCancel }) {
         >
           <p className="text-lg">
             ¿Estás seguro de que quieres{" "}
-            <span className="font-semibold">eliminar tu cuenta</span> de Filtr?<br/>
+            <span className="font-semibold">eliminar tu cuenta</span> de Filtr?
+            <br />
             Esta acción no se puede deshacer.
           </p>
           <div className="flex justify-end gap-3">
@@ -35,13 +36,13 @@ export default function DeleteAccountModal({ onConfirm, onCancel }) {
               onClick={onCancel}
               className="px-4 py-2 bg-gray-600 rounded hover:bg-gray-500 transition"
             >
-              No
+              NO
             </button>
             <button
               onClick={onConfirm}
               className="px-4 py-2 bg-red-600 rounded hover:bg-red-500 transition"
             >
-              Sí, eliminar
+              SÍ, ELIMINAR
             </button>
           </div>
         </div>

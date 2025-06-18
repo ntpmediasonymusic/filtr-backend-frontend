@@ -138,7 +138,7 @@ exports.confirmEmail = async (req, res, next) => {
 
     // Devolver mensaje y token para que se inicie sesión directamente
     return res.json({
-      message: "Correo verificado exitosamente. Puedes iniciar sesión",
+      message: "Correo verificado exitosamente.",
       token: `Bearer ${sessionToken}`,
       user: {
         id: user.id,
@@ -189,7 +189,7 @@ exports.resendVerification = async (req, res, next) => {
       process.env.DESMAN_USER_JWT_SECRET,
       { expiresIn: process.env.DESMAN_USER_EMAIL_TOKEN_EXPIRES_IN }
     );
-    await sendVerificationEmail(user.email, emailToken);
+    await sendVerificationEmail(user.email, user.firstName, emailToken);
     return res.json({ message: "Se ha reenviado el correo de verificación" });
   } catch (err) {
     next(err);

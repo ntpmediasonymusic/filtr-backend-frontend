@@ -50,13 +50,13 @@ const TrendingPlaylistCard = ({
   };
 
   return (
-    <div className="flex flex-col md:flex-row items-start bg-[#282534] rounded-lg p-4 gap-4 md:h-[240px] flex-shrink-0 md:relative">
+    <div className="flex flex-col w-full max-w-[800px] md:flex-row items-start bg-[#282534] rounded-lg p-4 gap-4 md:h-[240px] flex-shrink-0 md:relative">
       {/* Imagen de la playlist */}
       <a
         href={urlPlaylist}
         target="_blank"
         rel="noopener noreferrer"
-        className="relative group flex-shrink-0"
+        className="relative group flex-shrink-0 w-full md:w-[208px]"
       >
         <img
           src={urlCoverImage}
@@ -64,7 +64,7 @@ const TrendingPlaylistCard = ({
           className="w-full h-auto md:w-[208px] md:h-[208px] rounded-lg object-cover"
         />
         <div className="absolute inset-0 bg-black/50 rounded-lg opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
-          <div className="w-14 h-14">
+          <div className="w-1/2 h-1/2">
             <PlaylistPlayButton onlyArrow className="w-full h-full" />
           </div>
         </div>
@@ -72,10 +72,10 @@ const TrendingPlaylistCard = ({
 
       {/* Número y título */}
       <div className="flex-1 flex flex-col min-w-0 pt-4 mb-2">
-        <span className="font-montserrat font-bold text-[42px] md:text-[68px] leading-[1] text-white">
+        <span className="font-montserrat font-bold text-[42px] md:text-[80px] leading-[1] text-white">
           {index}
         </span>
-        <h6 className="text-white text-base font-medium mt-2 max-w-[240px] line-clamp-3 min-h-[3rem]">
+        <h6 className="text-white text-base md:text-lg font-medium mt-2 line-clamp-3 min-h-[3rem]">
           {playlistName}
         </h6>
       </div>

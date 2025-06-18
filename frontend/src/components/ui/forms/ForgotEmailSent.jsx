@@ -22,8 +22,8 @@ const ForgotEmailSent = () => {
         <h2 className="text-center text-2xl font-bold">¡Correo enviado!</h2>
 
         <p className="text-center leading-tight sm:leading-normal text-sm">
-          Si tu cuenta existe, recibirás en tu bandeja de entrada un enlace para
-          restablecer tu contraseña.
+          Revisa tu bandeja de entrada con los pasos para restablecer tu
+          contraseña.
         </p>
       </div>
 
@@ -32,7 +32,7 @@ const ForgotEmailSent = () => {
           onClick={() => navigate("/login")}
           className="flex-1 py-3 bg-[#ca249c] cursor-pointer text-white font-semibold rounded-lg transition text-sm sm:text-base"
         >
-          Acceder
+          ACCEDER
         </button>
       </div>
     </div>

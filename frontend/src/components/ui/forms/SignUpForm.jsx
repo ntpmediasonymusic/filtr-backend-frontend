@@ -376,7 +376,7 @@ const SignUpForm = () => {
         type="submit"
         className="w-full py-2.5 sm:py-3 bg-[#ca249c] text-white font-semibold rounded-lg transition hover:opacity-90 text-sm sm:text-base"
       >
-        Crear cuenta
+        CREAR CUENTA
       </button>
 
       {/* Link “¿Ya tienes cuenta? Accede Aquí” */}

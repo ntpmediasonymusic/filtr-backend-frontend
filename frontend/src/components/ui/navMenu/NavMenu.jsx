@@ -11,12 +11,15 @@ import MoodsIcon from "../../../assets/icons/MoodsIcon";
 import ShowsIcon from "../../../assets/icons/ShowsIcon";
 import TrendIcon from "../../../assets/icons/TrendIcon";
 import WinWinIcon from "../../../assets/icons/WinWinIcon";
+import { useSearch } from "../../../context/SearchContext";
 
 const NavMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef(null);
 
+  const { setSearchQuery } = useSearch();
   const toggleMenu = () => {
+    setSearchQuery("");
     setIsOpen(!isOpen);
   };
 
@@ -50,7 +53,7 @@ const NavMenu = () => {
   return (
     <nav
       ref={menuRef}
-      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between text-white px-4 py-5 shadow-md"
+      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between text-white px-4 py-4 shadow-md"
       style={{
         backgroundColor: "rgb(0, 79, 212)",
         backgroundImage:

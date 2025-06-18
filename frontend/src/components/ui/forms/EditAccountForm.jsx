@@ -347,7 +347,7 @@ export default function EditAccountForm({ user, setUser }) {
           type="submit"
           className="w-full py-3 bg-[#ca249c] text-white font-semibold rounded-lg transition hover:opacity-90 text-sm sm:text-base"
         >
-          Guardar cambios
+          GUARDAR CAMBIOS
         </button>
 
         {/* Botón Eliminar mi cuenta */}
@@ -356,7 +356,7 @@ export default function EditAccountForm({ user, setUser }) {
           onClick={() => setShowDeleteModal(true)}
           className="w-full mt-3 py-2 underline underline-offset-2 text-red-600 font-medium text-sm sm:text-sm"
         >
-          Eliminar mi cuenta
+          ELIMINAR MI CUENTA
         </button>
 
         {/* Mensaje de eliminación */}

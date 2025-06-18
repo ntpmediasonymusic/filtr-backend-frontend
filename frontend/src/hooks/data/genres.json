@@ -1,0 +1,74 @@
+{
+  "genres": [
+    {
+      "name": "Baladas Románticas",
+      "desktopImage": "/assets/images/cards-genres/desktop/cards-genres-desktop-romantica.png",
+      "mobileImage": "/assets/images/cards-genres/mobile/cards-genres-mobile-romantica.png"
+    },
+    {
+      "name": "Éxitos",
+      "desktopImage": "/assets/images/cards-genres/desktop/cards-genres-desktop-exitos.png",
+      "mobileImage": "/assets/images/cards-genres/mobile/cards-genres-mobile-exitos.png"
+    },
+    {
+      "name": "Novedades",
+      "desktopImage": "/assets/images/cards-genres/desktop/cards-genres-desktop-novedades.png",
+      "mobileImage": "/assets/images/cards-genres/mobile/cards-genres-mobile-novedades.png"
+    },
+    {
+      "name": "Pop",
+      "desktopImage": "/assets/images/cards-genres/desktop/cards-genres-desktop-pop.png",
+      "mobileImage": "/assets/images/cards-genres/mobile/cards-genres-mobile-pop.png"
+    },
+    {
+      "name": "Urbano",
+      "desktopImage": "/assets/images/cards-genres/desktop/cards-genres-desktop-urbano.png",
+      "mobileImage": "/assets/images/cards-genres/mobile/cards-genres-mobile-urbano.png"
+    },
+    {
+      "name": "Voces Femeninas",
+      "desktopImage": "/assets/images/cards-genres/desktop/cards-genres-desktop-femeninas.png",
+      "mobileImage": "/assets/images/cards-genres/mobile/cards-genres-mobile-femeninas.png"
+    },
+    {
+      "name": "Música Mexicana",
+      "desktopImage": "/assets/images/cards-genres/desktop/cards-genres-desktop-mexicana.png",
+      "mobileImage": "/assets/images/cards-genres/mobile/cards-genres-mobile-mexicana.png"
+    },
+    {
+      "name": "Electrónica",
+      "desktopImage": "/assets/images/cards-genres/desktop/cards-genres-desktop-electronica.png",
+      "mobileImage": "/assets/images/cards-genres/mobile/cards-genres-mobile-electronica.png"
+    },
+    {
+      "name": "Tropical",
+      "desktopImage": "/assets/images/cards-genres/desktop/cards-genres-desktop-tropical.png",
+      "mobileImage": "/assets/images/cards-genres/mobile/cards-genres-mobile-tropical.png"
+    },
+    {
+      "name": "Indie",
+      "desktopImage": "/assets/images/cards-genres/desktop/cards-genres-desktop-indie.png",
+      "mobileImage": "/assets/images/cards-genres/mobile/cards-genres-mobile-indie.png"
+    },
+    {
+      "name": "Temporadas",
+      "desktopImage": "/assets/images/cards-genres/desktop/cards-genres-desktop-temporadas.png",
+      "mobileImage": "/assets/images/cards-genres/mobile/cards-genres-mobile-temporadas.png"
+    },
+    {
+      "name": "Rock",
+      "desktopImage": "/assets/images/cards-genres/desktop/cards-genres-desktop-rock.png",
+      "mobileImage": "/assets/images/cards-genres/mobile/cards-genres-mobile-rock.png"
+    },
+    {
+      "name": "Musica Cristiana",
+      "desktopImage": "/assets/images/cards-genres/desktop/cards-genres-desktop-cristiana.png",
+      "mobileImage": "/assets/images/cards-genres/mobile/cards-genres-mobile-cristiana.png"
+    },
+    {
+      "name": "Decadas",
+      "desktopImage": "/assets/images/cards-genres/desktop/cards-genres-desktop-decadas.png",
+      "mobileImage": "/assets/images/cards-genres/mobile/cards-genres-mobile-decadas.png"
+    }
+  ]
+}

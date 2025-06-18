@@ -64,9 +64,11 @@ const ResetPasswordForm = () => {
       onSubmit={handleSubmit}
       className="bg-white p-6 sm:p-10 rounded-[22px] max-w-[800px] w-full mx-auto flex flex-col gap-4 sm:gap-5"
     >
-      <h2 className="text-center text-2xl font-bold">Restablecer contraseña</h2>
+      <h2 className="text-center text-2xl font-bold">
+        Ingresa tu nueva contraseña
+      </h2>
       <p className="text-center leading-tight sm:leading-normal text-sm">
-        Elige una nueva contraseña segura para volver a acceder a tu cuenta.
+        Debe contener un máximo de 6 caracteres incluyendo mayúsculas y números.
       </p>
 
       {/* Nueva contraseña */}
@@ -143,7 +145,7 @@ const ResetPasswordForm = () => {
         type="submit"
         className="w-full py-2.5 sm:py-3 bg-[#ca249c] text-white font-semibold rounded-lg hover:opacity-90 transition text-sm sm:text-base"
       >
-        Cambiar contraseña
+        CAMBIAR CONTRASEÑA
       </button>
     </form>
   );

@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const cors = require("cors");
 const morgan = require("morgan");
 const helmet = require("helmet");
@@ -10,12 +11,12 @@ const userRoutes = require("./routes/user.routes");
 const playlistRoutes = require("./routes/playlist.routes");
 const spotifyRoutes = require("./routes/spotify.routes");
 const { errorHandler, notFound } = require("./middleware/error.middleware");
-const path = require("path");
 
 require("dotenv").config();
 require("./models"); // inicializa DB
 
 const app = express();
+app.use(express.static(path.join(__dirname, "public")));
 
 // Middlewares globales
 app.use(helmet());

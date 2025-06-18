@@ -1,13 +1,8 @@
 /* eslint-disable react/prop-types */
-function UserBigCircleIcon({
-  width = "192",
-  height = "193",
-  color = "#D9D9D9",
-}) {
+function UserBigCircleIcon({ className = "", color = "#D9D9D9" }) {
   return (
     <svg
-      width={width}
-      height={height}
+      className={className}
       viewBox="0 0 192 193"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

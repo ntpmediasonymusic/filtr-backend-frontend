@@ -20,21 +20,24 @@ const ResetPasswordSuccess = () => {
           <ImCheckmark2 className="text-white w-12 h-12" />
         </div>
         <h2 className="text-center text-2xl font-bold">
-          ¡Tu contraseña se ha actualizado!
+          Tu contraseña se ha actualizado exitosamente
         </h2>
         <p className="text-center leading-tight sm:leading-normal text-sm">
-          Ya puedes iniciar sesión con tu nueva contraseña.
+          inicia sesión con tu nueva contraseña.
         </p>
       </div>
 
-      {/* Botones “Acceder” y “Reenviar correo…” */}
-      <div className="flex flex-col sm:flex-row gap-4">
+      <div className="flex flex-col gap-2">
         <button
           onClick={() => navigate("/login")}
           className="flex-1 py-3 bg-[#ca249c] cursor-pointer text-white font-semibold rounded-lg transition text-sm sm:text-base"
         >
-          Acceder
+          ACCEDER
         </button>
+
+        <p className="text-center leading-tight sm:leading-normal text-sm">
+          y vuelve a disfrutar de tus playlist favoritas.
+        </p>
       </div>
     </div>
   );

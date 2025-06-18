@@ -7,6 +7,7 @@ const ShowCard = ({ artist, showName, urlShow, urlShowImage, date, place }) => {
   return (
     <div className="flex flex-col xl:flex-row w-[100%] xl:w-[660px] h-[100%] xl:h-[251px] bg-[#262627] rounded-lg p-4 gap-5">
       {/* Show Image */}
+      {urlShow &&
       <div className="w-[100%] xl:w-[225px] h-[225px] flex-shrink-0 rounded-md overflow-hidden">
         <a href={urlShow} target="_blank" rel="noopener noreferrer">
           <img
@@ -17,6 +18,7 @@ const ShowCard = ({ artist, showName, urlShow, urlShowImage, date, place }) => {
           />
         </a>
       </div>
+      }
 
       {/* Show Info */}
       <div className="flex flex-col justify-center gap-6 w-full">
