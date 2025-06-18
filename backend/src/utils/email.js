@@ -100,9 +100,9 @@ async function sendResetPasswordEmail(to, token) {
         />
       </div>
       <div style="font-family: sans-serif; line-height: 1.4;">
-        <h2 style="color: #000000;">Parece que quieres restablecer tu contraseña</h2>
-        <h3 style="color: #000000;">Para seguir disfrutando de los mejores hits</h3>
-        <p style="color: #000000; font-size: 14px;">Da clic en el siguiente botón para ingresar tu nueva contraseña:</p>
+        <h2 style="color: #000000;">Parece que quieres restablecer tu contraseña.</h2>
+        <h3 style="color: #000000;">Para seguir disfrutando de los mejores hits,</h3>
+        <p style="color: #000000; font-size: 14px;">da clic en el siguiente botón para ingresar tu nueva contraseña:</p>
         <a
           href="${resetLink}"
           style="

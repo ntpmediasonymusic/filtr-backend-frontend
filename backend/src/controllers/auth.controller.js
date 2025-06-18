@@ -56,7 +56,7 @@ exports.register = async (req, res, next) => {
     );
 
     // Enviar correo con enlace de verificación
-    await sendVerificationEmail(user.email, emailToken);
+    await sendVerificationEmail(user.email,user.firstName, emailToken);
 
     // No se devuelve el token de sesión aún: indicamos que revise su correo
     return res.status(201).json({
