@@ -28,7 +28,7 @@ const Shows = () => {
       <div className="px-6">
         <ShowsHeader />
       </div>
-      <div className="grid px-6 xl:px-0 justify-items-center grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 2xl:grid-cols-2 gap-x-[14px] xl:gap-x-[24px] gap-y-[30px] my-8 md:my-10">
+      <div className="grid px-6 xl:px-0 justify-items-center grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-2 gap-x-[14px] xl:gap-x-[24px] gap-y-[30px] my-8 md:my-10">
         {shows.map((show) => (
           <ShowCard key={show.showName} {...show} />
         ))}

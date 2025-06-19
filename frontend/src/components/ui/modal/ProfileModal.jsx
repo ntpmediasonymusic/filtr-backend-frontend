@@ -15,7 +15,7 @@ const ProfileModal = ({ onClose }) => {
   };
 
   return (
-    <div className="absolute right-0 mt-2 flex flex-col w-auto bg-[#282828] p-4 rounded-[12px] text-white z-10">
+    <div className="absolute left-1/2 transform -translate-x-1/2 sm:-left-14 md:left-auto md:-right-33 md:transform-none mt-2 flex flex-col w-auto bg-[#282828] p-4 rounded-[12px] text-white z-20">
       {/* Perfil info */}
       <div className="flex flex-row gap-4 mb-4">
         <div>

@@ -3,8 +3,8 @@
     {
       "artist":"Sixpence None The Richer",
       "showName": "Sixpence None The Richer",
-      "urlShow": "",
-      "urlShowImage": "",
+      "urlShow": "https://eventos.cr/evento/25-06-20-six-pence-none-the-richer-25th-anniversary-tour",
+      "urlShowImage": "/assets/images/shows-images/SixpenceNoneTheRicher-show-image.png",
       "description": "Sixpence None The Richer",
       "date": "20/06/2025",
       "place": {
@@ -17,8 +17,8 @@
     {
       "artist":"Fabulosos Cadillacs",
       "showName": "Fabulosos Cadillacs",
-      "urlShow": "",
-      "urlShowImage": "",
+      "urlShow": "https://www.eticket.cr/masinformacion.aspx?idevento=8816",
+      "urlShowImage": "/assets/images/shows-images/FabulososCadillacs-show-image.png",
       "description": "Fabulosos Cadillacs",
       "date": "22/06/2025",
       "place": {
@@ -31,8 +31,8 @@
     {
       "artist":"Tiny Moving Parts",
       "showName": "Tiny Moving Parts",
-      "urlShow": "",
-      "urlShowImage": "",
+      "urlShow": "https://starticket.cr/e/tiny-moving-parts/5977?srsltid=AfmBOoqHAVKPVFv6gkApdHrRZIumgSbOl7MKbEfz8Yo_63FOTU6Ffbrr",
+      "urlShowImage": "/assets/images/shows-images/TinyMovingParts-show-image.png",
       "description": "Tiny Moving Parts",
       "date": "05/07/2025",
       "place": {
@@ -45,8 +45,8 @@
     {
       "artist":"Stryper",
       "showName": "Stryper",
-      "urlShow": "",
-      "urlShowImage": "",
+      "urlShow": "https://www.specialticket.net/event-details/573",
+      "urlShowImage": "/assets/images/shows-images/Stryper-show-image.png",
       "description": "Stryper",
       "date": "16/07/2025",
       "place": {
@@ -59,8 +59,8 @@
     {
       "artist":"Testament",
       "showName": "Testament",
-      "urlShow": "",
-      "urlShowImage": "",
+      "urlShow": "https://eventos.cr/evento/25-08-06-testament-latin-american-tour-2025",
+      "urlShowImage": "/assets/images/shows-images/Testament-show-image.png",
       "description": "Testament",
       "date": "06/08/2025",
       "place": {
@@ -73,8 +73,8 @@
     {
       "artist":"Manuel Turizo",
       "showName": "Manuel Turizo",
-      "urlShow": "",
-      "urlShowImage": "",
+      "urlShow": "https://www.eticket.cr/masinformacion.aspx?idevento=8868",
+      "urlShowImage": "/assets/images/shows-images/ManuelTurizo-show-image.png",
       "description": "Manuel Turizo",
       "date": "09/08/2025",
       "place": {
@@ -87,8 +87,8 @@
     {
       "artist":"Carlos Vives y Fonseca",
       "showName": "Carlos Vives y Fonseca",
-      "urlShow": "",
-      "urlShowImage": "",
+      "urlShow": "https://www.eticket.cr/masinformacion.aspx?idevento=8951",
+      "urlShowImage": "/assets/images/shows-images/CarlosVivesyFonseca-show-image.png",
       "description": "Carlos Vives y Fonseca",
       "date": "16/08/2025",
       "place": {
@@ -101,8 +101,8 @@
     {
       "artist":"Reels B",
       "showName": "Reels B",
-      "urlShow": "",
-      "urlShowImage": "",
+      "urlShow": "https://www.eticket.cr/masinformacion.aspx?idevento=8936",
+      "urlShowImage": "/assets/images/shows-images/ReelsB-show-image.png",
       "description": "Reels B",
       "date": "17/08/2025",
       "place": {
@@ -113,11 +113,11 @@
       "priority": 1
     },
     {
-      "artist":"Paulo Londa",
-      "showName": "Paulo Londa",
-      "urlShow": "",
-      "urlShowImage": "",
-      "description": "Paulo Londa",
+      "artist":"Paulo Londra",
+      "showName": "Paulo Londra",
+      "urlShow": "https://www.eticket.cr/masinformacion.aspx?idevento=8941",
+      "urlShowImage": "/assets/images/shows-images/PauloLondra-show-image.png",
+      "description": "Paulo Londra",
       "date": "23/08/2025",
       "place": {
         "location": "Costa Rica",
@@ -129,8 +129,8 @@
     {
       "artist":"Los Pericos",
       "showName": "Los Pericos",
-      "urlShow": "",
-      "urlShowImage": "",
+      "urlShow": "https://www.eticket.cr/masinformacion.aspx?idevento=8872",
+      "urlShowImage": "/assets/images/shows-images/LosPericos-show-image.png",
       "description": "Los Pericos",
       "date": "30/08/2025",
       "place": {
@@ -143,8 +143,8 @@
     {
       "artist":"Boston Manor",
       "showName": "Boston Manor",
-      "urlShow": "",
-      "urlShowImage": "",
+      "urlShow": "https://starticket.cr/e/boston-manor/5723?srsltid=AfmBOoqVLyoO3CTYetjk5xgZunF24rBsNvFpI0Yf2I7FSM0PkASadmWL",
+      "urlShowImage": "/assets/images/shows-images/BostonManor-show-image.png",
       "description": "Boston Manor",
       "date": "06/09/2025",
       "place": {
@@ -157,8 +157,8 @@
     {
       "artist":"Beto Cuevas",
       "showName": "Beto Cuevas",
-      "urlShow": "",
-      "urlShowImage": "",
+      "urlShow": "https://cr.publitickets.com/event/beto-cuevas-acustico-2025",
+      "urlShowImage": "/assets/images/shows-images/BetoCuevas-show-image.png",
       "description": "Beto Cuevas",
       "date": "20/09/2025",
       "place": {
@@ -171,8 +171,8 @@
     {
       "artist":"Guns and Roses",
       "showName": "Guns and Roses",
-      "urlShow": "",
-      "urlShowImage": "",
+      "urlShow": "https://kuikpei.com/",
+      "urlShowImage": "/assets/images/shows-images/GunsandRoses-show-image.png",
       "description": "Guns and Roses",
       "date": "01/10/2025",
       "place": {
@@ -185,8 +185,8 @@
     {
       "artist":"Bandalos Chinos",
       "showName": "Bandalos Chinos",
-      "urlShow": "",
-      "urlShowImage": "",
+      "urlShow": "https://www.eticket.cr/masinformacion.aspx?idevento=8855",
+      "urlShowImage": "/assets/images/shows-images/BandalosChinos-show-image.png",
       "description": "Bandalos Chinos",
       "date": "12/10/2025",
       "place": {
@@ -199,8 +199,8 @@
     {
       "artist":"Debi Nova",
       "showName": "Debi Nova",
-      "urlShow": "",
-      "urlShowImage": "",
+      "urlShow": "https://www.eticket.cr/masinformacion.aspx?idevento=8954",
+      "urlShowImage": "/assets/images/shows-images/DebiNova-show-image.png",
       "description": "Debi Nova",
       "date": "18/10/2025",
       "place": {
@@ -213,8 +213,8 @@
     {
       "artist":"El Zar",
       "showName": "El Zar",
-      "urlShow": "",
-      "urlShowImage": "",
+      "urlShow": "https://cr.publitickets.com/event/el-zar-presenta-paraiso-2025",
+      "urlShowImage": "/assets/images/shows-images/ElZar-show-image.png",
       "description": "El Zar",
       "date": "22/10/2025",
       "place": {
@@ -227,8 +227,8 @@
     {
       "artist":"Bad Bunny",
       "showName": "Bad Bunny",
-      "urlShow": "",
-      "urlShowImage": "",
+      "urlShow": "https://www.eticket.cr/eventos.aspx?idartista=1228",
+      "urlShowImage": "/assets/images/shows-images/BadBunny-show-image.png",
       "description": "Bad Bunny",
       "date": "05/12/2025",
       "place": {
