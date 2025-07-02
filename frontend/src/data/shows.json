@@ -43,6 +43,20 @@
       "priority": 1
     },
     {
+      "artist":"Mora",
+      "showName": "Mora",
+      "urlShow": "https://www.eticket.cr/paso1c.aspx?idevento=8940&p=45486657656631637030692f687a2b4c4e61524a54773d3d",
+      "urlShowImage": "/assets/images/shows-images/Mora-show-image.png",
+      "description": "Mora",
+      "date": "13/07/2025",
+      "place": {
+        "location": "Costa Rica",
+        "venue": "Centro de Eventos Pedregal"
+      },
+      "region": "Centroamérica y Caribe",
+      "priority": 1
+    },
+    {
       "artist":"Stryper",
       "showName": "Stryper",
       "urlShow": "https://www.specialticket.net/event-details/573",
@@ -85,6 +99,20 @@
       "priority": 1
     },
     {
+      "artist":"NSQK",
+      "showName": "NSQK",
+      "urlShow": "https://starticket.cr/e/nsqk/5575",
+      "urlShowImage": "/assets/images/shows-images/NSQK-show-image.png",
+      "description": "NSQK",
+      "date": "10/08/2025",
+      "place": {
+        "location": "Costa Rica",
+        "venue": "Mercadito La California"
+      },
+      "region": "Centroamérica y Caribe",
+      "priority": 1
+    },
+    {
       "artist":"Carlos Vives y Fonseca",
       "showName": "Carlos Vives y Fonseca",
       "urlShow": "https://www.eticket.cr/masinformacion.aspx?idevento=8951",
@@ -94,6 +122,20 @@
       "place": {
         "location": "Costa Rica",
         "venue": "Centro de Eventos Pedregal"
+      },
+      "region": "Centroamérica y Caribe",
+      "priority": 1
+    },
+    {
+      "artist":"Andrés Obregón",
+      "showName": "Andrés Obregón",
+      "urlShow": "https://starticket.cr/en/e/andres-obregon-en-costa-rica/6409",
+      "urlShowImage": "/assets/images/shows-images/AndrésObregón-show-image.png",
+      "description": "Andrés Obregón",
+      "date": "17/08/2025",
+      "place": {
+        "location": "Costa Rica",
+        "venue": "Mercadito La California"
       },
       "region": "Centroamérica y Caribe",
       "priority": 1
@@ -141,6 +183,20 @@
       "priority": 1
     },
     {
+      "artist":"Alejandra Guzman",
+      "showName": "Alejandra Guzman",
+      "urlShow": "https://smarticket.net/evento.php?id=175",
+      "urlShowImage": "/assets/images/shows-images/AlejandraGuzman-show-image.png",
+      "description": "Alejandra Guzman",
+      "date": "31/08/2025",
+      "place": {
+        "location": "Costa Rica",
+        "venue": "Parque Viva"
+      },
+      "region": "Centroamérica y Caribe",
+      "priority": 1
+    },
+    {
       "artist":"Boston Manor",
       "showName": "Boston Manor",
       "urlShow": "https://starticket.cr/e/boston-manor/5723?srsltid=AfmBOoqVLyoO3CTYetjk5xgZunF24rBsNvFpI0Yf2I7FSM0PkASadmWL",
@@ -150,6 +206,20 @@
       "place": {
         "location": "Costa Rica",
         "venue": "Amón Solar"
+      },
+      "region": "Centroamérica y Caribe",
+      "priority": 1
+    },
+    {
+      "artist":"Beéle",
+      "showName": "Beéle",
+      "urlShow": "https://starticket.cr/e/beele-en-costa-rica/6355?srsltid=AfmBOor84i5-ZoCtIJsNFoKcgyN24TdDmHNrZ1DfOyKlPH0R-pCQZiVh",
+      "urlShowImage": "/assets/images/shows-images/Beéle-show-image.png",
+      "description": "Beéle",
+      "date": "13/09/2025",
+      "place": {
+        "location": "Costa Rica",
+        "venue": "Parque Viva"
       },
       "region": "Centroamérica y Caribe",
       "priority": 1
@@ -178,6 +248,20 @@
       "place": {
         "location": "Costa Rica",
         "venue": "Estadio Nacional"
+      },
+      "region": "Centroamérica y Caribe",
+      "priority": 1
+    },
+    {
+      "artist":"Danny Ocean",
+      "showName": "Danny Ocean",
+      "urlShow": "https://www.eticket.cr/masinformacion.aspx?idevento=8892",
+      "urlShowImage": "/assets/images/shows-images/DannyOcean-show-image.png",
+      "description": "Danny Ocean",
+      "date": "11/10/2025",
+      "place": {
+        "location": "Costa Rica",
+        "venue": "Centro de Eventos Pedregal"
       },
       "region": "Centroamérica y Caribe",
       "priority": 1
@@ -220,6 +304,20 @@
       "place": {
         "location": "Costa Rica",
         "venue": "Jazz Café"
+      },
+      "region": "Centroamérica y Caribe",
+      "priority": 1
+    },
+    {
+      "artist":"Foster The People",
+      "showName": "Foster The People",
+      "urlShow": "https://www.eticket.cr/masinformacion.aspx?idevento=8966",
+      "urlShowImage": "/assets/images/shows-images/FosterThePeople-show-image.png",
+      "description": "Foster The People",
+      "date": "16/11/2025",
+      "place": {
+        "location": "Costa Rica",
+        "venue": "Parque Viva"
       },
       "region": "Centroamérica y Caribe",
       "priority": 1

@@ -7,6 +7,7 @@ import LockIcon from "../../../assets/icons/LockIcon";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import UserBigCircleIcon from "../../../assets/icons/UserBigCircleIcon";
 import VerificationEmailSent from "./VerificationEmailSent";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -16,6 +17,7 @@ const LoginForm = () => {
   const [apiError, setApiError] = useState("");
   const [verifyApiError, setVerifyApiError] = useState(false);
   const [showVerifyNotice, setShowVerifyNotice] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
   const { refreshPlaylists } = usePlaylists();
@@ -39,7 +41,7 @@ const LoginForm = () => {
       setErrors(errs);
       return;
     }
-
+    setIsLoading(true);
     try {
       const { data } = await login({ email, password });
       localStorage.setItem("token", data.token);
@@ -66,7 +68,9 @@ const LoginForm = () => {
         setApiError("Ocurrió un error inesperado. Intenta de nuevo.");
         console.error(err);
       }
-    }
+    } finally {
+    setIsLoading(false); 
+  }
   };
 
   const handleResend = async () => {
@@ -172,7 +176,7 @@ const LoginForm = () => {
         type="submit"
         className="w-full py-2.5 sm:py-3 bg-[#ca249c] cursor-pointer text-white font-semibold rounded-lg hover:opacity-90 transition text-sm sm:text-base"
       >
-        ACCEDER
+        {isLoading ? <ClipLoader size={16} color="#FFFFFF" /> : "ACCEDER"}
       </button>
 
       {/* Link a signup */}

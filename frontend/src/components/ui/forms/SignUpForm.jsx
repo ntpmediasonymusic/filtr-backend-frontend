@@ -9,6 +9,7 @@ import { TbPhone } from "react-icons/tb";
 import { PiMusicNotes } from "react-icons/pi";
 import { register } from "../../../api/backendApi";
 import VerificationEmailSent from "./VerificationEmailSent";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const SignUpForm = () => {
   const [firstName, setFirstName] = useState("");
@@ -22,6 +23,7 @@ const SignUpForm = () => {
   const [optInSony, setOptInSony] = useState(true);
   const [optInFiltr, setOptInFiltr] = useState(true);
   const [showPwd, setShowPwd] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   // Para validaciones campo a campo
   const [errors, setErrors] = useState({});
@@ -99,7 +101,7 @@ const SignUpForm = () => {
       optInSony,
       optInFiltr,
     };
-
+    setIsLoading(true);
     try {
       const response = await register(payload);
 
@@ -131,6 +133,8 @@ const SignUpForm = () => {
         console.error("Error en registro:", err);
         setApiError("Ocurrió un error inesperado. Intenta de nuevo.");
       }
+    } finally {
+      setIsLoading(false); 
     }
   };
 
@@ -376,7 +380,7 @@ const SignUpForm = () => {
         type="submit"
         className="w-full py-2.5 sm:py-3 bg-[#ca249c] text-white font-semibold rounded-lg transition hover:opacity-90 text-sm sm:text-base"
       >
-        CREAR CUENTA
+        {isLoading ? <ClipLoader size={16} color="#FFFFFF" /> : "CREAR CUENTA"}
       </button>
 
       {/* Link “¿Ya tienes cuenta? Accede Aquí” */}
