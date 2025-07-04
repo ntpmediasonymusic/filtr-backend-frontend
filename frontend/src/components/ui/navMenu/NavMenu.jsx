@@ -67,6 +67,7 @@ const NavMenu = () => {
             src={logo}
             alt="Logo Filtr"
             className="w-40 md:w-50 cursor-pointer"
+            loading="lazy"
           />
         </NavLink>
       </div>
@@ -93,10 +94,7 @@ const NavMenu = () => {
 
       {/* Mobile Menu Dropdown */}
       {isOpen && (
-        <MobileMenu
-          menuOptions={menuOptions}
-          toggleMenu={toggleMenu}
-        />
+        <MobileMenu menuOptions={menuOptions} toggleMenu={toggleMenu} />
       )}
     </nav>
   );

@@ -125,6 +125,7 @@ export default function GenresHeader({
                     src={genre.mobileImage}
                     alt={genre.name}
                     className="w-full h-full object-cover"
+                    loading="lazy"
                   />
                 </picture>
               </div>

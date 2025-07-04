@@ -80,7 +80,7 @@ const NextArrow = () => (
   return (
     <div className="relative">
       <Carousel
-        showArrows={true} 
+        showArrows={true}
         showIndicators
         infiniteLoop
         autoPlay
@@ -128,6 +128,7 @@ const NextArrow = () => (
                     src={mobile}
                     alt={alt}
                     className="w-full object-cover object-center max-h-[600px]"
+                    loading="lazy"
                   />
                 </picture>
               </a>
@@ -138,6 +139,7 @@ const NextArrow = () => (
                   src={mobile}
                   alt={alt}
                   className="w-full object-cover object-center max-h-[600px]"
+                  loading="lazy"
                 />
               </picture>
             )}

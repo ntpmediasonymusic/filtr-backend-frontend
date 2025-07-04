@@ -9,6 +9,7 @@ import {
 } from "../../api/backendApi";
 import { usePlaylists } from "../../context/PlaylistContext";
 import LoginModal from "./modal/LoginModal";
+import ClipLoader from "react-spinners/ClipLoader";
 
 /* eslint-disable react/prop-types */
 const PlaylistCard = ({
@@ -21,6 +22,7 @@ const PlaylistCard = ({
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [favorited, setFavorited] = useState(!!isFavorite);
   const { refreshPlaylists } = usePlaylists();
+  const [isLoading, setIsLoading] = useState(false);
 
   // Datos del usuario desde localStorage
   const user = JSON.parse(localStorage.getItem("user") || "null");
@@ -35,7 +37,7 @@ const PlaylistCard = ({
       setShowLoginModal(true);
       return;
     }
-
+    setIsLoading(true);
     try {
       if (!favorited) {
         await addFavoritePlaylist(user.id, playlistId);
@@ -46,6 +48,8 @@ const PlaylistCard = ({
       setFavorited(!favorited);
     } catch (err) {
       console.error("Error toggling favorite:", err);
+    } finally {
+      setIsLoading(false); 
     }
   };
 
@@ -61,6 +65,7 @@ const PlaylistCard = ({
           src={urlCoverImage}
           alt={playlistName}
           className="w-full h-auto rounded-lg"
+          loading="lazy"
         />
         <div className="absolute inset-0 bg-black/50 rounded-lg opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
           <div className="w-1/2 h-1/2">
@@ -79,7 +84,9 @@ const PlaylistCard = ({
             onClick={handleToggleFavorite}
             className="flex-shrink-0 cursor-pointer"
           >
-            {loggedIn && favorited ? (
+            {isLoading ? (
+              <ClipLoader size={18} color="#FFFFFF" />
+            ) : loggedIn && favorited ? (
               <FaHeart className="w-6 h-6 text-red-500 transform scale-110 transition-transform duration-200" />
             ) : (
               <FaRegHeart className="w-6 h-6 text-white transition-transform duration-200 hover:scale-110" />

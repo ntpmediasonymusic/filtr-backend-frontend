@@ -19,6 +19,7 @@ const Quiz = ({
             src={urlQuizImage}
             alt={QuizName}
             className="w-full h-auto object-contain bg-no-repeat"
+            loading="lazy"
           />
         </div>
       </a>
@@ -53,6 +54,7 @@ const Quiz = ({
                     src={artist.urlProfileImage}
                     alt={artist.name}
                     className="w-12 h-12 md:w-16 md:h-16 rounded-full object-cover"
+                    loading="lazy"
                   />
                   <a
                     href={artist.urlSpotifyProfile}
@@ -91,6 +93,7 @@ const Quiz = ({
                       src={release.urlCoverImage}
                       alt={release.name}
                       className="w-full h-auto rounded-lg"
+                      loading="lazy"
                     />
                     {/* Ícono de Play (solo efecto visual) */}
                     <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40 rounded-lg">

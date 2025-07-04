@@ -41,6 +41,7 @@ const QuizzesPreview = () => {
                   src={quiz.urlQuizImage}
                   alt={quiz.QuizName}
                   className="w-full h-auto rounded-lg transition transform hover:scale-105"
+                  loading="lazy"
                 />
               </a>
             ))}

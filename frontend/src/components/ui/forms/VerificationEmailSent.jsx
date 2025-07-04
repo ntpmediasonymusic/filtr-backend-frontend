@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { resendVerification } from "../../../api/backendApi";
 import EnvelopeIcon from "../../../assets/icons/EnvelopeIcon";
 import { FaSyncAlt } from "react-icons/fa";
@@ -13,7 +12,6 @@ const VerificationEmailSent = ({ email, fromLogin = "false" }) => {
   const [counter, setCounter] = useState(60);
   const [isBlocked, setIsBlocked] = useState(true);
   const [apiMsg, setApiMsg] = useState("");
-  const navigate = useNavigate();
   const timerRef = useRef(null);
 
   // Cuenta regresiva de 60s al montar:
@@ -93,7 +91,7 @@ const VerificationEmailSent = ({ email, fromLogin = "false" }) => {
       {/* Botones “Acceder” y “Reenviar correo…” */}
       <div className="flex flex-col sm:flex-row gap-4">
         <button
-          onClick={() => navigate("/login")}
+          onClick={() => window.location.reload()}
           className="flex-1 py-3 bg-[#ca249c] cursor-pointer text-white font-semibold rounded-lg transition text-sm sm:text-base"
         >
           Acceder

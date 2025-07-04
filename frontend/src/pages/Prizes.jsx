@@ -55,6 +55,7 @@ const Prizes = () => {
                   src={item.mobile}
                   alt={`${item.artist} - ${item.details}`}
                   className="w-full h-auto object-cover transition-transform duration-300 hover:scale-105"
+                  loading="lazy"
                 />
               </picture>
             );

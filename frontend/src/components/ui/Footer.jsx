@@ -12,7 +12,12 @@ const Footer = () => {
       }}
     >
       {/* Logo */}
-      <img src={logo} alt="Filtr Logo" className="w-40 md:w-50 mb-8" />
+      <img
+        src={logo}
+        alt="Filtr Logo"
+        className="w-40 md:w-50 mb-8"
+        loading="lazy"
+      />
 
       {/* Redes Sociales */}
       <div className="flex space-x-6 md:space-x-9 mb-6">

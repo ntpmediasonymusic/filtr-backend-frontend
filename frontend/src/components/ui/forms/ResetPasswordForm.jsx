@@ -4,6 +4,7 @@ import { resetPassword } from "../../../api/backendApi";
 import LockIcon from "../../../assets/icons/LockIcon";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import ResetPasswordSuccess from "./ResetPasswordSuccess";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const ResetPasswordForm = () => {
   const [searchParams] = useSearchParams();
@@ -16,6 +17,7 @@ const ResetPasswordForm = () => {
   const [errors, setErrors] = useState({});
   const [apiError, setApiError] = useState("");
   const [showSuccess, setShowSuccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const validate = () => {
     const errs = {};
@@ -43,7 +45,7 @@ const ResetPasswordForm = () => {
       setErrors(errs);
       return;
     }
-
+    setIsLoading(true);
     try {
       await resetPassword(token, password);
       setShowSuccess(true);
@@ -52,6 +54,8 @@ const ResetPasswordForm = () => {
         err.response?.data?.message ||
           "Ocurrió un error restableciendo la contraseña."
       );
+    } finally {
+      setIsLoading(false); 
     }
   };
 
@@ -145,7 +149,11 @@ const ResetPasswordForm = () => {
         type="submit"
         className="w-full py-2.5 sm:py-3 bg-[#ca249c] text-white font-semibold rounded-lg hover:opacity-90 transition text-sm sm:text-base"
       >
-        CAMBIAR CONTRASEÑA
+        {isLoading ? (
+          <ClipLoader size={16} color="#FFFFFF" />
+        ) : (
+          "CAMBIAR CONTRASEÑA"
+        )}
       </button>
     </form>
   );

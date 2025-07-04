@@ -126,6 +126,7 @@ export default function MoodsHeader({
                     src={mood.mobileImage}
                     alt={mood.name}
                     className="w-full h-full object-cover"
+                    loading="lazy"
                   />
                 </picture>
               </div>

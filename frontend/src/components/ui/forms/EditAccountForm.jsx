@@ -11,6 +11,7 @@ import { TbPhone } from "react-icons/tb";
 import { PiMusicNotes } from "react-icons/pi";
 import DeleteAccountModal from "../../ui/modal/DeleteAccountModal";
 import { useNavigate } from "react-router-dom";
+import ClipLoader from "react-spinners/ClipLoader";
 
 export default function EditAccountForm({ user, setUser }) {
   const navigate = useNavigate();
@@ -32,6 +33,8 @@ export default function EditAccountForm({ user, setUser }) {
   const [msgType, setMsgType] = useState(""); // "success"|"error"
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deletionMsg, setDeletionMsg] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingDelete, setIsLoadingDelete] = useState(false);
 
   const countries = [
     "Costa Rica",
@@ -108,7 +111,7 @@ export default function EditAccountForm({ user, setUser }) {
       setMsgType("error");
       return;
     }
-
+    setIsLoading(true);
     try {
       const resp = await updateProfile(user.id, payload);
       setMessage(resp.data.message);
@@ -121,15 +124,17 @@ export default function EditAccountForm({ user, setUser }) {
     } catch (err) {
       setMessage(err.response?.data?.message || "Error al guardar cambios.");
       setMsgType("error");
-    }
+  } finally {
+    setIsLoading(false); 
+  }
   };
 
   const handleDelete = async () => {
+    setShowDeleteModal(false);
+    setIsLoadingDelete(true);
     try {
       await deleteAccount(user.id);
       setDeletionMsg("Tu cuenta ha sido eliminada.");
-      // cerrar modal
-      setShowDeleteModal(false);
       // esperar 5 segundos antes de limpiar
       setTimeout(() => {
         localStorage.clear();
@@ -137,8 +142,9 @@ export default function EditAccountForm({ user, setUser }) {
       }, 1000);
     } catch (err) {
       setDeletionMsg("Error al eliminar la cuenta.");
-      setShowDeleteModal(false);
-    }
+  } finally {
+    setIsLoadingDelete(false); 
+  }
   };
 
   return (
@@ -347,7 +353,11 @@ export default function EditAccountForm({ user, setUser }) {
           type="submit"
           className="w-full py-3 bg-[#ca249c] text-white font-semibold rounded-lg transition hover:opacity-90 text-sm sm:text-base"
         >
-          GUARDAR CAMBIOS
+          {isLoading ? (
+            <ClipLoader size={16} color="#FFFFFF" />
+          ) : (
+            "GUARDAR CAMBIOS"
+          )}
         </button>
 
         {/* Botón Eliminar mi cuenta */}
@@ -356,7 +366,11 @@ export default function EditAccountForm({ user, setUser }) {
           onClick={() => setShowDeleteModal(true)}
           className="w-full mt-3 py-2 underline underline-offset-2 text-red-600 font-medium text-sm sm:text-sm"
         >
-          ELIMINAR MI CUENTA
+          {isLoadingDelete ? (
+            <ClipLoader size={16} color="##DC2626" />
+          ) : (
+            "ELIMINAR MI CUENTA"
+          )}
         </button>
 
         {/* Mensaje de eliminación */}

@@ -69,6 +69,7 @@ const QuizzesPreview = () => {
                     src={show.urlShowImage}
                     alt={show.showName}
                     className="w-full h-auto rounded-lg transition transform group-hover:scale-105"
+                    loading="lazy"
                   />
                   {/* Componente de Fecha */}
                   <div className="absolute top-2 right-2 flex flex-col text-center rounded-md overflow-hidden shadow-md">

@@ -103,6 +103,7 @@ const PrizesHeader = () => {
               src={mobile}
               alt={alt}
               className="w-full object-cover object-center max-h-[600px] rounded-[10px]"
+              loading="lazy"
             />
           </picture>
         );

@@ -46,6 +46,7 @@ const MusicBanner = ({ type = "generos" }) => {
           src={images.mobile}
           alt={`Banner ${type}`}
           className="w-full h-auto object-cover"
+          loading="lazy"
         />
       </picture>
     </div>
