@@ -78,7 +78,13 @@ const TrendingPlaylistCard = ({
 
       {/* Número y título */}
       <div className="flex-1 flex flex-col min-w-0 pt-4 mb-2">
-        <span className="font-montserrat font-bold text-[42px] md:text-[80px] leading-[1] text-white">
+        <span
+          style={{
+            textShadow:
+              "rgb(3, 78, 211) 2px  2px  4px, rgb(200, 37, 157) -2px  2px  4px, rgb(244, 123, 35)  2px -2px  4px, rgb(242, 124, 149)-2px -2px  4px, rgb(95, 18, 140)   2px  0px  4px, rgb(207, 221, 40)  0px  2px  4px, rgb(19, 218, 222) -2px  0px  4px",
+          }}
+          className="font-montserrat font-bold text-[100px] md:text-[100px] leading-[1] text-white"
+        >
           {index}
         </span>
         <h6 className="text-white text-base md:text-lg font-medium mt-2 line-clamp-3 min-h-[3rem]">

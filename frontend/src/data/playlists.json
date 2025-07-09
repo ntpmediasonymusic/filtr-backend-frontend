@@ -6,7 +6,7 @@
       "urlCoverImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000d72c31d166a43781ca4d420746b3",
       "mainCategory": ["Recomendaciones de la semana"],
       "genre": ["Baladas Románticas"],
-      "moods": ["Romance"],
+      "moods": ["Romance", "Nostalgia"],
       "region": "Centroamérica y Caribe",
       "priority": 1,
       "trending": 2
@@ -17,7 +17,7 @@
       "urlCoverImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000d72c54fd27561474e623fb35a26f",
       "mainCategory": ["Recomendaciones de la semana"],
       "genre": ["Baladas Románticas"],
-      "moods": ["Romance"],
+      "moods": ["Romance", "Nostalgia"],
       "region": "Centroamérica y Caribe",
       "priority": 1,
       "trending": 3
@@ -99,7 +99,7 @@
       "urlCoverImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da845408a2cfc31b5e19543c5426",
       "mainCategory": [],
       "genre": ["Éxitos", "Pop"],
-      "moods": [],
+      "moods": ["Nostalgia"],
       "region": "Centroamérica y Caribe",
       "priority": 1
     },
@@ -179,7 +179,7 @@
       "urlCoverImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000d72cd10587fcebe0f51ea8a8e610",
       "mainCategory": ["Power Up"],
       "genre": ["Pop"],
-      "moods": ["Mood booster"],
+      "moods": ["Mood booster", "Nostalgia"],
       "region": "Centroamérica y Caribe",
       "priority": 1
     },
@@ -219,7 +219,7 @@
       "urlCoverImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000d72c46aa1155cffb702c1eb60bb7",
       "mainCategory": [],
       "genre": ["Pop"],
-      "moods": [],
+      "moods": ["Nostalgia"],
       "region": "Centroamérica y Caribe",
       "priority": 1
     },
@@ -319,7 +319,7 @@
       "urlCoverImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84574f4e7420479b63b649ee4e",
       "mainCategory": [],
       "genre": ["Urbano"],
-      "moods": [],
+      "moods": ["Nostalgia"],
       "region": "Centroamérica y Caribe",
       "priority": 1
     },
@@ -479,7 +479,7 @@
       "urlCoverImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da8439d5c52a558ae9596a08865b",
       "mainCategory": [],
       "genre": ["Temporadas"],
-      "moods": [],
+      "moods": ["Nostalgia"],
       "region": "Centroamérica y Caribe",
       "priority": 1
     },
@@ -629,7 +629,7 @@
       "urlCoverImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da849d3e6e99c5fc7f006c66232c",
       "mainCategory": [],
       "genre": [],
-      "moods": [],
+      "moods": ["Nostalgia"],
       "region": "Centroamérica y Caribe",
       "priority": 1,
       "trending": 4
@@ -671,7 +671,7 @@
       "urlCoverImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84b77b12b8816c00cad5f1e271",
       "mainCategory": [],
       "genre": ["Decadas"],
-      "moods": [],
+      "moods": ["Nostalgia"],
       "region": "Centroamérica y Caribe",
       "priority": 1
     },
@@ -681,7 +681,7 @@
       "urlCoverImage": "https://image-cdn-fa.spotifycdn.com/image/ab67706c0000da849d37dd221d8aa1b35c545057",
       "mainCategory": [],
       "genre": ["Decadas"],
-      "moods": [],
+      "moods": ["Nostalgia"],
       "region": "Centroamérica y Caribe",
       "priority": 1
     },
@@ -691,7 +691,7 @@
       "urlCoverImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84e3c1a976c360ce69cfa89594",
       "mainCategory": [],
       "genre": ["Decadas"],
-      "moods": [],
+      "moods": ["Nostalgia"],
       "region": "Centroamérica y Caribe",
       "priority": 1
     },
@@ -701,7 +701,7 @@
       "urlCoverImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000d72cc47d6a6244a43c585ad705d2",
       "mainCategory": [],
       "genre": ["Decadas"],
-      "moods": [],
+      "moods": ["Nostalgia"],
       "region": "Centroamérica y Caribe",
       "priority": 1
     },
@@ -711,7 +711,7 @@
       "urlCoverImage": "https://image-cdn-fa.spotifycdn.com/image/ab67706c0000da84ace1e9019b209f0f6bdf5ab0",
       "mainCategory": [],
       "genre": ["Decadas"],
-      "moods": [],
+      "moods": ["Nostalgia"],
       "region": "Centroamérica y Caribe",
       "priority": 1
     },

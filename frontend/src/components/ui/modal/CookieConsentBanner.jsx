@@ -97,8 +97,8 @@ const CookieConsentBanner = () => {
           </h2>
           <p className="text-white">
             Disfruta de Filtr mientras perfeccionamos la experiencia. Es posible
-            que encuentres errores o comportamientos inesperados; tu feedback
-            nos ayuda a mejorar.
+            que encuentres errores o comportamientos inesperados; estamos
+            trabajando para mejorar.
           </p>
         </div>
 

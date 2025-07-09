@@ -5,19 +5,19 @@ import {
   FaFacebook,
   FaInstagram,
   FaWhatsapp,
-  FaXTwitter
+  FaXTwitter,
 } from "react-icons/fa6";
 import { MdLink, MdCheck } from "react-icons/md";
 
-const ShareModal = ({ 
-  link, 
-  title = "¡Mira esto!", 
-  imageBlob = null, 
+const ShareModal = ({
+  link,
+  title = "¡Mira esto!",
+  imageBlob = null,
   onClose,
   playlistName,
   mainCategory,
   genre,
-  moods = []
+  moods = [],
 }) => {
   const ref = useRef(null);
   const [copied, setCopied] = useState(false);
@@ -36,93 +36,96 @@ const ShareModal = ({
   // Construir el texto de compartir
   const buildShareText = (includeHashtags = true) => {
     const playlistUrl = link || window.location.href;
-    const baseText = `🎧 Escucha esta playlist: ${playlistName || title} – ${playlistUrl} ¡Te va a encantar!`;
-    
+    const baseText = `🎧 Escucha esta playlist: ${
+      playlistName || title
+    } – ${playlistUrl} ¡Te va a encantar!`;
+
     if (!includeHashtags) return baseText;
-    
-    // Construir hashtags
-    const hashtags = ['#Filtr'];
-    if (mainCategory) hashtags.push(`#${mainCategory.replace(/\s+/g, '')}`);
-    if (genre) hashtags.push(`#${genre.replace(/\s+/g, '')}`);
-    if (moods && moods.length > 0) {
-      moods.forEach(mood => {
-        if (mood) hashtags.push(`#${mood.replace(/\s+/g, '')}`);
-      });
-    }
-    
-    return `${baseText}\n\n${hashtags.join(' ')}`;
+
+    const hashtags = ["#Filtr"];
+    if (mainCategory) hashtags.push(`#${mainCategory.replace(/\s+/g, "")}`);
+    if (genre) hashtags.push(`#${genre.replace(/\s+/g, "")}`);
+    moods.forEach((m) => m && hashtags.push(`#${m.replace(/\s+/g, "")}`));
+
+    return `${baseText}\n\n${hashtags.join(" ")}`;
   };
 
   const handleCopy = async () => {
     try {
-      // Copiar el texto completo con hashtags, no solo el link
       const textToCopy = buildShareText(true);
       await navigator.clipboard.writeText(textToCopy);
       setCopied(true);
       setShowCopyMessage(true);
-      
-      setTimeout(() => {
-        setCopied(false);
-      }, 2000);
-      
-      setTimeout(() => {
-        setShowCopyMessage(false);
-      }, 3000);
+      setTimeout(() => setCopied(false), 2000);
+      setTimeout(() => setShowCopyMessage(false), 3000);
     } catch (err) {
       console.error("Error al copiar:", err);
     }
   };
 
-  const shareWithWebAPI = async () => {
-    if (!imageBlob) return false;
-    
-    const file = new File([imageBlob], 'share.png', { type: imageBlob.type });
-    
-    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+  const shareWithWebAPI = async (shareData) => {
+    if (navigator.canShare && navigator.canShare(shareData)) {
       try {
-        await navigator.share({
-          files: [file],
-          title: playlistName || title,
-          text: buildShareText(),
-          url: link || window.location.href
-        });
+        await navigator.share(shareData);
         onClose();
         return true;
       } catch (err) {
-        console.warn('Cancelado o error en Web Share API', err);
+        console.warn("Cancelado o error en Web Share API", err);
       }
     }
     return false;
   };
 
   const handleShare = async (platform) => {
-    if (imageBlob && await shareWithWebAPI()) return;
-    
     // Construir el texto completo con hashtags
     const fullShareText = buildShareText(true);
-    let url = "";
-    
+    const urlToShare = link || window.location.href;
+
+    // 1) Si hay imagen y navegador soporta compartir ficheros
+    if (imageBlob) {
+      const file = new File([imageBlob], "share.png", { type: imageBlob.type });
+      if (
+        await shareWithWebAPI({
+          files: [file],
+          text: fullShareText,
+          url: urlToShare,
+          title: playlistName || title,
+        })
+      ) {
+        return;
+      }
+    }
+
+    let shareUrl = "";
+
     switch (platform) {
       case "facebook":
-        // Facebook: incluir el texto en el parámetro 'quote'
-        url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(link || window.location.href)}&quote=${encodeURIComponent(fullShareText)}`;
+        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+          urlToShare
+        )}&quote=${encodeURIComponent(fullShareText)}`;
         break;
       case "whatsapp":
-        // WhatsApp: el texto ya incluye la URL
-        url = `https://api.whatsapp.com/send?text=${encodeURIComponent(fullShareText)}`;
+        shareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(
+          fullShareText
+        )}`;
         break;
       case "twitter":
-        // Twitter/X: el texto ya incluye la URL
-        url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(fullShareText)}`;
+        shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+          fullShareText
+        )}`;
         break;
       case "instagram":
-        // Instagram: copiar el texto completo
+        // Intentamos Web Share API para solo texto
         handleCopy();
+        if (await shareWithWebAPI({ text: fullShareText })) {
+          return;
+        }
+        // Fallback: copiar enlace + texto
         return;
     }
-    
-    if (url) {
-      window.open(url, "_blank", "width=600,height=400");
+
+    if (shareUrl) {
+      window.open(shareUrl, "_blank", "width=600,height=400");
       onClose();
     }
   };
@@ -145,12 +148,12 @@ const ShareModal = ({
             </div>
           )}
 
-          {/* Título del modal */}
+          {/* Título */}
           <h3 className="text-white text-xl font-bold text-center">
             Compartir Playlist
           </h3>
 
-          {/* Copiar Link */}
+          {/* Botón Copiar Link */}
           <button
             onClick={handleCopy}
             className={`flex items-center justify-center gap-3 rounded-[8px] w-full p-4 font-semibold cursor-pointer transition-all duration-200 ${
@@ -184,39 +187,39 @@ const ShareModal = ({
             </div>
           </div>
 
-          {/* Redes Sociales */}
+          {/* Botones de redes */}
           <div className="flex gap-4 justify-center">
             <button
               onClick={() => handleShare("facebook")}
-              className="flex-1 flex items-center justify-center py-4 bg-[#B9F2CD] rounded-[8px] cursor-pointer hover:bg-[#a8e3bc] transition-all group"
+              className="flex-1 flex items-center justify-center py-4 bg-[#B9F2CD] rounded-[8px] hover:bg-[#a8e3bc] transition-all group"
               title="Compartir en Facebook"
             >
               <FaFacebook className="w-7 h-7 text-black group-hover:scale-110 transition-transform" />
             </button>
             <button
               onClick={() => handleShare("whatsapp")}
-              className="flex-1 flex items-center justify-center py-4 bg-[#B9F2CD] rounded-[8px] cursor-pointer hover:bg-[#a8e3bc] transition-all group"
+              className="flex-1 flex items-center justify-center py-4 bg-[#B9F2CD] rounded-[8px] hover:bg-[#a8e3bc] transition-all group"
               title="Compartir en WhatsApp"
             >
               <FaWhatsapp className="w-7 h-7 text-black group-hover:scale-110 transition-transform" />
             </button>
             <button
               onClick={() => handleShare("instagram")}
-              className="flex-1 flex items-center justify-center py-4 bg-[#B9F2CD] rounded-[8px] cursor-pointer hover:bg-[#a8e3bc] transition-all group"
-              title="Copiar para Instagram"
+              className="flex-1 flex items-center justify-center py-4 bg-[#B9F2CD] rounded-[8px] hover:bg-[#a8e3bc] transition-all group"
+              title="Compartir en Instagram o copiar enlace"
             >
               <FaInstagram className="w-7 h-7 text-black group-hover:scale-110 transition-transform" />
             </button>
             <button
               onClick={() => handleShare("twitter")}
-              className="flex-1 flex items-center justify-center py-4 bg-[#B9F2CD] rounded-[8px] cursor-pointer hover:bg-[#a8e3bc] transition-all group"
+              className="flex-1 flex items-center justify-center py-4 bg-[#B9F2CD] rounded-[8px] hover:bg-[#a8e3bc] transition-all group"
               title="Compartir en X (Twitter)"
             >
               <FaXTwitter className="w-7 h-7 text-black group-hover:scale-110 transition-transform" />
             </button>
           </div>
 
-          {/* Botón de cerrar */}
+          {/* Cerrar */}
           <button
             onClick={onClose}
             className="absolute top-4 right-4 text-white/80 hover:text-white transition-colors cursor-pointer"

@@ -24,6 +24,11 @@
       "name": "Mood booster",
       "desktopImage": "/assets/images/cards-moods/desktop/cards-moods-desktop-booster.png",
       "mobileImage": "/assets/images/cards-moods/mobile/cards-moods-mobile-booster.png"
+    },
+    {
+      "name": "Nostalgia",
+      "desktopImage": "/assets/images/cards-moods/desktop/cards-moods-desktop-nostalgia.png",
+      "mobileImage": "/assets/images/cards-moods/mobile/cards-moods-mobile-nostalgia.png"
     }
   ]
 }

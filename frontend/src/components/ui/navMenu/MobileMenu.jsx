@@ -1,9 +1,13 @@
 /* eslint-disable react/prop-types */
 
+import { useEffect, useState } from "react";
 import { FaSignInAlt, FaUserPlus } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 
 const MobileMenu = ({ menuOptions, toggleMenu }) => {
+
+  const [isScrolled, setIsScrolled] = useState(false); 
+
   // Helper para leer exp del JWT
   const getTokenExp = (bearerToken) => {
     try {
@@ -26,8 +30,21 @@ const MobileMenu = ({ menuOptions, toggleMenu }) => {
     }
   }
 
+  // Detectar scroll
+  useEffect(() => {
+    const onScroll = () => {
+      setIsScrolled(window.scrollY > 0);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <div className="absolute top-18 right-0 w-2/3 bg-[#282828] rounded-[12px] p-4 flex flex-col space-y-4 md:hidden z-10 shadow-lg">
+    <div
+      className={`absolute ${
+        isScrolled || window.scrollY > 0 ? "top-11" : "top-18"
+      } right-0 w-2/3 bg-[#282828] rounded-[12px] p-4 flex flex-col space-y-4 md:hidden z-10 shadow-lg`}
+    >
       {menuOptions.map((option) => (
         <div key={option.name} className="relative">
           <NavLink

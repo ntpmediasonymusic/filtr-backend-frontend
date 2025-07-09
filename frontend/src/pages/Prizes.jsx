@@ -39,7 +39,7 @@ const Prizes = () => {
   return (
     <>
       <div className="px-6 py-10 md:py-10">
-        <PageHeader welcomeMsg="A ganar" />
+        <PageHeader welcomeMsg="¡A ganar!" />
       </div>
 
       <div className="px-6">

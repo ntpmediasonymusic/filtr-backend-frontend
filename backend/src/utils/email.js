@@ -23,7 +23,7 @@ async function sendVerificationEmail(to, name, token) {
       email: process.env.DESMAN_USER_SENDGRID_FROM_EMAIL,
       name: "Filtr Centroamérica y Caribe",
     },
-    subject: "¡Estas a un clic de formar parte de SOMOS FILTRCA!",
+    subject: "¡Estas a un clic de formar parte de SOMOS FILTR!",
     html: `
       <div style="width:100%; background:#3145c7; text-align:left; padding:20px 0; border-radius: 10px;">
         <img
@@ -34,8 +34,8 @@ async function sendVerificationEmail(to, name, token) {
       </div>
       <div style="font-family: sans-serif; line-height: 1.4;">
         <h2 style="color: #000000;">¡HOLA ${upperName}!</h2>
-        <h3 style="color: #000000;">BIENVENID@ A SOMOS FILTRCA</h3>
-        <p style="color: #000000; font-size: 14px;">Haz clic en el siguiente botón para completar tu registro en FiltrCA:</p>
+        <h3 style="color: #000000;">BIENVENID@ A SOMOS FILTR</h3>
+        <p style="color: #000000; font-size: 14px;">Haz clic en el siguiente botón para completar tu registro en Filtr:</p>
         <a
           href="${verifyLink}"
           style="

@@ -113,6 +113,20 @@
       "priority": 1
     },
     {
+      "artist":"Charlie Zaa",
+      "showName": "Charlie Zaa",
+      "urlShow": "https://www.eticket.cr/eventos.aspx?idartista=1248",
+      "urlShowImage": "/assets/images/shows-images/CharlieZaa-show-image.png",
+      "description": "Charlie Zaa",
+      "date": "15/08/2025",
+      "place": {
+        "location": "Costa Rica",
+        "venue": "Rio Campo"
+      },
+      "region": "Centroamérica y Caribe",
+      "priority": 1
+    },
+    {
       "artist":"Carlos Vives y Fonseca",
       "showName": "Carlos Vives y Fonseca",
       "urlShow": "https://www.eticket.cr/masinformacion.aspx?idevento=8951",
@@ -141,11 +155,11 @@
       "priority": 1
     },
     {
-      "artist":"Reels B",
-      "showName": "Reels B",
+      "artist":"Rels B",
+      "showName": "Rels B",
       "urlShow": "https://www.eticket.cr/masinformacion.aspx?idevento=8936",
       "urlShowImage": "/assets/images/shows-images/ReelsB-show-image.png",
-      "description": "Reels B",
+      "description": "Rels B",
       "date": "17/08/2025",
       "place": {
         "location": "Costa Rica",
@@ -211,6 +225,20 @@
       "priority": 1
     },
     {
+      "artist":"Alleh y Yorghaki",
+      "showName": "Alleh y Yorghaki",
+      "urlShow": "https://www.eticket.cr/eventos.aspx?idartista=1250",
+      "urlShowImage": "/assets/images/shows-images/AllehyYorghaki-show-image.png",
+      "description": "Alleh y Yorghaki",
+      "date": "12/09/2025",
+      "place": {
+        "location": "Costa Rica",
+        "venue": "Centro de Eventos Pedregal"
+      },
+      "region": "Centroamérica y Caribe",
+      "priority": 1
+    },
+    {
       "artist":"Beéle",
       "showName": "Beéle",
       "urlShow": "https://starticket.cr/e/beele-en-costa-rica/6355?srsltid=AfmBOor84i5-ZoCtIJsNFoKcgyN24TdDmHNrZ1DfOyKlPH0R-pCQZiVh",
@@ -248,6 +276,34 @@
       "place": {
         "location": "Costa Rica",
         "venue": "Estadio Nacional"
+      },
+      "region": "Centroamérica y Caribe",
+      "priority": 1
+    },
+    {
+      "artist":"Eladio Carrion",
+      "showName": "Eladio Carrion",
+      "urlShow": "https://www.eticket.cr/eventos.aspx?idartista=1224",
+      "urlShowImage": "/assets/images/shows-images/EladioCarrion-show-image.png",
+      "description": "Eladio Carrion",
+      "date": "03/10/2025",
+      "place": {
+        "location": "Costa Rica",
+        "venue": "Parque Viva"
+      },
+      "region": "Centroamérica y Caribe",
+      "priority": 1
+    },
+    {
+      "artist":"Nampa Básico",
+      "showName": "Nampa Básico",
+      "urlShow": "https://eventos.cr/evento/25-10-10-nanpa-basico-centro-america-tour-2025",
+      "urlShowImage": "/assets/images/shows-images/NampaBásico-show-image.png",
+      "description": "Nampa Básico",
+      "date": "10/10/2025",
+      "place": {
+        "location": "Costa Rica",
+        "venue": "Pepper Disco Club"
       },
       "region": "Centroamérica y Caribe",
       "priority": 1
@@ -304,6 +360,34 @@
       "place": {
         "location": "Costa Rica",
         "venue": "Jazz Café"
+      },
+      "region": "Centroamérica y Caribe",
+      "priority": 1
+    },
+    {
+      "artist":"Carín León",
+      "showName": "Carín León",
+      "urlShow": "https://www.eticket.cr/eventos.aspx?idartista=1096",
+      "urlShowImage": "/assets/images/shows-images/CarínLeón-show-image.png",
+      "description": "Carín León",
+      "date": "07/11/2025",
+      "place": {
+        "location": "Costa Rica",
+        "venue": "Estadio Nacional"
+      },
+      "region": "Centroamérica y Caribe",
+      "priority": 1
+    },
+    {
+      "artist":"Ana Gabriel",
+      "showName": "Ana Gabriel",
+      "urlShow": "https://www.eticket.cr/eventos.aspx?idartista=887",
+      "urlShowImage": "/assets/images/shows-images/AnaGabriel-show-image.png",
+      "description": "Ana Gabriel",
+      "date": "15/11/2025",
+      "place": {
+        "location": "Costa Rica",
+        "venue": "Parque Viva"
       },
       "region": "Centroamérica y Caribe",
       "priority": 1

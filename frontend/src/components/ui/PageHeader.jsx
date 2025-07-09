@@ -10,6 +10,7 @@ import { useSearch } from "../../context/SearchContext";
 const PageHeader = ({ welcomeMsg }) => {
   const { searchQuery, setSearchQuery } = useSearch();
   const [showModal, setShowModal] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const wrapperRef = useRef(null);
   const searchInputRef = useRef(null);
 
@@ -58,14 +59,34 @@ const PageHeader = ({ welcomeMsg }) => {
     }
   }, [searchQuery]);
 
+  // Detectar scroll
+  useEffect(() => {
+    const onScroll = () => {
+      setIsScrolled(window.scrollY > 0);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const floatingClasses =
+    "fixed top-11 xl:top-14.5 left-0 px-4 pb-4 pt-0 md:py-4 z-14 bg-[rgba(19,21,23,0.8)] backdrop-blur-sm";
+
   return (
-    <header className="w-full flex flex-col xl:flex-row items-center xl:justify-between gap-4">
+    <header
+      className={`${
+        isScrolled && floatingClasses
+      } w-full flex flex-col xl:flex-row items-center xl:justify-between gap-4 transition-all`}
+    >
       {/* Saludo */}
+      
       <div className="w-full xl:w-auto text-center xl:text-left">
+        {!isScrolled && (
         <h1 className="text-white font-bold text-lg md:text-[28px] font-montserrat">
           {welcomeMsg}
-        </h1>
+        </h1> 
+      )}
       </div>
+     
 
       {/* Zona de búsqueda + perfil / login-signup */}
       <div className="flex flex-col sm:flex-row items-center gap-4 w-full xl:w-auto justify-between xl:justify-end">

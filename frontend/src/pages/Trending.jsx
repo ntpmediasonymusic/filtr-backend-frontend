@@ -28,7 +28,7 @@ const Trending = () => {
   return (
     <>
       <div className="px-6 py-10 md:py-10">
-        <PageHeader welcomeMsg={"Las playlist más escuchadas"} />
+        <PageHeader welcomeMsg={"Las playlists más escuchadas en Costa Rica"} />
       </div>
 
       <MusicBanner type="trending" />

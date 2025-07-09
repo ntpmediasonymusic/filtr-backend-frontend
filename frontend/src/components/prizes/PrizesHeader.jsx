@@ -66,7 +66,7 @@ const PrizesHeader = () => {
       showIndicators
       infiniteLoop
       autoPlay
-      interval={4000}
+      interval={5000}
       showThumbs={false}
       showStatus={false}
       swipeable

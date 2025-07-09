@@ -7,7 +7,6 @@ import logo from "../../../assets/images/filtr_logo_white.svg";
 import GenresIcon from "../../../assets/icons/GenresIcon";
 import HomeIcon from "../../../assets/icons/HomeIcon";
 import MoodsIcon from "../../../assets/icons/MoodsIcon";
-// import QuizzesIcon from "../../../assets/icons/QuizzesIcon";
 import ShowsIcon from "../../../assets/icons/ShowsIcon";
 import TrendIcon from "../../../assets/icons/TrendIcon";
 import WinWinIcon from "../../../assets/icons/WinWinIcon";
@@ -15,30 +14,47 @@ import { useSearch } from "../../../context/SearchContext";
 
 const NavMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const menuRef = useRef(null);
-
   const { setSearchQuery } = useSearch();
+
   const toggleMenu = () => {
     setSearchQuery("");
     setIsOpen(!isOpen);
   };
 
-  // Handle clicks outside of menu
+  // Cerrar menú al click fuera
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
+    const handleClickOutside = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
         setIsOpen(false);
       }
     };
-
-    if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    if (isOpen) document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen]);
+
+  // Detectar scroll
+  useEffect(() => {
+    const onScroll = () => {
+      setIsScrolled(window.scrollY > 0);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const alpha = isScrolled ? 0.8 : 1;
+
+  // Gradiente con RGBA dinámico
+  const gradient = `
+    linear-gradient(
+      to right,
+      rgba(202,36,156,${alpha}) 0%,
+      rgba(202,36,156,${alpha}) 20%,
+      rgba(0,79,212,${alpha}) 70%,
+      rgba(0,79,212,${alpha}) 100%
+    )
+  `;
 
   const menuOptions = [
     { name: "Inicio", icon: <HomeIcon />, route: "/" },
@@ -46,18 +62,20 @@ const NavMenu = () => {
     { name: "Moods", icon: <MoodsIcon />, route: "/moods" },
     { name: "Trending", icon: <TrendIcon />, route: "/trending" },
     { name: "Shows", icon: <ShowsIcon />, route: "/shows" },
-    // { name: "Quizzes", icon: <QuizzesIcon />, route: "/quizzes" },
     { name: "Premios", icon: <WinWinIcon />, route: "/prizes" },
   ];
 
   return (
     <nav
       ref={menuRef}
-      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between text-white px-4 py-4 shadow-md"
+      className={`
+        fixed top-0 left-0 right-0 z-50 flex items-center justify-between text-white
+        px-4 
+        ${isScrolled ? "backdrop-blur-sm py-1" : "py-4"}
+        transition-[padding] duration-200 ease-in-out shadow-md
+      `}
       style={{
-        backgroundColor: "rgb(0, 79, 212)",
-        backgroundImage:
-          "linear-gradient(to right, rgb(202, 36, 156) 0%, rgb(202, 36, 156) 20%, rgb(0, 79, 212) 70%, rgb(0, 79, 212) 100%)",
+        backgroundImage: gradient,
       }}
     >
       {/* Logo */}
@@ -85,14 +103,14 @@ const NavMenu = () => {
         ))}
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu Toggle */}
       <div className="md:hidden">
         <button onClick={toggleMenu}>
           {isOpen ? <FaTimes size={28} /> : <FaBars size={28} />}
         </button>
       </div>
 
-      {/* Mobile Menu Dropdown */}
+      {/* Mobile Dropdown */}
       {isOpen && (
         <MobileMenu menuOptions={menuOptions} toggleMenu={toggleMenu} />
       )}

@@ -385,7 +385,7 @@ const SignUpForm = () => {
 
       {/* Link “¿Ya tienes cuenta? Accede Aquí” */}
       <div className="text-center text-[#131517] mt-1 sm:mt-2">
-        <span className="text-sm sm:text-base">Ya soy miembro FILTRCA</span>
+        <span className="text-sm sm:text-base">Ya soy miembro FILTR</span>
         <br />
         <a
           href="/login"

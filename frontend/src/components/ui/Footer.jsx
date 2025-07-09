@@ -4,7 +4,7 @@ import logo from "../../assets/images/filtr_logo_white.svg";
 const Footer = () => {
   return (
     <footer
-      className="px-6 py-8 flex flex-col items-center"
+      className="px-6 py-6 flex flex-col items-center"
       style={{
         backgroundColor: "rgb(0, 79, 212)",
         backgroundImage:
@@ -40,7 +40,7 @@ const Footer = () => {
         </a>
 
         <a
-          href="https://open.spotify.com/user/filtrcac"
+          href="https://open.spotify.com/user/filtr"
           target="_blank"
           rel="noopener noreferrer"
           className="text-white text-5xl md:text-5xl transition transform hover:text-gray-300 hover:scale-120"
@@ -69,6 +69,11 @@ const Footer = () => {
           Política de Privacidad
         </a>
       </div>
+      <span
+        className="text-gray-200 mt-3"
+      >
+        © 2025 Filtr | Todos los derechos reservados.
+      </span>
     </footer>
   );
 };
