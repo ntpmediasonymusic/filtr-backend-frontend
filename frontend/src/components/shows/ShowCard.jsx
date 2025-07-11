@@ -4,15 +4,28 @@ import { IoTicketOutline } from "react-icons/io5";
 import useFormattedDate from "../../hooks/shows/useFormattedDate";
 import { useState } from "react";
 import ExternalLinkModal from "../ui/modal/ExternalLinkModal";
+import LoginModal from "../ui/modal/LoginModal";
 
 const ShowCard = ({ artist, showName, urlShow, urlShowImage, date, place }) => {
   const [showModal, setShowModal] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+
+  // Datos del usuario desde localStorage
+  const user = JSON.parse(localStorage.getItem("user") || "null");
+  const bearer = localStorage.getItem("token");
+  const loggedIn = !!bearer && !!user?.id;
 
   const handleClickLink = (e) => {
+    if (!loggedIn) {
+      e.preventDefault();
+      setShowLoginModal(true);
+      return;
+    }
     if (!urlShow) return;
     if (localStorage.getItem("externalLinkDontShow") !== "true") {
       e.preventDefault();
       setShowModal(true);
+      return;
     }
   };
 
@@ -86,6 +99,13 @@ const ShowCard = ({ artist, showName, urlShow, urlShowImage, date, place }) => {
           url={urlShow}
           onClose={() => setShowModal(false)}
           onConfirm={confirmAndOpen}
+        />
+      )}
+      {/* Modal de Login */}
+      {showLoginModal && (
+        <LoginModal
+          onClose={() => setShowLoginModal(false)}
+          message={"Para acceder a los shows primero debes de iniciar sesión"}
         />
       )}
     </>

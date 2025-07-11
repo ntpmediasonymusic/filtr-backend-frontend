@@ -1,9 +1,10 @@
 // filtr-frontend/src/pages/Prizes.jsx
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Filter from "../components/filter/filter";
 import PageHeader from "../components/ui/PageHeader";
 import { useSearch } from "../context/SearchContext";
 import PrizesHeader from "../components/prizes/PrizesHeader";
+import LoginModal from "../components/ui/modal/LoginModal";
 
 const imageMap = [
   {
@@ -26,6 +27,12 @@ const imageMap = [
 
 const Prizes = () => {
   const { searchQuery } = useSearch();
+  const [showLoginModal, setShowLoginModal] = useState(false);
+
+  // Datos del usuario desde localStorage
+  const user = JSON.parse(localStorage.getItem("user") || "null");
+  const bearer = localStorage.getItem("token");
+  const loggedIn = !!bearer && !!user?.id;
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -35,6 +42,15 @@ const Prizes = () => {
   if (searchQuery && searchQuery.trim() !== "") {
     return <Filter />;
   }
+
+  const handleClickBanner = (e) => {
+    if (!loggedIn) {
+      // si no está logueado: cancelar apertura y mostrar modal
+      e.preventDefault();
+      setShowLoginModal(true);
+    }
+    // si está logueado, no hacemos nada, el <a> abre en nueva pestaña por defecto
+  };
 
   return (
     <>
@@ -67,6 +83,7 @@ const Prizes = () => {
                     href={item.link}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={(e) => handleClickBanner(e)}
                     className="block w-full overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-shadow duration-300"
                   >
                     {content}
@@ -80,6 +97,15 @@ const Prizes = () => {
             );
           })}
         </div>
+        {/* Modal de Login */}
+        {showLoginModal && (
+          <LoginModal
+            onClose={() => setShowLoginModal(false)}
+            message={
+              "Para acceder a los premios primero debes de iniciar sesión"
+            }
+          />
+        )}
       </div>
     </>
   );

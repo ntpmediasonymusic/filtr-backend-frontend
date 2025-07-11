@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import {
   FaFacebook,
-  FaInstagram,
+  // FaInstagram,
   FaWhatsapp,
   FaXTwitter,
 } from "react-icons/fa6";
@@ -203,13 +203,13 @@ const ShareModal = ({
             >
               <FaWhatsapp className="w-7 h-7 text-black group-hover:scale-110 transition-transform" />
             </button>
-            <button
+            {/* <button
               onClick={() => handleShare("instagram")}
               className="flex-1 flex items-center justify-center py-4 bg-[#B9F2CD] rounded-[8px] hover:bg-[#a8e3bc] transition-all group"
               title="Compartir en Instagram o copiar enlace"
             >
               <FaInstagram className="w-7 h-7 text-black group-hover:scale-110 transition-transform" />
-            </button>
+            </button> */}
             <button
               onClick={() => handleShare("twitter")}
               className="flex-1 flex items-center justify-center py-4 bg-[#B9F2CD] rounded-[8px] hover:bg-[#a8e3bc] transition-all group"

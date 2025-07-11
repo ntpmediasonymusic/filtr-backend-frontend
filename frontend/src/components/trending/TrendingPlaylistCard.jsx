@@ -123,7 +123,7 @@ const TrendingPlaylistCard = ({
 
       {/* Modal de Login */}
       {showLoginModal && (
-        <LoginModal onClose={() => setShowLoginModal(false)} />
+        <LoginModal onClose={() => setShowLoginModal(false)} message ={"Para guardar tus playlist favoritas primero debes de iniciar sesión"}/>
       )}
     </div>
   );

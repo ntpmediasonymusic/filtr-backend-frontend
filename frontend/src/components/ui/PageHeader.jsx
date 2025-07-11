@@ -69,37 +69,90 @@ const PageHeader = ({ welcomeMsg }) => {
   }, []);
 
   const floatingClasses =
-    "fixed top-11 xl:top-14.5 left-0 px-4 pb-4 pt-0 md:py-4 z-14 bg-[rgba(19,21,23,0.8)] backdrop-blur-sm";
+    "fixed top-11 md:top-13.5 left-0 px-4 pb-4 " +
+    (isAuthenticated ? "pt-4" : "pt-2") +
+    " sm:pt-4 md:py-4 z-[14] bg-[rgba(19,21,23,0.8)] backdrop-blur-sm";
 
   return (
     <header
-      className={`${
-        isScrolled && floatingClasses
-      } w-full flex flex-col xl:flex-row items-center xl:justify-between gap-4 transition-all`}
+      className={`
+        ${isScrolled ? floatingClasses : ""}
+        w-full flex flex-col xl:flex-row items-left xl:justify-between
+        ${
+          isScrolled
+            ? "gap-0"
+            : isAuthenticated
+            ? "gap-4 md:gap-4"
+            : "gap-1 md:gap-4"
+        }
+        transition-all
+      `}
     >
       {/* Saludo */}
-      
-      <div className="w-full xl:w-auto text-center xl:text-left">
-        {!isScrolled && (
-        <h1 className="text-white font-bold text-lg md:text-[28px] font-montserrat">
-          {welcomeMsg}
-        </h1> 
-      )}
+
+      <div className="w-full md:w-auto text-left">
+        {!isScrolled ? (
+          <h1 className="text-white font-bold text-lg md:text-[28px] font-montserrat">
+            {welcomeMsg}
+          </h1>
+        ) : (
+          <>
+            {!isAuthenticated && (
+              <div className="flex sm:hidden items-center gap-2 flex-shrink-0 justify-end">
+                <NavLink
+                  to="/login"
+                  className="flex items-center gap-2 px-2 py-2 text-white text-sm xs:text-lg font-normal hover:opacity-60 whitespace-nowrap"
+                >
+                  <FaSignInAlt />
+                  <span>Acceder</span>
+                </NavLink>
+                <div className="h-6 w-px bg-white mx-0" />
+                <NavLink
+                  to="/signup"
+                  className="flex items-center gap-2 px-2 py-2 text-white text-sm xs:text-lg font-normal hover:opacity-60 whitespace-nowrap"
+                >
+                  <FaUserPlus />
+                  <span>Registrarse</span>
+                </NavLink>
+              </div>
+            )}
+          </>
+        )}
       </div>
-     
+      {!isScrolled && !isAuthenticated && (
+        <div className="w-auto">
+          <div className="flex sm:hidden items-center gap-2 flex-shrink-0 justify-center">
+            <NavLink
+              to="/login"
+              className="flex items-center gap-2 px-2 py-2 text-white text-sm xs:text-lg font-normal hover:opacity-60 whitespace-nowrap"
+            >
+              <FaSignInAlt />
+              <span>Acceder</span>
+            </NavLink>
+            <div className="h-6 w-px bg-white mx-0" />
+            <NavLink
+              to="/signup"
+              className="flex items-center gap-2 px-2 py-2 text-white text-sm xs:text-lg font-normal hover:opacity-60 whitespace-nowrap"
+            >
+              <FaUserPlus />
+              <span>Registrarse</span>
+            </NavLink>
+          </div>
+        </div>
+      )}
 
       {/* Zona de búsqueda + perfil / login-signup */}
-      <div className="flex flex-col sm:flex-row items-center gap-4 w-full xl:w-auto justify-between xl:justify-end">
+      <div className="flex flex-row sm:flex-row items-center gap-4 w-full xl:w-auto justify-between xl:justify-end">
         {/* Barra de búsqueda */}
-        <div className="flex items-center bg-[#131517] rounded-full px-4 py-2 gap-2 border-2 border-[#00DAF0] w-full sm:w-100 max-w-sm">
-          <SearchIcon className="text-[#00DAF0]" />
+        <div className="flex-1 min-w-0 flex items-center bg-[#131517] rounded-full px-2 sm:px-4 py-2 gap-1 sm:gap-2 border-2 border-[#00DAF0] w-full sm:w-100 max-w-sm">
+          <SearchIcon className="text-[#00DAF0] w-full max-w-6 min-w-3" />
           <input
             ref={searchInputRef}
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Buscar playlists, géneros, moods..."
-            className="flex-1 bg-transparent focus:outline-none text-white placeholder:text-gray-400 text-sm md:text-base"
+            className="flex-1 min-w-0 truncate bg-transparent focus:outline-none text-white placeholder:text-gray-400 text-xs sm:text-sm md:text-base"
           />
         </div>
 
@@ -108,7 +161,7 @@ const PageHeader = ({ welcomeMsg }) => {
           <div className="hidden sm:flex items-center gap-2 flex-shrink-0">
             <NavLink
               to="/login"
-              className="flex items-center gap-2 px-2 py-2 text-white text-lg font-normal hover:opacity-60 whitespace-nowrap"
+              className="flex items-center gap-2 px-2 py-2 text-white text-sm sm:text-lg font-normal hover:opacity-60 whitespace-nowrap"
             >
               <FaSignInAlt />
               <span>Acceder</span>
@@ -116,7 +169,7 @@ const PageHeader = ({ welcomeMsg }) => {
             <div className="h-6 w-px bg-white mx-0" />
             <NavLink
               to="/signup"
-              className="flex items-center gap-2 px-2 py-2 text-white text-lg font-normal hover:opacity-60 whitespace-nowrap"
+              className="flex items-center gap-2 px-2 py-2 text-white text-sm sm:text-lg font-normal hover:opacity-60 whitespace-nowrap"
             >
               <FaUserPlus />
               <span>Registrarse</span>
@@ -124,13 +177,15 @@ const PageHeader = ({ welcomeMsg }) => {
           </div>
         ) : (
           /* Si está autenticado, muestra botón de perfil */
-          <div className="relative flex-shrink-0" ref={wrapperRef}>
+          <div className="relative flex-shrink-0 min-w-0" ref={wrapperRef}>
             <button
               onClick={() => setShowModal((v) => !v)}
               className="flex items-center gap-2 text-white text-sm md:text-xl whitespace-nowrap"
             >
-              <span>{user.firstName}</span>
-              <UserCircleIcon className="text-white" width="30" height="30" />
+              <span className="hidden sm:flex transition-all">
+                {user.firstName}
+              </span>
+              <UserCircleIcon className="text-white w-full max-w-7.5" />
             </button>
             {showModal && <ProfileModal onClose={() => setShowModal(false)} />}
           </div>

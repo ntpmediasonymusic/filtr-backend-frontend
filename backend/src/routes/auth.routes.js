@@ -89,13 +89,35 @@ const authCtrl = require("../controllers/auth.controller");
  */
 router.post(
   "/register",
-  body("firstName").notEmpty(),
-  body("lastName").notEmpty(),
-  body("email").isEmail(),
-  body("password").isStrongPassword({ minLength: 6 }),
-  body("dateOfBirth").isISO8601(),
-  body("phone").isNumeric(),
-  body("country").notEmpty(),
+  body("firstName").notEmpty().withMessage("El nombre es obligatorio."),
+  body("lastName").notEmpty().withMessage("Los apellidos son obligatorios."),
+  body("email")
+    .notEmpty()
+    .withMessage("El correo es obligatorio.")
+    .bail()
+    .isEmail()
+    .withMessage("El correo no es válido."),
+  body("password")
+    .notEmpty()
+    .withMessage("La contraseña es obligatoria.")
+    .bail()
+    .matches(/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W).{6,}/)
+    .withMessage(
+      "La contraseña requiere ≥6 caracteres, mayúsculas, minúsculas, números y símbolos."
+    ),
+  body("dateOfBirth")
+    .notEmpty()
+    .withMessage("La fecha de nacimiento es obligatoria.")
+    .bail()
+    .isISO8601()
+    .withMessage("La fecha debe tener el formato ISO (YYYY-MM-DD)."),
+  body("phone")
+    .notEmpty()
+    .withMessage("El teléfono es obligatorio.")
+    .bail()
+    .isNumeric()
+    .withMessage("Sólo números permitidos."),
+  body("country").notEmpty().withMessage("Seleccione un país."),
   body("favoriteMethod").optional().isString(),
   body("optInSony").optional().isBoolean(),
   body("optInFiltr").optional().isBoolean(),

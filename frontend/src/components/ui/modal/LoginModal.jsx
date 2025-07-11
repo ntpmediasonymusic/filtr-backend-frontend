@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
-const LoginModal = ({ onClose }) => {
+const LoginModal = ({ onClose, message }) => {
   const ref = useRef(null);
   const navigate = useNavigate();
 
@@ -30,10 +30,7 @@ const LoginModal = ({ onClose }) => {
         >
           {/* Contenido del modal */}
           <div className="text-center">
-            <h3 className="text-white text-xl font-bold mb-4">
-              Para guardar tus playlist favoritas primero debes de iniciar
-              sesión
-            </h3>
+            <h3 className="text-white text-xl font-bold mb-4">{message}</h3>
 
             <button
               onClick={() => navigate("/login")}
