@@ -4,36 +4,31 @@ const CookieConsentBanner = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const storedConsent = localStorage.getItem("filtr_cookie_consent");
-
-    if (!storedConsent) {
+    const stored = localStorage.getItem("filtr_cookie_consent");
+    if (!stored) {
       setIsVisible(true);
     } else {
-      applyConsentToGtag(storedConsent);
+      applyConsent(stored);
     }
   }, []);
 
-  const applyConsentToGtag = (decision) => {
-    if (typeof window.gtag !== "function") return;
-
-    if (decision === "accepted") {
-      window.gtag("consent", "update", {
-        ad_storage: "granted",
-        analytics_storage: "granted",
-        wait_for_update: 500,
-      });
-    } else {
-      window.gtag("consent", "update", {
-        ad_storage: "denied",
-        analytics_storage: "denied",
-        wait_for_update: 500,
-      });
+  const applyConsent = (decision) => {
+    const params = {
+      ad_storage: decision === "accepted" ? "granted" : "denied",
+      analytics_storage: decision === "accepted" ? "granted" : "denied",
+      wait_for_update: 500,
+    };
+    if (typeof window.gtag === "function") {
+      window.gtag("consent", "update", params);
+    } else if (window.dataLayer) {
+      // fallback antes de que gtag exista
+      window.dataLayer.push(["consent", "update", params]);
     }
   };
 
   const handleConsent = (decision) => {
     localStorage.setItem("filtr_cookie_consent", decision);
-    applyConsentToGtag(decision);
+    applyConsent(decision);
     setIsVisible(false);
   };
 

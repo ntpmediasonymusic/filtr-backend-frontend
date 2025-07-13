@@ -25,6 +25,7 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 function App() {
   return (
     <div className="flex flex-col min-h-screen bg-[#131517]">
+      <CookieConsentBanner />
       <SearchProvider>
         <NavMenu />
         <div className="flex-1 mt-[50px] md:mt-[80px]">
@@ -58,7 +59,6 @@ function App() {
           </PageTitleProvider>
         </div>
       </SearchProvider>
-      <CookieConsentBanner />
       <Footer />
     </div>
   );
