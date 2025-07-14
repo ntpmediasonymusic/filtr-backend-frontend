@@ -38,11 +38,24 @@ app.use((req, res, next) => {
     "Content-Security-Policy",
     [
       "default-src 'self'",
-      "connect-src 'self' https://accounts.spotify.com https://api.spotify.com",
-      "style-src 'self' https://fonts.googleapis.com",
+
+      // Scripts: self, tu CDN, GTM y Analytics, y (temporalmente) inline
+      "script-src 'self' https://cdn.wyng.com https://www.googletagmanager.com https://www.google-analytics.com 'unsafe-inline'",
+
+      // Conexiones AJAX/fetch
+      "connect-src 'self' https://accounts.spotify.com https://api.spotify.com https://www.google-analytics.com",
+
+      // Estilos: self, Google Fonts, y permitir inline para tu banner
+      "style-src 'self' https://fonts.googleapis.com 'unsafe-inline'",
+
+      // Fuentes
       "font-src 'self' https://fonts.gstatic.com",
+
+      // Imágenes
       "img-src 'self' data: https: https://cdn.wyng.com",
-      "script-src 'self' https://cdn.wyng.com",
+
+      // Iframes (noscript GTM)
+      "frame-src 'self' https://www.googletagmanager.com",
     ].join("; ")
   );
   next();
