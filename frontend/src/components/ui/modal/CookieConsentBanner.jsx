@@ -1,34 +1,22 @@
 import { useEffect, useState } from "react";
+import { useGTM } from "../../../context/useGTM";
 
 const CookieConsentBanner = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const { updateConsent } = useGTM();
 
   useEffect(() => {
     const stored = localStorage.getItem("filtr_cookie_consent");
     if (!stored) {
       setIsVisible(true);
     } else {
-      applyConsent(stored);
+      updateConsent(stored);
     }
-  }, []);
-
-  const applyConsent = (decision) => {
-    const params = {
-      ad_storage: decision === "accepted" ? "granted" : "denied",
-      analytics_storage: decision === "accepted" ? "granted" : "denied",
-      wait_for_update: 500,
-    };
-    if (typeof window.gtag === "function") {
-      window.gtag("consent", "update", params);
-    } else if (window.dataLayer) {
-      // fallback antes de que gtag exista
-      window.dataLayer.push(["consent", "update", params]);
-    }
-  };
+  }, [updateConsent]);
 
   const handleConsent = (decision) => {
     localStorage.setItem("filtr_cookie_consent", decision);
-    applyConsent(decision);
+    updateConsent(decision);
     setIsVisible(false);
   };
 
