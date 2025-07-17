@@ -3,22 +3,22 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const HeaderCarousel = () => {
   const imageMap = [
-    {
-      desktop:
-        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-1.jpg",
-      mobile:
-        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-1.jpg",
-      alt: "Día del Padre",
-      link: "https://open.spotify.com/playlist/16f6EeKTcW1JyPAewb52I1",
-    },
-    {
-      desktop:
-        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-2.jpg",
-      mobile:
-        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-2.jpg",
-      alt: "Pride Day",
-      link: "https://open.spotify.com/playlist/4zi1xjOHKiQh5G8ancxArF",
-    },
+    // {
+    //   desktop:
+    //     "/assets/images/home-page-banner/desktop/home-page-banner-desktop-1.jpg",
+    //   mobile:
+    //     "/assets/images/home-page-banner/mobile/home-page-banner-mobile-1.jpg",
+    //   alt: "Día del Padre",
+    //   link: "https://open.spotify.com/playlist/16f6EeKTcW1JyPAewb52I1",
+    // },
+    // {
+    //   desktop:
+    //     "/assets/images/home-page-banner/desktop/home-page-banner-desktop-2.jpg",
+    //   mobile:
+    //     "/assets/images/home-page-banner/mobile/home-page-banner-mobile-2.jpg",
+    //   alt: "Pride Day",
+    //   link: "https://open.spotify.com/playlist/4zi1xjOHKiQh5G8ancxArF",
+    // },
     {
       desktop:
         "/assets/images/home-page-banner/desktop/home-page-banner-desktop-3.jpg",

@@ -63,12 +63,7 @@ const TrendingPlaylistCard = ({
         rel="noopener noreferrer"
         className="relative group flex-shrink-0 w-full md:w-[208px]"
       >
-        <img
-          src={urlCoverImage}
-          alt={playlistName}
-          className="w-full h-auto md:w-[208px] md:h-[208px] rounded-lg object-cover"
-          loading="lazy"
-        />
+        <PlaylistCardImage src={urlCoverImage} alt={playlistName} />
         <div className="absolute inset-0 bg-black/50 rounded-lg opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
           <div className="w-1/2 h-1/2">
             <PlaylistPlayButton onlyArrow className="w-full h-full" />
@@ -123,10 +118,38 @@ const TrendingPlaylistCard = ({
 
       {/* Modal de Login */}
       {showLoginModal && (
-        <LoginModal onClose={() => setShowLoginModal(false)} message ={"Para guardar tus playlist favoritas primero debes de iniciar sesión"}/>
+        <LoginModal
+          onClose={() => setShowLoginModal(false)}
+          message={
+            "Para guardar tus playlist favoritas primero debes de iniciar sesión"
+          }
+        />
       )}
     </div>
   );
 };
+
+function PlaylistCardImage({ src, alt }) {
+  const [loaded, setLoaded] = useState(false);
+
+  return (
+    <div className="relative w-full before:block before:pt-[100%] rounded-lg overflow-hidden bg-gray-700">
+      {!loaded && (
+        <div className="absolute inset-0 animate-pulse bg-gray-600" />
+      )}
+      <img
+        src={src}
+        alt={alt}
+        onLoad={() => setLoaded(true)}
+        className={`
+          absolute inset-0 w-full h-full object-cover
+          transition-opacity duration-500
+          ${loaded ? "opacity-100" : "opacity-0"}
+        `}
+        loading="lazy"
+      />
+    </div>
+  );
+}
 
 export default TrendingPlaylistCard;

@@ -13,7 +13,7 @@ async function sendVerificationEmail(to, name, token) {
 
   const imagePath = path.resolve(
     __dirname,
-    "../public/images/filtr_logo_blanco.png"
+    "../public/images/email-header-verification.png"
   );
   const imageData = fs.readFileSync(imagePath).toString("base64");
 
@@ -25,11 +25,11 @@ async function sendVerificationEmail(to, name, token) {
     },
     subject: "¡Estas a un clic de formar parte de SOMOS FILTR!",
     html: `
-      <div style="width:100%; background:#3145c7; text-align:left; padding:20px 0; border-radius: 10px;">
+      <div style="width:100%; text-align:center; margin:0; padding:0;">
         <img
-          src="cid:filtr-logo"
+          src="cid:email-header"
           alt="Somos Filtr"
-          style="height:35px; margin-left:20px;"
+          style="width:100%; max-width:650px; height:auto; display:block; margin:0 auto;"
         />
       </div>
       <div style="font-family: sans-serif; line-height: 1.4;">
@@ -63,10 +63,10 @@ async function sendVerificationEmail(to, name, token) {
     attachments: [
       {
         content: imageData,
-        filename: "filtr_logo_magenta.png",
+        filename: "email-header-verification.png",
         type: "image/png",
         disposition: "inline",
-        content_id: "filtr-logo",
+        content_id: "email-header",
       },
     ],
   };
@@ -80,7 +80,7 @@ async function sendResetPasswordEmail(to, token) {
   const resetLink = `${frontendUrl}reset-password?token=${token}`;
   const imagePath = path.resolve(
     __dirname,
-    "../public/images/filtr_logo_blanco.png"
+    "../public/images/email-header-reset-passwor.png"
   );
   const imageData = fs.readFileSync(imagePath).toString("base64");
 
@@ -92,11 +92,11 @@ async function sendResetPasswordEmail(to, token) {
     },
     subject: "Reestablecer contraseña",
     html: `
-      <div style="width:100%; background:#3145c7; text-align:left; padding:20px 0; border-radius: 10px;">
+       <div style="width:100%; text-align:center; margin:0; padding:0;">
         <img
-          src="cid:filtr-logo"
+          src="cid:email-header"
           alt="Somos Filtr"
-          style="height:35px; margin-left:20px;"
+          style="width:100%; max-width:650px; height:auto; display:block; margin:0 auto;"
         />
       </div>
       <div style="font-family: sans-serif; line-height: 1.4;">
@@ -128,10 +128,10 @@ async function sendResetPasswordEmail(to, token) {
     attachments: [
       {
         content: imageData,
-        filename: "filtr_logo_magenta.png",
+        filename: "email-header-reset-passwor.png",
         type: "image/png",
         disposition: "inline",
-        content_id: "filtr-logo",
+        content_id: "email-header",
       },
     ],
   };

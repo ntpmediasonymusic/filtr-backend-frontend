@@ -1,16 +1,23 @@
 /* eslint-disable react/prop-types */
+import { useState } from "react";
 import MapMarker from "../../assets/icons/MapMarker";
 import { IoTicketOutline } from "react-icons/io5";
 import useFormattedDate from "../../hooks/shows/useFormattedDate";
-import { useState } from "react";
 import ExternalLinkModal from "../ui/modal/ExternalLinkModal";
 import LoginModal from "../ui/modal/LoginModal";
 
-const ShowCard = ({ artist, showName, urlShow, urlShowImage, date, place }) => {
+const ShowCard = ({
+  artist,
+  showName,
+  urlShow,
+  urlShowImage,
+  date, // "DD/MM/YYYY"
+  place,
+}) => {
   const [showModal, setShowModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
 
-  // Datos del usuario desde localStorage
+  // Check login
   const user = JSON.parse(localStorage.getItem("user") || "null");
   const bearer = localStorage.getItem("token");
   const loggedIn = !!bearer && !!user?.id;
@@ -19,13 +26,12 @@ const ShowCard = ({ artist, showName, urlShow, urlShowImage, date, place }) => {
     if (!loggedIn) {
       e.preventDefault();
       setShowLoginModal(true);
-      return;
-    }
-    if (!urlShow) return;
-    if (localStorage.getItem("externalLinkDontShow") !== "true") {
+    } else if (
+      urlShow &&
+      localStorage.getItem("externalLinkDontShow") !== "true"
+    ) {
       e.preventDefault();
       setShowModal(true);
-      return;
     }
   };
 
@@ -36,35 +42,28 @@ const ShowCard = ({ artist, showName, urlShow, urlShowImage, date, place }) => {
 
   return (
     <>
-      <div className="flex flex-col xl:flex-row w-[100%] xl:w-[660px] h-[100%] xl:h-[251px] bg-[#262627] rounded-lg p-4 gap-5">
-        {/* Show Image */}
+      <div className="flex flex-col xl:flex-row w-full xl:w-[660px] bg-[#262627] rounded-lg p-4 gap-5">
         {urlShow && (
-          <div className="w-[100%] xl:w-[225px] h-[225px] flex-shrink-0 rounded-md overflow-hidden">
+          <div className="flex-shrink-0 w-full xl:w-[225px]">
             <a
               href={urlShow}
               onClick={handleClickLink}
               target="_blank"
               rel="noopener noreferrer"
+              className="block"
             >
-              <img
-                src={urlShowImage}
-                alt={showName}
-                className="w-full h-full object-cover"
-                loading="lazy"
-              />
+              <ShowCardImage src={urlShowImage} alt={showName} date={date} />
             </a>
           </div>
         )}
 
         {/* Show Info */}
         <div className="flex flex-col justify-center gap-6 w-full">
-          <div className="flex flex-col gap-1">
-            <div className="flex items-center gap-3">
-              <MapMarker className="mt-[2px]" />
-              <div className="flex xl:flex-col text-white text-sm leading-tight">
-                <span>{place.location}</span>
-                <span className="ml-1 xl:ml-0">{place.venue}</span>
-              </div>
+          <div className="flex items-center gap-3">
+            <MapMarker className="mt-[2px]" />
+            <div className="flex xl:flex-col text-white text-sm leading-tight">
+              <span>{place.location}</span>
+              <span className="ml-1 xl:ml-0">{place.venue}</span>
             </div>
           </div>
 
@@ -93,6 +92,7 @@ const ShowCard = ({ artist, showName, urlShow, urlShowImage, date, place }) => {
           </a>
         </div>
       </div>
+
       {/* External Link Modal */}
       {showModal && (
         <ExternalLinkModal
@@ -101,15 +101,77 @@ const ShowCard = ({ artist, showName, urlShow, urlShowImage, date, place }) => {
           onConfirm={confirmAndOpen}
         />
       )}
-      {/* Modal de Login */}
+
+      {/* Login Modal */}
       {showLoginModal && (
         <LoginModal
           onClose={() => setShowLoginModal(false)}
-          message={"Para acceder a los shows primero debes de iniciar sesión"}
+          message="Para acceder a los shows primero debes iniciar sesión"
         />
       )}
     </>
   );
 };
+
+function ShowCardImage({ src, alt, date }) {
+  const [loaded, setLoaded] = useState(false);
+
+  // Parseamos "DD/MM/YYYY"
+  const [day, month, year] = date.split("/").map(Number);
+  const eventDate = new Date(year, month - 1, day);
+  const today = new Date();
+  // Normalizamos a medianoche
+  const diffMs = eventDate.setHours(0, 0, 0, 0) - today.setHours(0, 0, 0, 0);
+  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+  let overlayText = "";
+  let textColor = "";
+  if (diffDays < 0) {
+    overlayText = "FINALIZADO";
+    textColor = "text-red-500";
+  } else if (diffDays === 0) {
+    overlayText = "¡ES HOY!";
+    textColor = "text-blue-400";
+    } else if (diffDays === 1) {
+    overlayText = "¡ES MAÑANA!";
+    textColor = "text-blue-400";
+  } else if (diffDays > 0 && diffDays < 30) {
+    overlayText = "MUY PRONTO";
+    textColor = "text-yellow-400";
+  }
+
+  return (
+    <div className="relative w-full before:block before:pt-[100%] rounded-md overflow-hidden bg-gray-700">
+      {/* Placeholder */}
+      {!loaded && (
+        <div className="absolute inset-0 animate-pulse bg-gray-600" />
+      )}
+
+      {/* Imagen */}
+      <img
+        src={src}
+        alt={alt}
+        onLoad={() => setLoaded(true)}
+        loading="lazy"
+        className={`
+          absolute inset-0 w-full h-full object-cover
+          transition-opacity duration-500
+          ${loaded ? "opacity-100" : "opacity-0"}
+        `}
+      />
+
+      {/* Overlay si hay texto */}
+      {overlayText && (
+        <div className="flex justify-center absolute bottom-0 left-0 w-full px-2 py-2 bg-black/80">
+          <span
+            className={`leading-tight font-black text-[24px] sm:text-[24px] md:text-[24px] lg:text-[18px] xl:text-[18px] ${textColor}`}
+          >
+            {overlayText}
+          </span>
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default ShowCard;

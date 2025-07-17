@@ -379,7 +379,7 @@
       "urlCoverImage": "https://image-cdn-fa.spotifycdn.com/image/ab67706c0000d72cec3a5c77c75dee8075a6f7dd",
       "mainCategory": [],
       "genre": ["Tropical"],
-      "moods": ["Fiesta, Mood booster"],
+      "moods": ["Fiesta", "Mood booster"],
       "region": "Centroamérica y Caribe",
       "priority": 1
     },
@@ -628,8 +628,8 @@
       "urlPlaylist": "https://open.spotify.com/playlist/1lvD3XTXCHx0VjXNbl49XF?si=8c84ad2b421e4001&nd=1&dlsi=3b79ffe4387c4680",
       "urlCoverImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da849d3e6e99c5fc7f006c66232c",
       "mainCategory": [],
-      "genre": [],
-      "moods": ["Nostalgia"],
+      "genre": ["Pop"],
+      "moods": ["Nostalgia", "Romance"],
       "region": "Centroamérica y Caribe",
       "priority": 1,
       "trending": 4
@@ -639,7 +639,7 @@
       "urlPlaylist": "https://open.spotify.com/playlist/1zZuDCC032tiepZ5RjQlt3?si=02164e54608443fc&nd=1&dlsi=fc74bce0c9294680",
       "urlCoverImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000d72cda488118f2ca24df04b314aa",
       "mainCategory": [],
-      "genre": [],
+      "genre": ["Pop"],
       "moods": [],
       "region": "Centroamérica y Caribe",
       "priority": 1,
@@ -822,6 +822,36 @@
       "mainCategory": [],
       "genre": ["Música Mexicana"],
       "moods": [],
+      "region": "Centroamérica y Caribe",
+      "priority": 1
+    },
+    {
+      "playlistName": "Back to 2000's",
+      "urlPlaylist": "https://open.spotify.com/playlist/2XvmYFOs59zc1F1hWTqwgJ?si=d8b3d135602a4f76&nd=1&dlsi=fedd5f49fd6241c8",
+      "urlCoverImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84d5efa385ec9edb0a24a85286",
+      "mainCategory": [],
+      "genre": ["Pop", "Decadas"],
+      "moods": ["Nostalgia"],
+      "region": "Centroamérica y Caribe",
+      "priority": 1
+    },
+    {
+      "playlistName": "Música Alegre 2025 😃",
+      "urlPlaylist": "https://open.spotify.com/playlist/3ck7KjH34H20a48Ew37roz?si=5f35c003b2df4d2e&nd=1&dlsi=1fe95e6939134f37",
+      "urlCoverImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84e88b3a62e9720ddc87ebfe91",
+      "mainCategory": [],
+      "genre": ["Pop"],
+      "moods": ["Mood booster"],
+      "region": "Centroamérica y Caribe",
+      "priority": 1
+    },
+    {
+      "playlistName": "Bachata MIX 2025 ❤️ Las Mejores Bachatas Románticas",
+      "urlPlaylist": "https://open.spotify.com/playlist/5SqR3iQ1rvzjjB8vEPlF8d?si=e244073c6b594227&nd=1&dlsi=79f6ef2c65474abd",
+      "urlCoverImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da8499e38d2f66ed1fb0468123d0",
+      "mainCategory": [],
+      "genre": ["Tropical"],
+      "moods": ["Fiesta"],
       "region": "Centroamérica y Caribe",
       "priority": 1
     }
