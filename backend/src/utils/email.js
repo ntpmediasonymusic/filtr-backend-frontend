@@ -32,10 +32,19 @@ async function sendVerificationEmail(to, name, token) {
           style="width:100%; max-width:650px; height:auto; display:block; margin:0 auto;"
         />
       </div>
-      <div style="font-family: sans-serif; line-height: 1.4;">
-        <h2 style="color: #000000;">¡HOLA ${upperName}!</h2>
-        <h3 style="color: #000000;">BIENVENID@ A SOMOS FILTR</h3>
-        <p style="color: #000000; font-size: 14px;">Haz clic en el siguiente botón para completar tu registro en Filtr:</p>
+      <div style="
+          width:100%;
+          font-family: sans-serif;
+          line-height: 1.4;
+          text-align: center;     
+          margin: 0;
+          padding: 0;
+        ">
+        <h2 style="color: #000000; margin: .5em 0;">¡HOLA ${upperName}!</h2>
+        <h3 style="color: #000000; margin: .5em 0;">BIENVENID@ A SOMOS FILTR</h3>
+        <p style="color: #000000; font-size: 14px; margin: .5em 0;">
+          Haz clic en el siguiente botón para completar tu registro en Filtr:
+        </p>
         <a
           href="${verifyLink}"
           style="
@@ -45,17 +54,23 @@ async function sendVerificationEmail(to, name, token) {
             padding: 12px 20px;
             border-radius: 6px;
             display: inline-block;
-            margin-top: 10px;
+            margin: 10px auto;     
             font-size: 12px; 
             font-weight: 800;
           "
         >
           VERIFICAR CORREO
         </a>
-        <br/>
-        <h3 style="color: #000000;">PREPÁRATE PARA VIVIR LO MEJOR DE LA MÚSICA.</h3>
-        <hr style="margin: 20px 0; border: none; border-top: 1px solid #ddd;" />
-        <p style="font-size: 1em; color: #2b2b2b;">
+        <h3 style="color: #000000; margin: 1em 0;">PREPÁRATE PARA VIVIR LO MEJOR DE LA MÚSICA.</h3>
+        <hr
+          style="
+            width: 80%;            
+            margin: 20px auto;  
+            border: none;
+            border-top: 1px solid #ddd;
+          "
+        />
+        <p style="font-size: 1em; color: #2b2b2b; margin: .5em 0;">
           Si no te registraste en Filtr, puedes ignorar este correo.
         </p>
       </div>
@@ -92,19 +107,28 @@ async function sendResetPasswordEmail(to, token) {
     },
     subject: "Reestablecer contraseña",
     html: `
-       <div style="width:100%; text-align:center; margin:0; padding:0;">
+      <div style="width:100%; text-align:center; margin:0; padding:0;">
         <img
           src="cid:email-header"
           alt="Somos Filtr"
           style="width:100%; max-width:650px; height:auto; display:block; margin:0 auto;"
         />
       </div>
-      <div style="font-family: sans-serif; line-height: 1.4;">
-        <h2 style="color: #000000;">Parece que quieres restablecer tu contraseña.</h2>
-        <h3 style="color: #000000;">Para seguir disfrutando de los mejores hits,</h3>
-        <p style="color: #000000; font-size: 14px;">da clic en el siguiente botón para ingresar tu nueva contraseña:</p>
+      <div style="
+          width:100%;
+          font-family: sans-serif;
+          line-height: 1.4;
+          text-align: center;     
+          margin: 0;
+          padding: 0;
+        ">
+        <h2 style="color: #000000; margin: .5em 0;">¡HOLA ${upperName}!</h2>
+        <h3 style="color: #000000; margin: .5em 0;">BIENVENID@ A SOMOS FILTR</h3>
+        <p style="color: #000000; font-size: 14px; margin: .5em 0;">
+          Haz clic en el siguiente botón para completar tu registro en Filtr:
+        </p>
         <a
-          href="${resetLink}"
+          href="${verifyLink}"
           style="
             background-color: #ca249c;
             color: white;
@@ -112,16 +136,24 @@ async function sendResetPasswordEmail(to, token) {
             padding: 12px 20px;
             border-radius: 6px;
             display: inline-block;
-            margin-top: 10px;
+            margin: 10px auto;     
             font-size: 12px; 
             font-weight: 800;
           "
         >
-          RESTABLECER CONTRASEÑA
+          VERIFICAR CORREO
         </a>
-        <hr style="margin: 20px 0; border: none; border-top: 1px solid #ddd;" />
-        <p style="font-size: 1em; color: #2b2b2b;">
-          Si no solicitaste este cambio, ignora este correo y tu contraseña permanecerá igual.
+        <h3 style="color: #000000; margin: 1em 0;">PREPÁRATE PARA VIVIR LO MEJOR DE LA MÚSICA.</h3>
+        <hr
+          style="
+            width: 80%;            
+            margin: 20px auto;  
+            border: none;
+            border-top: 1px solid #ddd;
+          "
+        />
+        <p style="font-size: 1em; color: #2b2b2b; margin: .5em 0;">
+          Si no te registraste en Filtr, puedes ignorar este correo.
         </p>
       </div>
     `,
