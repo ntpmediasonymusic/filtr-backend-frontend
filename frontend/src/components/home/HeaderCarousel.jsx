@@ -21,11 +21,11 @@ const HeaderCarousel = () => {
     // },
     {
       desktop:
-        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-3.jpg",
+        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-5.png",
       mobile:
-        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-3.jpg",
-      alt: "Girl Power",
-      link: "https://open.spotify.com/playlist/1Jx7AdqyAGUMWBavwSN5vt?si=5ef950e9c0ef42b4&nd=1&dlsi=fe9169f829384cd8",
+        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-5.png",
+      alt: "Y2K",
+      link: "https://open.spotify.com/playlist/2XvmYFOs59zc1F1hWTqwgJ",
     },
     {
       desktop:
@@ -34,6 +34,22 @@ const HeaderCarousel = () => {
         "/assets/images/home-page-banner/mobile/home-page-banner-mobile-4.jpg",
       alt: "Hip-Hop",
       link: "https://open.spotify.com/playlist/2tX56rjkc0SlJ8DNhGtkDZ?si=39f0ba5ddf2e4297&nd=1&dlsi=b9c5031430ed4db0",
+    },
+    {
+      desktop:
+        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-6.png",
+      mobile:
+        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-6.png",
+      alt: "Vacaciones",
+      link: "https://open.spotify.com/playlist/1zZuDCC032tiepZ5RjQlt3?si=02164e54608443fc&nd=1&dlsi=fc74bce0c9294680",
+    },
+    {
+      desktop:
+        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-3.jpg",
+      mobile:
+        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-3.jpg",
+      alt: "Girl Power",
+      link: "https://open.spotify.com/playlist/1Jx7AdqyAGUMWBavwSN5vt?si=5ef950e9c0ef42b4&nd=1&dlsi=fe9169f829384cd8",
     },
   ];
 

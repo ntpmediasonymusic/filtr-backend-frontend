@@ -12,10 +12,17 @@ const PrizesHeader = () => {
     },
     {
       desktop:
+        "/assets/images/prizes-banner-header/desktop/prizes-banner-header-desktop-3.png",
+      mobile:
+        "/assets/images/prizes-banner-header/mobile/prizes-banner-header-mobile-3.png",
+      alt: "Shows Banner 2",
+    },
+    {
+      desktop:
         "/assets/images/prizes-banner-header/desktop/prizes-banner-header-desktop-2.png",
       mobile:
         "/assets/images/prizes-banner-header/mobile/prizes-banner-header-mobile-2.png",
-      alt: "Shows Banner 2",
+      alt: "Shows Banner 3",
     },
   ];
 
