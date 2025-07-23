@@ -7,6 +7,13 @@ const HeaderCarousel = () => {
   const imageMap = [
     {
       desktop:
+        "/assets/images/prizes-banners/desktop/prizes-banner-desktop-4.png",
+      mobile: "/assets/images/prizes-banners/mobile/prizes-banner-mobile-4.png",
+      alt: "Debi Nova - Entrada Doble",
+      link: "https://forms.sonymusicfans.com/campaign/debinova-todopuedeconvertirseencancion-evento-2025/",
+    },
+    {
+      desktop:
         "/assets/images/home-page-banner/desktop/home-page-banner-desktop-5.png",
       mobile:
         "/assets/images/home-page-banner/mobile/home-page-banner-mobile-5.png",
@@ -31,18 +38,10 @@ const HeaderCarousel = () => {
     },
     {
       desktop:
-        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-3.jpg",
-      mobile:
-        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-3.jpg",
-      alt: "Girl Power",
-      link: "https://open.spotify.com/playlist/1Jx7AdqyAGUMWBavwSN5vt?si=5ef950e9c0ef42b4&nd=1&dlsi=fe9169f829384cd8",
-    },
-    {
-      desktop:
         "/assets/images/home-page-banner/desktop/home-page-banner-desktop-7.png",
       mobile:
         "/assets/images/home-page-banner/mobile/home-page-banner-mobile-7.png",
-      alt: "Girl Power",
+      alt: "Premios",
       link: "https://www.somosfiltr.com/prizes",
     },
   ];

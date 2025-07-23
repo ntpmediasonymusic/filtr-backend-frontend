@@ -14,17 +14,10 @@ const PrizesHeader = () => {
     },
     {
       desktop:
-        "/assets/images/prizes-banner-header/desktop/prizes-banner-header-desktop-3.png",
+        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-7.png",
       mobile:
-        "/assets/images/prizes-banner-header/mobile/prizes-banner-header-mobile-3.png",
+        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-7.png",
       alt: "Shows Banner 2",
-    },
-    {
-      desktop:
-        "/assets/images/prizes-banner-header/desktop/prizes-banner-header-desktop-4.png",
-      mobile:
-        "/assets/images/prizes-banner-header/mobile/prizes-banner-header-mobile-4.png",
-      alt: "Shows Banner 3",
     },
   ];
 
