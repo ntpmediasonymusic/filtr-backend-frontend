@@ -156,7 +156,7 @@ function HeaderCarouselImage({ desktop, mobile, alt }) {
   return (
     <div
       className="relative w-full overflow-hidden bg-gray-700
-                 before:block before:pt-[20.2%] rounded-none"
+                 before:block before:pt-[26.5%] md:before:pt-[20.2%] rounded-none"
     >
       {!loaded && (
         <div className="absolute inset-0 animate-pulse bg-gray-600" />
