@@ -91,7 +91,7 @@ export default function GenresHeader({
       <div className="overflow-hidden">
         <div
           ref={containerRef}
-          className="grid grid-flow-col auto-cols-min grid-rows-2 gap-4 overflow-x-auto py-2 cursor-grab scrollbar-hide"
+          className="grid grid-flow-col auto-cols-min grid-rows-2 gap-2 md:gap-4 overflow-x-auto px-2 py-2 cursor-grab scrollbar-hide"
         >
           {genres.map((genre) => {
             const isSelected = selectedGenre?.name === genre.name;
@@ -116,18 +116,11 @@ export default function GenresHeader({
                   hover:border-[#ffffff] hover:scale-105 transition-all duration-300
                 `}
               >
-                <picture>
-                  <source
-                    media="(min-width: 768px)"
-                    srcSet={genre.desktopImage}
-                  />
-                  <img
-                    src={genre.mobileImage}
-                    alt={genre.name}
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                  />
-                </picture>
+                <GenreImage
+                  desktop={genre.desktopImage}
+                  mobile={genre.mobileImage}
+                  alt={genre.name}
+                />
               </div>
             );
           })}
@@ -141,11 +134,14 @@ export default function GenresHeader({
             onClick={() => scrollByOffset(-300)}
             disabled={!canScrollLeft}
             className={`absolute z-12 top-1/2 left-0 transform -translate-y-1/2 bg-[#252733] p-0.5 md:p-2 w-10 h-10 md:w-16 md:h-16 rounded-full transition-opacity
-          ${
-            canScrollLeft ? "hover:opacity-80" : "opacity-50 cursor-not-allowed"
-          }
-        `}
+            ${
+              canScrollLeft
+                ? "hover:opacity-80"
+                : "opacity-50 cursor-not-allowed"
+            }
+          `}
           >
+            {/* SVG Prev */}
             <svg
               className="w-full h-full"
               viewBox="0 0 44 44"
@@ -168,13 +164,14 @@ export default function GenresHeader({
             onClick={() => scrollByOffset(300)}
             disabled={!canScrollRight}
             className={`absolute z-12 top-1/2 right-0 transform -translate-y-1/2 bg-[#252733] p-0.5 md:p-2 w-10 h-10 md:w-16 md:h-16 rounded-full transition-opacity ml-2
-          ${
-            canScrollRight
-              ? "hover:opacity-80"
-              : "opacity-50 cursor-not-allowed"
-          }
-        `}
+            ${
+              canScrollRight
+                ? "hover:opacity-80"
+                : "opacity-50 cursor-not-allowed"
+            }
+          `}
           >
+            {/* SVG Next */}
             <svg
               className="w-full h-full"
               viewBox="0 0 44 44"
@@ -195,6 +192,38 @@ export default function GenresHeader({
           </button>
         </>
       )}
+    </div>
+  );
+}
+
+/**
+ * Helper component to render each genre image
+ * with preserved space, skeleton and fade-in.
+ */
+function GenreImage({ desktop, mobile, alt }) {
+  const [loaded, setLoaded] = useState(false);
+
+  return (
+    <div className="relative w-full h-full bg-gray-700">
+      {/* Skeleton placeholder */}
+      {!loaded && (
+        <div className="absolute inset-0 animate-pulse bg-gray-600" />
+      )}
+
+      <picture className="absolute inset-0 w-full h-full">
+        <source media="(min-width:768px)" srcSet={desktop} />
+        <img
+          src={mobile}
+          alt={alt}
+          onLoad={() => setLoaded(true)}
+          loading="lazy"
+          className={`
+            absolute inset-0 w-full h-full object-cover
+            transition-opacity duration-500
+            ${loaded ? "opacity-100" : "opacity-0"}
+          `}
+        />
+      </picture>
     </div>
   );
 }

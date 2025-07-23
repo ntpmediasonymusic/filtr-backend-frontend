@@ -132,10 +132,16 @@ function ShowCardImage({ src, alt, date }) {
   } else if (diffDays === 0) {
     overlayText = "¡ES HOY!";
     textColor = "text-blue-400";
-    } else if (diffDays === 1) {
+  } else if (diffDays === 1) {
     overlayText = "¡ES MAÑANA!";
     textColor = "text-blue-400";
-  } else if (diffDays > 0 && diffDays < 30) {
+  } else if (diffDays === 2) {
+    overlayText = "FALTAN 2 DÍAS";
+    textColor = "text-yellow-400";
+  } else if (diffDays === 3) {
+    overlayText = "FALTAN 3 DÍAS";
+    textColor = "text-yellow-400";
+  } else if (diffDays > 0 && diffDays < 15) {
     overlayText = "MUY PRONTO";
     textColor = "text-yellow-400";
   }

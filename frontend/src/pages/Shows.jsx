@@ -27,7 +27,7 @@ const Shows = () => {
     const eventDate = new Date(year, month - 1, day);
     const diffMs = today.getTime() - eventDate.getTime();
     const diffDays = diffMs / (1000 * 60 * 60 * 24);
-    return diffDays <= 15;
+    return diffDays <= 8;
   });
 
   return (

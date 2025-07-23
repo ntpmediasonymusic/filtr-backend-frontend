@@ -1,24 +1,10 @@
+/* eslint-disable react/prop-types */
+import { useState } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const HeaderCarousel = () => {
   const imageMap = [
-    // {
-    //   desktop:
-    //     "/assets/images/home-page-banner/desktop/home-page-banner-desktop-1.jpg",
-    //   mobile:
-    //     "/assets/images/home-page-banner/mobile/home-page-banner-mobile-1.jpg",
-    //   alt: "Día del Padre",
-    //   link: "https://open.spotify.com/playlist/16f6EeKTcW1JyPAewb52I1",
-    // },
-    // {
-    //   desktop:
-    //     "/assets/images/home-page-banner/desktop/home-page-banner-desktop-2.jpg",
-    //   mobile:
-    //     "/assets/images/home-page-banner/mobile/home-page-banner-mobile-2.jpg",
-    //   alt: "Pride Day",
-    //   link: "https://open.spotify.com/playlist/4zi1xjOHKiQh5G8ancxArF",
-    // },
     {
       desktop:
         "/assets/images/home-page-banner/desktop/home-page-banner-desktop-5.png",
@@ -51,9 +37,17 @@ const HeaderCarousel = () => {
       alt: "Girl Power",
       link: "https://open.spotify.com/playlist/1Jx7AdqyAGUMWBavwSN5vt?si=5ef950e9c0ef42b4&nd=1&dlsi=fe9169f829384cd8",
     },
+    {
+      desktop:
+        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-7.png",
+      mobile:
+        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-7.png",
+      alt: "Girl Power",
+      link: "https://www.somosfiltr.com/prizes",
+    },
   ];
 
-const PrevArrow = () => (
+  const PrevArrow = () => (
     <svg
       viewBox="0 0 44 44"
       className="w-full h-full"
@@ -72,8 +66,7 @@ const PrevArrow = () => (
       </g>
     </svg>
   );
-
-const NextArrow = () => (
+  const NextArrow = () => (
     <svg
       viewBox="0 0 44 44"
       className="w-full h-full"
@@ -96,7 +89,7 @@ const NextArrow = () => (
   return (
     <div className="relative">
       <Carousel
-        showArrows={true}
+        showArrows
         showIndicators
         infiniteLoop
         autoPlay
@@ -130,7 +123,7 @@ const NextArrow = () => (
         }
       >
         {imageMap.map(({ desktop, mobile, alt, link }, i) => (
-          <div key={i} className="flex items-center justify-center">
+          <div key={i} className="flex items-center justify-center w-full">
             {link ? (
               <a
                 href={link}
@@ -138,26 +131,18 @@ const NextArrow = () => (
                 rel="noopener noreferrer"
                 className="w-full"
               >
-                <picture className="w-full">
-                  <source media="(min-width:768px)" srcSet={desktop} />
-                  <img
-                    src={mobile}
-                    alt={alt}
-                    className="w-full object-cover object-center max-h-[600px]"
-                    loading="lazy"
-                  />
-                </picture>
+                <HeaderCarouselImage
+                  desktop={desktop}
+                  mobile={mobile}
+                  alt={alt}
+                />
               </a>
             ) : (
-              <picture className="w-full">
-                <source media="(min-width:768px)" srcSet={desktop} />
-                <img
-                  src={mobile}
-                  alt={alt}
-                  className="w-full object-cover object-center max-h-[600px]"
-                  loading="lazy"
-                />
-              </picture>
+              <HeaderCarouselImage
+                desktop={desktop}
+                mobile={mobile}
+                alt={alt}
+              />
             )}
           </div>
         ))}
@@ -165,5 +150,34 @@ const NextArrow = () => (
     </div>
   );
 };
+
+function HeaderCarouselImage({ desktop, mobile, alt }) {
+  const [loaded, setLoaded] = useState(false);
+
+  return (
+    <div
+      className="relative w-full overflow-hidden bg-gray-700
+                 before:block before:pt-[20.2%] rounded-none"
+    >
+      {!loaded && (
+        <div className="absolute inset-0 animate-pulse bg-gray-600" />
+      )}
+      <picture className="absolute inset-0 w-full h-full">
+        <source media="(min-width:768px)" srcSet={desktop} />
+        <img
+          src={mobile}
+          alt={alt}
+          onLoad={() => setLoaded(true)}
+          loading="lazy"
+          className={`
+            absolute inset-0 w-full h-full object-cover
+            transition-opacity duration-500
+            ${loaded ? "opacity-100" : "opacity-0"}
+          `}
+        />
+      </picture>
+    </div>
+  );
+}
 
 export default HeaderCarousel;

@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+import { useState } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
@@ -94,31 +96,45 @@ const ShowsHeader = () => {
         )
       }
     >
-      {imageMap.map(({ desktop, mobile, alt, link }, idx) => {
-        const content = (
-          <picture className="w-full">
-            <source media="(min-width:768px)" srcSet={desktop} />
-            <img
-              src={mobile}
-              alt={alt}
-              className="w-full object-cover object-center max-h-[600px] rounded-[10px]"
-            />
-          </picture>
-        );
-        return (
-          <div key={idx} className="flex items-center justify-center">
-            {link ? (
-              <a href={link} target="_blank" rel="noopener noreferrer">
-                {content}
-              </a>
-            ) : (
-              content
-            )}
-          </div>
-        );
-      })}
+      {imageMap.map(({ desktop, mobile, alt }, idx) => (
+        <div key={idx} className="flex items-center justify-center w-full">
+          <ShowHeaderImage desktop={desktop} mobile={mobile} alt={alt} />
+        </div>
+      ))}
     </Carousel>
   );
 };
+
+function ShowHeaderImage({ desktop, mobile, alt }) {
+  const [loaded, setLoaded] = useState(false);
+
+  return (
+    <div
+      className="
+        relative w-full overflow-hidden rounded-[10px] bg-gray-700
+        before:block before:pt-[26.5%] md:before:pt-[20%]
+      "
+    >
+      {/* Skeleton */}
+      {!loaded && (
+        <div className="absolute inset-0 animate-pulse bg-gray-600" />
+      )}
+      <picture className="absolute inset-0 w-full h-full">
+        <source media="(min-width:768px)" srcSet={desktop} />
+        <img
+          src={mobile}
+          alt={alt}
+          onLoad={() => setLoaded(true)}
+          loading="lazy"
+          className={`
+            absolute inset-0 w-full h-full object-cover
+            transition-opacity duration-500
+            ${loaded ? "opacity-100" : "opacity-0"}
+          `}
+        />
+      </picture>
+    </div>
+  );
+}
 
 export default ShowsHeader;

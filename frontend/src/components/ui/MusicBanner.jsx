@@ -1,4 +1,6 @@
 /* eslint-disable react/prop-types */
+import { useState } from "react";
+
 const MusicBanner = ({ type = "generos" }) => {
   // Mapeo de tipos a nombres de archivo reales
   const imageMap = {
@@ -38,19 +40,45 @@ const MusicBanner = ({ type = "generos" }) => {
 
   return (
     <div className="px-6 pb-5 md:pb-10">
-      <picture className="w-full block rounded-[10px] overflow-hidden">
-        {/* Imagen de escritorio para pantallas md en adelante */}
-        <source media="(min-width: 768px)" srcSet={images.desktop} />
-        {/* Imagen de móvil para pantallas <768px */}
+      <MusicBannerImage
+        desktop={images.desktop}
+        mobile={images.mobile}
+        alt={`Banner ${type}`}
+      />
+    </div>
+  );
+};
+
+function MusicBannerImage({ desktop, mobile, alt }) {
+  const [loaded, setLoaded] = useState(false);
+
+  return (
+    <div
+      className="
+        relative w-full overflow-hidden bg-gray-700 rounded-[10px]
+        before:block before:pt-[26.5%] md:before:pt-[20%]
+      "
+    >
+      {/* Skeleton mientras carga */}
+      {!loaded && (
+        <div className="absolute inset-0 animate-pulse bg-gray-600" />
+      )}
+      <picture className="absolute inset-0 w-full h-full">
+        <source media="(min-width:768px)" srcSet={desktop} />
         <img
-          src={images.mobile}
-          alt={`Banner ${type}`}
-          className="w-full h-auto object-cover"
+          src={mobile}
+          alt={alt}
+          onLoad={() => setLoaded(true)}
           loading="lazy"
+          className={`
+            absolute inset-0 w-full h-full object-cover
+            transition-opacity duration-500
+            ${loaded ? "opacity-100" : "opacity-0"}
+          `}
         />
       </picture>
     </div>
   );
-};
+}
 
 export default MusicBanner;

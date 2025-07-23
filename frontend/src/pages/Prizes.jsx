@@ -1,4 +1,4 @@
-// filtr-frontend/src/pages/Prizes.jsx
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import Filter from "../components/filter/filter";
 import PageHeader from "../components/ui/PageHeader";
@@ -17,19 +17,11 @@ const imageMap = [
   },
   {
     desktop:
-      "/assets/images/prizes-banners/desktop/prizes-banner-desktop-1.png",
-    mobile: "/assets/images/prizes-banners/mobile/prizes-banner-mobile-1.png",
-    artist: "Fabulosos Cadillacs",
-    details: "3 entradas dobles",
-    link: "https://sme.wyng.com/6849b1b0de0a35f274620a26",
-  },
-  {
-    desktop:
-      "/assets/images/prizes-banners/desktop/prizes-banner-desktop-2.png",
-    mobile: "/assets/images/prizes-banners/mobile/prizes-banner-mobile-2.png",
-    artist: "Rauw Alejandro",
-    details: "Sorteo Vinilos",
-    link: "https://sme.wyng.com/67ff0562241ac13160fa4800",
+      "/assets/images/prizes-banners/desktop/prizes-banner-desktop-4.png",
+    mobile: "/assets/images/prizes-banners/mobile/prizes-banner-mobile-4.png",
+    artist: "Debi Nova",
+    details: "Entrada Doble",
+    link: "https://forms.sonymusicfans.com/campaign/debinova-todopuedeconvertirseencancion-evento-2025/",
   },
 ];
 
@@ -71,39 +63,33 @@ const Prizes = () => {
       </div>
       <div className="flex flex-col px-8 md:px-12 my-[40px] md:my-[80px]">
         <div className="divide-y-3 divide-gray-200">
-          {imageMap.map((item, idx) => {
-            const content = (
-              <picture>
-                <source media="(min-width: 768px)" srcSet={item.desktop} />
-                <img
-                  src={item.mobile}
-                  alt={`${item.artist} - ${item.details}`}
-                  className="w-full h-auto object-cover transition-transform duration-300 hover:scale-105"
-                  loading="lazy"
-                />
-              </picture>
-            );
-
-            return (
-              <div key={idx} className="py-6 md:py-12 first:pt-0 last:pb-0">
-                {item.link ? (
-                  <a
-                    href={item.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => handleClickBanner(e)}
-                    className="block w-full overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-shadow duration-300"
-                  >
-                    {content}
-                  </a>
-                ) : (
-                  <div className="block w-full overflow-hidden rounded-2xl shadow-lg">
-                    {content}
-                  </div>
-                )}
-              </div>
-            );
-          })}
+          {imageMap.map((item, idx) => (
+            <div key={idx} className="py-6 md:py-12 first:pt-0 last:pb-0">
+              {item.link ? (
+                <a
+                  href={item.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={handleClickBanner}
+                  className="block w-full overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-shadow duration-300"
+                >
+                  <PrizeBannerImage
+                    desktop={item.desktop}
+                    mobile={item.mobile}
+                    alt={`${item.artist} - ${item.details}`}
+                  />
+                </a>
+              ) : (
+                <div className="block w-full overflow-hidden rounded-2xl shadow-lg">
+                  <PrizeBannerImage
+                    desktop={item.desktop}
+                    mobile={item.mobile}
+                    alt={`${item.artist} - ${item.details}`}
+                  />
+                </div>
+              )}
+            </div>
+          ))}
         </div>
         {/* Modal de Login */}
         {showLoginModal && (
@@ -120,3 +106,36 @@ const Prizes = () => {
 };
 
 export default Prizes;
+
+// Helper component for skeleton + responsive aspect ratio
+function PrizeBannerImage({ desktop, mobile, alt }) {
+  const [loaded, setLoaded] = useState(false);
+
+  return (
+    <div
+      className="
+        relative w-full overflow-hidden bg-gray-700 rounded-2xl
+        before:block before:pt-[26%] md:before:pt-[20%]
+      "
+    >
+      {/* Skeleton placeholder */}
+      {!loaded && (
+        <div className="absolute inset-0 animate-pulse bg-gray-600" />
+      )}
+      <picture className="absolute inset-0 w-full h-full">
+        <source media="(min-width:768px)" srcSet={desktop} />
+        <img
+          src={mobile}
+          alt={alt}
+          onLoad={() => setLoaded(true)}
+          loading="lazy"
+          className={`
+            absolute inset-0 w-full h-full object-cover
+            transition-opacity duration-500
+            ${loaded ? "opacity-100" : "opacity-0"}
+          `}
+        />
+      </picture>
+    </div>
+  );
+}

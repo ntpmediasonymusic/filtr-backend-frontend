@@ -82,7 +82,7 @@ export default function MoodsHeader({
   };
 
   return (
-    <div className="relative w-full ">
+    <div className="relative w-full">
       {filter && moods && moods.length > 0 && (
         <h2 className="text-2xl ml-6 sm:text-3xl font-bold mb-6 text-white">
           Elige un mood
@@ -92,7 +92,7 @@ export default function MoodsHeader({
       <div className="overflow-hidden">
         <div
           ref={containerRef}
-          className="grid grid-flow-col auto-cols-min grid-rows-1 gap-4 overflow-x-auto py-2 cursor-grab scrollbar-hide"
+          className="grid grid-flow-col auto-cols-min grid-rows-1 gap-2 md:gap-4 overflow-x-auto px-2 py-2 cursor-grab scrollbar-hide"
         >
           {moods.map((mood) => {
             const isSelected = selectedMood?.name === mood.name;
@@ -117,18 +117,11 @@ export default function MoodsHeader({
                   hover:border-[#ffffff] hover:scale-105 transition-all duration-300
                 `}
               >
-                <picture>
-                  <source
-                    media="(min-width: 768px)"
-                    srcSet={mood.desktopImage}
-                  />
-                  <img
-                    src={mood.mobileImage}
-                    alt={mood.name}
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                  />
-                </picture>
+                <MoodImage
+                  desktop={mood.desktopImage}
+                  mobile={mood.mobileImage}
+                  alt={mood.name}
+                />
               </div>
             );
           })}
@@ -149,6 +142,7 @@ export default function MoodsHeader({
               }
             `}
           >
+            {/* Flecha Izquierda */}
             <svg
               className="w-full h-full"
               viewBox="0 0 44 44"
@@ -178,6 +172,7 @@ export default function MoodsHeader({
               }
             `}
           >
+            {/* Flecha Derecha */}
             <svg
               className="w-full h-full"
               viewBox="0 0 44 44"
@@ -198,6 +193,35 @@ export default function MoodsHeader({
           </button>
         </>
       )}
+    </div>
+  );
+}
+
+// Componente auxiliar para imágenes con espacio reservado,
+// skeleton y fade-in al cargar
+function MoodImage({ desktop, mobile, alt }) {
+  const [loaded, setLoaded] = useState(false);
+
+  return (
+    <div className="relative w-full h-full bg-gray-700">
+      {/* Esqueleto */}
+      {!loaded && (
+        <div className="absolute inset-0 animate-pulse bg-gray-600" />
+      )}
+      <picture className="absolute inset-0 w-full h-full">
+        <source media="(min-width:768px)" srcSet={desktop} />
+        <img
+          src={mobile}
+          alt={alt}
+          onLoad={() => setLoaded(true)}
+          loading="lazy"
+          className={`
+            absolute inset-0 w-full h-full object-cover
+            transition-opacity duration-500
+            ${loaded ? "opacity-100" : "opacity-0"}
+          `}
+        />
+      </picture>
     </div>
   );
 }
