@@ -7,13 +7,6 @@ const HeaderCarousel = () => {
   const imageMap = [
     {
       desktop:
-        "/assets/images/prizes-banners/desktop/prizes-banner-desktop-4.png",
-      mobile: "/assets/images/prizes-banners/mobile/prizes-banner-mobile-4.png",
-      alt: "Debi Nova - Entrada Doble",
-      link: "https://forms.sonymusicfans.com/campaign/debinova-todopuedeconvertirseencancion-evento-2025/",
-    },
-    {
-      desktop:
         "/assets/images/home-page-banner/desktop/home-page-banner-desktop-5.png",
       mobile:
         "/assets/images/home-page-banner/mobile/home-page-banner-mobile-5.png",
