@@ -7,6 +7,14 @@ const HeaderCarousel = () => {
   const imageMap = [
     {
       desktop:
+        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-7.png",
+      mobile:
+        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-7.png",
+      alt: "Premios",
+      link: "https://www.somosfiltr.com/prizes",
+    },
+    {
+      desktop:
         "/assets/images/home-page-banner/desktop/home-page-banner-desktop-5.png",
       mobile:
         "/assets/images/home-page-banner/mobile/home-page-banner-mobile-5.png",
@@ -28,14 +36,6 @@ const HeaderCarousel = () => {
         "/assets/images/home-page-banner/mobile/home-page-banner-mobile-6.png",
       alt: "Vacaciones",
       link: "https://open.spotify.com/playlist/1zZuDCC032tiepZ5RjQlt3?si=02164e54608443fc&nd=1&dlsi=fc74bce0c9294680",
-    },
-    {
-      desktop:
-        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-7.png",
-      mobile:
-        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-7.png",
-      alt: "Premios",
-      link: "https://www.somosfiltr.com/prizes",
     },
   ];
 
