@@ -1,7 +1,7 @@
 {
   "shows": [
     {
-      "artist":"Sixpence None The Richer",
+      "artist": "Sixpence None The Richer",
       "showName": "Sixpence None The Richer",
       "urlShow": "https://eventos.cr/evento/25-06-20-six-pence-none-the-richer-25th-anniversary-tour",
       "urlShowImage": "/assets/images/shows-images/SixpenceNoneTheRicher-show-image.png",
@@ -15,7 +15,7 @@
       "priority": 1
     },
     {
-      "artist":"Fabulosos Cadillacs",
+      "artist": "Fabulosos Cadillacs",
       "showName": "Fabulosos Cadillacs",
       "urlShow": "https://www.eticket.cr/masinformacion.aspx?idevento=8816",
       "urlShowImage": "/assets/images/shows-images/FabulososCadillacs-show-image.png",
@@ -29,7 +29,7 @@
       "priority": 1
     },
     {
-      "artist":"Tiny Moving Parts",
+      "artist": "Tiny Moving Parts",
       "showName": "Tiny Moving Parts",
       "urlShow": "https://starticket.cr/e/tiny-moving-parts/5977?srsltid=AfmBOoqHAVKPVFv6gkApdHrRZIumgSbOl7MKbEfz8Yo_63FOTU6Ffbrr",
       "urlShowImage": "/assets/images/shows-images/TinyMovingParts-show-image.png",
@@ -43,7 +43,7 @@
       "priority": 1
     },
     {
-      "artist":"Mora",
+      "artist": "Mora",
       "showName": "Mora",
       "urlShow": "https://www.eticket.cr/paso1c.aspx?idevento=8940&p=45486657656631637030692f687a2b4c4e61524a54773d3d",
       "urlShowImage": "/assets/images/shows-images/Mora-show-image.png",
@@ -57,7 +57,7 @@
       "priority": 1
     },
     {
-      "artist":"Stryper",
+      "artist": "Stryper",
       "showName": "Stryper",
       "urlShow": "https://www.specialticket.net/event-details/573",
       "urlShowImage": "/assets/images/shows-images/Stryper-show-image.png",
@@ -71,7 +71,7 @@
       "priority": 1
     },
     {
-      "artist":"Testament",
+      "artist": "Testament",
       "showName": "Testament",
       "urlShow": "https://eventos.cr/evento/25-08-06-testament-latin-american-tour-2025",
       "urlShowImage": "/assets/images/shows-images/Testament-show-image.png",
@@ -85,7 +85,7 @@
       "priority": 1
     },
     {
-      "artist":"Manuel Turizo",
+      "artist": "Manuel Turizo",
       "showName": "Manuel Turizo",
       "urlShow": "https://www.eticket.cr/masinformacion.aspx?idevento=8868",
       "urlShowImage": "/assets/images/shows-images/ManuelTurizo-show-image.png",
@@ -99,7 +99,7 @@
       "priority": 1
     },
     {
-      "artist":"NSQK",
+      "artist": "NSQK",
       "showName": "NSQK",
       "urlShow": "https://starticket.cr/e/nsqk/5575",
       "urlShowImage": "/assets/images/shows-images/NSQK-show-image.png",
@@ -113,7 +113,7 @@
       "priority": 1
     },
     {
-      "artist":"Charlie Zaa",
+      "artist": "Charlie Zaa",
       "showName": "Charlie Zaa",
       "urlShow": "https://www.eticket.cr/eventos.aspx?idartista=1248",
       "urlShowImage": "/assets/images/shows-images/CharlieZaa-show-image.png",
@@ -127,7 +127,7 @@
       "priority": 1
     },
     {
-      "artist":"Carlos Vives y Fonseca",
+      "artist": "Carlos Vives y Fonseca",
       "showName": "Carlos Vives y Fonseca",
       "urlShow": "https://www.eticket.cr/masinformacion.aspx?idevento=8951",
       "urlShowImage": "/assets/images/shows-images/CarlosVivesyFonseca-show-image.png",
@@ -141,7 +141,7 @@
       "priority": 1
     },
     {
-      "artist":"Andrés Obregón",
+      "artist": "Andrés Obregón",
       "showName": "Andrés Obregón",
       "urlShow": "https://starticket.cr/en/e/andres-obregon-en-costa-rica/6409",
       "urlShowImage": "/assets/images/shows-images/AndrésObregón-show-image.png",
@@ -155,7 +155,7 @@
       "priority": 1
     },
     {
-      "artist":"Rels B",
+      "artist": "Rels B",
       "showName": "Rels B",
       "urlShow": "https://www.eticket.cr/masinformacion.aspx?idevento=8936",
       "urlShowImage": "/assets/images/shows-images/ReelsB-show-image.png",
@@ -169,7 +169,7 @@
       "priority": 1
     },
     {
-      "artist":"Paulo Londra",
+      "artist": "Paulo Londra",
       "showName": "Paulo Londra",
       "urlShow": "https://www.eticket.cr/masinformacion.aspx?idevento=8941",
       "urlShowImage": "/assets/images/shows-images/PauloLondra-show-image.png",
@@ -183,7 +183,7 @@
       "priority": 1
     },
     {
-      "artist":"Los Pericos",
+      "artist": "Los Pericos",
       "showName": "Los Pericos",
       "urlShow": "https://www.eticket.cr/masinformacion.aspx?idevento=8872",
       "urlShowImage": "/assets/images/shows-images/LosPericos-show-image.png",
@@ -197,7 +197,7 @@
       "priority": 1
     },
     {
-      "artist":"Alejandra Guzman",
+      "artist": "Alejandra Guzman",
       "showName": "Alejandra Guzman",
       "urlShow": "https://smarticket.net/evento.php?id=175",
       "urlShowImage": "/assets/images/shows-images/AlejandraGuzman-show-image.png",
@@ -208,10 +208,11 @@
         "venue": "Parque Viva"
       },
       "region": "Centroamérica y Caribe",
-      "priority": 1
+      "priority": 1,
+      "canceled": true
     },
     {
-      "artist":"Boston Manor",
+      "artist": "Boston Manor",
       "showName": "Boston Manor",
       "urlShow": "https://starticket.cr/e/boston-manor/5723?srsltid=AfmBOoqVLyoO3CTYetjk5xgZunF24rBsNvFpI0Yf2I7FSM0PkASadmWL",
       "urlShowImage": "/assets/images/shows-images/BostonManor-show-image.png",
@@ -225,7 +226,7 @@
       "priority": 1
     },
     {
-      "artist":"Alleh y Yorghaki",
+      "artist": "Alleh y Yorghaki",
       "showName": "Alleh y Yorghaki",
       "urlShow": "https://www.eticket.cr/eventos.aspx?idartista=1250",
       "urlShowImage": "/assets/images/shows-images/AllehyYorghaki-show-image.png",
@@ -239,7 +240,7 @@
       "priority": 1
     },
     {
-      "artist":"Beéle",
+      "artist": "Beéle",
       "showName": "Beéle",
       "urlShow": "https://starticket.cr/e/beele-en-costa-rica/6355?srsltid=AfmBOor84i5-ZoCtIJsNFoKcgyN24TdDmHNrZ1DfOyKlPH0R-pCQZiVh",
       "urlShowImage": "/assets/images/shows-images/Beéle-show-image.png",
@@ -253,7 +254,7 @@
       "priority": 1
     },
     {
-      "artist":"Beto Cuevas",
+      "artist": "Beto Cuevas",
       "showName": "Beto Cuevas",
       "urlShow": "https://cr.publitickets.com/event/beto-cuevas-acustico-2025",
       "urlShowImage": "/assets/images/shows-images/BetoCuevas-show-image.png",
@@ -267,7 +268,7 @@
       "priority": 1
     },
     {
-      "artist":"Guns and Roses",
+      "artist": "Guns and Roses",
       "showName": "Guns and Roses",
       "urlShow": "https://kuikpei.com/",
       "urlShowImage": "/assets/images/shows-images/GunsandRoses-show-image.png",
@@ -281,7 +282,7 @@
       "priority": 1
     },
     {
-      "artist":"Eladio Carrion",
+      "artist": "Eladio Carrion",
       "showName": "Eladio Carrion",
       "urlShow": "https://www.eticket.cr/eventos.aspx?idartista=1224",
       "urlShowImage": "/assets/images/shows-images/EladioCarrion-show-image.png",
@@ -295,7 +296,7 @@
       "priority": 1
     },
     {
-      "artist":"Nampa Básico",
+      "artist": "Nampa Básico",
       "showName": "Nampa Básico",
       "urlShow": "https://eventos.cr/evento/25-10-10-nanpa-basico-centro-america-tour-2025",
       "urlShowImage": "/assets/images/shows-images/NampaBásico-show-image.png",
@@ -309,7 +310,7 @@
       "priority": 1
     },
     {
-      "artist":"Danny Ocean",
+      "artist": "Danny Ocean",
       "showName": "Danny Ocean",
       "urlShow": "https://www.eticket.cr/masinformacion.aspx?idevento=8892",
       "urlShowImage": "/assets/images/shows-images/DannyOcean-show-image.png",
@@ -323,7 +324,7 @@
       "priority": 1
     },
     {
-      "artist":"Bandalos Chinos",
+      "artist": "Bandalos Chinos",
       "showName": "Bandalos Chinos",
       "urlShow": "https://www.eticket.cr/masinformacion.aspx?idevento=8855",
       "urlShowImage": "/assets/images/shows-images/BandalosChinos-show-image.png",
@@ -337,7 +338,7 @@
       "priority": 1
     },
     {
-      "artist":"Debi Nova",
+      "artist": "Debi Nova",
       "showName": "Debi Nova",
       "urlShow": "https://www.eticket.cr/masinformacion.aspx?idevento=8954",
       "urlShowImage": "/assets/images/shows-images/DebiNova-show-image.png",
@@ -351,7 +352,7 @@
       "priority": 1
     },
     {
-      "artist":"El Zar",
+      "artist": "El Zar",
       "showName": "El Zar",
       "urlShow": "https://cr.publitickets.com/event/el-zar-presenta-paraiso-2025",
       "urlShowImage": "/assets/images/shows-images/ElZar-show-image.png",
@@ -365,7 +366,7 @@
       "priority": 1
     },
     {
-      "artist":"Carín León",
+      "artist": "Carín León",
       "showName": "Carín León",
       "urlShow": "https://www.eticket.cr/eventos.aspx?idartista=1096",
       "urlShowImage": "/assets/images/shows-images/CarínLeón-show-image.png",
@@ -379,7 +380,7 @@
       "priority": 1
     },
     {
-      "artist":"Ana Gabriel",
+      "artist": "Ana Gabriel",
       "showName": "Ana Gabriel",
       "urlShow": "https://www.eticket.cr/eventos.aspx?idartista=887",
       "urlShowImage": "/assets/images/shows-images/AnaGabriel-show-image.png",
@@ -393,7 +394,7 @@
       "priority": 1
     },
     {
-      "artist":"Foster The People",
+      "artist": "Foster The People",
       "showName": "Foster The People",
       "urlShow": "https://www.eticket.cr/masinformacion.aspx?idevento=8966",
       "urlShowImage": "/assets/images/shows-images/FosterThePeople-show-image.png",
@@ -407,7 +408,7 @@
       "priority": 1
     },
     {
-      "artist":"Bad Bunny",
+      "artist": "Bad Bunny",
       "showName": "Bad Bunny",
       "urlShow": "https://www.eticket.cr/eventos.aspx?idartista=1228",
       "urlShowImage": "/assets/images/shows-images/BadBunny-show-image.png",
@@ -420,6 +421,5 @@
       "region": "Centroamérica y Caribe",
       "priority": 1
     }
-    
   ]
 }

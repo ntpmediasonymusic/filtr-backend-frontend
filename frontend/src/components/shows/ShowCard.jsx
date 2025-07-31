@@ -13,6 +13,7 @@ const ShowCard = ({
   urlShowImage,
   date, // "DD/MM/YYYY"
   place,
+  canceled
 }) => {
   const [showModal, setShowModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -52,7 +53,12 @@ const ShowCard = ({
               rel="noopener noreferrer"
               className="block"
             >
-              <ShowCardImage src={urlShowImage} alt={showName} date={date} />
+              <ShowCardImage
+                src={urlShowImage}
+                alt={showName}
+                date={date}
+                canceled={canceled}
+              />
             </a>
           </div>
         )}
@@ -113,7 +119,7 @@ const ShowCard = ({
   );
 };
 
-function ShowCardImage({ src, alt, date }) {
+function ShowCardImage({ src, alt, date, canceled }) {
   const [loaded, setLoaded] = useState(false);
 
   // Parseamos "DD/MM/YYYY"
@@ -144,6 +150,9 @@ function ShowCardImage({ src, alt, date }) {
   } else if (diffDays > 0 && diffDays < 15) {
     overlayText = "MUY PRONTO";
     textColor = "text-yellow-400";
+  } else if (canceled) {
+    overlayText = "CANCELADO";
+    textColor = "text-red-500";
   }
 
   return (
