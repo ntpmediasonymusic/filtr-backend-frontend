@@ -420,6 +420,20 @@
       },
       "region": "Centroamérica y Caribe",
       "priority": 1
+    },
+    {
+      "artist": "Loserville",
+      "showName": "Loserville",
+      "urlShow": "https://www.eticket.cr/eventos.aspx?idartista=1253",
+      "urlShowImage": "/assets/images/shows-images/Loserville-show-image.png",
+      "description": "Loserville",
+      "date": "02/12/2025",
+      "place": {
+        "location": "Costa Rica",
+        "venue": "Parque Viva"
+      },
+      "region": "Centroamérica y Caribe",
+      "priority": 1
     }
   ]
 }
