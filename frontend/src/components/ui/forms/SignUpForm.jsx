@@ -20,8 +20,9 @@ const SignUpForm = () => {
   const [birthdate, setBirthdate] = useState("");
   const [phone, setPhone] = useState("");
   const [listening, setListening] = useState("");
-  const [optInSony, setOptInSony] = useState(true);
-  const [optInFiltr, setOptInFiltr] = useState(true);
+  const [optInSony, setOptInSony] = useState(false);
+  const [optInFiltr, setOptInFiltr] = useState(false);
+  const [checkboxPrivacyPolicy, setCheckboxPrivacyPolicy] = useState(false);
   const [showPwd, setShowPwd] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -73,6 +74,7 @@ const SignUpForm = () => {
     if (!phone) errs.phone = "El teléfono es obligatorio.";
     else if (!/^\d+$/.test(phone)) errs.phone = "Sólo números permitidos.";
     if (!listening) errs.listening = "Seleccione una opción.";
+    if (!checkboxPrivacyPolicy) errs.checkboxPrivacyPolicy = "Debes aceptar la política de privacidad.";
     return errs;
   };
 
@@ -368,6 +370,32 @@ const SignUpForm = () => {
             Centroamérica y El Caribe.
           </span>
         </label>
+        <div className="w-full">
+          <label className="flex items-start sm:items-center gap-2 text-xs sm:text-base">
+            <input
+              type="checkbox"
+              checked={checkboxPrivacyPolicy}
+              onChange={() => setCheckboxPrivacyPolicy((v) => !v)}
+              className="w-4 h-4 accent-[#ca249c] mt-0.5 sm:mt-0 flex-shrink-0"
+            />
+            <span className="leading-tight sm:leading-normal">
+              He leído y acepto la{" "}
+              <a
+                href="https://sonymusic.co.cr/politica-de-privacidad/"
+                target="_blank"
+                className="font-semibold underline underline-offset-2 text-[#ca249c] text-sm sm:text-base"
+              >
+                Política de Privacidad de Sony Music Centroamérica
+              </a>
+              .
+            </span>
+          </label>
+          {errors.checkboxPrivacyPolicy && (
+            <p className="mt-1 text-xs sm:text-sm text-red-600">
+              {errors.checkboxPrivacyPolicy}
+            </p>
+          )}
+        </div>
       </div>
 
       {/* Mostrar mensaje genérico de error del backend, si existe */}
@@ -376,12 +404,25 @@ const SignUpForm = () => {
       )}
 
       {/* Botón Principal */}
-      <button
-        type="submit"
-        className="w-full py-2.5 sm:py-3 bg-[#ca249c] text-white font-semibold rounded-lg transition hover:opacity-90 text-sm sm:text-base"
-      >
-        {isLoading ? <ClipLoader size={16} color="#FFFFFF" /> : "CREAR CUENTA"}
-      </button>
+      <div className="flex flex-col gap-1 sm:gap-2">
+        <button
+          type="submit"
+          className="w-full py-2.5 sm:py-3 bg-[#ca249c] text-white font-semibold rounded-lg transition hover:opacity-90 text-sm sm:text-base"
+        >
+          {isLoading ? (
+            <ClipLoader size={16} color="#FFFFFF" />
+          ) : (
+            "CREAR CUENTA"
+          )}
+        </button>
+        <a
+          href="https://sonymusic.co.cr/politica-de-privacidad/"
+          target="_blank"
+          className="font-semibold underline underline-offset-2 text-[#ca249c] text-sm sm:text-base text-center"
+        >
+          Política de Privacidad de Sony Music Centroamérica
+        </a>
+      </div>
 
       {/* Link “¿Ya tienes cuenta? Accede Aquí” */}
       <div className="text-center text-[#131517] mt-1 sm:mt-2">
