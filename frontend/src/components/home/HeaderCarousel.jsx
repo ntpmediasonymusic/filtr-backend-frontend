@@ -5,14 +5,14 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const HeaderCarousel = () => {
   const imageMap = [
-    {
-      desktop:
-        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-7.png",
-      mobile:
-        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-7.png",
-      alt: "Premios",
-      link: "https://www.somosfiltr.com/prizes",
-    },
+    // {
+    //   desktop:
+    //     "/assets/images/home-page-banner/desktop/home-page-banner-desktop-7.png",
+    //   mobile:
+    //     "/assets/images/home-page-banner/mobile/home-page-banner-mobile-7.png",
+    //   alt: "Premios",
+    //   link: "https://www.somosfiltr.com/prizes",
+    // },
     {
       desktop:
         "/assets/images/home-page-banner/desktop/home-page-banner-desktop-5.png",

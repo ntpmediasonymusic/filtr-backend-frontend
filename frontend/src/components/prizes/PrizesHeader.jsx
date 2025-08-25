@@ -12,13 +12,13 @@ const PrizesHeader = () => {
         "/assets/images/prizes-banner-header/mobile/prizes-banner-header-mobile-1.png",
       alt: "Shows Banner 1",
     },
-    {
-      desktop:
-        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-7.png",
-      mobile:
-        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-7.png",
-      alt: "Shows Banner 2",
-    },
+    // {
+    //   desktop:
+    //     "/assets/images/home-page-banner/desktop/home-page-banner-desktop-7.png",
+    //   mobile:
+    //     "/assets/images/home-page-banner/mobile/home-page-banner-mobile-7.png",
+    //   alt: "Shows Banner 2",
+    // },
   ];
 
   const PrevArrow = () => (

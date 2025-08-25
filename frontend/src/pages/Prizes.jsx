@@ -7,14 +7,14 @@ import PrizesHeader from "../components/prizes/PrizesHeader";
 import LoginModal from "../components/ui/modal/LoginModal";
 
 const imageMap = [
-  {
-    desktop:
-      "/assets/images/prizes-banners/desktop/prizes-banner-desktop-3.png",
-    mobile: "/assets/images/prizes-banners/mobile/prizes-banner-mobile-3.png",
-    artist: "Manuel Turizo",
-    details: "Entrada doble Meet & Greet",
-    link: "https://sme.wyng.com/6879a194e24c23e06d2ba445",
-  },
+  // {
+  //   desktop:
+  //     "/assets/images/prizes-banners/desktop/prizes-banner-desktop-3.png",
+  //   mobile: "/assets/images/prizes-banners/mobile/prizes-banner-mobile-3.png",
+  //   artist: "Manuel Turizo",
+  //   details: "Entrada doble Meet & Greet",
+  //   link: "https://sme.wyng.com/6879a194e24c23e06d2ba445",
+  // },
   {
     desktop:
       "/assets/images/prizes-banners/desktop/prizes-banner-desktop-4.png",
