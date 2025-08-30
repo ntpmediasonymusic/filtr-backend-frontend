@@ -11,7 +11,7 @@
         "location": "Costa Rica",
         "venue": "Rio Campo"
       },
-      "region": "Centroamérica y Caribe",
+      "region": "cr",
       "priority": 1
     },
     {
@@ -25,7 +25,7 @@
         "location": "Costa Rica",
         "venue": "Estadio Nacional"
       },
-      "region": "Centroamérica y Caribe",
+      "region": "cr",
       "priority": 1
     },
     {
@@ -39,7 +39,7 @@
         "location": "Costa Rica",
         "venue": "Amón Solar"
       },
-      "region": "Centroamérica y Caribe",
+      "region": "cr",
       "priority": 1
     },
     {
@@ -53,7 +53,7 @@
         "location": "Costa Rica",
         "venue": "Centro de Eventos Pedregal"
       },
-      "region": "Centroamérica y Caribe",
+      "region": "cr",
       "priority": 1
     },
     {
@@ -67,7 +67,7 @@
         "location": "Costa Rica",
         "venue": "Pepper Disco Club"
       },
-      "region": "Centroamérica y Caribe",
+      "region": "cr",
       "priority": 1
     },
     {
@@ -81,7 +81,7 @@
         "location": "Costa Rica",
         "venue": "TBD"
       },
-      "region": "Centroamérica y Caribe",
+      "region": "cr",
       "priority": 1
     },
     {
@@ -95,7 +95,7 @@
         "location": "Costa Rica",
         "venue": "Parque Viva"
       },
-      "region": "Centroamérica y Caribe",
+      "region": "cr",
       "priority": 1
     },
     {
@@ -109,7 +109,7 @@
         "location": "Costa Rica",
         "venue": "Mercadito La California"
       },
-      "region": "Centroamérica y Caribe",
+      "region": "cr",
       "priority": 1
     },
     {
@@ -123,7 +123,7 @@
         "location": "Costa Rica",
         "venue": "Rio Campo"
       },
-      "region": "Centroamérica y Caribe",
+      "region": "cr",
       "priority": 1
     },
     {
@@ -137,7 +137,7 @@
         "location": "Costa Rica",
         "venue": "Centro de Eventos Pedregal"
       },
-      "region": "Centroamérica y Caribe",
+      "region": "cr",
       "priority": 1
     },
     {
@@ -151,7 +151,7 @@
         "location": "Costa Rica",
         "venue": "Mercadito La California"
       },
-      "region": "Centroamérica y Caribe",
+      "region": "cr",
       "priority": 1
     },
     {
@@ -165,7 +165,7 @@
         "location": "Costa Rica",
         "venue": "Centro de Eventos Pedregal"
       },
-      "region": "Centroamérica y Caribe",
+      "region": "cr",
       "priority": 1
     },
     {
@@ -179,7 +179,7 @@
         "location": "Costa Rica",
         "venue": "TBD"
       },
-      "region": "Centroamérica y Caribe",
+      "region": "cr",
       "priority": 1
     },
     {
@@ -193,7 +193,7 @@
         "location": "Costa Rica",
         "venue": "Skatedra"
       },
-      "region": "Centroamérica y Caribe",
+      "region": "cr",
       "priority": 1
     },
     {
@@ -207,7 +207,7 @@
         "location": "Costa Rica",
         "venue": "Parque Viva"
       },
-      "region": "Centroamérica y Caribe",
+      "region": "cr",
       "priority": 1,
       "canceled": true
     },
@@ -222,7 +222,7 @@
         "location": "Costa Rica",
         "venue": "Amón Solar"
       },
-      "region": "Centroamérica y Caribe",
+      "region": "cr",
       "priority": 1
     },
     {
@@ -236,7 +236,7 @@
         "location": "Costa Rica",
         "venue": "Centro de Eventos Pedregal"
       },
-      "region": "Centroamérica y Caribe",
+      "region": "cr",
       "priority": 1
     },
     {
@@ -250,7 +250,7 @@
         "location": "Costa Rica",
         "venue": "Parque Viva"
       },
-      "region": "Centroamérica y Caribe",
+      "region": "cr",
       "priority": 1
     },
     {
@@ -264,7 +264,7 @@
         "location": "Costa Rica",
         "venue": "TBD"
       },
-      "region": "Centroamérica y Caribe",
+      "region": "cr",
       "priority": 1
     },
     {
@@ -278,7 +278,7 @@
         "location": "Costa Rica",
         "venue": "Estadio Nacional"
       },
-      "region": "Centroamérica y Caribe",
+      "region": "cr",
       "priority": 1
     },
     {
@@ -292,7 +292,7 @@
         "location": "Costa Rica",
         "venue": "Parque Viva"
       },
-      "region": "Centroamérica y Caribe",
+      "region": "cr",
       "priority": 1
     },
     {
@@ -306,7 +306,7 @@
         "location": "Costa Rica",
         "venue": "Pepper Disco Club"
       },
-      "region": "Centroamérica y Caribe",
+      "region": "cr",
       "priority": 1
     },
     {
@@ -320,7 +320,7 @@
         "location": "Costa Rica",
         "venue": "Centro de Eventos Pedregal"
       },
-      "region": "Centroamérica y Caribe",
+      "region": "cr",
       "priority": 1
     },
     {
@@ -334,7 +334,7 @@
         "location": "Costa Rica",
         "venue": "Pepper Disco Club"
       },
-      "region": "Centroamérica y Caribe",
+      "region": "cr",
       "priority": 1
     },
     {
@@ -348,7 +348,7 @@
         "location": "Costa Rica",
         "venue": "Parque Viva"
       },
-      "region": "Centroamérica y Caribe",
+      "region": "cr",
       "priority": 1
     },
     {
@@ -362,7 +362,7 @@
         "location": "Costa Rica",
         "venue": "Jazz Café"
       },
-      "region": "Centroamérica y Caribe",
+      "region": "cr",
       "priority": 1
     },
     {
@@ -376,7 +376,7 @@
         "location": "Costa Rica",
         "venue": "Estadio Nacional"
       },
-      "region": "Centroamérica y Caribe",
+      "region": "cr",
       "priority": 1
     },
     {
@@ -390,7 +390,7 @@
         "location": "Costa Rica",
         "venue": "Parque Viva"
       },
-      "region": "Centroamérica y Caribe",
+      "region": "cr",
       "priority": 1
     },
     {
@@ -404,7 +404,7 @@
         "location": "Costa Rica",
         "venue": "Parque Viva"
       },
-      "region": "Centroamérica y Caribe",
+      "region": "cr",
       "priority": 1
     },
     {
@@ -418,7 +418,7 @@
         "location": "Costa Rica",
         "venue": "Estadio Nacional"
       },
-      "region": "Centroamérica y Caribe",
+      "region": "cr",
       "priority": 1
     },
     {
@@ -432,7 +432,21 @@
         "location": "Costa Rica",
         "venue": "Parque Viva"
       },
-      "region": "Centroamérica y Caribe",
+      "region": "cr",
+      "priority": 1
+    },
+    {
+      "artist": "Festival Barbarella",
+      "showName": "Festival Barbarella",
+      "urlShow": "https://barbarella.uepatickets.com/online6/es/entradas-musica-barbarella",
+      "urlShowImage": "/assets/images/shows-images/FestivalBarbarella-show-image.png",
+      "description": "Festival Barbarella",
+      "date": "30/08/2025",
+      "place": {
+        "location": "República Dominicana",
+        "venue": "Estadio Olímpico"
+      },
+      "region": "do",
       "priority": 1
     }
   ]

@@ -2,17 +2,12 @@
 import { useState } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { useRegion } from "../../router/RegionContext";
 
 const HeaderCarousel = () => {
+  const { region } = useRegion();
+
   const imageMap = [
-    // {
-    //   desktop:
-    //     "/assets/images/home-page-banner/desktop/home-page-banner-desktop-7.png",
-    //   mobile:
-    //     "/assets/images/home-page-banner/mobile/home-page-banner-mobile-7.png",
-    //   alt: "Premios",
-    //   link: "https://www.somosfiltr.com/prizes",
-    // },
     {
       desktop:
         "/assets/images/home-page-banner/desktop/home-page-banner-desktop-5.png",
@@ -38,6 +33,42 @@ const HeaderCarousel = () => {
       link: "https://open.spotify.com/playlist/1zZuDCC032tiepZ5RjQlt3?si=02164e54608443fc&nd=1&dlsi=fc74bce0c9294680",
     },
   ];
+
+  const imageMapDo = [
+    {
+      desktop:
+        "/assets/images/home-page-banner/do/desktop/home-page-banner-desktop-1.png",
+      mobile:
+        "/assets/images/home-page-banner/do/mobile/home-page-banner-mobile-1.png",
+      alt: "Barbarella",
+      link: "https://open.spotify.com/playlist/2VhQNYOiTfeVcoL5cyV5I2?si=686bd1a9178049ec&nd=1&dlsi=c14c28bde5024eda",
+    },
+    {
+      desktop:
+        "/assets/images/prizes-banner-header/do/desktop/prizes-banner-header-desktop-1.png",
+      mobile:
+        "/assets/images/prizes-banner-header/do/mobile/prizes-banner-header-mobile-1.png",
+      alt: "Concursos do",
+      link: "https://www.somosfiltr.com/prizes",
+    },
+    {
+      desktop:
+        "/assets/images/home-page-banner/do/desktop/home-page-banner-desktop-2.png",
+      mobile:
+        "/assets/images/home-page-banner/do/mobile/home-page-banner-mobile-2.png",
+      alt: "3. Top RD",
+      link: "https://open.spotify.com/playlist/4eGkMMoNpngwyZJ9fNlnV5?si=f1e2357123cf43ce&nd=1&dlsi=af7adb77ff684cfd",
+    },
+    {
+      desktop:
+        "/assets/images/home-page-banner/do/desktop/home-page-banner-desktop-3.png",
+      mobile:
+        "/assets/images/home-page-banner/do/mobile/home-page-banner-mobile-3.png",
+      alt: "Dembow",
+      link: "https://open.spotify.com/playlist/2njtU0pVZvudkZFmsdnGvu?si=fa13270b8dc74bef&nd=1&dlsi=ef3f0e2f858a474a",
+    },
+  ];
+  const imageMapRegion = region === "do" ? imageMapDo : imageMap;
 
   const PrevArrow = () => (
     <svg
@@ -114,7 +145,7 @@ const HeaderCarousel = () => {
           )
         }
       >
-        {imageMap.map(({ desktop, mobile, alt, link }, i) => (
+        {imageMapRegion.map(({ desktop, mobile, alt, link }, i) => (
           <div key={i} className="flex items-center justify-center w-full">
             {link ? (
               <a

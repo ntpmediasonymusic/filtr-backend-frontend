@@ -1,27 +1,40 @@
+// src/components/ui/modal/CookieConsentBanner.jsx
 import { useEffect, useState } from "react";
 import { useGTM } from "../../../context/useGTM";
+import RegionLink from "../../../router/RegionLink";
 
 const CookieConsentBanner = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const { updateConsent } = useGTM();
+  const { updateConsent, trackEvent } = useGTM();
 
   useEffect(() => {
     const stored = localStorage.getItem("filtr_cookie_consent");
+
     if (!stored) {
+      // No hay decisión previa → mostrar banner
       setIsVisible(true);
+      // Consent Mode por defecto: denegado hasta aceptar
+      updateConsent("rejected");
+      // Log de impresión del banner
+      trackEvent("consent_banner_shown");
     } else {
+      // Ya había una decisión → sincroniza consent mode
       updateConsent(stored);
     }
-  }, [updateConsent]);
+  }, [updateConsent, trackEvent]);
 
   const handleConsent = (decision) => {
     localStorage.setItem("filtr_cookie_consent", decision);
     updateConsent(decision);
+    trackEvent(
+      decision === "accepted" ? "consent_accepted" : "consent_rejected"
+    );
     setIsVisible(false);
   };
 
   const handleClose = () => {
     setIsVisible(false);
+    trackEvent("consent_banner_closed");
   };
 
   if (!isVisible) return null;
@@ -30,26 +43,17 @@ const CookieConsentBanner = () => {
     <>
       <style>{`
         @keyframes slideUpFadeIn {
-          0% {
-            transform: translateY(20px);
-            opacity: 0;
-          }
-          100% {
-            transform: translateY(0);
-            opacity: 1;
-          }
+          0% { transform: translateY(20px); opacity: 0; }
+          100% { transform: translateY(0); opacity: 1; }
         }
-
-        .slide-up {
-          animation: slideUpFadeIn 0.5s ease-out;
-        }
+        .slide-up { animation: slideUpFadeIn 0.5s ease-out; }
       `}</style>
 
       <div
         className={`
-          fixed z-50 max-w-lg w-full bg-[#282828] border-1 border-white rounded-[16px] shadow-xl p-4 md:p-6 text-sm md:text-base 
-          bottom-4 left-1/2 md:left-4 transform -translate-x-1/2 md:translate-x-0
-          slide-up
+          fixed z-50 max-w-lg w-full bg-[#282828] border-1 border-white rounded-[16px]
+          shadow-xl p-4 md:p-6 text-sm md:text-base bottom-4 left-1/2 md:left-4
+          transform -translate-x-1/2 md:translate-x-0 slide-up
         `}
       >
         {/* Botón de cerrar */}
@@ -97,14 +101,14 @@ const CookieConsentBanner = () => {
             dispositivo y navegador con fines de marketing y para mejorar la
             funcionalidad del sitio. Los datos podrán compartirse con terceros,
             como Google. Para más detalles, consulta nuestro{" "}
-            <a
-              href="/privacy-policy"
+            <RegionLink
+              to="/privacy-policy"
               target="_blank"
               rel="noopener noreferrer"
               className="underline text-white transition-colors"
             >
               Aviso de privacidad
-            </a>
+            </RegionLink>
             .
           </p>
         </div>

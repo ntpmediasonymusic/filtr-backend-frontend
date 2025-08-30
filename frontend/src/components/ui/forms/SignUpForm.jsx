@@ -10,13 +10,24 @@ import { PiMusicNotes } from "react-icons/pi";
 import { register } from "../../../api/backendApi";
 import VerificationEmailSent from "./VerificationEmailSent";
 import ClipLoader from "react-spinners/ClipLoader";
+import RegionLink from "../../../router/RegionLink";
+import { useRegion } from "../../../router/RegionContext";
 
 const SignUpForm = () => {
+  const { region } = useRegion();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [country, setCountry] = useState("");
+  const [country, setCountry] = useState(
+    region === "cr"
+      ? "Costa Rica"
+      : region === "do"
+      ? "República Dominicana"
+      : region === "pa"
+      ? "Panamá"
+      : ""
+  );
   const [birthdate, setBirthdate] = useState("");
   const [phone, setPhone] = useState("");
   const [listening, setListening] = useState("");
@@ -37,13 +48,13 @@ const SignUpForm = () => {
 
   const countries = [
     "Costa Rica",
+    "República Dominicana",
     "Panamá",
     "El Salvador",
     "Guatemala",
     "Honduras",
     "Nicaragua",
     "Belice",
-    "República Dominicana",
     "México",
     "Colombia",
   ];
@@ -428,12 +439,12 @@ const SignUpForm = () => {
       <div className="text-center text-[#131517] mt-1 sm:mt-2">
         <span className="text-sm sm:text-base">Ya soy miembro FILTR</span>
         <br />
-        <a
-          href="/login"
+        <RegionLink
+          to="/login"
           className="font-semibold underline underline-offset-2 text-[#131517] text-sm sm:text-base"
         >
           Iniciar sesión
-        </a>
+        </RegionLink>
       </div>
     </form>
   );

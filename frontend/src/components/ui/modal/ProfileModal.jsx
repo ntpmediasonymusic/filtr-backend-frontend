@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import UserCircleIcon from "../../../assets/icons/UserCircleIcon";
-import { NavLink } from "react-router-dom";
 import { FaHeart, FaSignOutAlt } from "react-icons/fa";
+import RegionNavLink from "../../../router/RegionNavLink";
 
 const ProfileModal = ({ onClose }) => {
   // Obtenemos el usuario de localStorage
@@ -24,27 +24,27 @@ const ProfileModal = ({ onClose }) => {
         <div className="flex flex-col gap-1">
           <span className="font-semibold">{user.firstName}</span>
           <span className="text-sm text-gray-400">{user.email}</span>
-          <NavLink
+          <RegionNavLink
             to="/edit-account"
             onClick={onClose}
             className="text-[#00DAF0] hover:underline text-sm"
           >
             Editar perfil
-          </NavLink>
+          </RegionNavLink>
         </div>
       </div>
 
       <hr className="border-gray-700 mb-4" />
 
       {/* Mis Playlist favoritas */}
-      <NavLink
+      <RegionNavLink
         to="/favorite-playlists"
         onClick={onClose}
         className="flex flex-row items-center gap-4 py-2 pl-2 hover:bg-white/10 rounded"
       >
         <FaHeart />
         <span>Mis Playlist favoritas</span>
-      </NavLink>
+      </RegionNavLink>
 
       {/* Logout */}
       <button

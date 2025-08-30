@@ -7,9 +7,9 @@
       "mainCategory": ["Recomendaciones de la semana"],
       "genre": ["Baladas Románticas"],
       "moods": ["Romance", "Nostalgia"],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1,
-      "trending": 2
+      "trending": { "cr": 2, "pa": 2, "do": 4 }
     },
     {
       "playlistName": "Las 100 mejores Baladas Romanticas en Inglés",
@@ -18,9 +18,9 @@
       "mainCategory": ["Recomendaciones de la semana"],
       "genre": ["Baladas Románticas"],
       "moods": ["Romance", "Nostalgia"],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1,
-      "trending": 3
+      "trending": { "cr": 3, "pa": 3 }
     },
     {
       "playlistName": "Eternamente Enamorado: Baladas Romanticas",
@@ -29,7 +29,7 @@
       "mainCategory": [],
       "genre": ["Baladas Románticas"],
       "moods": ["Romance"],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -39,7 +39,7 @@
       "mainCategory": [],
       "genre": ["Baladas Románticas"],
       "moods": ["Despecho"],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -49,7 +49,7 @@
       "mainCategory": [],
       "genre": ["Baladas Románticas", "Voces Femeninas", "Pop"],
       "moods": ["Romance", "Despecho"],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -59,7 +59,7 @@
       "mainCategory": [],
       "genre": ["Baladas Románticas", "Voces Femeninas", "Pop"],
       "moods": ["Romance", "Despecho"],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -69,7 +69,7 @@
       "mainCategory": [],
       "genre": ["Baladas Románticas"],
       "moods": ["Romance"],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -79,9 +79,9 @@
       "mainCategory": ["Novedades y Éxitos"],
       "genre": ["Éxitos", "Novedades"],
       "moods": ["Fiesta"],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1,
-      "trending": 1
+      "trending": {"cr": 1, "pa": 1, "do": 5 }
     },
     {
       "playlistName": "Top Pop 2025: Top Hits, Pop Music, Just Hits,  Pop Up",
@@ -90,7 +90,7 @@
       "mainCategory": ["Recomendaciones de la semana"],
       "genre": ["Éxitos", "Pop"],
       "moods": [],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -100,17 +100,18 @@
       "mainCategory": [],
       "genre": ["Éxitos", "Pop"],
       "moods": ["Nostalgia"],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
       "playlistName": "Top Republica Dominicana 2025: Top RD ",
       "urlPlaylist": "https://open.spotify.com/playlist/4eGkMMoNpngwyZJ9fNlnV5?si=4037f9d2068748c8&nd=1&dlsi=2c1608c323654c4f",
       "urlCoverImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000d72c63d0650ee36df3134f4726ea",
-      "mainCategory": [],
+      "mainCategory": ["Novedades y Éxitos"],
       "genre": ["Éxitos"],
       "moods": [],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
+      "excludeRegion": ["cr", "pa"],
       "priority": 1
     },
     {
@@ -120,7 +121,7 @@
       "mainCategory": [],
       "genre": ["Éxitos"],
       "moods": [],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -130,7 +131,7 @@
       "mainCategory": ["Novedades y Éxitos"],
       "genre": ["Éxitos"],
       "moods": [],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -140,7 +141,7 @@
       "mainCategory": ["Novedades y Éxitos"],
       "genre": ["Novedades"],
       "moods": [],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -150,7 +151,7 @@
       "mainCategory": [],
       "genre": ["Pop"],
       "moods": [],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -160,7 +161,7 @@
       "mainCategory": ["Power Up"],
       "genre": ["Pop", "Urbano"],
       "moods": ["Mood booster"],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -170,7 +171,7 @@
       "mainCategory": ["Power Up"],
       "genre": ["Pop", "Voces Femeninas"],
       "moods": ["Mood booster"],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -180,7 +181,7 @@
       "mainCategory": ["Power Up"],
       "genre": ["Pop"],
       "moods": ["Mood booster", "Nostalgia"],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -190,7 +191,7 @@
       "mainCategory": [],
       "genre": ["Pop", "Temporadas"],
       "moods": [],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -200,7 +201,7 @@
       "mainCategory": [],
       "genre": ["Pop", "Temporadas"],
       "moods": [],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -210,7 +211,7 @@
       "mainCategory": [],
       "genre": ["Pop", "Música Mexicana"],
       "moods": ["Despecho"],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -220,7 +221,7 @@
       "mainCategory": [],
       "genre": ["Pop"],
       "moods": ["Nostalgia"],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -230,7 +231,7 @@
       "mainCategory": [],
       "genre": ["Pop"],
       "moods": ["Mood booster"],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -240,7 +241,8 @@
       "mainCategory": ["Novedades y Éxitos"],
       "genre": ["Pop", "Tropical"],
       "moods": ["Fiesta"],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
+      "excludeRegion": ["do"],
       "priority": 1
     },
     {
@@ -250,7 +252,7 @@
       "mainCategory": ["Recomendaciones de la semana"],
       "genre": ["Urbano"],
       "moods": ["Fiesta"],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -260,7 +262,7 @@
       "mainCategory": [],
       "genre": ["Urbano", "Voces Femeninas"],
       "moods": [],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -270,7 +272,7 @@
       "mainCategory": [],
       "genre": ["Urbano", "Voces Femeninas"],
       "moods": [],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -280,17 +282,7 @@
       "mainCategory": [],
       "genre": ["Urbano"],
       "moods": ["Fiesta"],
-      "region": "Centroamérica y Caribe",
-      "priority": 1
-    },
-    {
-      "playlistName": "CLUB PERREO",
-      "urlPlaylist": "https://open.spotify.com/playlist/2njtU0pVZvudkZFmsdnGvu?si=9f613fbd06954250&nd=1&dlsi=b863dd46b9634dab",
-      "urlCoverImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da845dd8269b4358ed10c1ef1de0",
-      "mainCategory": [],
-      "genre": ["Urbano"],
-      "moods": ["Fiesta"],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -300,7 +292,8 @@
       "mainCategory": ["Novedades y Éxitos"],
       "genre": ["Novedades", "Urbano"],
       "moods": [],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
+      "excludeRegion": ["do"],
       "priority": 1
     },
     {
@@ -310,7 +303,7 @@
       "mainCategory": [],
       "genre": ["Urbano"],
       "moods": [],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -320,17 +313,7 @@
       "mainCategory": [],
       "genre": ["Urbano"],
       "moods": ["Nostalgia"],
-      "region": "Centroamérica y Caribe",
-      "priority": 1
-    },
-    {
-      "playlistName": "Musica Festival 2025",
-      "urlPlaylist": "https://open.spotify.com/playlist/2VhQNYOiTfeVcoL5cyV5I2?si=daf08d9859884ad2&nd=1&dlsi=1adf87a255a242da",
-      "urlCoverImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84172c093e2799e8e1aef423a9",
-      "mainCategory": [],
-      "genre": ["Urbano"],
-      "moods": [],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -340,7 +323,7 @@
       "mainCategory": [],
       "genre": ["Urbano"],
       "moods": [],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -350,7 +333,7 @@
       "mainCategory": [],
       "genre": ["Voces Femeninas", "Indie"],
       "moods": ["Despecho"],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -360,7 +343,7 @@
       "mainCategory": [],
       "genre": ["Música Mexicana"],
       "moods": ["Despecho"],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -370,7 +353,7 @@
       "mainCategory": ["Power Up"],
       "genre": ["Electrónica"],
       "moods": ["Fiesta"],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -380,7 +363,7 @@
       "mainCategory": [],
       "genre": ["Tropical"],
       "moods": ["Fiesta", "Mood booster"],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -390,7 +373,7 @@
       "mainCategory": [],
       "genre": ["Tropical"],
       "moods": ["Fiesta"],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -400,7 +383,7 @@
       "mainCategory": [],
       "genre": ["Tropical"],
       "moods": [],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -410,7 +393,7 @@
       "mainCategory": [],
       "genre": ["Tropical"],
       "moods": ["Fiesta"],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -420,7 +403,7 @@
       "mainCategory": [],
       "genre": ["Tropical"],
       "moods": ["Fiesta"],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -430,7 +413,7 @@
       "mainCategory": [],
       "genre": ["Indie"],
       "moods": [],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -440,7 +423,7 @@
       "mainCategory": [],
       "genre": [],
       "moods": ["Mood booster"],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -450,7 +433,7 @@
       "mainCategory": [],
       "genre": ["Indie"],
       "moods": ["Romance", "Despecho"],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -460,7 +443,7 @@
       "mainCategory": [],
       "genre": ["Indie"],
       "moods": [],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -470,7 +453,7 @@
       "mainCategory": [],
       "genre": ["Indie"],
       "moods": ["Chill"],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -480,7 +463,7 @@
       "mainCategory": [],
       "genre": ["Temporadas"],
       "moods": ["Nostalgia"],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -490,7 +473,7 @@
       "mainCategory": [],
       "genre": ["Temporadas"],
       "moods": [],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -500,7 +483,7 @@
       "mainCategory": [],
       "genre": ["Temporadas"],
       "moods": [],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -510,7 +493,7 @@
       "mainCategory": [],
       "genre": ["Rock"],
       "moods": [],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -520,7 +503,7 @@
       "mainCategory": [],
       "genre": ["Rock", "Indie"],
       "moods": [],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -530,7 +513,7 @@
       "mainCategory": ["Power Up"],
       "genre": ["Rock"],
       "moods": [],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -540,7 +523,7 @@
       "mainCategory": [],
       "genre": ["Reggae", "Tropical"],
       "moods": ["Chill"],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -550,7 +533,7 @@
       "mainCategory": [],
       "genre": ["Musica Cristiana"],
       "moods": [],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -560,7 +543,7 @@
       "mainCategory": [],
       "genre": ["Musica Cristiana"],
       "moods": [],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -570,7 +553,7 @@
       "mainCategory": [],
       "genre": [],
       "moods": ["Chill"],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -580,7 +563,7 @@
       "mainCategory": [],
       "genre": [],
       "moods": ["Chill"],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -590,7 +573,7 @@
       "mainCategory": [],
       "genre": [],
       "moods": ["Chill"],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -600,7 +583,7 @@
       "mainCategory": [],
       "genre": [],
       "moods": ["Chill"],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -610,7 +593,7 @@
       "mainCategory": [],
       "genre": [],
       "moods": ["Chill"],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -620,7 +603,7 @@
       "mainCategory": ["Recomendaciones de la semana"],
       "genre": [],
       "moods": [],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -630,9 +613,9 @@
       "mainCategory": [],
       "genre": ["Pop"],
       "moods": ["Nostalgia", "Romance"],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1,
-      "trending": 4
+      "trending": { "cr": 4, "pa": 4, "do": 3 }
     },
     {
       "playlistName": "POP LATINO 2025 + 2024 + 2023 + 2022 + 2021 + 2020 :  Éxitos 2020s",
@@ -641,9 +624,9 @@
       "mainCategory": [],
       "genre": ["Pop"],
       "moods": [],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1,
-      "trending": 5
+      "trending": { "cr": 5, "pa": 5, "do": 2 }
     },
     {
       "playlistName": "Indie Vibes - New Alternative Tracks",
@@ -652,7 +635,7 @@
       "mainCategory": [],
       "genre": ["Indie", "Rock"],
       "moods": [],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -662,7 +645,7 @@
       "mainCategory": [],
       "genre": ["Indie", "Rock"],
       "moods": [],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -672,7 +655,7 @@
       "mainCategory": [],
       "genre": ["Decadas"],
       "moods": ["Nostalgia"],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -682,7 +665,7 @@
       "mainCategory": [],
       "genre": ["Decadas"],
       "moods": ["Nostalgia"],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -692,7 +675,7 @@
       "mainCategory": [],
       "genre": ["Decadas"],
       "moods": ["Nostalgia"],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -702,7 +685,7 @@
       "mainCategory": [],
       "genre": ["Decadas"],
       "moods": ["Nostalgia"],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -712,7 +695,7 @@
       "mainCategory": [],
       "genre": ["Decadas"],
       "moods": ["Nostalgia"],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -722,7 +705,7 @@
       "mainCategory": [],
       "genre": ["Decadas"],
       "moods": [],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -732,7 +715,7 @@
       "mainCategory": [],
       "genre": ["Decadas"],
       "moods": [],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -742,7 +725,7 @@
       "mainCategory": [],
       "genre": ["Decadas"],
       "moods": [],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -752,7 +735,7 @@
       "mainCategory": [],
       "genre": ["Decadas"],
       "moods": [],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -762,7 +745,7 @@
       "mainCategory": [],
       "genre": ["Decadas"],
       "moods": [],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -772,7 +755,7 @@
       "mainCategory": [],
       "genre": ["Electrónica"],
       "moods": [],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -782,7 +765,7 @@
       "mainCategory": [],
       "genre": ["Electrónica"],
       "moods": [],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -792,7 +775,7 @@
       "mainCategory": [],
       "genre": ["Pop"],
       "moods": [],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -802,7 +785,7 @@
       "mainCategory": [],
       "genre": ["Música Mexicana"],
       "moods": [],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -812,7 +795,7 @@
       "mainCategory": [],
       "genre": ["Música Mexicana"],
       "moods": [],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -822,7 +805,7 @@
       "mainCategory": [],
       "genre": ["Música Mexicana"],
       "moods": [],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -832,7 +815,7 @@
       "mainCategory": [],
       "genre": ["Pop", "Decadas"],
       "moods": ["Nostalgia"],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -842,7 +825,7 @@
       "mainCategory": [],
       "genre": ["Pop"],
       "moods": ["Mood booster"],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
       "priority": 1
     },
     {
@@ -852,8 +835,31 @@
       "mainCategory": [],
       "genre": ["Tropical"],
       "moods": ["Fiesta"],
-      "region": "Centroamérica y Caribe",
+      "region": ["cr", "do", "pa"],
+      "priority": 1,
+      "trending": { "do": 1 }
+    },
+    {
+      "playlistName": "FESTIVAL BARBARELLA 2025",
+      "urlPlaylist": "https://open.spotify.com/playlist/2VhQNYOiTfeVcoL5cyV5I2?si=686bd1a9178049ec&nd=1&dlsi=c14c28bde5024eda",
+      "urlCoverImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000d72c81be76d11f1bfdba5650c26f",
+      "mainCategory": ["Novedades y Éxitos"],
+      "genre": ["Novedades"],
+      "moods": [],
+      "region": ["do"],
+      "excludeRegion": ["cr", "pa"],
+      "priority": 1
+    },
+    {
+      "playlistName": "MÉTELE DEMBOW 🍑🔥",
+      "urlPlaylist": "https://open.spotify.com/playlist/2njtU0pVZvudkZFmsdnGvu?si=9172ecc675ac4aa5&nd=1&dlsi=b222901a6c424965",
+      "urlCoverImage": "https://image-cdn-fa.spotifycdn.com/image/ab67706c0000d72ccccadb534e8aa91aaf10e1ce",
+      "mainCategory": [],
+      "genre": ["Urbano", "Tropical"],
+      "moods": [],
+      "region": ["do"],
       "priority": 1
     }
+
   ]
 }

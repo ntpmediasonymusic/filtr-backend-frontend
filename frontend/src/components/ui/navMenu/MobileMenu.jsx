@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 
 import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import RegionNavLink from "../../../router/RegionNavLink";
 
 const MobileMenu = ({ menuOptions, toggleMenu }) => {
 
@@ -24,7 +24,7 @@ const MobileMenu = ({ menuOptions, toggleMenu }) => {
     >
       {menuOptions.map((option) => (
         <div key={option.name} className="relative">
-          <NavLink
+          <RegionNavLink
             to={option.route}
             onClick={toggleMenu}
             className={`flex items-center space-x-2 text-lg font-medium px-2 py-2 transition duration-300 ${
@@ -35,7 +35,7 @@ const MobileMenu = ({ menuOptions, toggleMenu }) => {
           >
             <span className="text-xl">{option.icon}</span>
             <span>{option.name}</span>
-          </NavLink>
+          </RegionNavLink>
         </div>
       ))}
     </div>

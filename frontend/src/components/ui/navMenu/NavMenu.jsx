@@ -1,6 +1,5 @@
 import { useEffect, useState, useRef } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
-import { NavLink } from "react-router-dom";
 import NavMenuItem from "./NavMenuItem";
 import MobileMenu from "./MobileMenu";
 import logo from "../../../assets/images/filtr_logo_white.svg";
@@ -11,6 +10,7 @@ import ShowsIcon from "../../../assets/icons/ShowsIcon";
 import TrendIcon from "../../../assets/icons/TrendIcon";
 import WinWinIcon from "../../../assets/icons/WinWinIcon";
 import { useSearch } from "../../../context/SearchContext";
+import RegionNavLink from "../../../router/RegionNavLink";
 
 const NavMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -80,14 +80,14 @@ const NavMenu = () => {
     >
       {/* Logo */}
       <div className="flex items-center">
-        <NavLink to="/">
+        <RegionNavLink to="/">
           <img
             src={logo}
             alt="Logo Filtr"
             className="w-40 md:w-50 cursor-pointer"
             loading="lazy"
           />
-        </NavLink>
+        </RegionNavLink>
       </div>
 
       {/* Desktop Menu */}

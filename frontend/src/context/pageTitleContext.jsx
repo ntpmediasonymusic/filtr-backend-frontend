@@ -1,66 +1,50 @@
 import { createContext, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { REGIONS } from "../utils/region";
 
 const PageTitleContext = createContext();
+
+// Normaliza rutas tipo "/cr/moods" -> "/moods" y "/cr" -> "/"
+function normalizePathname(pathname) {
+  const parts = pathname.split("/").filter(Boolean); // ["cr","moods"] o ["cr"]
+  if (parts.length === 0) return "/";               // "/"
+  if (REGIONS.includes(parts[0])) {
+    if (parts.length === 1) return "/";             // "/cr" -> "/"
+    return "/" + parts.slice(1).join("/");          // "/cr/moods" -> "/moods"
+  }
+  return pathname;                                  
+}
 
 // eslint-disable-next-line react/prop-types
 export const PageTitleProvider = ({ children }) => {
   const location = useLocation();
 
   useEffect(() => {
-    switch (location.pathname) {
-      case "/":
-        document.title = "Filtr";
-        break;
-      case "/genres":
-        document.title = "Géneros";
-        break;
-      case "/moods":
-        document.title = "Moods";
-        break;
-      case "/quizzes":
-        document.title = "Quizzes";
-        break;
-      case "/shows":
-        document.title = "Shows";
-        break;
-      case "/trending":
-        document.title = "Trending";
-        break;
-      case "/prizes":
-        document.title = "Premios";
-        break;
-      case "/login":
-        document.title = "Acceder";
-        break;
-      case "/signup":
-        document.title = "Registrarse";
-        break;
-      case "/edit-account":
-        document.title = "Editar perfil";
-        break;
-      case "/favorite-playlists":
-        document.title = "Mis Playlist favoritas";
-        break;
-      case "/verify-email":
-        document.title = "Verificar correo";
-        break;
-      case "/forgot-password":
-        document.title = "Recuperar contraseña";
-        break;
-      case "/reset-password":
-        document.title = "Recuperar contraseña";
-        break;
-      case "/terms-and-conditions":
-        document.title = "Términos y Condiciones";
-        break;
-      case "/privacy-policy":
-        document.title = "Política de Privacidad";
-        break;
-      default:
-        document.title = "Filtr";
-    }
-  }, [location]);
+    const path = normalizePathname(location.pathname);
+
+    const titles = {
+      "/": "Filtr",
+      "/genres": "Géneros",
+      "/moods": "Moods",
+      "/quizzes": "Quizzes",
+      "/shows": "Shows",
+      "/trending": "Trending",
+      "/prizes": "Premios",
+      "/login": "Acceder",
+      "/signup": "Registrarse",
+      "/edit-account": "Editar perfil",
+      "/favorite-playlists": "Mis Playlist favoritas",
+      "/verify-email": "Verificar correo",
+      "/forgot-password": "Recuperar contraseña",
+      "/reset-password": "Recuperar contraseña",
+      "/terms-and-conditions": "Términos y Condiciones",
+      "/privacy-policy": "Política de Privacidad",
+    };
+
+    const base = titles[path] ?? "Filtr";
+    document.title = base === "Filtr" ? base : `${base} | Filtr`;
+
+  }, [location.pathname]);
 
   return (
     <PageTitleContext.Provider value={null}>
@@ -68,3 +52,5 @@ export const PageTitleProvider = ({ children }) => {
     </PageTitleContext.Provider>
   );
 };
+
+export default PageTitleContext;

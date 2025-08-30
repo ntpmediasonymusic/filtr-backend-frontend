@@ -1,12 +1,12 @@
 /* eslint-disable react/prop-types */
 
-import { NavLink } from "react-router-dom";
+import RegionNavLink from "../../../router/RegionNavLink.jsx";
 
 // Componente NavMenuItem
 const NavMenuItem = ({ name, icon, route, toggleMenu }) => {
   return (
     <div className="relative">
-      <NavLink
+      <RegionNavLink 
         onClick={toggleMenu}
         to={route}
         className={({ isActive }) =>
@@ -25,7 +25,7 @@ const NavMenuItem = ({ name, icon, route, toggleMenu }) => {
       >
         <span className="text-xl">{icon}</span>
         <span>{name}</span>
-      </NavLink>
+      </RegionNavLink>
     </div>
   );
 };

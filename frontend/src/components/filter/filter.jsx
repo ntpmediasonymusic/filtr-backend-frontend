@@ -64,9 +64,6 @@ const Filter = () => {
       if (playlist.moods?.some((mood) => mood.toLowerCase().includes(query)))
         return true;
 
-      // Buscar en la región
-      if (playlist.region?.toLowerCase().includes(query)) return true;
-
       return false;
     });
   }, [searchQuery, playlists]);

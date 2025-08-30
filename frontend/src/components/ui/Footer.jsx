@@ -1,5 +1,6 @@
 import { FaInstagram, FaTiktok, FaSpotify } from "react-icons/fa";
 import logo from "../../assets/images/filtr_logo_white.svg";
+import RegionLink from "../../router/RegionLink";
 
 const Footer = () => {
   return (
@@ -51,27 +52,25 @@ const Footer = () => {
 
       {/* Enlaces legales */}
       <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4 text-white text-md">
-        <a
-          href="/terms-and-conditions"
+        <RegionLink
+          to="/terms-and-conditions"
           target="_blank"
           rel="noopener noreferrer"
           className="hover:text-gray-300 transition-colors underline"
         >
           Términos y Condiciones
-        </a>
+        </RegionLink>
         <span className="hidden md:inline">|</span>
-        <a
-          href="/privacy-policy"
+        <RegionLink
+          to="/privacy-policy"
           target="_blank"
           rel="noopener noreferrer"
           className="hover:text-gray-300 transition-colors underline"
         >
           Política de Privacidad
-        </a>
+        </RegionLink>
       </div>
-      <span
-        className="text-gray-200 mt-3"
-      >
+      <span className="text-gray-200 mt-3">
         © 2025 Filtr | Todos los derechos reservados.
       </span>
     </footer>

@@ -6,6 +6,7 @@ import ShowsHeader from "../components/shows/ShowsHeader";
 import PageHeader from "../components/ui/PageHeader";
 import { useSearch } from "../context/SearchContext";
 import Filter from "../components/filter/filter";
+import { useRegion } from "../router/RegionContext";
 
 const Shows = () => {
   useEffect(() => {
@@ -14,14 +15,18 @@ const Shows = () => {
 
   const shows = useSortedShows();
   const { searchQuery } = useSearch();
+  const { region } = useRegion();
 
   // Si hay búsqueda activa, mostrar el componente Filter
   if (searchQuery && searchQuery.trim() !== "") {
     return <Filter />;
   }
-
+  
   const today = new Date();
-  const recentShows = shows.filter(({ date }) => {
+
+  const regionShows = shows.filter((show) => show.region === region);
+
+  const recentShows = regionShows.filter(({ date }) => {
     // parsear "DD/MM/YYYY"
     const [day, month, year] = date.split("/").map(Number);
     const eventDate = new Date(year, month - 1, day);
@@ -45,6 +50,12 @@ const Shows = () => {
           <ShowCard key={show.showName} {...show} />
         ))}
       </div>
+
+      {recentShows.length <= 0 && (
+        <p className="text-gray-500 text-sm md:text-2xl sm:text-lg text-center pb-20 md:pb-20">
+          No hay shows disponibles.
+        </p>
+      )}
     </>
   );
 };

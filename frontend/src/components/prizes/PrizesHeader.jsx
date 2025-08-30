@@ -2,8 +2,11 @@
 import { useState } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { useRegion } from "../../router/RegionContext";
 
 const PrizesHeader = () => {
+  const { region } = useRegion();
+
   const imageMap = [
     {
       desktop:
@@ -11,15 +14,25 @@ const PrizesHeader = () => {
       mobile:
         "/assets/images/prizes-banner-header/mobile/prizes-banner-header-mobile-1.png",
       alt: "Shows Banner 1",
-    },
-    // {
-    //   desktop:
-    //     "/assets/images/home-page-banner/desktop/home-page-banner-desktop-7.png",
-    //   mobile:
-    //     "/assets/images/home-page-banner/mobile/home-page-banner-mobile-7.png",
-    //   alt: "Shows Banner 2",
-    // },
+    }
   ];
+  const imageMapDo = [
+    {
+      desktop:
+        "/assets/images/prizes-banner-header/desktop/prizes-banner-header-desktop-1.png",
+      mobile:
+        "/assets/images/prizes-banner-header/mobile/prizes-banner-header-mobile-1.png",
+      alt: "Shows Banner 1",
+    },
+    {
+      desktop:
+        "/assets/images/prizes-banner-header/do/desktop/prizes-banner-header-desktop-1.png",
+      mobile:
+        "/assets/images/prizes-banner-header/do/mobile/prizes-banner-header-mobile-1.png",
+      alt: "Shows Banner 2",
+    },
+  ];
+  const imageMapRegion = region === "do" ? imageMapDo : imageMap;
 
   const PrevArrow = () => (
     <svg
@@ -96,7 +109,7 @@ const PrizesHeader = () => {
         )
       }
     >
-      {imageMap.map(({ desktop, mobile, alt }, idx) => (
+      {imageMapRegion.map(({ desktop, mobile, alt }, idx) => (
         <div key={idx} className="flex items-center justify-center w-full">
           <PrizesHeaderImage desktop={desktop} mobile={mobile} alt={alt} />
         </div>

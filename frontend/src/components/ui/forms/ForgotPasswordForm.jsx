@@ -2,6 +2,7 @@ import { useState } from "react";
 import { forgotPassword } from "../../../api/backendApi";
 import EnvelopeIcon from "../../../assets/icons/EnvelopeIcon";
 import ForgotEmailSent from "./ForgotEmailSent";
+import RegionLink from "../../../router/RegionLink";
 
 const ForgotPasswordForm = () => {
   const [email, setEmail] = useState("");
@@ -100,9 +101,9 @@ const ForgotPasswordForm = () => {
       <div className="text-center text-[#131517] mt-1 sm:mt-2 text-sm sm:text-base">
         ¿Aún no eres miembro FILTR?
         <br />
-        <a href="/signup" className="underline font-semibold">
+        <RegionLink to="/signup" className="underline font-semibold">
           Regístrate aquí
-        </a>
+        </RegionLink>
       </div>
     </form>
   );

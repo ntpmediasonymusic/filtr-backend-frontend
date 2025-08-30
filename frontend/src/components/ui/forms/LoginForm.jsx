@@ -8,6 +8,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import UserBigCircleIcon from "../../../assets/icons/UserBigCircleIcon";
 import VerificationEmailSent from "./VerificationEmailSent";
 import ClipLoader from "react-spinners/ClipLoader";
+import RegionLink from "../../../router/RegionLink";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -146,12 +147,12 @@ const LoginForm = () => {
 
       {/* ¿Olvidaste tu contraseña? */}
       <div className="flex justify-end text-[#131517] text-xs sm:text-sm">
-        <a
-          href="/forgot-password"
+        <RegionLink
+          to="/forgot-password"
           className="underline underline-offset-2 font-semibold"
         >
           ¿Olvidaste tu contraseña?
-        </a>
+        </RegionLink>
       </div>
 
       {/* Mensaje backend */}
@@ -183,9 +184,9 @@ const LoginForm = () => {
       <div className="text-center text-[#131517] mt-1 sm:mt-2 text-sm sm:text-base">
         ¿Aún no eres miembro FILTR?
         <br />
-        <a href="/signup" className="underline font-semibold">
+        <RegionLink to="/signup" className="underline font-semibold">
           Regístrate aquí
-        </a>
+        </RegionLink>
       </div>
     </form>
   );

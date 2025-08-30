@@ -6,6 +6,7 @@ import { usePlaylists } from "../context/PlaylistContext";
 import { useSearch } from "../context/SearchContext";
 import { useMainCategories } from "../hooks/playlists/useMainCategories";
 import Filter from "../components/filter/filter";
+import { useRegion } from "../router/RegionContext";
 
 const Home = () => {
   useEffect(() => {
@@ -15,6 +16,9 @@ const Home = () => {
   const mainCategories = useMainCategories();
   const { playlists } = usePlaylists();
   const { searchQuery } = useSearch();
+  const { region } = useRegion();
+
+  console.log("Main Categories:", mainCategories);
 
   // Si hay búsqueda activa, mostrar el componente Filter
   if (searchQuery && searchQuery.trim() !== "") {
@@ -36,9 +40,15 @@ const Home = () => {
         {/* 🔄 Iterar sobre todas las categorías y generar un MainCategoryPreview */}
         {mainCategories.map((category) => {
           // Filtrar las playlists que pertenezcan a la categoría actual
-          const filteredPlaylistsFilter = playlists.filter((playlist) =>
-            playlist.mainCategory.includes(category)
-          );
+          const filteredPlaylistsFilter = playlists
+            .filter((playlist) => playlist.mainCategory.includes(category))
+            .filter(
+              (playlist) =>
+                !(
+                  Array.isArray(playlist.excludeRegion) &&
+                  playlist.excludeRegion.includes(region)
+                )
+            );
 
           // Renderizar solo si hay playlists en esta categoría
           return filteredPlaylistsFilter.length > 0 ? (

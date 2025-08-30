@@ -1,11 +1,12 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useRef, useState } from "react";
-import { NavLink } from "react-router-dom";
 import SearchIcon from "../../assets/icons/SearchIcon";
 import UserCircleIcon from "../../assets/icons/UserCircleIcon";
 import ProfileModal from "./modal/ProfileModal";
 import { FaSignInAlt, FaUserPlus } from "react-icons/fa";
 import { useSearch } from "../../context/SearchContext";
+import RegionNavLink from "../../router/RegionNavLink";
+import CountryPicker from "./CountryPicker";
 
 const PageHeader = ({ welcomeMsg }) => {
   const { searchQuery, setSearchQuery } = useSearch();
@@ -99,21 +100,23 @@ const PageHeader = ({ welcomeMsg }) => {
           <>
             {!isAuthenticated && (
               <div className="flex sm:hidden items-center gap-2 flex-shrink-0 justify-end">
-                <NavLink
+                <RegionNavLink
                   to="/login"
                   className="flex items-center gap-2 px-2 py-2 text-white text-sm xs:text-lg font-normal hover:opacity-60 whitespace-nowrap"
                 >
                   <FaSignInAlt />
                   <span>Acceder</span>
-                </NavLink>
+                </RegionNavLink>
                 <div className="h-6 w-px bg-white mx-0" />
-                <NavLink
+                <RegionNavLink
                   to="/signup"
                   className="flex items-center gap-2 px-2 py-2 text-white text-sm xs:text-lg font-normal hover:opacity-60 whitespace-nowrap"
                 >
                   <FaUserPlus />
                   <span>Registrarse</span>
-                </NavLink>
+                </RegionNavLink>
+                <div className="h-6 w-px bg-white mx-0" />
+                <CountryPicker />
               </div>
             )}
           </>
@@ -122,21 +125,23 @@ const PageHeader = ({ welcomeMsg }) => {
       {!isScrolled && !isAuthenticated && (
         <div className="w-auto">
           <div className="flex sm:hidden items-center gap-2 flex-shrink-0 justify-center">
-            <NavLink
+            <RegionNavLink
               to="/login"
               className="flex items-center gap-2 px-2 py-2 text-white text-sm xs:text-lg font-normal hover:opacity-60 whitespace-nowrap"
             >
               <FaSignInAlt />
               <span>Acceder</span>
-            </NavLink>
+            </RegionNavLink>
             <div className="h-6 w-px bg-white mx-0" />
-            <NavLink
+            <RegionNavLink
               to="/signup"
               className="flex items-center gap-2 px-2 py-2 text-white text-sm xs:text-lg font-normal hover:opacity-60 whitespace-nowrap"
             >
               <FaUserPlus />
               <span>Registrarse</span>
-            </NavLink>
+            </RegionNavLink>
+            <div className="h-6 w-px bg-white mx-0" />
+            <CountryPicker />
           </div>
         </div>
       )}
@@ -159,35 +164,43 @@ const PageHeader = ({ welcomeMsg }) => {
         {!isAuthenticated ? (
           /* Si no hay usuario, muestra Login & Sign Up */
           <div className="hidden sm:flex items-center gap-2 flex-shrink-0">
-            <NavLink
+            <RegionNavLink
               to="/login"
               className="flex items-center gap-2 px-2 py-2 text-white text-sm sm:text-lg font-normal hover:opacity-60 whitespace-nowrap"
             >
               <FaSignInAlt />
               <span>Acceder</span>
-            </NavLink>
+            </RegionNavLink>
             <div className="h-6 w-px bg-white mx-0" />
-            <NavLink
+            <RegionNavLink
               to="/signup"
               className="flex items-center gap-2 px-2 py-2 text-white text-sm sm:text-lg font-normal hover:opacity-60 whitespace-nowrap"
             >
               <FaUserPlus />
               <span>Registrarse</span>
-            </NavLink>
+            </RegionNavLink>
+            <div className="h-6 w-px bg-white mx-0" />
+            <CountryPicker />
           </div>
         ) : (
           /* Si está autenticado, muestra botón de perfil */
-          <div className="relative flex-shrink-0 min-w-0" ref={wrapperRef}>
-            <button
-              onClick={() => setShowModal((v) => !v)}
-              className="flex items-center gap-2 text-white text-sm md:text-xl whitespace-nowrap"
-            >
-              <span className="hidden sm:flex transition-all">
-                {user.firstName}
-              </span>
-              <UserCircleIcon className="text-white w-full max-w-7.5" />
-            </button>
-            {showModal && <ProfileModal onClose={() => setShowModal(false)} />}
+          <div className="flex items-center gap-2 flex-shrink-0">
+            <div className="relative flex-shrink-0 min-w-0" ref={wrapperRef}>
+              <button
+                onClick={() => setShowModal((v) => !v)}
+                className="flex items-center gap-2 text-white text-sm md:text-xl whitespace-nowrap"
+              >
+                <span className="hidden sm:flex transition-all">
+                  {user?.firstName}
+                </span>
+                <UserCircleIcon className="text-white w-full max-w-7.5" />
+              </button>
+              {showModal && (
+                <ProfileModal onClose={() => setShowModal(false)} />
+              )}
+            </div>
+            <div className="h-6 w-px bg-white mx-0" />
+            <CountryPicker isAuthenticated={true}/>
           </div>
         )}
       </div>
