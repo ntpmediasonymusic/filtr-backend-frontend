@@ -7,16 +7,16 @@ const ShowsHeader = () => {
   const imageMap = [
     {
       desktop:
-        "/assets/images/shows-banner-header/desktop/shows-banner-header-desktop-1.png",
+        "/assets/images/shows-banner-header/shows-banner-header-v2/desktop/shows-banner-header-desktop-1.png",
       mobile:
-        "/assets/images/shows-banner-header/mobile/shows-banner-header-mobile-1.png",
+        "/assets/images/shows-banner-header/shows-banner-header-v2/mobile/shows-banner-header-mobile-1.png",
       alt: "Shows Banner 1",
     },
     {
       desktop:
-        "/assets/images/shows-banner-header/desktop/shows-banner-header-desktop-2.png",
+        "/assets/images/shows-banner-header/shows-banner-header-v2/desktop/shows-banner-header-desktop-2.png",
       mobile:
-        "/assets/images/shows-banner-header/mobile/shows-banner-header-mobile-2.png",
+        "/assets/images/shows-banner-header/shows-banner-header-v2/mobile/shows-banner-header-mobile-2.png",
       alt: "Shows Banner 2",
     },
   ];

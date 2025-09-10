@@ -55,13 +55,13 @@ const TrendingPlaylistCard = ({
   };
 
   return (
-    <div className="flex flex-col w-full max-w-[800px] md:flex-row items-start bg-[#282534] rounded-lg p-4 gap-4 md:h-[240px] flex-shrink-0 md:relative">
+    <div className="flex flex-col w-full max-w-[900px] md:flex-row items-start bg-[#282534] rounded-lg p-4 gap-4 md:h-[340px] flex-shrink-0 md:relative">
       {/* Imagen de la playlist */}
       <a
         href={urlPlaylist}
         target="_blank"
         rel="noopener noreferrer"
-        className="relative group flex-shrink-0 w-full md:w-[208px]"
+        className="relative group flex-shrink-0 w-full md:w-[308px]"
       >
         <PlaylistCardImage src={urlCoverImage} alt={playlistName} />
         <div className="absolute inset-0 bg-black/50 rounded-lg opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
@@ -78,17 +78,17 @@ const TrendingPlaylistCard = ({
             textShadow:
               "rgb(3, 78, 211) 2px  2px  4px, rgb(200, 37, 157) -2px  2px  4px, rgb(244, 123, 35)  2px -2px  4px, rgb(242, 124, 149)-2px -2px  4px, rgb(95, 18, 140)   2px  0px  4px, rgb(207, 221, 40)  0px  2px  4px, rgb(19, 218, 222) -2px  0px  4px",
           }}
-          className="font-montserrat font-bold text-[100px] md:text-[100px] leading-[1] text-white"
+          className="font-montserrat font-bold text-[100px] md:text-[150px] leading-[1] text-white"
         >
           {index}
         </span>
-        <h6 className="text-white text-base md:text-lg font-medium mt-2 line-clamp-3 min-h-[3rem]">
+        <h6 className="text-white text-left text-base md:text-xl font-medium mt-2 line-clamp-3 min-h-[3rem]">
           {playlistName}
         </h6>
       </div>
 
       {/* Acciones - Desktop: posición absoluta, Móvil: posición normal */}
-      <div className="flex items-center gap-3 flex-shrink-0 w-full justify-end md:absolute md:ml-2 md:bottom-4 md:left-[232px] md:w-auto">
+      <div className="flex items-center gap-3 md:gap-4 flex-shrink-0 w-full justify-end md:absolute md:ml-2.5 md:bottom-4 md:left-[332px] md:w-auto">
         <button
           onClick={handleToggleFavorite}
           className="flex-shrink-0 cursor-pointer"
@@ -96,16 +96,16 @@ const TrendingPlaylistCard = ({
           {isLoading ? (
             <ClipLoader size={24} color="#FFFFFF" />
           ) : loggedIn && favorited ? (
-            <FaHeart className="w-8 h-8 md:w-6 md:h-6 text-red-500 transform scale-110 transition-transform duration-200" />
+            <FaHeart className="w-8 h-8 md:w-10 md:h-10 text-red-500 transform scale-110 transition-transform duration-200" />
           ) : (
-            <FaRegHeart className="w-8 h-8 md:w-6 md:h-6 text-white transition-transform duration-200 hover:scale-110" />
+            <FaRegHeart className="w-8 h-8 md:w-10 md:h-10 text-white transition-transform duration-200 hover:scale-110" />
           )}
         </button>
         <button
           onClick={() => setShowShareModal((v) => !v)}
           className="flex-shrink-0 cursor-pointer"
         >
-          <SharePaperPlaneIcon className="w-8 h-8 md:w-6 md:h-6 text-white" />
+          <SharePaperPlaneIcon className="w-8 h-8 md:w-10 md:h-10 text-white" />
         </button>
       </div>
 

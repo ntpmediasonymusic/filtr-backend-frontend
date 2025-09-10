@@ -33,6 +33,14 @@ const Prizes = () => {
       artist: "Beéle",
       details: "Próximamente",
     },
+    {
+      desktop:
+        "/assets/images/prizes-banners/do/desktop/prizes-banner-desktop-2.jpg",
+      mobile:
+        "/assets/images/prizes-banners/do/mobile/prizes-banner-mobile-2.jpg",
+      artist: "Ca7riel y Paco Amoroso",
+      details: "Próximamente",
+    },
   ];
   const imageMapRegion = region === "do" ? imageMapDo : imageMap;
 

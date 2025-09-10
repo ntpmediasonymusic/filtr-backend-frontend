@@ -6,21 +6,21 @@ const MusicBanner = ({ type = "generos" }) => {
   const imageMap = {
     generos: {
       desktop:
-        "/assets/images/page-banner-header/desktop/generos-page-banner-header-desktop.png",
+        "/assets/images/page-banner-header/page-banner-header-v2/desktop/generos-page-banner-header-desktop.png",
       mobile:
-        "/assets/images/page-banner-header/mobile/generos-page-banner-header-mobile.png",
+        "/assets/images/page-banner-header/page-banner-header-v2/mobile/generos-page-banner-header-mobile.png",
     },
     moods: {
       desktop:
-        "/assets/images/page-banner-header/desktop/moods-page-banner-header-desktop.png",
+        "/assets/images/page-banner-header/page-banner-header-v2/desktop/moods-page-banner-header-desktop.png",
       mobile:
-        "/assets/images/page-banner-header/mobile/moods-page-banner-header-mobile.png",
+        "/assets/images/page-banner-header/page-banner-header-v2/mobile/moods-page-banner-header-mobile.png",
     },
     trending: {
       desktop:
-        "/assets/images/page-banner-header/desktop/tranding-page-banner-header-desktop.png",
+        "/assets/images/page-banner-header/page-banner-header-v2/desktop/tranding-page-banner-header-desktop.png",
       mobile:
-        "/assets/images/page-banner-header/mobile/trending-page-banner-header-mobile.png",
+        "/assets/images/page-banner-header/page-banner-header-v2/mobile/trending-page-banner-header-mobile.png",
     },
     shows: {
       desktop:
@@ -30,9 +30,9 @@ const MusicBanner = ({ type = "generos" }) => {
     },
     premios: {
       desktop:
-        "/assets/images/page-banner-header/desktop/premios-page-banner-header-desktop.png",
+        "/assets/images/page-banner-header/page-banner-header-v2/desktop/premios-page-banner-header-desktop.png",
       mobile:
-        "/assets/images/page-banner-header/mobile/premios-page-banner-header-mobile.png",
+        "/assets/images/page-banner-header/page-banner-header-v2/mobile/premios-page-banner-header-mobile.png",
     },
   };
 

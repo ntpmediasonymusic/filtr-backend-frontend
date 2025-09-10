@@ -105,11 +105,15 @@ export default function MainCategoryPreview({ title, playlists }) {
       <div className="overflow-hidden">
         <div
           ref={containerRef}
-          className="flex gap-4 md:gap-8 md:justify-center overflow-x-auto py-2 px-2 scrollbar-hide cursor-grab"
-          style={{ scrollBehavior: "smooth" }}
+          className="flex gap-4 md:gap-8 justify-start overflow-x-auto py-2 px-4 md:px-6 scrollbar-hide cursor-grab snap-x snap-mandatory"
+          style={{
+            scrollBehavior: "smooth",
+            scrollPaddingLeft: "1rem",
+            scrollPaddingRight: "1rem",
+          }}
         >
           {playlists.slice(0, 10).map((pl) => (
-            <div key={pl.playlistName} className="flex-shrink-0">
+            <div key={pl.playlistName} className="flex-shrink-0 snap-start">
               <PlaylistCard
                 playlistName={pl.playlistName}
                 urlPlaylist={pl.urlPlaylist}
