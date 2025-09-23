@@ -39,20 +39,20 @@ app.use((req, res, next) => {
     [
       "default-src 'self'",
 
-      // Scripts: self, tu CDN, GTM y Analytics, y (temporalmente) inline
-      "script-src 'self' https://cdn.wyng.com https://www.googletagmanager.com https://www.google-analytics.com 'unsafe-inline'",
+      // JS: self, tu CDN, GTM/GA y Hotjar (+ inline si lo necesitas)
+      "script-src 'self' https://cdn.wyng.com https://www.googletagmanager.com https://www.google-analytics.com https://static.hotjar.com https://script.hotjar.com 'unsafe-inline'",
 
-      // Conexiones AJAX/fetch
-      "connect-src 'self' https://accounts.spotify.com https://api.spotify.com https://www.google-analytics.com",
+      // Conexiones XHR/fetch/WebSocket: APIs propias + Hotjar + GA/GTM
+      "connect-src 'self' https://accounts.spotify.com https://api.spotify.com https://www.google-analytics.com https://www.googletagmanager.com https://*.hotjar.com wss://*.hotjar.com",
 
-      // Estilos: self, Google Fonts, y permitir inline para tu banner
+      // Estilos (banner, etc.)
       "style-src 'self' https://fonts.googleapis.com 'unsafe-inline'",
 
       // Fuentes
       "font-src 'self' https://fonts.gstatic.com",
 
-      // Imágenes
-      "img-src 'self' data: https: https://cdn.wyng.com",
+      // Imágenes (incluye Hotjar, data: y blob:)
+      "img-src 'self' https://cdn.wyng.com https://*.hotjar.com data: blob: https:",
 
       // Iframes (noscript GTM)
       "frame-src 'self' https://www.googletagmanager.com",
