@@ -1,40 +1,97 @@
 // src/components/ui/modal/CookieConsentBanner.jsx
-import { useEffect, useState } from "react";
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import { useGTM } from "../../../context/useGTM";
 import RegionLink from "../../../router/RegionLink";
 
+// Helpers de Consent Mode
+function setDefaultConsent() {
+  if (typeof window === "undefined") return;
+  // Valor por defecto: denegado (evita cualquier tracking hasta aceptar)
+  if (typeof window.gtag === "function") {
+    window.gtag("consent", "default", {
+      ad_storage: "denied",
+      analytics_storage: "denied",
+      ad_user_data: "denied",
+      ad_personalization: "denied",
+      // Si quieres que los tags esperen unos ms al update, descomenta:
+      // wait_for_update: 500
+    });
+  }
+}
+
+function updateConsentMode(decision) {
+  if (typeof window === "undefined") return;
+
+  const granted = decision === "accepted";
+  if (typeof window.gtag === "function") {
+    window.gtag("consent", "update", {
+      analytics_storage: granted ? "granted" : "denied",
+      // Mantén ads en denied a menos que explícitamente los permitas
+      ad_storage: "denied",
+      ad_user_data: "denied",
+      ad_personalization: "denied",
+    });
+  }
+
+  // Notifica a GTM para disparar tags dependientes (Hotjar)
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({
+    event: granted ? "consent_granted" : "consent_denied",
+  });
+}
+
 const CookieConsentBanner = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const { updateConsent, trackEvent } = useGTM();
+  const { updateConsent, trackEvent } = useGTM?.() || {
+    updateConsent: () => {},
+    trackEvent: () => {},
+  };
+
+  const ranDefaultRef = useRef(false);
 
   useEffect(() => {
+    // 1) Fijar default DENIED sólo una vez por carga
+    if (!ranDefaultRef.current) {
+      setDefaultConsent();
+      ranDefaultRef.current = true;
+    }
+
+    // 2) Leer decisión previa
     const stored = localStorage.getItem("filtr_cookie_consent");
 
     if (!stored) {
-      // No hay decisión previa → mostrar banner
+      // No hay decisión → mostrar banner y permanecer en denied
       setIsVisible(true);
-      // Consent Mode por defecto: denegado hasta aceptar
       updateConsent("rejected");
-      // Log de impresión del banner
       trackEvent("consent_banner_shown");
     } else {
-      // Ya había una decisión → sincroniza consent mode
+      // Ya había decisión → sincronizar Consent Mode y GTM
+      updateConsentMode(stored);
       updateConsent(stored);
     }
   }, [updateConsent, trackEvent]);
 
   const handleConsent = (decision) => {
     localStorage.setItem("filtr_cookie_consent", decision);
+
+    // Actualizar Consent Mode + notificar a GTM (dispara Hotjar si accepted)
+    updateConsentMode(decision);
+
+    // Mantener tu tracking interno
     updateConsent(decision);
     trackEvent(
       decision === "accepted" ? "consent_accepted" : "consent_rejected"
     );
+
     setIsVisible(false);
   };
 
   const handleClose = () => {
     setIsVisible(false);
     trackEvent("consent_banner_closed");
+    // Nota: cerrar sin decidir mantiene el estado por defecto (denied)
   };
 
   if (!isVisible) return null;
@@ -55,6 +112,9 @@ const CookieConsentBanner = () => {
           shadow-xl p-4 md:p-6 text-sm md:text-base bottom-4 left-1/2 md:left-4
           transform -translate-x-1/2 md:translate-x-0 slide-up
         `}
+        role="dialog"
+        aria-live="polite"
+        aria-label="Aviso de cookies"
       >
         {/* Botón de cerrar */}
         <button
@@ -97,10 +157,9 @@ const CookieConsentBanner = () => {
             Seguimiento de cookies para ofrecerte la mejor experiencia en Filtr.
           </h2>
           <p>
-            Este sitio web utiliza cookies para recopilar información de tu
-            dispositivo y navegador con fines de marketing y para mejorar la
-            funcionalidad del sitio. Los datos podrán compartirse con terceros,
-            como Google. Para más detalles, consulta nuestro{" "}
+            Este sitio utiliza cookies para fines analíticos y para mejorar la
+            funcionalidad. Los datos pueden compartirse con terceros como
+            Google. Para más detalles, consulta nuestro{" "}
             <RegionLink
               to="/privacy-policy"
               target="_blank"
