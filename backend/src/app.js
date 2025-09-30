@@ -37,13 +37,14 @@ app.use((req, res, next) => {
   res.setHeader(
     "Content-Security-Policy",
     [
+      // Política base
       "default-src 'self'",
 
       // JS: self, tu CDN, GTM/GA y Hotjar (+ inline si lo necesitas)
       "script-src 'self' https://cdn.wyng.com https://www.googletagmanager.com https://www.google-analytics.com https://static.hotjar.com https://script.hotjar.com 'unsafe-inline'",
 
-      // Conexiones XHR/fetch/WebSocket: APIs propias + Hotjar + GA/GTM
-      "connect-src 'self' https://accounts.spotify.com https://api.spotify.com https://www.google-analytics.com https://www.googletagmanager.com https://*.hotjar.com wss://*.hotjar.com",
+      // Conexiones XHR/Fetch/WebSocket: APIs propias + Hotjar (.com y .io) + GA/GTM
+      "connect-src 'self' https://accounts.spotify.com https://api.spotify.com https://www.google-analytics.com https://www.googletagmanager.com https://*.hotjar.com wss://*.hotjar.com https://*.hotjar.io wss://*.hotjar.io https://content.hotjar.io",
 
       // Estilos (banner, etc.)
       "style-src 'self' https://fonts.googleapis.com 'unsafe-inline'",
@@ -52,10 +53,10 @@ app.use((req, res, next) => {
       "font-src 'self' https://fonts.gstatic.com",
 
       // Imágenes (incluye Hotjar, data: y blob:)
-      "img-src 'self' https://cdn.wyng.com https://*.hotjar.com data: blob: https:",
+      "img-src 'self' https://cdn.wyng.com https://*.hotjar.com https://*.hotjar.io data: blob: https:",
 
-      // Iframes (noscript GTM)
-      "frame-src 'self' https://www.googletagmanager.com",
+      // Iframes (noscript GTM y recursos de Hotjar si los usa)
+      "frame-src 'self' https://www.googletagmanager.com https://*.hotjar.com",
     ].join("; ")
   );
   next();
