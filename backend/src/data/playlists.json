@@ -7,9 +7,9 @@
       "mainCategory": ["Recomendaciones de la semana"],
       "genre": ["Baladas Románticas"],
       "moods": ["Romance", "Nostalgia"],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1,
-      "trending": { "cr": 2, "pa": 2, "do": 4 }
+      "trending": { "cr": 2, "pa": 2, "do": 4, "gt": 2 }
     },
     {
       "playlistName": "Las 100 mejores Baladas Romanticas en Inglés",
@@ -18,9 +18,9 @@
       "mainCategory": ["Recomendaciones de la semana"],
       "genre": ["Baladas Románticas"],
       "moods": ["Romance", "Nostalgia"],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1,
-      "trending": { "cr": 3, "pa": 3 }
+      "trending": { "cr": 3, "pa": 3, "gt": 3 }
     },
     {
       "playlistName": "Eternamente Enamorado: Baladas Romanticas",
@@ -29,7 +29,7 @@
       "mainCategory": [],
       "genre": ["Baladas Románticas"],
       "moods": ["Romance"],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -39,7 +39,7 @@
       "mainCategory": [],
       "genre": ["Baladas Románticas"],
       "moods": ["Despecho"],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -49,7 +49,7 @@
       "mainCategory": [],
       "genre": ["Baladas Románticas", "Voces Femeninas", "Pop"],
       "moods": ["Romance", "Despecho"],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -59,7 +59,7 @@
       "mainCategory": [],
       "genre": ["Baladas Románticas", "Voces Femeninas", "Pop"],
       "moods": ["Romance", "Despecho"],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -69,7 +69,7 @@
       "mainCategory": [],
       "genre": ["Baladas Románticas"],
       "moods": ["Romance"],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -78,10 +78,10 @@
       "urlCoverImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000d72cca284ba8380737be5d08c8c5",
       "mainCategory": ["Novedades y Éxitos"],
       "genre": ["Éxitos", "Novedades"],
-      "moods": ["Fiesta"],
-      "region": ["cr", "do", "pa"],
+      "moods": ["Fiesta", "Halloween"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1,
-      "trending": { "cr": 1, "pa": 1, "do": 5 }
+      "trending": { "cr": 1, "pa": 1, "do": 5, "gt": 1 }
     },
     {
       "playlistName": "Top Pop 2025: Top Hits, Pop Music, Just Hits,  Pop Up",
@@ -89,8 +89,8 @@
       "urlCoverImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000d72c717fe3c74a96e2304bfc2e82",
       "mainCategory": ["Recomendaciones de la semana"],
       "genre": ["Éxitos", "Pop"],
-      "moods": [],
-      "region": ["cr", "do", "pa"],
+      "moods": ["Halloween"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -100,7 +100,7 @@
       "mainCategory": [],
       "genre": ["Éxitos", "Pop"],
       "moods": ["Nostalgia"],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -110,8 +110,8 @@
       "mainCategory": ["Novedades y Éxitos"],
       "genre": ["Éxitos"],
       "moods": [],
-      "region": ["cr", "do", "pa"],
-      "excludeRegion": ["cr", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
+      "excludeRegion": ["cr", "pa", "gt"],
       "priority": 1
     },
     {
@@ -121,7 +121,7 @@
       "mainCategory": [],
       "genre": ["Éxitos"],
       "moods": [],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -131,7 +131,7 @@
       "mainCategory": ["Novedades y Éxitos"],
       "genre": ["Éxitos"],
       "moods": [],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -141,7 +141,7 @@
       "mainCategory": ["Novedades y Éxitos"],
       "genre": ["Novedades"],
       "moods": [],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -151,7 +151,7 @@
       "mainCategory": [],
       "genre": ["Pop"],
       "moods": [],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -161,7 +161,7 @@
       "mainCategory": ["Power Up"],
       "genre": ["Pop", "Urbano"],
       "moods": ["Mood booster"],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -171,7 +171,7 @@
       "mainCategory": ["Power Up"],
       "genre": ["Pop", "Voces Femeninas"],
       "moods": ["Mood booster"],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -181,7 +181,7 @@
       "mainCategory": ["Power Up"],
       "genre": ["Pop"],
       "moods": ["Mood booster", "Nostalgia"],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -191,7 +191,7 @@
       "mainCategory": [],
       "genre": ["Pop", "Temporadas"],
       "moods": [],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -201,7 +201,7 @@
       "mainCategory": [],
       "genre": ["Pop", "Temporadas"],
       "moods": [],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -211,7 +211,7 @@
       "mainCategory": [],
       "genre": ["Pop", "Música Mexicana"],
       "moods": ["Despecho"],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -221,7 +221,7 @@
       "mainCategory": [],
       "genre": ["Pop"],
       "moods": ["Nostalgia"],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -231,7 +231,7 @@
       "mainCategory": [],
       "genre": ["Pop"],
       "moods": ["Mood booster"],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -241,7 +241,7 @@
       "mainCategory": ["Novedades y Éxitos"],
       "genre": ["Pop", "Tropical"],
       "moods": ["Fiesta"],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "excludeRegion": ["do"],
       "priority": 1
     },
@@ -251,8 +251,8 @@
       "urlCoverImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000d72ca816264777323eac0f59ee8e",
       "mainCategory": ["Recomendaciones de la semana"],
       "genre": ["Urbano"],
-      "moods": ["Fiesta"],
-      "region": ["cr", "do", "pa"],
+      "moods": ["Fiesta", "Halloween"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -262,7 +262,7 @@
       "mainCategory": [],
       "genre": ["Urbano", "Voces Femeninas"],
       "moods": [],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -272,7 +272,7 @@
       "mainCategory": [],
       "genre": ["Urbano", "Voces Femeninas"],
       "moods": [],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -282,7 +282,7 @@
       "mainCategory": [],
       "genre": ["Urbano"],
       "moods": ["Fiesta"],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -292,7 +292,7 @@
       "mainCategory": ["Novedades y Éxitos"],
       "genre": ["Novedades", "Urbano"],
       "moods": [],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "excludeRegion": ["do"],
       "priority": 1
     },
@@ -303,7 +303,7 @@
       "mainCategory": [],
       "genre": ["Urbano"],
       "moods": [],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -313,7 +313,7 @@
       "mainCategory": [],
       "genre": ["Urbano"],
       "moods": ["Nostalgia"],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -323,7 +323,7 @@
       "mainCategory": [],
       "genre": ["Urbano"],
       "moods": [],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -333,7 +333,7 @@
       "mainCategory": [],
       "genre": ["Voces Femeninas", "Indie"],
       "moods": ["Despecho"],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -343,7 +343,7 @@
       "mainCategory": [],
       "genre": ["Música Mexicana"],
       "moods": ["Despecho"],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -353,7 +353,7 @@
       "mainCategory": ["Power Up"],
       "genre": ["Electrónica"],
       "moods": ["Fiesta"],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -363,7 +363,7 @@
       "mainCategory": [],
       "genre": ["Tropical"],
       "moods": ["Fiesta", "Mood booster"],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -373,7 +373,7 @@
       "mainCategory": [],
       "genre": ["Tropical"],
       "moods": ["Fiesta"],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -383,7 +383,7 @@
       "mainCategory": [],
       "genre": ["Tropical"],
       "moods": [],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -393,7 +393,7 @@
       "mainCategory": [],
       "genre": ["Tropical"],
       "moods": ["Fiesta"],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -403,7 +403,7 @@
       "mainCategory": [],
       "genre": ["Tropical"],
       "moods": ["Fiesta"],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -413,7 +413,7 @@
       "mainCategory": [],
       "genre": ["Indie"],
       "moods": [],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -423,7 +423,7 @@
       "mainCategory": [],
       "genre": [],
       "moods": ["Mood booster"],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -433,7 +433,7 @@
       "mainCategory": [],
       "genre": ["Indie"],
       "moods": ["Romance", "Despecho"],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -443,7 +443,7 @@
       "mainCategory": [],
       "genre": ["Indie"],
       "moods": [],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -453,7 +453,7 @@
       "mainCategory": [],
       "genre": ["Indie"],
       "moods": ["Chill"],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -463,7 +463,7 @@
       "mainCategory": [],
       "genre": ["Temporadas"],
       "moods": ["Nostalgia"],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -472,8 +472,8 @@
       "urlCoverImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84ff02227f7b38ecec8a9aef2c",
       "mainCategory": [],
       "genre": ["Temporadas"],
-      "moods": [],
-      "region": ["cr", "do", "pa"],
+      "moods": ["Halloween"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -483,7 +483,7 @@
       "mainCategory": [],
       "genre": ["Temporadas"],
       "moods": [],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -493,7 +493,7 @@
       "mainCategory": [],
       "genre": ["Rock"],
       "moods": [],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -503,7 +503,7 @@
       "mainCategory": [],
       "genre": ["Rock", "Indie"],
       "moods": [],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -513,7 +513,7 @@
       "mainCategory": ["Power Up"],
       "genre": ["Rock"],
       "moods": [],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -523,7 +523,7 @@
       "mainCategory": [],
       "genre": ["Reggae", "Tropical"],
       "moods": ["Chill"],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -533,7 +533,7 @@
       "mainCategory": [],
       "genre": ["Musica Cristiana"],
       "moods": [],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -543,7 +543,7 @@
       "mainCategory": [],
       "genre": ["Musica Cristiana"],
       "moods": [],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -553,7 +553,7 @@
       "mainCategory": [],
       "genre": [],
       "moods": ["Chill"],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -563,7 +563,7 @@
       "mainCategory": [],
       "genre": [],
       "moods": ["Chill"],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -573,7 +573,7 @@
       "mainCategory": [],
       "genre": [],
       "moods": ["Chill"],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -583,7 +583,7 @@
       "mainCategory": [],
       "genre": [],
       "moods": ["Chill"],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -593,7 +593,7 @@
       "mainCategory": [],
       "genre": [],
       "moods": ["Chill"],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -603,7 +603,7 @@
       "mainCategory": ["Recomendaciones de la semana"],
       "genre": [],
       "moods": [],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -613,9 +613,9 @@
       "mainCategory": [],
       "genre": ["Pop"],
       "moods": ["Nostalgia", "Romance"],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1,
-      "trending": { "cr": 4, "pa": 4, "do": 3 }
+      "trending": { "cr": 4, "pa": 4, "do": 3, "gt": 4 }
     },
     {
       "playlistName": "POP LATINO 2025 + 2024 + 2023 + 2022 + 2021 + 2020 :  Éxitos 2020s",
@@ -624,9 +624,9 @@
       "mainCategory": [],
       "genre": ["Pop"],
       "moods": [],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1,
-      "trending": { "cr": 5, "pa": 5, "do": 2 }
+      "trending": { "cr": 5, "pa": 5, "do": 2, "gt": 5 }
     },
     {
       "playlistName": "Indie Vibes - New Alternative Tracks",
@@ -635,7 +635,7 @@
       "mainCategory": [],
       "genre": ["Indie", "Rock"],
       "moods": [],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -645,7 +645,7 @@
       "mainCategory": [],
       "genre": ["Indie", "Rock"],
       "moods": [],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -655,7 +655,7 @@
       "mainCategory": [],
       "genre": ["Decadas"],
       "moods": ["Nostalgia"],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -665,7 +665,7 @@
       "mainCategory": [],
       "genre": ["Decadas"],
       "moods": ["Nostalgia"],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -675,7 +675,7 @@
       "mainCategory": [],
       "genre": ["Decadas"],
       "moods": ["Nostalgia"],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -685,7 +685,7 @@
       "mainCategory": [],
       "genre": ["Decadas"],
       "moods": ["Nostalgia"],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -695,7 +695,7 @@
       "mainCategory": [],
       "genre": ["Decadas"],
       "moods": ["Nostalgia"],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -705,7 +705,7 @@
       "mainCategory": [],
       "genre": ["Decadas"],
       "moods": [],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -715,7 +715,7 @@
       "mainCategory": [],
       "genre": ["Decadas"],
       "moods": [],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -725,7 +725,7 @@
       "mainCategory": [],
       "genre": ["Decadas"],
       "moods": [],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -735,7 +735,7 @@
       "mainCategory": [],
       "genre": ["Decadas"],
       "moods": [],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -745,7 +745,7 @@
       "mainCategory": [],
       "genre": ["Decadas"],
       "moods": [],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -755,7 +755,7 @@
       "mainCategory": [],
       "genre": ["Electrónica"],
       "moods": [],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -765,7 +765,7 @@
       "mainCategory": [],
       "genre": ["Electrónica"],
       "moods": [],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -775,7 +775,7 @@
       "mainCategory": [],
       "genre": ["Pop"],
       "moods": [],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -785,7 +785,7 @@
       "mainCategory": [],
       "genre": ["Música Mexicana"],
       "moods": [],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -795,7 +795,7 @@
       "mainCategory": [],
       "genre": ["Música Mexicana"],
       "moods": [],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -805,7 +805,7 @@
       "mainCategory": [],
       "genre": ["Música Mexicana"],
       "moods": [],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -815,7 +815,7 @@
       "mainCategory": [],
       "genre": ["Pop", "Decadas"],
       "moods": ["Nostalgia"],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -825,7 +825,7 @@
       "mainCategory": [],
       "genre": ["Pop"],
       "moods": ["Mood booster"],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1
     },
     {
@@ -835,7 +835,7 @@
       "mainCategory": [],
       "genre": ["Tropical"],
       "moods": ["Fiesta"],
-      "region": ["cr", "do", "pa"],
+      "region": ["cr", "do", "pa", "gt"],
       "priority": 1,
       "trending": { "do": 1 }
     },
@@ -844,10 +844,10 @@
       "urlPlaylist": "https://open.spotify.com/playlist/2VhQNYOiTfeVcoL5cyV5I2?si=686bd1a9178049ec&nd=1&dlsi=c14c28bde5024eda",
       "urlCoverImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000d72c81be76d11f1bfdba5650c26f",
       "mainCategory": ["Novedades y Éxitos"],
-      "genre": ["Novedades", "Urbano"],
+      "genre": ["Novedades"],
       "moods": [],
       "region": ["do"],
-      "excludeRegion": ["cr", "pa"],
+      "excludeRegion": ["cr", "pa", "gt"],
       "priority": 1
     },
     {

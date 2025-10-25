@@ -10,6 +10,14 @@ const HeaderCarousel = () => {
   const imageMap = [
     {
       desktop:
+        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-8.png",
+      mobile:
+        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-8.png",
+      alt: "Halloween",
+      link: "https://www.somosfiltr.com/moods",
+    },
+    {
+      desktop:
         "/assets/images/home-page-banner/desktop/home-page-banner-desktop-5.png",
       mobile:
         "/assets/images/home-page-banner/mobile/home-page-banner-mobile-5.png",
@@ -24,25 +32,9 @@ const HeaderCarousel = () => {
       alt: "Hip-Hop",
       link: "https://open.spotify.com/playlist/2tX56rjkc0SlJ8DNhGtkDZ?si=39f0ba5ddf2e4297&nd=1&dlsi=b9c5031430ed4db0",
     },
-    {
-      desktop:
-        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-6.png",
-      mobile:
-        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-6.png",
-      alt: "Vacaciones",
-      link: "https://open.spotify.com/playlist/1zZuDCC032tiepZ5RjQlt3?si=02164e54608443fc&nd=1&dlsi=fc74bce0c9294680",
-    },
   ];
 
   const imageMapDo = [
-    {
-      desktop:
-        "/assets/images/home-page-banner/do/desktop/home-page-banner-desktop-1.png",
-      mobile:
-        "/assets/images/home-page-banner/do/mobile/home-page-banner-mobile-1.png",
-      alt: "Barbarella",
-      link: "https://open.spotify.com/playlist/2VhQNYOiTfeVcoL5cyV5I2?si=686bd1a9178049ec&nd=1&dlsi=c14c28bde5024eda",
-    },
     {
       desktop:
         "/assets/images/prizes-banner-header/do/desktop/prizes-banner-header-desktop-1.png",
@@ -68,7 +60,62 @@ const HeaderCarousel = () => {
       link: "https://open.spotify.com/playlist/2njtU0pVZvudkZFmsdnGvu?si=fa13270b8dc74bef&nd=1&dlsi=ef3f0e2f858a474a",
     },
   ];
-  const imageMapRegion = region === "do" ? imageMapDo : imageMap;
+
+  const imageMapPa = [
+    {
+      desktop:
+        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-8.png",
+      mobile:
+        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-8.png",
+      alt: "Halloween",
+      link: "https://www.somosfiltr.com/moods",
+    },
+    {
+      desktop:
+        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-5.png",
+      mobile:
+        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-5.png",
+      alt: "Y2K",
+      link: "https://open.spotify.com/playlist/2XvmYFOs59zc1F1hWTqwgJ",
+    },
+    {
+      desktop:
+        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-4.jpg",
+      mobile:
+        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-4.jpg",
+      alt: "Hip-Hop",
+      link: "https://open.spotify.com/playlist/2tX56rjkc0SlJ8DNhGtkDZ?si=39f0ba5ddf2e4297&nd=1&dlsi=b9c5031430ed4db0",
+    },
+  ];
+
+  const imageMapGt = [
+    {
+      desktop:
+        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-8.png",
+      mobile:
+        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-8.png",
+      alt: "Halloween",
+      link: "https://www.somosfiltr.com/moods",
+    },
+    {
+      desktop:
+        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-5.png",
+      mobile:
+        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-5.png",
+      alt: "Y2K",
+      link: "https://open.spotify.com/playlist/2XvmYFOs59zc1F1hWTqwgJ",
+    },
+    {
+      desktop:
+        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-4.jpg",
+      mobile:
+        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-4.jpg",
+      alt: "Hip-Hop",
+      link: "https://open.spotify.com/playlist/2tX56rjkc0SlJ8DNhGtkDZ?si=39f0ba5ddf2e4297&nd=1&dlsi=b9c5031430ed4db0",
+    },
+  ];
+
+  const imageMapRegion = region === "do" ? imageMapDo : region === "pa" ? imageMapPa : imageMapGt;
 
   const PrevArrow = () => (
     <svg

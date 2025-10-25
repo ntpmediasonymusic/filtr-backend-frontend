@@ -5,7 +5,8 @@ import { useRegion } from "../../router/RegionContext";
 const COUNTRIES = [
   { code: "cr", name: "Costa Rica" },
   { code: "do", name: "Rep. Dominicana" },
-  // { code: "pa", name: "Panamá" },
+  { code: "pa", name: "Panamá" },
+  { code: "gt", name: "Guatemala" },
 ];
 
 function savePreferredRegion(code) {
@@ -16,7 +17,7 @@ function savePreferredRegion(code) {
   }
 }
 
-export default function CountryPicker({ isAuthenticated = false}) {
+export default function CountryPicker({ isAuthenticated = false }) {
   const { region, setRegion } = useRegion();
   const [open, setOpen] = useState(false);
   const btnRef = useRef(null);
