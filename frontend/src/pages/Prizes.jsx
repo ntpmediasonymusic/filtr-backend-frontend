@@ -69,7 +69,7 @@ const Prizes = () => {
       <div className="px-6">
         <PrizesHeader />
       </div>
-      <div className="flex flex-col px-8 md:px-12 my-[40px] md:my-[80px]">
+      <div className="flex flex-col px-8 md:px-12 my-10 md:my-20">
         <div className="divide-y-3 divide-gray-200">
           {imageMapRegion.map((item, idx) => (
             <div key={idx} className="py-6 md:py-12 first:pt-0 last:pb-0">
