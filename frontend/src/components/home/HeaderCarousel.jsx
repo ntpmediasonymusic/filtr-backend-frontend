@@ -36,12 +36,18 @@ const HeaderCarousel = () => {
 
   const imageMapDo = [
     {
+      desktop:"/assets/images/prizes-banners/do/desktop/prizes-banner-desktop-1.png",
+      mobile: "/assets/images/prizes-banners/do/mobile/prizes-banner-mobile-1.png",
+      alt: "Flyaway Beéle",
+      link: "https://www.somosfiltr.com/do/prizes",
+    },
+    {
       desktop:
-        "/assets/images/prizes-banner-header/do/desktop/prizes-banner-header-desktop-1.png",
+        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-8.png",
       mobile:
-        "/assets/images/prizes-banner-header/do/mobile/prizes-banner-header-mobile-1.png",
-      alt: "Concursos do",
-      link: "https://www.somosfiltr.com/prizes",
+        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-8.png",
+      alt: "Halloween",
+      link: "https://www.somosfiltr.com/moods",
     },
     {
       desktop:
@@ -115,7 +121,7 @@ const HeaderCarousel = () => {
     },
   ];
 
-  const imageMapRegion = region === "do" ? imageMapDo : region === "pa" ? imageMapPa : imageMapGt;
+  const imageMapRegion = region === "do" ? imageMapDo : region === "pa" ? imageMapPa : region === "gt" ? imageMapGt : imageMap;
 
   const PrevArrow = () => (
     <svg

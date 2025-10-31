@@ -31,15 +31,8 @@ const Prizes = () => {
       mobile:
         "/assets/images/prizes-banners/do/mobile/prizes-banner-mobile-1.png",
       artist: "Beéle",
-      details: "Próximamente",
-    },
-    {
-      desktop:
-        "/assets/images/prizes-banners/do/desktop/prizes-banner-desktop-2.jpg",
-      mobile:
-        "/assets/images/prizes-banners/do/mobile/prizes-banner-mobile-2.jpg",
-      artist: "Ca7riel y Paco Amoroso",
-      details: "Próximamente",
+      details: "Flyaway Beéle",
+      link: "https://sme.wyng.com/68af400aa9600be9caea10cf",
     },
   ];
   const imageMapRegion = region === "do" ? imageMapDo : imageMap;

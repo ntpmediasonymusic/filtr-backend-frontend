@@ -30,14 +30,7 @@ const PrizesHeader = () => {
       mobile:
         "/assets/images/page-banner-header/page-banner-header-v2/mobile/premios-page-banner-header-mobile.png",
       alt: "Shows Banner 1",
-    },
-    {
-      desktop:
-        "/assets/images/prizes-banner-header/do/desktop/prizes-banner-header-desktop-1.png",
-      mobile:
-        "/assets/images/prizes-banner-header/do/mobile/prizes-banner-header-mobile-1.png",
-      alt: "Shows Banner 2",
-    },
+    }
   ];
   const imageMapRegion = region === "do" ? imageMapDo : imageMap;
 
