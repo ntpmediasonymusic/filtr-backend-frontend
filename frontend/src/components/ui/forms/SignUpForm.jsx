@@ -84,7 +84,7 @@ const SignUpForm = () => {
     if (!birthdate) errs.birthdate = "La fecha de nacimiento es obligatoria.";
     if (!phone) errs.phone = "El teléfono es obligatorio.";
     else if (!/^\d+$/.test(phone)) errs.phone = "Sólo números permitidos.";
-    else if (phone.length < 10) errs.phone = "El teléfono debe tener al menos 10 dígitos.";
+    else if (phone.length < 8) errs.phone = "El teléfono debe tener al menos 8 dígitos.";
     else if (phone.length > 11) errs.phone = "El teléfono debe tener máximo 11 dígitos.";
     if (!listening) errs.listening = "Seleccione una opción.";
     if (!checkboxPrivacyPolicy) errs.checkboxPrivacyPolicy = "Debes aceptar la política de privacidad.";
