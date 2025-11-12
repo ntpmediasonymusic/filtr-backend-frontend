@@ -15,13 +15,6 @@ const PrizesHeader = () => {
         "/assets/images/page-banner-header/page-banner-header-v2/mobile/premios-page-banner-header-mobile.png",
       alt: "Shows Banner 1",
     },
-    {
-      desktop:
-        "/assets/images/prizes-banner-header/desktop/prizes-banner-header-desktop-4.png",
-      mobile:
-        "/assets/images/prizes-banner-header/mobile/prizes-banner-header-mobile-4.png",
-      alt: "Shows Banner 2",
-    },
   ];
   const imageMapDo = [
     {

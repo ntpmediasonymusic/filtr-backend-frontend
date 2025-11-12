@@ -10,11 +10,11 @@ const HeaderCarousel = () => {
   const imageMap = [
     {
       desktop:
-        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-8.png",
+        "/assets/images/home-page-banner/do/desktop/prizes-banner-desktop-2.jpg",
       mobile:
-        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-8.png",
-      alt: "Halloween",
-      link: "https://www.somosfiltr.com/moods",
+        "/assets/images/home-page-banner/do/mobile/prizes-banner-mobile-2.jpg",
+      alt: "Ca7riel y Paco Amoroso | Vinyl Contest",
+      link: "https://www.somosfiltr.com/prizes",
     },
     {
       desktop:
@@ -36,18 +36,20 @@ const HeaderCarousel = () => {
 
   const imageMapDo = [
     {
-      desktop:"/assets/images/prizes-banners/do/desktop/prizes-banner-desktop-1.png",
-      mobile: "/assets/images/prizes-banners/do/mobile/prizes-banner-mobile-1.png",
-      alt: "Flyaway Beéle",
-      link: "https://www.somosfiltr.com/do/prizes",
+      desktop:
+        "/assets/images/home-page-banner/do/desktop/prizes-banner-desktop-2.jpg",
+      mobile:
+        "/assets/images/home-page-banner/do/mobile/prizes-banner-mobile-2.jpg",
+      alt: "Ca7riel y Paco Amoroso | Vinyl Contest",
+      link: "https://www.somosfiltr.com/prizes",
     },
     {
       desktop:
-        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-8.png",
+        "/assets/images/prizes-banners/do/desktop/prizes-banner-desktop-1.png",
       mobile:
-        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-8.png",
-      alt: "Halloween",
-      link: "https://www.somosfiltr.com/moods",
+        "/assets/images/prizes-banners/do/mobile/prizes-banner-mobile-1.png",
+      alt: "Flyaway Beéle",
+      link: "https://www.somosfiltr.com/do/prizes",
     },
     {
       desktop:

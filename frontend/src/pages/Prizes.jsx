@@ -17,14 +17,24 @@ const Prizes = () => {
   const imageMap = [
     {
       desktop:
-        "/assets/images/prizes-banners/desktop/prizes-banner-desktop-4.png",
-      mobile: "/assets/images/prizes-banners/mobile/prizes-banner-mobile-4.png",
-      artist: "Debi Nova",
-      details: "Entrada Doble",
-      link: "https://forms.sonymusicfans.com/campaign/debinova-todopuedeconvertirseencancion-evento-2025/",
+        "/assets/images/prizes-banners/do/desktop/prizes-banner-desktop-2.jpg",
+      mobile:
+        "/assets/images/prizes-banners/do/mobile/prizes-banner-mobile-2.jpg",
+      artist: "Ca7riel y Paco Amoroso",
+      details: "Vinyl Contest",
+      link: "https://sme.wyng.com/6913a689121702b83211f155",
     },
   ];
   const imageMapDo = [
+    {
+      desktop:
+        "/assets/images/prizes-banners/do/desktop/prizes-banner-desktop-2.jpg",
+      mobile:
+        "/assets/images/prizes-banners/do/mobile/prizes-banner-mobile-2.jpg",
+      artist: "Ca7riel y Paco Amoroso",
+      details: "Vinyl Contest",
+      link: "https://sme.wyng.com/6913a689121702b83211f155",
+    },
     {
       desktop:
         "/assets/images/prizes-banners/do/desktop/prizes-banner-desktop-1.png",
