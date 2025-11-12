@@ -10,9 +10,9 @@ const HeaderCarousel = () => {
   const imageMap = [
     {
       desktop:
-        "/assets/images/home-page-banner/do/desktop/prizes-banner-desktop-2.jpg",
+        "/assets/images/prizes-banners/do/desktop/prizes-banner-desktop-2.jpg",
       mobile:
-        "/assets/images/home-page-banner/do/mobile/prizes-banner-mobile-2.jpg",
+        "/assets/images/prizes-banners/do/mobile/prizes-banner-mobile-2.jpg",
       alt: "Ca7riel y Paco Amoroso | Vinyl Contest",
       link: "https://www.somosfiltr.com/prizes",
     },
@@ -37,9 +37,9 @@ const HeaderCarousel = () => {
   const imageMapDo = [
     {
       desktop:
-        "/assets/images/home-page-banner/do/desktop/prizes-banner-desktop-2.jpg",
+        "/assets/images/prizes-banners/do/desktop/prizes-banner-desktop-2.jpg",
       mobile:
-        "/assets/images/home-page-banner/do/mobile/prizes-banner-mobile-2.jpg",
+        "/assets/images/prizes-banners/do/mobile/prizes-banner-mobile-2.jpg",
       alt: "Ca7riel y Paco Amoroso | Vinyl Contest",
       link: "https://www.somosfiltr.com/prizes",
     },
