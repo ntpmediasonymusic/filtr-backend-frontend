@@ -10,6 +10,14 @@ const HeaderCarousel = () => {
   const imageMap = [
     {
       desktop:
+        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-9.png",
+      mobile:
+        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-9.png",
+      alt: "Doja Cat | Vinyl Contest",
+      link: "https://www.somosfiltr.com/prizes",
+    },
+    {
+      desktop:
         "/assets/images/prizes-banners/do/desktop/prizes-banner-desktop-2.jpg",
       mobile:
         "/assets/images/prizes-banners/do/mobile/prizes-banner-mobile-2.jpg",
