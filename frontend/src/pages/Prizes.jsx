@@ -17,8 +17,8 @@ const Prizes = () => {
   const imageMap = [
     {
       desktop:
-        "/assets/images/prizes-banners/desktop/prizes-banner-desktop-5.jpg",
-      mobile: "/assets/images/prizes-banners/mobile/prizes-banner-mobile-5.jpg",
+        "/assets/images/prizes-banners/desktop/prizes-banner-desktop-5.png",
+      mobile: "/assets/images/prizes-banners/mobile/prizes-banner-mobile-5.png",
       artist: "Doja Cat",
       details: "Vinyl Contest",
       link: "https://sme.wyng.com/6944b3ddb12cc1392b73ad64",
