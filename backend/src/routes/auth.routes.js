@@ -98,6 +98,7 @@ router.post(
     .isEmail()
     .withMessage("El correo no es válido."),
   body("password")
+    .if((value, { req }) => !req.body.spotifyToken)
     .notEmpty()
     .withMessage("La contraseña es obligatoria.")
     .bail()
@@ -275,8 +276,16 @@ router.post(
  */
 router.post(
   "/login",
-  body("email").isEmail(),
-  body("password").notEmpty(),
+  body("email")
+    .notEmpty()
+    .withMessage("El e-mail es obligatorio.")
+    .bail()
+    .isEmail()
+    .withMessage("El e-mail no es válido."),
+  body("password")
+    .if(body("spotifyToken").not().exists()) // solo obligatorio si NO hay spotifyToken
+    .notEmpty()
+    .withMessage("La contraseña es obligatoria."),
   validateRequest,
   authCtrl.login
 );
@@ -413,5 +422,8 @@ router.post("/forgot-password", authCtrl.forgotPassword);
  *               $ref: '#/components/schemas/Error'
  */
 router.post("/reset-password", authCtrl.resetPassword);
+
+router.get("/spotify/login", authCtrl.spotifyLogin);
+router.get("/spotify/callback", authCtrl.spotifyCallback);
 
 module.exports = router;

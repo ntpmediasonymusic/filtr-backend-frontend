@@ -1,6 +1,10 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { login, resendVerification } from "../../../api/backendApi";
+import { useState, useEffect, useRef } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import {
+  login,
+  resendVerification,
+  spotifyLogin,
+} from "../../../api/backendApi";
 import { usePlaylists } from "../../../context/PlaylistContext";
 import EnvelopeIcon from "../../../assets/icons/EnvelopeIcon";
 import LockIcon from "../../../assets/icons/LockIcon";
@@ -9,6 +13,7 @@ import UserBigCircleIcon from "../../../assets/icons/UserBigCircleIcon";
 import VerificationEmailSent from "./VerificationEmailSent";
 import ClipLoader from "react-spinners/ClipLoader";
 import RegionLink from "../../../router/RegionLink";
+import { FaSpotify } from "react-icons/fa";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -19,16 +24,86 @@ const LoginForm = () => {
   const [verifyApiError, setVerifyApiError] = useState(false);
   const [showVerifyNotice, setShowVerifyNotice] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [searchParams] = useSearchParams();
+  const [isSpotifyFlow, setIsSpotifyFlow] = useState(false);
+  const [spotifyToken, setSpotifyToken] = useState(null);
+  const autoLoginTriggeredRef = useRef(false);
 
   const navigate = useNavigate();
   const { refreshPlaylists } = usePlaylists();
+
+useEffect(() => {
+  // Puede venir como ?spotifyToken=... o como ?token=...
+  const tokenFromUrl =
+    searchParams.get("spotifyToken") || searchParams.get("token");
+
+  // Si no hay token o ya hicimos el auto-login, no hacemos nada
+  if (!tokenFromUrl || autoLoginTriggeredRef.current) return;
+
+  autoLoginTriggeredRef.current = true; // evitar duplicados (StrictMode, etc.)
+
+  setSpotifyToken(tokenFromUrl);
+  setIsSpotifyFlow(true);
+
+  // Intentar decodificar el email del JWT de Spotify
+  let emailFromToken = "";
+  try {
+    const base64Payload = tokenFromUrl
+      .split(".")[1]
+      .replace(/-/g, "+")
+      .replace(/_/g, "/");
+    const payload = JSON.parse(atob(base64Payload));
+
+    if (payload.email) {
+      emailFromToken = payload.email;
+      setEmail(payload.email);
+    }
+  } catch (err) {
+    console.error("Error decodificando token de Spotify en login:", err);
+  }
+
+  // 🔹 Auto-login inmediato
+  const doAutoLogin = async () => {
+    try {
+      setIsLoading(true);
+      setApiError("");
+      setErrors({});
+
+      const payload = {
+        email: emailFromToken,
+        spotifyToken: tokenFromUrl,
+      };
+
+      const { data } = await login(payload);
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
+      await refreshPlaylists();
+      navigate("/");
+    } catch (err) {
+      console.error("Error en auto-login con Spotify:", err);
+      setIsSpotifyFlow(false);
+      const msg =
+        err.response?.data?.message ||
+        "No se pudo iniciar sesión con Spotify. Intenta de nuevo.";
+      setApiError(msg);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  doAutoLogin();
+}, [searchParams, login, refreshPlaylists, navigate]);
 
   const validate = () => {
     const errs = {};
     if (!email) errs.email = "El e-mail es obligatorio.";
     else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email))
       errs.email = "El e-mail no es válido.";
-    if (!password) errs.password = "La contraseña es obligatoria.";
+
+    if (!isSpotifyFlow) {
+      if (!password) errs.password = "La contraseña es obligatoria.";
+    }
+
     return errs;
   };
 
@@ -42,9 +117,16 @@ const LoginForm = () => {
       setErrors(errs);
       return;
     }
+
     setIsLoading(true);
     try {
-      const { data } = await login({ email, password });
+      // 🔹 Si venimos de Spotify → mandamos email + spotifyToken
+      const payload =
+        isSpotifyFlow && spotifyToken
+          ? { email, spotifyToken }
+          : { email, password };
+
+      const { data } = await login(payload);
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
       await refreshPlaylists();
@@ -70,8 +152,8 @@ const LoginForm = () => {
         console.error(err);
       }
     } finally {
-    setIsLoading(false); 
-  }
+      setIsLoading(false);
+    }
   };
 
   const handleResend = async () => {
@@ -88,6 +170,11 @@ const LoginForm = () => {
   if (showVerifyNotice) {
     return <VerificationEmailSent email={email} fromLogin={true} />;
   }
+
+  // Placeholder para el futuro flujo de Spotify
+  const handleContinueWithSpotify = () => {
+    spotifyLogin();
+  };
 
   return (
     <form
@@ -179,6 +266,25 @@ const LoginForm = () => {
       >
         {isLoading ? <ClipLoader size={16} color="#FFFFFF" /> : "ACCEDER"}
       </button>
+
+      {/* Divider + botón CONTINUAR CON SPOTIFY */}
+      <div className="my-4">
+        <div className="h-[1px] w-full bg-[#ca249c]" />
+      </div>
+
+      <button
+        type="button"
+        onClick={handleContinueWithSpotify}
+        className="w-full flex col justify-center items-center gap-2 sm:gap-3 py-2.5 sm:py-3 bg-[#1DB954] text-white font-semibold rounded-lg transition hover:opacity-90 text-sm sm:text-base"
+      >
+        <FaSpotify className="text-[#ffffff] w-5 h-5 sm:w-6.5 sm:h-6.5 flex-shrink-0" />
+        CONTINUAR CON SPOTIFY
+      </button>
+      {isSpotifyFlow && isLoading && (
+        <p className="text-center text-sm text-[#131517]">
+          Iniciando sesión con tu cuenta de Spotify...
+        </p>
+      )}
 
       {/* Link a signup */}
       <div className="text-center text-[#131517] mt-1 sm:mt-2 text-sm sm:text-base">

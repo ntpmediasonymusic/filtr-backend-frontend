@@ -35,3 +35,8 @@ export const resetPassword = (token, newPassword) =>
   api.post("/auth/reset-password", { token, newPassword });
 
 export const fetchAllPlaylists = () => api.get("/api/playlists");
+
+export const spotifyLogin = () => {
+  const base = import.meta.env.VITE_API_URL.replace(/\/+$/, "");
+  window.location.href = `${base}/auth/spotify/login`;
+};
