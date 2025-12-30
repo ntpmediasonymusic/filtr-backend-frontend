@@ -522,7 +522,7 @@ exports.spotifyCallback = async (req, res) => {
         process.env.FRONTEND_BASE_URL || "http://localhost:5173";
 
       return res.redirect(
-        `${FRONTEND_BASE_URL}/signup?spotifyToken=${tempToken}`
+        `${FRONTEND_BASE_URL}signup?spotifyToken=${tempToken}`
       );
     } else {
       // Actualizar tokens de Spotify
@@ -540,7 +540,7 @@ exports.spotifyCallback = async (req, res) => {
 
       const FRONTEND_BASE_URL =
         process.env.FRONTEND_BASE_URL || "http://localhost:5173";
-      return res.redirect(`${FRONTEND_BASE_URL}/login?token=${sessionToken}`);
+      return res.redirect(`${FRONTEND_BASE_URL}login?token=${sessionToken}`);
     }
   } catch (err) {
     console.error("Error en Spotify callback:");
