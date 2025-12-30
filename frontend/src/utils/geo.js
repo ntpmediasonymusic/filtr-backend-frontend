@@ -3,10 +3,8 @@ export async function fetchCountryCode() {
     const res1 = await fetch("https://ipapi.co/json/");
     if (res1.ok) {
       const j = await res1.json();
-      console.log("[GeoIP] respuesta ipapi.co:", j);
       if (j && typeof j.country_code === "string") {
         const code = j.country_code.toUpperCase();
-        console.log("[GeoIP] country_code:", code);
         return code;
       }
     } else {

@@ -18,8 +18,6 @@ const Home = () => {
   const { searchQuery } = useSearch();
   const { region } = useRegion();
 
-  console.log("Main Categories:", mainCategories);
-
   // Si hay búsqueda activa, mostrar el componente Filter
   if (searchQuery && searchQuery.trim() !== "") {
     return <Filter />;

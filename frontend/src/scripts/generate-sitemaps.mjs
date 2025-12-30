@@ -72,4 +72,3 @@ Sitemap: ${ORIGIN}/sitemap.xml
 `;
 await writeFile("./dist/robots.txt", robots, "utf8");
 
-console.log("✅ Sitemaps generados");

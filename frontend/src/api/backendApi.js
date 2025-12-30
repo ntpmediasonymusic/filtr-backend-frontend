@@ -38,7 +38,6 @@ export const fetchAllPlaylists = () => api.get("/api/playlists");
 
 export const spotifyLogin = () => {
   let base = api.defaults.baseURL || window.location.origin;
-  console.log("spotifyLogin base:", base);
   base = base.replace(/\/+$/, "");
   window.location.href = `${base}/auth/spotify/login`;
 };

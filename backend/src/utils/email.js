@@ -3,10 +3,10 @@ const path = require("path");
 const sgMail = require("@sendgrid/mail");
 require("dotenv").config();
 
-sgMail.setApiKey(process.env.DESMAN_USER_SENDGRID_API_KEY);
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 async function sendVerificationEmail(to, name, token) {
-  const frontendUrl = process.env.DESMAN_USER_FRONTEND_BASE_URL;
+  const frontendUrl = process.env.FRONTEND_BASE_URL;
 
   const verifyLink = `${frontendUrl}verify-email?token=${token}`;
   const upperName = name.toUpperCase();
@@ -20,7 +20,7 @@ async function sendVerificationEmail(to, name, token) {
   const msg = {
     to,
     from: {
-      email: process.env.DESMAN_USER_SENDGRID_FROM_EMAIL,
+      email: process.env.SENDGRID_FROM_EMAIL,
       name: "Filtr Centroamérica y Caribe",
     },
     subject: "¡Estas a un clic de formar parte de SOMOS FILTR!",
@@ -96,7 +96,7 @@ async function sendVerificationEmail(to, name, token) {
 }
 
 async function sendResetPasswordEmail(to, token) {
-  const frontendUrl = process.env.DESMAN_USER_FRONTEND_BASE_URL;
+  const frontendUrl = process.env.FRONTEND_BASE_URL;
 
   const resetLink = `${frontendUrl}reset-password?token=${token}`;
   const imagePath = path.resolve(
@@ -108,7 +108,7 @@ async function sendResetPasswordEmail(to, token) {
   const msg = {
     to,
     from: {
-      email: process.env.DESMAN_USER_SENDGRID_FROM_EMAIL,
+      email: process.env.SENDGRID_FROM_EMAIL,
       name: "Filtr Centroamérica y Caribe",
     },
     subject: "Reestablecer contraseña",

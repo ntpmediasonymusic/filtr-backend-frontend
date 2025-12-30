@@ -39,14 +39,12 @@ export function getPreferredRegion() {
   try {
     const r = localStorage.getItem("filtr_region");
     if (!r) {
-      console.log("[Region] no hay filtr_region en localStorage");
       return null; 
     }
     const valid = isValidRegion(r) ? r : null;
-    console.log("[Region] preferida en localStorage:", valid);
     return valid;
   } catch (e) {
-    console.log("[Region] error leyendo localStorage, null", e);
+    console.log("[Region] error:", e);
     return null; 
   }
 }
@@ -67,10 +65,9 @@ export async function detectAndStorePreferredRegion() {
     const iso2 = await fetchCountryCode();
     const region = mapCountryToRegion(iso2);
     localStorage.setItem("filtr_region", region);
-    console.log("[GeoIP] región guardada:", region);
     return region;
   } catch (e) {
-    console.log("[GeoIP] fallo detección, guardo 'cr':", e);
+    console.log("[GeoIP] error 'cr':", e);
     localStorage.setItem("filtr_region", "cr");
     return "cr";
   }

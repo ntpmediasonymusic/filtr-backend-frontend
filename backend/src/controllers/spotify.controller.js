@@ -9,7 +9,7 @@ let cache = {
 
 async function fetchSpotifyToken() {
   const creds = Buffer.from(
-    `${process.env.DESMAN_USER_SPOTIFY_CLIENT_ID}:${process.env.DESMAN_USER_SPOTIFY_CLIENT_SECRET}`
+    `${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`
   ).toString("base64");
   const { data } = await axios.post(
     "https://accounts.spotify.com/api/token",
