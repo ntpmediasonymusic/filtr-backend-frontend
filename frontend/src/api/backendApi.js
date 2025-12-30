@@ -37,6 +37,15 @@ export const resetPassword = (token, newPassword) =>
 export const fetchAllPlaylists = () => api.get("/api/playlists");
 
 export const spotifyLogin = () => {
-  const base = import.meta.env.VITE_API_URL.replace(/\/+$/, "");
+  console.log("VITE_API_URL:", import.meta.env.VITE_API_URL);
+  console.log("api.defaults.baseURL:", api.defaults.baseURL);
+  let base = api.defaults.baseURL;
+  if (!base) {
+    console.error(
+      "VITE_API_URL (api.defaults.baseURL) no está definido."
+    );
+    return;
+  }
+  base = base.replace(/\/+$/, "");
   window.location.href = `${base}/auth/spotify/login`;
 };
