@@ -9,6 +9,7 @@ const {
 const axios = require("axios");
 const querystring = require("querystring");
 const { Op } = require("sequelize");
+const { submitSignupToSmf } = require("../utils/smf");
 
 
 exports.register = async (req, res, next) => {
@@ -58,9 +59,30 @@ exports.register = async (req, res, next) => {
         user.phone = req.body.phone || user.phone;
         user.country = req.body.country || user.country;
         user.favoriteMethod = req.body.favoriteMethod || user.favoriteMethod;
-        user.optInSony = req.body.optInSony;
-        user.optInFiltr = req.body.optInFiltr;
+        user.optInSony = !!req.body.optInSony;
+        user.optInFiltr = !!req.body.optInFiltr;
         await user.save();
+
+        const dob =
+          user.dateOfBirth instanceof Date
+            ? user.dateOfBirth.toISOString().slice(0, 10)
+            : user.dateOfBirth;
+
+        // Enviar datos a SMF
+        await submitSignupToSmf(
+          {
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+            dateOfBirth: dob,
+            phone: user.phone,
+            country: user.country,
+            favoriteMethod: user.favoriteMethod,
+            optInSony: user.optInSony,
+            optInFiltr: user.optInFiltr,
+          },
+          { failSilently: true }
+        );
 
         // Crear token de sesión normal (login)
         const sessionToken = jwt.sign(
@@ -116,6 +138,27 @@ exports.register = async (req, res, next) => {
         spotifyTokenExpiresAt,
       });
 
+      const dob =
+        user.dateOfBirth instanceof Date
+          ? user.dateOfBirth.toISOString().slice(0, 10)
+          : user.dateOfBirth;
+
+      // Enviar datos a SMF
+      await submitSignupToSmf(
+        {
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          dateOfBirth: dob,
+          phone: user.phone,
+          country: user.country,
+          favoriteMethod: user.favoriteMethod,
+          optInSony: user.optInSony,
+          optInFiltr: user.optInFiltr,
+        },
+        { failSilently: true }
+      );
+
       const token = jwt.sign(
         { id: user.id, email: user.email },
         process.env.JWT_SECRET,
@@ -147,6 +190,26 @@ exports.register = async (req, res, next) => {
       optInFiltr,
       isVerified: false,
     });
+    const dob =
+      user.dateOfBirth instanceof Date
+        ? user.dateOfBirth.toISOString().slice(0, 10)
+        : user.dateOfBirth;
+
+    // Enviar datos a SMF
+    await submitSignupToSmf(
+      {
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        dateOfBirth: dob,
+        phone: user.phone,
+        country: user.country,
+        favoriteMethod: user.favoriteMethod,
+        optInSony: user.optInSony,
+        optInFiltr: user.optInFiltr,
+      },
+      { failSilently: true }
+    );
 
     // Generar token de verificación
     const emailToken = jwt.sign(

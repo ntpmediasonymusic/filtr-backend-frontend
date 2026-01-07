@@ -50,7 +50,7 @@ const PartialSignUpForm = ({
           <button
             type="button"
             onClick={onToggleShowPwd}
-            className="text-gray-600"
+            className="text-gray-600 cursor-pointer"
           >
             {showPwd ? (
               <FaEyeSlash className="w-4 h-4 sm:w-5.5 sm:h-5.5 text-[#ca249c] transition-transform duration-200 ease-in-out" />
@@ -71,7 +71,7 @@ const PartialSignUpForm = ({
         <button
           type="button"
           onClick={onContinue}
-          className="w-full py-2.5 sm:py-3 bg-[#ca249c] text-white font-semibold rounded-lg transition hover:opacity-90 text-sm sm:text-base"
+          className="w-full py-2.5 sm:py-3 bg-[#ca249c] text-white font-semibold rounded-lg transition hover:opacity-90 text-sm sm:text-base cursor-pointer"
         >
           CONTINUAR
         </button>

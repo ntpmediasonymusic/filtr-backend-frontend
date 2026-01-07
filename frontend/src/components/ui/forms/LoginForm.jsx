@@ -216,7 +216,7 @@ useEffect(() => {
           <button
             type="button"
             onClick={() => setShowPwd(!showPwd)}
-            className="text-gray-600"
+            className="text-gray-600 cursor-pointer"
           >
             {showPwd ? (
               <FaEyeSlash className="w-4 h-4 sm:w-5.5 sm:h-5.5 text-[#ca249c]" />
@@ -275,7 +275,7 @@ useEffect(() => {
       <button
         type="button"
         onClick={handleContinueWithSpotify}
-        className="w-full flex col justify-center items-center gap-2 sm:gap-3 py-2.5 sm:py-3 bg-[#1DB954] text-white font-semibold rounded-lg transition hover:opacity-90 text-sm sm:text-base"
+        className="w-full flex col justify-center items-center gap-2 sm:gap-3 py-2.5 sm:py-3 bg-[#1DB954] text-white font-semibold rounded-lg transition hover:opacity-90 text-sm sm:text-base cursor-pointer"
       >
         <FaSpotify className="text-[#ffffff] w-5 h-5 sm:w-6.5 sm:h-6.5 flex-shrink-0" />
         CONTINUAR CON SPOTIFY

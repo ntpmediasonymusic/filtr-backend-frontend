@@ -292,7 +292,7 @@ const handleSubmit = async (e) => {
           <button
             type="button"
             onClick={handleContinueWithSpotify}
-            className="w-full flex col justify-center items-center gap-2 sm:gap-3 py-2.5 sm:py-3 bg-[#1DB954] text-white font-semibold rounded-lg transition hover:opacity-90 text-sm sm:text-base"
+            className="w-full flex col justify-center items-center gap-2 sm:gap-3 py-2.5 sm:py-3 bg-[#1DB954] text-white font-semibold rounded-lg transition hover:opacity-90 text-sm sm:text-base cursor-pointer"
           >
             <FaSpotify className="text-[#ffffff] w-5 h-5 sm:w-6.5 sm:h-6.5 flex-shrink-0" />
             CONTINUAR CON SPOTIFY
@@ -509,7 +509,7 @@ const handleSubmit = async (e) => {
           <div className="flex flex-col gap-1 sm:gap-2">
             <button
               type="submit"
-              className="w-full py-2.5 sm:py-3 bg-[#ca249c] text-white font-semibold rounded-lg transition hover:opacity-90 text-sm sm:text-base"
+              className="w-full py-2.5 sm:py-3 bg-[#ca249c] text-white font-semibold rounded-lg transition hover:opacity-90 text-sm sm:text-base cursor-pointer"
             >
               {isLoading ? (
                 <ClipLoader size={16} color="#FFFFFF" />
