@@ -69,7 +69,13 @@ function buildSmfParams(input) {
   const aeBrandId = process.env.SMF_AE_BRAND_ID;
   const aeSegmentId = process.env.SMF_AE_SEGMENT_ID;
   const formId = process.env.SMF_FORM_ID;
-  const aeActivitiesJson = process.env.SMF_AE_ACTIVITIES_JSON;
+  const aeActivitiesJson = {
+    actions: { formsubmission: 193419, secondaryformsubmission: 0 },
+    mailing_list_optins: {
+      a0S24000009wrLWEAY: 193422,
+      a0STy000002XiqjMAC: 193423,
+    },
+  };
 
   const sonyListId = process.env.SMF_LIST_ID_SONY;
   const filtrListId = process.env.SMF_LIST_ID_FILTR;
