@@ -491,8 +491,9 @@ exports.spotifyLogin = async (req, res) => {
   const redirect_uri = process.env.SPOTIFY_REDIRECT_URI;
 
   const state = Math.random().toString(36).substring(2, 15);
-  const scope = "user-read-email user-read-private";
-
+  const scope =
+    "user-read-email user-read-private playlist-modify-public";
+  // user-read-email user-read-private playlist-modify-public playlist-modify-private
   const url = `https://accounts.spotify.com/authorize?${querystring.stringify({
     response_type: "code",
     client_id: process.env.SPOTIFY_CLIENT_ID,

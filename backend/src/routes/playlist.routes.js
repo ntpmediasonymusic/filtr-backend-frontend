@@ -164,4 +164,36 @@ router.delete(
   playlistCtrl.remove
 );
 
+/**
+ * @openapi
+ * /users/{userId}/spotify/playlists/follow:
+ *   post:
+ *     tags:
+ *       - Playlists
+ *     summary: Sigue una playlist en Spotify para el usuario autenticado
+ */
+router.post(
+  "/:userId/spotify/playlists/follow",
+  param("userId").isUUID(),
+  body("playlistId").notEmpty(),
+  validateRequest,
+  playlistCtrl.followSpotify
+);
+
+/**
+ * @openapi
+ * /users/{userId}/spotify/playlists/unfollow:
+ *   post:
+ *     tags:
+ *       - Playlists
+ *     summary: Deja de seguir una playlist en Spotify para el usuario autenticado
+ */
+router.post(
+  "/:userId/spotify/playlists/unfollow",
+  param("userId").isUUID(),
+  body("playlistId").notEmpty(),
+  validateRequest,
+  playlistCtrl.unfollowSpotify
+);
+
 module.exports = router;

@@ -105,11 +105,9 @@ exports.startSpotifyConnect = async (req, res, next) => {
     const userId = req.params.id;
 
     if (!req.user || req.user.id !== userId) {
-      return res
-        .status(403)
-        .json({
-          message: "No tienes permiso para conectar Spotify para este usuario",
-        });
+      return res.status(403).json({
+        message: "No tienes permiso para conectar Spotify para este usuario",
+      });
     }
 
     const user = await User.findByPk(userId);
@@ -136,8 +134,8 @@ exports.startSpotifyConnect = async (req, res, next) => {
     });
 
     const redirect_uri = process.env.SPOTIFY_REDIRECT_URI;
-    const scope = "user-read-email user-read-private";
-
+    const scope = "user-read-email user-read-private playlist-modify-public";
+    // user-read-email user-read-private playlist-modify-public playlist-modify-private
     const authorizeUrl = `https://accounts.spotify.com/authorize?${querystring.stringify(
       {
         response_type: "code",

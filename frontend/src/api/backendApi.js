@@ -24,6 +24,43 @@ export const addFavoritePlaylist = (userId, playlistId) =>
   api.post(`/users/${userId}/playlists`, { playlistId });
 export const removeFavoritePlaylist = (userId, playlistId) =>
   api.delete(`/users/${userId}/playlists/${playlistId}`);
+// Seguir una playlist en la cuenta de Spotify del usuario
+export const followSpotifyPlaylist = (
+  userId,
+  playlistId,
+  {
+    spotifyId,
+    spotifyAccessToken,
+    spotifyRefreshToken,
+    spotifyTokenExpiresAt,
+  }
+) =>
+  api.post(`/users/${userId}/spotify/playlists/follow`, {
+    playlistId,
+    spotifyId,
+    spotifyAccessToken,
+    spotifyRefreshToken,
+    spotifyTokenExpiresAt,
+  });
+
+// Dejar de seguir una playlist en la cuenta de Spotify del usuario
+export const unfollowSpotifyPlaylist = (
+  userId,
+  playlistId,
+  {
+    spotifyId,
+    spotifyAccessToken,
+    spotifyRefreshToken,
+    spotifyTokenExpiresAt,
+  }
+) =>
+  api.post(`/users/${userId}/spotify/playlists/unfollow`, {
+    playlistId,
+    spotifyId,
+    spotifyAccessToken,
+    spotifyRefreshToken,
+    spotifyTokenExpiresAt,
+  });
 // Verificación de correo
 export const confirmEmail = (token) =>
   api.get(`/auth/confirm?token=${encodeURIComponent(token)}`);
