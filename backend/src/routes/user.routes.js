@@ -161,6 +161,19 @@ router.put(
  */
 router.delete("/:id", param("id").isUUID(), validateRequest, userCtrl.delete);
 
-module.exports = router;
+router.post(
+  "/:id/spotify/connect/start",
+  param("id").isUUID(),
+  validateRequest,
+  userCtrl.startSpotifyConnect
+);
+
+// Desconectar Spotify del usuario actual
+router.post(
+  "/:id/spotify/disconnect",
+  param("id").isUUID(),
+  validateRequest,
+  userCtrl.disconnectSpotify
+);
 
 module.exports = router;

@@ -16,6 +16,7 @@ export const login = (payload) => api.post("/auth/login", payload);
 export const updateProfile = (userId, payload) =>
   api.put(`/users/${userId}`, payload);
 export const deleteAccount = (userId) => api.delete(`/users/${userId}`);
+export const getUserById = (userId) => api.get(`/users/${userId}`);
 export const logout = () => api.post("/auth/logout");
 export const getFavoritePlaylists = (userId) =>
   api.get(`/users/${userId}/playlists`);
@@ -36,8 +37,19 @@ export const resetPassword = (token, newPassword) =>
 
 export const fetchAllPlaylists = () => api.get("/api/playlists");
 
+// Inicio flujo "Conectar Spotify" desde el perfil
+export const startSpotifyConnect = (userId, returnUrl) =>
+  api.post(`/users/${userId}/spotify/connect/start`, { returnUrl });
+
+// Desconectar Spotify del perfil
+export const disconnectSpotify = (userId) =>
+  api.post(`/users/${userId}/spotify/disconnect`);
+
+// Flujo de login/signup actual con Spotify
 export const spotifyLogin = () => {
-  let base = api.defaults.baseURL || window.location.origin;
+  let base = import.meta.env.VITE_API_URL || window.location.origin;
   base = base.replace(/\/+$/, "");
   window.location.href = `${base}/auth/spotify/login`;
 };
+
+

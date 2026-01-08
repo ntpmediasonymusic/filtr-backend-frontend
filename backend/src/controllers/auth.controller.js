@@ -68,7 +68,7 @@ exports.register = async (req, res, next) => {
             ? user.dateOfBirth.toISOString().slice(0, 10)
             : user.dateOfBirth;
 
-        // Enviar datos a SMF
+        // Enviar datos a SMF 
         await submitSignupToSmf(
           {
             firstName: user.firstName,
@@ -509,6 +509,23 @@ exports.spotifyCallback = async (req, res) => {
   const redirect_uri = process.env.SPOTIFY_REDIRECT_URI;
 
   try {
+    // flujo "conectar desde perfil"
+    let connectState = null;
+    if (req.query.state && typeof req.query.state === "string") {
+      const rawState = req.query.state;
+      if (rawState.startsWith("connect::")) {
+        const tokenState = rawState.slice("connect::".length);
+        try {
+          connectState = jwt.verify(tokenState, process.env.JWT_SECRET);
+        } catch (err) {
+          console.error(
+            "Error verificando state de conexión Spotify:",
+            err.message
+          );
+        }
+      }
+    }
+
     // --- Config común para llamadas a Spotify ---
     const axiosNoProxy = {
       timeout: 15000, // 15s
@@ -551,6 +568,69 @@ exports.spotifyCallback = async (req, res) => {
     const spotifyId = spotifyData.id;
     const email = spotifyData.email;
 
+    // ---- FLUJO: Conectar Spotify a una cuenta YA existente ----
+    if (
+      connectState &&
+      connectState.type === "spotify-connect" &&
+      connectState.userId
+    ) {
+      const userIdToLink = connectState.userId;
+
+      let user = await User.findByPk(userIdToLink);
+      if (!user) {
+        console.error(
+          "Usuario para conectar Spotify no encontrado:",
+          userIdToLink
+        );
+        const FRONTEND_BASE_URL =
+          process.env.FRONTEND_BASE_URL || "http://localhost:5173";
+        return res.redirect(
+          `${FRONTEND_BASE_URL}/?spotifyError=user_not_found`
+        );
+      }
+
+      // Validar que este spotifyId no esté vinculado a otro usuario
+      const existingWithSpotifyId = await User.findOne({
+        where: { spotifyId },
+      });
+
+      if (existingWithSpotifyId && existingWithSpotifyId.id !== user.id) {
+        console.error(
+          "spotifyId ya está vinculado a otro usuario:",
+          spotifyId,
+          "user:",
+          existingWithSpotifyId.id
+        );
+        const FRONTEND_BASE_URL =
+          process.env.FRONTEND_BASE_URL || "http://localhost:5173";
+        return res.redirect(
+          `${FRONTEND_BASE_URL}/?spotifyError=spotify_id_in_use`
+        );
+      }
+
+      // Actualizar campos de Spotify en el usuario existente
+      user.spotifyId = spotifyId;
+      user.spotifyAccessToken = access_token;
+      user.spotifyRefreshToken = refresh_token;
+      user.spotifyTokenExpiresAt = new Date(Date.now() + expires_in * 1000);
+
+      // Si venía como local, ahora podemos marcarlo como spotify (opcional)
+      if (user.authProvider === "local") {
+        user.authProvider = "spotify";
+      }
+
+      await user.save();
+
+      const returnUrl = connectState.returnUrl || "/";
+      const FRONTEND_BASE_URL =
+        process.env.FRONTEND_BASE_URL || "http://localhost:5173";
+
+      // Opcionalmente, podrías añadir ?spotifyConnected=1 para que el frontend refresque datos
+      return res.redirect(
+        `${FRONTEND_BASE_URL}${returnUrl}?spotifyConnected=1`
+      );
+    }
+
     let user = await User.findOne({
       where: {
         [Op.or]: [{ spotifyId }, { email }],
@@ -585,7 +665,7 @@ exports.spotifyCallback = async (req, res) => {
         process.env.FRONTEND_BASE_URL || "http://localhost:5173";
 
       return res.redirect(
-        `${FRONTEND_BASE_URL}signup?spotifyToken=${tempToken}`
+        `${FRONTEND_BASE_URL}/signup?spotifyToken=${tempToken}`
       );
     } else {
       // Actualizar tokens de Spotify
@@ -603,7 +683,7 @@ exports.spotifyCallback = async (req, res) => {
 
       const FRONTEND_BASE_URL =
         process.env.FRONTEND_BASE_URL || "http://localhost:5173";
-      return res.redirect(`${FRONTEND_BASE_URL}login?token=${sessionToken}`);
+      return res.redirect(`${FRONTEND_BASE_URL}/login?token=${sessionToken}`);
     }
   } catch (err) {
     console.error("Error en Spotify callback:");
