@@ -188,7 +188,7 @@ const PageHeader = ({ welcomeMsg }) => {
             <div className="relative flex-shrink-0 min-w-0" ref={wrapperRef}>
               <button
                 onClick={() => setShowModal((v) => !v)}
-                className="flex items-center gap-2 text-white text-sm md:text-xl whitespace-nowrap"
+                className="flex items-center gap-2 text-white text-sm md:text-xl whitespace-nowrap cursor-pointer"
               >
                 <span className="hidden sm:flex transition-all">
                   {user?.firstName}
@@ -200,7 +200,7 @@ const PageHeader = ({ welcomeMsg }) => {
               )}
             </div>
             <div className="h-6 w-px bg-white mx-0" />
-            <CountryPicker isAuthenticated={true}/>
+            <CountryPicker isAuthenticated={true} />
           </div>
         )}
       </div>

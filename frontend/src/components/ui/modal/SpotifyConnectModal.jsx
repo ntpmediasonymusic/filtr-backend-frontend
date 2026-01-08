@@ -8,6 +8,7 @@ const SpotifyConnectModal = ({ isSpotifyConnected, onClose, onConfirm }) => {
     () => localStorage.getItem("spotifyConnectDontShow") === "true"
   );
 
+  // Cerrar al hacer click fuera del modal
   useEffect(() => {
     const handleOutside = (e) => {
       if (ref.current && !ref.current.contains(e.target)) {
@@ -18,6 +19,16 @@ const SpotifyConnectModal = ({ isSpotifyConnected, onClose, onConfirm }) => {
     return () => document.removeEventListener("mousedown", handleOutside);
   }, [onClose]);
 
+  useEffect(() => {
+    const stopIfInside = (e) => {
+      if (ref.current && ref.current.contains(e.target)) {
+        e.stopPropagation();
+      }
+    };
+    document.addEventListener("mousedown", stopIfInside, true); // capture = true
+    return () => document.removeEventListener("mousedown", stopIfInside, true);
+  }, []);
+
   const handleCheckbox = () => {
     const next = !dontShowAgain;
     setDontShowAgain(next);
@@ -26,12 +37,11 @@ const SpotifyConnectModal = ({ isSpotifyConnected, onClose, onConfirm }) => {
 
   const isCurrentlyConnected = isSpotifyConnected;
 
-  // En entornos sin DOM (SSR) simplemente no renderizamos nada
   if (typeof document === "undefined") return null;
 
   const modalContent = (
     <>
-      {/* Backdrop: ocupa SIEMPRE todo el viewport */}
+      {/* Backdrop */}
       <div className="fixed inset-0 bg-black/60 z-[9998] transition-opacity" />
 
       {/* Modal */}
@@ -114,7 +124,6 @@ const SpotifyConnectModal = ({ isSpotifyConnected, onClose, onConfirm }) => {
     </>
   );
 
-  // Renderizamos el modal directamente en <body>, fuera del header
   return createPortal(modalContent, document.body);
 };
 
