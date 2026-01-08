@@ -583,10 +583,13 @@ exports.spotifyCallback = async (req, res) => {
           "Usuario para conectar Spotify no encontrado:",
           userIdToLink
         );
-        const FRONTEND_BASE_URL =
+
+        let FRONTEND_BASE_URL =
           process.env.FRONTEND_BASE_URL || "http://localhost:5173";
+        FRONTEND_BASE_URL = FRONTEND_BASE_URL.replace(/\/+$/, "");
+
         return res.redirect(
-          `${FRONTEND_BASE_URL}?spotifyError=user_not_found`
+          `${FRONTEND_BASE_URL}/?spotifyError=user_not_found`
         );
       }
 
@@ -602,10 +605,13 @@ exports.spotifyCallback = async (req, res) => {
           "user:",
           existingWithSpotifyId.id
         );
-        const FRONTEND_BASE_URL =
+
+        let FRONTEND_BASE_URL =
           process.env.FRONTEND_BASE_URL || "http://localhost:5173";
+        FRONTEND_BASE_URL = FRONTEND_BASE_URL.replace(/\/+$/, "");
+
         return res.redirect(
-          `${FRONTEND_BASE_URL}?spotifyError=spotify_id_in_use`
+          `${FRONTEND_BASE_URL}/?spotifyError=spotify_id_in_use`
         );
       }
 
@@ -623,13 +629,18 @@ exports.spotifyCallback = async (req, res) => {
       await user.save();
 
       const returnUrl = connectState.returnUrl || "/";
-      const FRONTEND_BASE_URL =
-        process.env.FRONTEND_BASE_URL || "http://localhost:5173";
 
-      // Opcionalmente, podrías añadir ?spotifyConnected=1 para que el frontend refresque datos
-      return res.redirect(
-        `${FRONTEND_BASE_URL}${returnUrl}?spotifyConnected=1`
-      );
+      let FRONTEND_BASE_URL =
+        process.env.FRONTEND_BASE_URL || "http://localhost:5173";
+      FRONTEND_BASE_URL = FRONTEND_BASE_URL.replace(/\/+$/, "");
+
+      // Si el returnUrl ya trae query string usamos "&" en vez de "?"
+      const hasQuery = returnUrl.includes("?");
+      const separator = hasQuery ? "&" : "?";
+
+      const finalUrl = `${FRONTEND_BASE_URL}${returnUrl}${separator}spotifyConnected=1`;
+
+      return res.redirect(finalUrl);
     }
 
     let user = await User.findOne({
@@ -662,11 +673,14 @@ exports.spotifyCallback = async (req, res) => {
         { expiresIn: "15m" }
       );
 
-      const FRONTEND_BASE_URL =
+      let FRONTEND_BASE_URL =
         process.env.FRONTEND_BASE_URL || "http://localhost:5173";
+      FRONTEND_BASE_URL = FRONTEND_BASE_URL.replace(/\/+$/, "");
 
       return res.redirect(
-        `${FRONTEND_BASE_URL}signup?spotifyToken=${tempToken}`
+        `${FRONTEND_BASE_URL}/signup?spotifyToken=${encodeURIComponent(
+          tempToken
+        )}`
       );
     } else {
       // Actualizar tokens de Spotify
@@ -682,9 +696,11 @@ exports.spotifyCallback = async (req, res) => {
       );
       console.log("Sesión creada, redirigiendo...");
 
-      const FRONTEND_BASE_URL =
+      let FRONTEND_BASE_URL =
         process.env.FRONTEND_BASE_URL || "http://localhost:5173";
-      return res.redirect(`${FRONTEND_BASE_URL}login?token=${sessionToken}`);
+      FRONTEND_BASE_URL = FRONTEND_BASE_URL.replace(/\/+$/, "");
+
+      return res.redirect(`${FRONTEND_BASE_URL}/login?token=${sessionToken}`);
     }
   } catch (err) {
     console.error("Error en Spotify callback:");
