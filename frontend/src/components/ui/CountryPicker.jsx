@@ -7,6 +7,7 @@ const COUNTRIES = [
   { code: "do", name: "Rep. Dominicana" },
   { code: "pa", name: "Panamá" },
   { code: "gt", name: "Guatemala" },
+  { code: "sv", name: "El Salvador" },
 ];
 
 function savePreferredRegion(code) {

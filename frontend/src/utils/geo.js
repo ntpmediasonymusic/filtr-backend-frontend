@@ -27,6 +27,8 @@ export function mapCountryToRegion(iso2) {
         return "pa";
       case "GT":
         return "gt";
+      case "SV":
+        return "sv";
       default:
         return "cr";
     }

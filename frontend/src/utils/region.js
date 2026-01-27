@@ -1,4 +1,4 @@
-export const REGIONS = ["cr", "do", "pa", "gt"];
+export const REGIONS = ["cr", "do", "pa", "gt", "sv"];
 
 export function normalizeRegion(code) {
   return String(code || "").toLowerCase();

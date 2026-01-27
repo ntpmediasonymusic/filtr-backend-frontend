@@ -10,6 +10,14 @@ const HeaderCarousel = () => {
   const imageMap = [
     {
       desktop:
+        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-10.png",
+      mobile:
+        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-10.png",
+      alt: "Shakira | Camina Con La Loba",
+      link: "https://www.somosfiltr.com/prizes",
+    },
+    {
+      desktop:
         "/assets/images/home-page-banner/desktop/home-page-banner-desktop-9.png",
       mobile:
         "/assets/images/home-page-banner/mobile/home-page-banner-mobile-9.png",
@@ -107,6 +115,14 @@ const HeaderCarousel = () => {
   const imageMapGt = [
     {
       desktop:
+        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-10.png",
+      mobile:
+        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-10.png",
+      alt: "Shakira | Camina Con La Loba",
+      link: "https://www.somosfiltr.com/prizes",
+    },
+    {
+      desktop:
         "/assets/images/prizes-banners/do/desktop/prizes-banner-desktop-2.jpg",
       mobile:
         "/assets/images/prizes-banners/do/mobile/prizes-banner-mobile-2.jpg",
@@ -131,7 +147,50 @@ const HeaderCarousel = () => {
     },
   ];
 
-  const imageMapRegion = region === "do" ? imageMapDo : region === "pa" ? imageMapPa : region === "gt" ? imageMapGt : imageMap;
+  const imageMapSV = [
+    {
+      desktop:
+        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-10.png",
+      mobile:
+        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-10.png",
+      alt: "Shakira | Camina Con La Loba",
+      link: "https://www.somosfiltr.com/prizes",
+    },
+    {
+      desktop:
+        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-9.png",
+      mobile:
+        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-9.png",
+      alt: "Doja Cat | Vinyl Contest",
+      link: "https://www.somosfiltr.com/prizes",
+    },
+    {
+      desktop:
+        "/assets/images/prizes-banners/do/desktop/prizes-banner-desktop-2.jpg",
+      mobile:
+        "/assets/images/prizes-banners/do/mobile/prizes-banner-mobile-2.jpg",
+      alt: "Ca7riel y Paco Amoroso | Vinyl Contest",
+      link: "https://www.somosfiltr.com/prizes",
+    },
+    {
+      desktop:
+        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-5.png",
+      mobile:
+        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-5.png",
+      alt: "Y2K",
+      link: "https://open.spotify.com/playlist/2XvmYFOs59zc1F1hWTqwgJ",
+    },
+    {
+      desktop:
+        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-4.jpg",
+      mobile:
+        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-4.jpg",
+      alt: "Hip-Hop",
+      link: "https://open.spotify.com/playlist/2tX56rjkc0SlJ8DNhGtkDZ?si=39f0ba5ddf2e4297&nd=1&dlsi=b9c5031430ed4db0",
+    },
+  ];
+
+  const imageMapRegion = region === "do" ? imageMapDo : region === "pa" ? imageMapPa : region === "gt" ? imageMapGt : region === "sv" ? imageMapSV : imageMap;
 
   const PrevArrow = () => (
     <svg
