@@ -26,14 +26,6 @@ const HeaderCarousel = () => {
     },
     {
       desktop:
-        "/assets/images/prizes-banners/do/desktop/prizes-banner-desktop-2.jpg",
-      mobile:
-        "/assets/images/prizes-banners/do/mobile/prizes-banner-mobile-2.jpg",
-      alt: "Ca7riel y Paco Amoroso | Vinyl Contest",
-      link: "https://www.somosfiltr.com/prizes",
-    },
-    {
-      desktop:
         "/assets/images/home-page-banner/desktop/home-page-banner-desktop-5.png",
       mobile:
         "/assets/images/home-page-banner/mobile/home-page-banner-mobile-5.png",
@@ -53,26 +45,10 @@ const HeaderCarousel = () => {
   const imageMapDo = [
     {
       desktop:
-        "/assets/images/prizes-banners/do/desktop/prizes-banner-desktop-2.jpg",
-      mobile:
-        "/assets/images/prizes-banners/do/mobile/prizes-banner-mobile-2.jpg",
-      alt: "Ca7riel y Paco Amoroso | Vinyl Contest",
-      link: "https://www.somosfiltr.com/prizes",
-    },
-    {
-      desktop:
-        "/assets/images/prizes-banners/do/desktop/prizes-banner-desktop-1.png",
-      mobile:
-        "/assets/images/prizes-banners/do/mobile/prizes-banner-mobile-1.png",
-      alt: "Flyaway Beéle",
-      link: "https://www.somosfiltr.com/do/prizes",
-    },
-    {
-      desktop:
         "/assets/images/home-page-banner/do/desktop/home-page-banner-desktop-2.png",
       mobile:
         "/assets/images/home-page-banner/do/mobile/home-page-banner-mobile-2.png",
-      alt: "3. Top RD",
+      alt: "Top RD",
       link: "https://open.spotify.com/playlist/4eGkMMoNpngwyZJ9fNlnV5?si=f1e2357123cf43ce&nd=1&dlsi=af7adb77ff684cfd",
     },
     {
@@ -86,14 +62,6 @@ const HeaderCarousel = () => {
   ];
 
   const imageMapPa = [
-    {
-      desktop:
-        "/assets/images/prizes-banners/do/desktop/prizes-banner-desktop-2.jpg",
-      mobile:
-        "/assets/images/prizes-banners/do/mobile/prizes-banner-mobile-2.jpg",
-      alt: "Ca7riel y Paco Amoroso | Vinyl Contest",
-      link: "https://www.somosfiltr.com/prizes",
-    },
     {
       desktop:
         "/assets/images/home-page-banner/desktop/home-page-banner-desktop-5.png",
@@ -119,14 +87,6 @@ const HeaderCarousel = () => {
       mobile:
         "/assets/images/home-page-banner/mobile/home-page-banner-mobile-10.png",
       alt: "Shakira | Camina Con La Loba",
-      link: "https://www.somosfiltr.com/prizes",
-    },
-    {
-      desktop:
-        "/assets/images/prizes-banners/do/desktop/prizes-banner-desktop-2.jpg",
-      mobile:
-        "/assets/images/prizes-banners/do/mobile/prizes-banner-mobile-2.jpg",
-      alt: "Ca7riel y Paco Amoroso | Vinyl Contest",
       link: "https://www.somosfiltr.com/prizes",
     },
     {
@@ -162,14 +122,6 @@ const HeaderCarousel = () => {
       mobile:
         "/assets/images/home-page-banner/mobile/home-page-banner-mobile-9.png",
       alt: "Doja Cat | Vinyl Contest",
-      link: "https://www.somosfiltr.com/prizes",
-    },
-    {
-      desktop:
-        "/assets/images/prizes-banners/do/desktop/prizes-banner-desktop-2.jpg",
-      mobile:
-        "/assets/images/prizes-banners/do/mobile/prizes-banner-mobile-2.jpg",
-      alt: "Ca7riel y Paco Amoroso | Vinyl Contest",
       link: "https://www.somosfiltr.com/prizes",
     },
     {

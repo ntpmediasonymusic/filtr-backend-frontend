@@ -31,34 +31,15 @@ const Prizes = () => {
       details: "Vinyl Contest",
       link: "https://sme.wyng.com/6944b3ddb12cc1392b73ad64",
     },
-    {
-      desktop:
-        "/assets/images/prizes-banners/do/desktop/prizes-banner-desktop-2.jpg",
-      mobile:
-        "/assets/images/prizes-banners/do/mobile/prizes-banner-mobile-2.jpg",
-      artist: "Ca7riel y Paco Amoroso",
-      details: "Vinyl Contest",
-      link: "https://sme.wyng.com/6913a689121702b83211f155",
-    },
   ];
   const imageMapDo = [
     {
       desktop:
-        "/assets/images/prizes-banners/do/desktop/prizes-banner-desktop-2.jpg",
-      mobile:
-        "/assets/images/prizes-banners/do/mobile/prizes-banner-mobile-2.jpg",
-      artist: "Ca7riel y Paco Amoroso",
+        "/assets/images/prizes-banners/desktop/prizes-banner-desktop-5.png",
+      mobile: "/assets/images/prizes-banners/mobile/prizes-banner-mobile-5.png",
+      artist: "Doja Cat",
       details: "Vinyl Contest",
-      link: "https://sme.wyng.com/6913a689121702b83211f155",
-    },
-    {
-      desktop:
-        "/assets/images/prizes-banners/do/desktop/prizes-banner-desktop-1.png",
-      mobile:
-        "/assets/images/prizes-banners/do/mobile/prizes-banner-mobile-1.png",
-      artist: "Beéle",
-      details: "Flyaway Beéle",
-      link: "https://sme.wyng.com/68af400aa9600be9caea10cf",
+      link: "https://sme.wyng.com/6944b3ddb12cc1392b73ad64",
     },
   ];
   const imageMapRegion = region === "do" ? imageMapDo : imageMap;
