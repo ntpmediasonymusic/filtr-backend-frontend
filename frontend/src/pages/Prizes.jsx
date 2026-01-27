@@ -42,7 +42,23 @@ const Prizes = () => {
       link: "https://sme.wyng.com/6944b3ddb12cc1392b73ad64",
     },
   ];
-  const imageMapRegion = region === "do" ? imageMapDo : imageMap;
+    const imageMapPa = [
+      {
+        desktop:
+          "/assets/images/prizes-banners/desktop/prizes-banner-desktop-5.png",
+        mobile:
+          "/assets/images/prizes-banners/mobile/prizes-banner-mobile-5.png",
+        artist: "Doja Cat",
+        details: "Vinyl Contest",
+        link: "https://sme.wyng.com/6944b3ddb12cc1392b73ad64",
+      },
+    ];
+  const imageMapRegion =
+    region === "do"
+      ? imageMapDo
+      : region === "pa"
+        ? imageMapPa
+            : imageMap;
 
   // Datos del usuario desde localStorage
   const user = JSON.parse(localStorage.getItem("user") || "null");
