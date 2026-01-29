@@ -10,6 +10,14 @@ const HeaderCarousel = () => {
   const imageMap = [
     {
       desktop:
+        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-11.png",
+      mobile:
+        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-11.png",
+      alt: "Filtr | Vinilos POP",
+      link: "https://www.somosfiltr.com/prizes",
+    },
+    {
+      desktop:
         "/assets/images/home-page-banner/desktop/home-page-banner-desktop-10.png",
       mobile:
         "/assets/images/home-page-banner/mobile/home-page-banner-mobile-10.png",
@@ -107,7 +115,7 @@ const HeaderCarousel = () => {
     },
   ];
 
-  const imageMapSV = [
+  const imageMapSv = [
     {
       desktop:
         "/assets/images/home-page-banner/desktop/home-page-banner-desktop-10.png",
@@ -142,7 +150,7 @@ const HeaderCarousel = () => {
     },
   ];
 
-  const imageMapRegion = region === "do" ? imageMapDo : region === "pa" ? imageMapPa : region === "gt" ? imageMapGt : region === "sv" ? imageMapSV : imageMap;
+  const imageMapRegion = region === "do" ? imageMapDo : region === "pa" ? imageMapPa : region === "gt" ? imageMapGt : region === "sv" ? imageMapSv : imageMap;
 
   const PrevArrow = () => (
     <svg

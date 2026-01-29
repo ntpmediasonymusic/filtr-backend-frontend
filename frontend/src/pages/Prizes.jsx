@@ -17,10 +17,18 @@ const Prizes = () => {
   const imageMap = [
     {
       desktop:
+        "/assets/images/prizes-banners/desktop/prizes-banner-desktop-7.png",
+      mobile: "/assets/images/prizes-banners/mobile/prizes-banner-mobile-7.png",
+      artist: "Filtr",
+      details: "Vinilos POP",
+      link: "https://sme.wyng.com/697a65b4400d654e11be2988",
+    },
+    {
+      desktop:
         "/assets/images/prizes-banners/desktop/prizes-banner-desktop-6.png",
       mobile: "/assets/images/prizes-banners/mobile/prizes-banner-mobile-6.png",
       artist: "Shakira",
-      details: " Camina Con La Loba",
+      details: "Camina Con La Loba",
       link: "https://sme.wyng.com/6969269b1eff04d1d5044c31",
     },
     {
@@ -42,7 +50,28 @@ const Prizes = () => {
       link: "https://sme.wyng.com/6944b3ddb12cc1392b73ad64",
     },
   ];
-    const imageMapPa = [
+  const imageMapPa = [
+    {
+      desktop:
+        "/assets/images/prizes-banners/desktop/prizes-banner-desktop-5.png",
+      mobile:
+        "/assets/images/prizes-banners/mobile/prizes-banner-mobile-5.png",
+      artist: "Doja Cat",
+      details: "Vinyl Contest",
+      link: "https://sme.wyng.com/6944b3ddb12cc1392b73ad64",
+    },
+  ];
+
+    const imageMapGt = [
+      {
+        desktop:
+          "/assets/images/prizes-banners/desktop/prizes-banner-desktop-6.png",
+        mobile:
+          "/assets/images/prizes-banners/mobile/prizes-banner-mobile-6.png",
+        artist: "Shakira",
+        details: " Camina Con La Loba",
+        link: "https://sme.wyng.com/6969269b1eff04d1d5044c31",
+      },
       {
         desktop:
           "/assets/images/prizes-banners/desktop/prizes-banner-desktop-5.png",
@@ -53,11 +82,36 @@ const Prizes = () => {
         link: "https://sme.wyng.com/6944b3ddb12cc1392b73ad64",
       },
     ];
+    const imageMapSv = [
+      {
+        desktop:
+          "/assets/images/prizes-banners/desktop/prizes-banner-desktop-6.png",
+        mobile:
+          "/assets/images/prizes-banners/mobile/prizes-banner-mobile-6.png",
+        artist: "Shakira",
+        details: " Camina Con La Loba",
+        link: "https://sme.wyng.com/6969269b1eff04d1d5044c31",
+      },
+      {
+        desktop:
+          "/assets/images/prizes-banners/desktop/prizes-banner-desktop-5.png",
+        mobile:
+          "/assets/images/prizes-banners/mobile/prizes-banner-mobile-5.png",
+        artist: "Doja Cat",
+        details: "Vinyl Contest",
+        link: "https://sme.wyng.com/6944b3ddb12cc1392b73ad64",
+      },
+    ];
+
   const imageMapRegion =
     region === "do"
       ? imageMapDo
       : region === "pa"
         ? imageMapPa
+        : region === "gt"
+          ? imageMapGt
+          : region === "sv"
+            ? imageMapSv
             : imageMap;
 
   // Datos del usuario desde localStorage
