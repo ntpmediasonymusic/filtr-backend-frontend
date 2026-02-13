@@ -10,18 +10,18 @@ const HeaderCarousel = () => {
   const imageMap = [
     {
       desktop:
+        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-12.png",
+      mobile:
+        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-12.png",
+      alt: "El amor no pasa de moda",
+      link: "https://www.somosfiltr.com/genres",
+    },
+    {
+      desktop:
         "/assets/images/home-page-banner/desktop/home-page-banner-desktop-11.png",
       mobile:
         "/assets/images/home-page-banner/mobile/home-page-banner-mobile-11.png",
       alt: "Filtr | Vinilos POP",
-      link: "https://www.somosfiltr.com/prizes",
-    },
-    {
-      desktop:
-        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-10.png",
-      mobile:
-        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-10.png",
-      alt: "Shakira | Camina Con La Loba",
       link: "https://www.somosfiltr.com/prizes",
     },
     {
@@ -53,6 +53,14 @@ const HeaderCarousel = () => {
   const imageMapDo = [
     {
       desktop:
+        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-12.png",
+      mobile:
+        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-12.png",
+      alt: "El amor no pasa de moda",
+      link: "https://www.somosfiltr.com/genres",
+    },
+    {
+      desktop:
         "/assets/images/home-page-banner/do/desktop/home-page-banner-desktop-2.png",
       mobile:
         "/assets/images/home-page-banner/do/mobile/home-page-banner-mobile-2.png",
@@ -70,6 +78,14 @@ const HeaderCarousel = () => {
   ];
 
   const imageMapPa = [
+    {
+      desktop:
+        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-12.png",
+      mobile:
+        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-12.png",
+      alt: "El amor no pasa de moda",
+      link: "https://www.somosfiltr.com/genres",
+    },
     {
       desktop:
         "/assets/images/home-page-banner/desktop/home-page-banner-desktop-5.png",
@@ -91,11 +107,11 @@ const HeaderCarousel = () => {
   const imageMapGt = [
     {
       desktop:
-        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-10.png",
+        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-12.png",
       mobile:
-        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-10.png",
-      alt: "Shakira | Camina Con La Loba",
-      link: "https://www.somosfiltr.com/prizes",
+        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-12.png",
+      alt: "El amor no pasa de moda",
+      link: "https://www.somosfiltr.com/genres",
     },
     {
       desktop:
@@ -118,11 +134,11 @@ const HeaderCarousel = () => {
   const imageMapSv = [
     {
       desktop:
-        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-10.png",
+        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-12.png",
       mobile:
-        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-10.png",
-      alt: "Shakira | Camina Con La Loba",
-      link: "https://www.somosfiltr.com/prizes",
+        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-12.png",
+      alt: "El amor no pasa de moda",
+      link: "https://www.somosfiltr.com/genres",
     },
     {
       desktop:

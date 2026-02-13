@@ -25,14 +25,6 @@ const Prizes = () => {
     },
     {
       desktop:
-        "/assets/images/prizes-banners/desktop/prizes-banner-desktop-6.png",
-      mobile: "/assets/images/prizes-banners/mobile/prizes-banner-mobile-6.png",
-      artist: "Shakira",
-      details: "Camina Con La Loba",
-      link: "https://sme.wyng.com/6969269b1eff04d1d5044c31",
-    },
-    {
-      desktop:
         "/assets/images/prizes-banners/desktop/prizes-banner-desktop-5.png",
       mobile: "/assets/images/prizes-banners/mobile/prizes-banner-mobile-5.png",
       artist: "Doja Cat",
@@ -65,15 +57,6 @@ const Prizes = () => {
     const imageMapGt = [
       {
         desktop:
-          "/assets/images/prizes-banners/desktop/prizes-banner-desktop-6.png",
-        mobile:
-          "/assets/images/prizes-banners/mobile/prizes-banner-mobile-6.png",
-        artist: "Shakira",
-        details: " Camina Con La Loba",
-        link: "https://sme.wyng.com/6969269b1eff04d1d5044c31",
-      },
-      {
-        desktop:
           "/assets/images/prizes-banners/desktop/prizes-banner-desktop-5.png",
         mobile:
           "/assets/images/prizes-banners/mobile/prizes-banner-mobile-5.png",
@@ -83,15 +66,6 @@ const Prizes = () => {
       },
     ];
     const imageMapSv = [
-      {
-        desktop:
-          "/assets/images/prizes-banners/desktop/prizes-banner-desktop-6.png",
-        mobile:
-          "/assets/images/prizes-banners/mobile/prizes-banner-mobile-6.png",
-        artist: "Shakira",
-        details: " Camina Con La Loba",
-        link: "https://sme.wyng.com/6969269b1eff04d1d5044c31",
-      },
       {
         desktop:
           "/assets/images/prizes-banners/desktop/prizes-banner-desktop-5.png",
