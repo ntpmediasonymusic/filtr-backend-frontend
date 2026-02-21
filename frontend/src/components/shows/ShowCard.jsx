@@ -1,93 +1,190 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import MapMarker from "../../assets/icons/MapMarker";
 import { IoTicketOutline } from "react-icons/io5";
 import useFormattedDate from "../../hooks/shows/useFormattedDate";
+// Dejar import por si lo reactivas después:
 import ExternalLinkModal from "../ui/modal/ExternalLinkModal";
 import LoginModal from "../ui/modal/LoginModal";
 
+import {
+  isLivestream,
+  buildFollowUrl,
+  buildNotifyUrl,
+  buildRsvpUrl,
+  buildPlayMyCityUrl,
+  buildWaitlistUrl,
+} from "../../api/bandsintown";
+
+const ENABLE_EXTERNAL_LINK_MODAL = false; // ⬅️ Cambia a true si lo quieres reactivar
+
 const ShowCard = ({
-  artist,
-  showName,
-  urlShow,
-  urlShowImage,
-  date, // "DD/MM/YYYY"
-  place,
-  canceled
+  // Legacy props (si aún se usan en algún lado)
+  artist = "",
+  showName = "",
+  urlShow = "",
+  date = "",
+  place = { location: "", venue: "" },
+  canceled = false,
+
+  // Bandsintown props
+  bitEvent = null,
+  artistName = "",
+  artistBitUrl = "", // opcional
+  artistApiId = "", // app_id por artista
 }) => {
   const [showModal, setShowModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [selectedUrl, setSelectedUrl] = useState(urlShow);
 
-  // Check login
-  const user = JSON.parse(localStorage.getItem("user") || "null");
-  const bearer = localStorage.getItem("token");
-  const loggedIn = !!bearer && !!user?.id;
+  const [loggedIn, setLoggedIn] = useState(false);
+  useEffect(() => {
+    try {
+      const user = JSON.parse(localStorage.getItem("user") || "null");
+      const bearer = localStorage.getItem("token");
+      setLoggedIn(!!bearer && !!user?.id);
+    } catch {
+      setLoggedIn(false);
+    }
+  }, []);
 
-  const handleClickLink = (e) => {
+  const derived = useMemo(() => {
+    if (!bitEvent) {
+      return {
+        _artist: artist,
+        _date: date,
+        _venue: place?.venue || "",
+        _location: place?.location || "",
+        _urlTickets: urlShow || "",
+        _isVirtual: false,
+        _canceled: canceled,
+        _title: showName || "",
+        ctas: {},
+      };
+    }
+
+    const venueName = bitEvent?.venue?.name || "";
+    const locParts = [
+      bitEvent?.venue?.city,
+      bitEvent?.venue?.region,
+      bitEvent?.venue?.country,
+    ]
+      .filter(Boolean)
+      .join(", ");
+
+    const ticketOffer =
+      (bitEvent?.offers || []).find(
+        (o) => o.type === "Tickets" && o.status !== "unavailable",
+      ) || (bitEvent?.offers || [])[0];
+
+    const urlTickets = (ticketOffer && ticketOffer.url) || bitEvent?.url || "";
+
+    const followUrl = artistBitUrl
+      ? buildFollowUrl(artistBitUrl, artistApiId)
+      : "";
+    const notifyUrl = buildNotifyUrl(bitEvent?.url || "", artistApiId);
+    const rsvpUrl = buildRsvpUrl(bitEvent?.url || "", artistApiId);
+    const pmcUrl = artistBitUrl
+      ? buildPlayMyCityUrl(artistBitUrl, artistApiId)
+      : "";
+    const waitlistUrl = buildWaitlistUrl(bitEvent?.url || "", artistApiId);
+
+    return {
+      _artist: artistName || artist,
+      _date: bitEvent?.datetime || date,
+      _venue: venueName,
+      _location: locParts,
+      _urlTickets: urlTickets,
+      _isVirtual: isLivestream(bitEvent),
+      _canceled: canceled,
+      _title: bitEvent?.title || showName || "",
+      ctas: { followUrl, notifyUrl, rsvpUrl, pmcUrl, waitlistUrl },
+    };
+  }, [
+    bitEvent,
+    artist,
+    artistName,
+    date,
+    place,
+    urlShow,
+    canceled,
+    showName,
+    artistBitUrl,
+    artistApiId,
+  ]);
+
+  const openExternal = (url) => {
+    if (!url) return;
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
+
+  const handleProtectedOpen = (e, url) => {
+    if (!url) return;
+
+    // Para que el link NO navegue en la misma pestaña si hacemos window.open.
+    e?.preventDefault?.();
+
     if (!loggedIn) {
-      e.preventDefault();
       setShowLoginModal(true);
-    } else if (
-      urlShow &&
+      return;
+    }
+
+    // Modal opcional (desactivado por default)
+    if (
+      ENABLE_EXTERNAL_LINK_MODAL &&
       localStorage.getItem("externalLinkDontShow") !== "true"
     ) {
-      e.preventDefault();
+      setSelectedUrl(url);
       setShowModal(true);
+      return;
     }
+
+    openExternal(url);
   };
 
   const confirmAndOpen = () => {
-    window.open(urlShow, "_blank", "noopener noreferrer");
+    openExternal(selectedUrl);
     setShowModal(false);
   };
 
   return (
     <>
-      <div className="flex flex-col xl:flex-row w-full xl:w-[660px] bg-[#262627] rounded-lg p-4 gap-5">
-        {urlShow && (
-          <div className="flex-shrink-0 w-full xl:w-[225px]">
-            <a
-              href={urlShow}
-              onClick={handleClickLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block"
-            >
-              <ShowCardImage
-                src={urlShowImage}
-                alt={showName}
-                date={date}
-                canceled={canceled}
-              />
-            </a>
+      <div className="flex flex-col w-full xl:w-[360px] bg-[#262627] rounded-lg p-4 gap-5">
+        {/* Info */}
+        <div className="flex items-center gap-3">
+          <MapMarker className="mt-[2px]" />
+          <div className="flex flex-col text-white text-sm leading-tight">
+            {derived._isVirtual ? (
+              <>
+                <span>Evento virtual</span>
+                {derived._venue ? <span>{derived._venue}</span> : null}
+              </>
+            ) : (
+              <>
+                <span>{derived._location || ""}</span>
+                <span>{derived._venue || ""}</span>
+              </>
+            )}
           </div>
-        )}
+        </div>
 
-        {/* Show Info */}
-        <div className="flex flex-col justify-center gap-6 w-full">
-          <div className="flex items-center gap-3">
-            <MapMarker className="mt-[2px]" />
-            <div className="flex xl:flex-col text-white text-sm leading-tight">
-              <span>{place.location}</span>
-              <span className="ml-1 xl:ml-0">{place.venue}</span>
-            </div>
-          </div>
+        <div className="flex flex-col gap-2">
+          <h2 className="text-[22px] md:text-[26px] font-black text-white leading-tight">
+            {useFormattedDate(derived._date)}
+          </h2>
+          <h3 className="text-[18px] md:text-[22px] font-medium text-white leading-tight line-clamp-1">
+            {derived._artist}
+          </h3>
+        </div>
 
-          <div className="flex flex-col gap-2 xl:ml-8">
-            <h2 className="xl:text-[28px] font-black text-white leading-tight">
-              {useFormattedDate(date)}
-            </h2>
-            <h2 className="xl:text-[26px] font-medium text-white leading-tight line-clamp-1">
-              {artist}
-            </h2>
-          </div>
-
+        {/* Link principal */}
+        {derived._urlTickets && (
           <a
-            href={urlShow}
-            onClick={handleClickLink}
+            href={derived._urlTickets}
+            onClick={(e) => handleProtectedOpen(e, derived._urlTickets)}
             target="_blank"
             rel="noopener noreferrer"
-            className="group text-[#00DAF0] hover:text-[#7cf3ff] transition xl:ml-8"
+            className="group text-[#00DAF0] hover:text-[#7cf3ff] transition"
           >
             <div className="flex items-center gap-2 text-lg">
               <IoTicketOutline />
@@ -96,13 +193,76 @@ const ShowCard = ({
               </span>
             </div>
           </a>
+        )}
+
+        {/* CTAs */}
+        <div className="flex flex-wrap gap-2">
+          {derived.ctas.followUrl ? (
+            <a
+              href={derived.ctas.followUrl}
+              onClick={(e) => handleProtectedOpen(e, derived.ctas.followUrl)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-xl border border-white/10 px-3 py-1.5 text-sm text-white hover:bg-white/5 transition"
+            >
+              Follow
+            </a>
+          ) : null}
+
+          {derived.ctas.notifyUrl ? (
+            <a
+              href={derived.ctas.notifyUrl}
+              onClick={(e) => handleProtectedOpen(e, derived.ctas.notifyUrl)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-xl border border-white/10 px-3 py-1.5 text-sm text-white hover:bg-white/5 transition"
+            >
+              Notify Me
+            </a>
+          ) : null}
+
+          {derived.ctas.rsvpUrl ? (
+            <a
+              href={derived.ctas.rsvpUrl}
+              onClick={(e) => handleProtectedOpen(e, derived.ctas.rsvpUrl)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-xl border border-white/10 px-3 py-1.5 text-sm text-white hover:bg-white/5 transition"
+            >
+              RSVP
+            </a>
+          ) : null}
+
+          {derived.ctas.waitlistUrl ? (
+            <a
+              href={derived.ctas.waitlistUrl}
+              onClick={(e) => handleProtectedOpen(e, derived.ctas.waitlistUrl)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-xl border border-white/10 px-3 py-1.5 text-sm text-white hover:bg-white/5 transition"
+            >
+              Waitlist
+            </a>
+          ) : null}
+
+          {derived.ctas.pmcUrl ? (
+            <a
+              href={derived.ctas.pmcUrl}
+              onClick={(e) => handleProtectedOpen(e, derived.ctas.pmcUrl)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-xl border border-white/10 px-3 py-1.5 text-sm text-white hover:bg-white/5 transition"
+            >
+              Play My City
+            </a>
+          ) : null}
         </div>
       </div>
 
-      {/* External Link Modal */}
-      {showModal && (
+      {/* External Link Modal (preparado, desactivado por flag) */}
+      {ENABLE_EXTERNAL_LINK_MODAL && showModal && (
         <ExternalLinkModal
-          url={urlShow}
+          url={selectedUrl}
           onClose={() => setShowModal(false)}
           onConfirm={confirmAndOpen}
         />
@@ -118,75 +278,5 @@ const ShowCard = ({
     </>
   );
 };
-
-function ShowCardImage({ src, alt, date, canceled }) {
-  const [loaded, setLoaded] = useState(false);
-
-  // Parseamos "DD/MM/YYYY"
-  const [day, month, year] = date.split("/").map(Number);
-  const eventDate = new Date(year, month - 1, day);
-  const today = new Date();
-  // Normalizamos a medianoche
-  const diffMs = eventDate.setHours(0, 0, 0, 0) - today.setHours(0, 0, 0, 0);
-  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-
-  let overlayText = "";
-  let textColor = "";
-  if (diffDays < 0) {
-    overlayText = "FINALIZADO";
-    textColor = "text-red-500";
-  } else if (diffDays === 0) {
-    overlayText = "¡ES HOY!";
-    textColor = "text-blue-400";
-  } else if (diffDays === 1) {
-    overlayText = "¡ES MAÑANA!";
-    textColor = "text-blue-400";
-  } else if (diffDays === 2) {
-    overlayText = "FALTAN 2 DÍAS";
-    textColor = "text-yellow-400";
-  } else if (diffDays === 3) {
-    overlayText = "FALTAN 3 DÍAS";
-    textColor = "text-yellow-400";
-  } else if (diffDays > 0 && diffDays < 15) {
-    overlayText = "MUY PRONTO";
-    textColor = "text-yellow-400";
-  } else if (canceled) {
-    overlayText = "CANCELADO";
-    textColor = "text-red-500";
-  }
-
-  return (
-    <div className="relative w-full before:block before:pt-[100%] rounded-md overflow-hidden bg-gray-700">
-      {/* Placeholder */}
-      {!loaded && (
-        <div className="absolute inset-0 animate-pulse bg-gray-600" />
-      )}
-
-      {/* Imagen */}
-      <img
-        src={src}
-        alt={alt}
-        onLoad={() => setLoaded(true)}
-        loading="lazy"
-        className={`
-          absolute inset-0 w-full h-full object-cover
-          transition-opacity duration-500
-          ${loaded ? "opacity-100" : "opacity-0"}
-        `}
-      />
-
-      {/* Overlay si hay texto */}
-      {overlayText && (
-        <div className="flex justify-center absolute bottom-0 left-0 w-full px-2 py-2 bg-black/80">
-          <span
-            className={`leading-tight font-black text-[24px] sm:text-[24px] md:text-[24px] lg:text-[18px] xl:text-[18px] ${textColor}`}
-          >
-            {overlayText}
-          </span>
-        </div>
-      )}
-    </div>
-  );
-}
 
 export default ShowCard;

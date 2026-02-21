@@ -2,11 +2,9 @@ import { useMemo } from "react";
 
 const useFormattedDate = (dateString) => {
   const formattedDate = useMemo(() => {
-    if (!dateString) return "";
-    const parts = dateString.split("/");
-    if (parts.length !== 3) return dateString;
-    // eslint-disable-next-line no-unused-vars
-    const [day, month, year] = parts;
+    const d = parseFlexible(dateString);
+    if (!d) return "";
+
     const monthNames = [
       "Enero",
       "Febrero",
@@ -21,15 +19,37 @@ const useFormattedDate = (dateString) => {
       "Noviembre",
       "Diciembre",
     ];
-    const monthIndex = parseInt(month, 10) - 1;
-    const dayNumber = parseInt(day, 10);
-    if (monthIndex < 0 || monthIndex >= monthNames.length || isNaN(dayNumber)) {
-      return dateString;
-    }
-    return `${monthNames[monthIndex]} ${dayNumber}`;
+
+    const day = d.getDate(); // 1-31
+    const month = monthNames[d.getMonth()];
+    const year = d.getFullYear();
+
+    return `${day} de ${month} ${year}`;
   }, [dateString]);
 
   return formattedDate;
 };
+
+function parseFlexible(s) {
+  if (!s) return null;
+
+  // ISO YYYY-MM-DD
+  if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return new Date(s + "T00:00:00");
+
+  // MM/DD/YYYY
+  if (/^\d{2}\/\d{2}\/\d{4}$/.test(s)) {
+    const [m, d, y] = s.split("/").map(Number);
+    return new Date(y, m - 1, d);
+  }
+
+  // DD/MM/YYYY
+  if (/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(s)) {
+    const [d, m, y] = s.split("/").map(Number);
+    return new Date(y, m - 1, d);
+  }
+
+  const d = new Date(s);
+  return isNaN(d) ? null : d;
+}
 
 export default useFormattedDate;

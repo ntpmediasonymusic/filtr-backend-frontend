@@ -43,8 +43,8 @@ app.use((req, res, next) => {
       // JS: self, tu CDN, GTM/GA y Hotjar (+ inline si lo necesitas)
       "script-src 'self' https://cdn.wyng.com https://www.googletagmanager.com https://www.google-analytics.com https://static.hotjar.com https://script.hotjar.com 'unsafe-inline'",
 
-      // Conexiones XHR/Fetch/WebSocket: APIs propias + Hotjar (.com y .io) + GA/GTM
-      "connect-src 'self' https://accounts.spotify.com https://api.spotify.com https://www.google-analytics.com https://www.googletagmanager.com https://*.hotjar.com wss://*.hotjar.com https://*.hotjar.io wss://*.hotjar.io https://content.hotjar.io",
+      // Conexiones XHR/Fetch/WebSocket: APIs propias + Hotjar (.com y .io) + GA/GTM, https://rest.bandsintown.com
+      "connect-src 'self' https://accounts.spotify.com https://api.spotify.com https://rest.bandsintown.com https://www.google-analytics.com https://www.googletagmanager.com https://*.hotjar.com wss://*.hotjar.com https://*.hotjar.io wss://*.hotjar.io https://content.hotjar.io",
 
       // Estilos (banner, etc.)
       "style-src 'self' https://fonts.googleapis.com 'unsafe-inline'",
@@ -57,7 +57,7 @@ app.use((req, res, next) => {
 
       // Iframes (noscript GTM y recursos de Hotjar si los usa)
       "frame-src 'self' https://www.googletagmanager.com https://*.hotjar.com",
-    ].join("; ")
+    ].join("; "),
   );
   next();
 });
