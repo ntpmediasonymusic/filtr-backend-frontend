@@ -874,7 +874,7 @@
       "playlistName": "FESTIVAL BARBARELLA 2025",
       "urlPlaylist": "https://open.spotify.com/playlist/2VhQNYOiTfeVcoL5cyV5I2?si=686bd1a9178049ec&nd=1&dlsi=c14c28bde5024eda",
       "urlCoverImage": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000d72c81be76d11f1bfdba5650c26f",
-      "mainCategory": ["Novedades y Éxitos"],
+      "mainCategory": [],
       "genre": ["Novedades"],
       "moods": [],
       "region": ["do"],
@@ -885,11 +885,12 @@
       "playlistName": "MÉTELE DEMBOW 🍑🔥",
       "urlPlaylist": "https://open.spotify.com/playlist/2njtU0pVZvudkZFmsdnGvu?si=9172ecc675ac4aa5&nd=1&dlsi=b222901a6c424965",
       "urlCoverImage": "https://image-cdn-fa.spotifycdn.com/image/ab67706c0000d72ccccadb534e8aa91aaf10e1ce",
-      "mainCategory": [],
+      "mainCategory": ["Novedades y Éxitos"],
       "genre": ["Urbano", "Tropical"],
       "moods": [],
       "region": ["do"],
-      "priority": 1
+      "excludeRegion": ["cr", "pa", "gt", "sv"],
+      "priority": 0
     }
   ]
 }

@@ -105,7 +105,7 @@ export default function MainCategoryPreview({ title, playlists }) {
       <div className="overflow-hidden">
         <div
           ref={containerRef}
-          className="flex gap-4 md:gap-8 justify-start overflow-x-auto py-2 px-4 md:px-6 scrollbar-hide cursor-grab snap-x snap-mandatory"
+          className="flex gap-4 md:gap-8 justify-start 2xl:justify-center overflow-x-auto py-2 px-4 md:px-6 scrollbar-hide cursor-grab snap-x snap-mandatory"
           style={{
             scrollBehavior: "smooth",
             scrollPaddingLeft: "1rem",

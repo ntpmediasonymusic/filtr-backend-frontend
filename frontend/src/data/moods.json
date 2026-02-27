@@ -1,11 +1,6 @@
 {
   "moods": [
     {
-      "name": "Halloween",
-      "desktopImage": "/assets/images/cards-moods/cards-moods-v2/desktop/cards-moods-desktop-halloween.jpg",
-      "mobileImage": "/assets/images/cards-moods/cards-moods-v2/mobile/cards-moods-mobile-halloween.jpg"
-    },
-    {
       "name": "Fiesta",
       "desktopImage": "/assets/images/cards-moods/cards-moods-v2/desktop/cards-moods-desktop-fiesta.png",
       "mobileImage": "/assets/images/cards-moods/cards-moods-v2/mobile/cards-moods-mobile-fiesta.png"

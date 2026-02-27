@@ -53,6 +53,14 @@ const HeaderCarousel = () => {
   const imageMapDo = [
     {
       desktop:
+        "/assets/images/home-page-banner/do/desktop/home-page-banner-desktop-4.png",
+      mobile:
+        "/assets/images/home-page-banner/do/mobile/home-page-banner-mobile-4.png",
+      alt: "PASÓ FILTRO: Aprobado por Alofoke",
+      link: "https://open.spotify.com/playlist/2njtU0pVZvudkZFmsdnGvu?si=fa13270b8dc74bef&nd=1&dlsi=ef3f0e2f858a474a",
+    },
+    {
+      desktop:
         "/assets/images/home-page-banner/desktop/home-page-banner-desktop-12.png",
       mobile:
         "/assets/images/home-page-banner/mobile/home-page-banner-mobile-12.png",
@@ -66,14 +74,6 @@ const HeaderCarousel = () => {
         "/assets/images/home-page-banner/do/mobile/home-page-banner-mobile-2.png",
       alt: "Top RD",
       link: "https://open.spotify.com/playlist/4eGkMMoNpngwyZJ9fNlnV5?si=f1e2357123cf43ce&nd=1&dlsi=af7adb77ff684cfd",
-    },
-    {
-      desktop:
-        "/assets/images/home-page-banner/do/desktop/home-page-banner-desktop-3.png",
-      mobile:
-        "/assets/images/home-page-banner/do/mobile/home-page-banner-mobile-3.png",
-      alt: "Dembow",
-      link: "https://open.spotify.com/playlist/2njtU0pVZvudkZFmsdnGvu?si=fa13270b8dc74bef&nd=1&dlsi=ef3f0e2f858a474a",
     },
   ];
 
