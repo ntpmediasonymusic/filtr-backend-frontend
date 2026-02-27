@@ -77,6 +77,9 @@ const HeaderCarousel = () => {
     },
   ];
 
+  // ✅ US usa el mismo contenido que DO
+  const imageMapUs = imageMapDo;
+
   const imageMapPa = [
     {
       desktop:
@@ -166,7 +169,18 @@ const HeaderCarousel = () => {
     },
   ];
 
-  const imageMapRegion = region === "do" ? imageMapDo : region === "pa" ? imageMapPa : region === "gt" ? imageMapGt : region === "sv" ? imageMapSv : imageMap;
+  const imageMapRegion =
+    region === "do"
+      ? imageMapDo
+      : region === "us"
+        ? imageMapUs
+        : region === "pa"
+          ? imageMapPa
+          : region === "gt"
+            ? imageMapGt
+            : region === "sv"
+              ? imageMapSv
+              : imageMap;
 
   const PrevArrow = () => (
     <svg
@@ -187,6 +201,7 @@ const HeaderCarousel = () => {
       </g>
     </svg>
   );
+
   const NextArrow = () => (
     <svg
       viewBox="0 0 44 44"

@@ -28,10 +28,16 @@ const SignUpForm = () => {
     region === "cr"
       ? "Costa Rica"
       : region === "do"
-      ? "República Dominicana"
-      : region === "pa"
-      ? "Panamá"
-      : ""
+        ? "República Dominicana"
+        : region === "pa"
+          ? "Panamá"
+          : region === "gt"
+            ? "Guatemala"
+            : region === "sv"
+              ? "El Salvador"
+              : region === "us"
+                ? "Estados Unidos"
+                : "",
   );
   const [birthdate, setBirthdate] = useState("");
   const [phone, setPhone] = useState("");

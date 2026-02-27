@@ -4,7 +4,7 @@ import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 const ORIGIN = "https://www.somosfiltr.com";
-const REGIONS = ["cr", "do", "pa"];
+const REGIONS = ["cr", "do", "pa", "gt", "sv", "us"];
 
 // Rutas estáticas (sin región). El script las prefija por región:
 const STATIC_ROUTES = [
@@ -71,4 +71,3 @@ Allow: /
 Sitemap: ${ORIGIN}/sitemap.xml
 `;
 await writeFile("./dist/robots.txt", robots, "utf8");
-

@@ -5,271 +5,271 @@
         "artistId": null,
         "artistApiId": "2a3d36ce9a53582d8aae341842f4591e",
         "name": "Shakira",
-        "regions": ["cr", "do", "pa", "gt", "sv"]
+        "regions": ["cr", "do", "pa", "gt", "sv", "us"]
       },
       {
         "artistId": null,
         "artistApiId": "dd9f308b038022fbdfa14c08c9c09c2a",
         "name": "Maluma",
-        "regions": ["cr", "do", "pa", "gt", "sv"]
+        "regions": ["cr", "do", "pa", "gt", "sv", "us"]
       },
       {
         "artistId": null,
         "artistApiId": "8d40101299e3bd286d7f6c13c6b478a8",
         "name": "Rauw Alejandro",
-        "regions": ["cr", "do", "pa", "gt", "sv"]
+        "regions": ["cr", "do", "pa", "gt", "sv", "us"]
       },
       {
         "artistId": null,
         "artistApiId": "c083dee2a0fe38a774352dddd66cdaf4",
         "name": "Beéle",
-        "regions": ["cr", "do", "pa", "gt", "sv"]
+        "regions": ["cr", "do", "pa", "gt", "sv", "us"]
       },
       {
         "artistId": null,
         "artistApiId": "c24ab9734aa456f6b3f55fdefc5d57db",
         "name": "Debi Nova",
-        "regions": ["cr", "do", "pa", "gt", "sv"]
+        "regions": ["cr", "do", "pa", "gt", "sv", "us"]
       },
       {
         "artistId": null,
         "artistApiId": "c7e64f5239d15e3a589db9b273d2e950",
         "name": "Christian Nodal",
-        "regions": ["cr", "do", "pa", "gt", "sv"]
+        "regions": ["cr", "do", "pa", "gt", "sv", "us"]
       },
       {
         "artistId": null,
         "artistApiId": "e7335ad07e4a9ad8f1bd23d2ed335d33",
         "name": "Carlos Vives",
-        "regions": ["cr", "do", "pa", "gt", "sv"]
+        "regions": ["cr", "do", "pa", "gt", "sv", "us"]
       },
       {
         "artistId": null,
         "artistApiId": "e1a6d3b5c757178397084168527189fc",
         "name": "Camilo",
-        "regions": ["cr", "do", "pa", "gt", "sv"]
+        "regions": ["cr", "do", "pa", "gt", "sv", "us"]
       },
       {
         "artistId": null,
         "artistApiId": "f6cf391c708d47f891eca75f4e4114e6",
         "name": "Abel Pintos",
-        "regions": ["cr", "do", "pa", "gt", "sv"]
+        "regions": ["cr", "do", "pa", "gt", "sv", "us"]
       },
       {
         "artistId": null,
         "artistApiId": "ada8928f7a35d16666d0d7f3ae73ff7f",
         "name": "Yuridia",
-        "regions": ["cr", "do", "pa", "gt", "sv"]
+        "regions": ["cr", "do", "pa", "gt", "sv", "us"]
       },
       {
         "artistId": null,
         "artistApiId": "71a57d06ea2cfc6edd20b9860ddc71a8",
         "name": "Reik",
-        "regions": ["cr", "do", "pa", "gt", "sv"]
+        "regions": ["cr", "do", "pa", "gt", "sv", "us"]
       },
       {
         "artistId": null,
         "artistApiId": "0e299176c25596d2ca7e093aff33047d",
         "name": "Camila",
-        "regions": ["cr", "do", "pa", "gt", "sv"]
+        "regions": ["cr", "do", "pa", "gt", "sv", "us"]
       },
       {
         "artistId": null,
         "artistApiId": "b43c69c9e2031d7a0bfa60e701cbdfc2",
         "name": "Matisse",
-        "regions": ["cr", "do", "pa", "gt", "sv"]
+        "regions": ["cr", "do", "pa", "gt", "sv", "us"]
       },
       {
         "artistId": null,
         "artistApiId": "3eb7c4af9b8321b7ca7a8f7ba942096c",
         "name": "Sin Bandera",
-        "regions": ["cr", "do", "pa", "gt", "sv"]
+        "regions": ["cr", "do", "pa", "gt", "sv", "us"]
       },
       {
         "artistId": null,
         "artistApiId": "e67dc2e3617551c70be8f0756d4394ba",
         "name": "Leonel García",
-        "regions": ["cr", "do", "pa", "gt", "sv"]
+        "regions": ["cr", "do", "pa", "gt", "sv", "us"]
       },
       {
         "artistId": null,
         "artistApiId": "fe15b41958d59f45e91fb8a60f77371c",
         "name": "Manuel Turizo",
-        "regions": ["cr", "do", "pa", "gt", "sv"]
+        "regions": ["cr", "do", "pa", "gt", "sv", "us"]
       },
       {
         "artistId": null,
         "artistApiId": "4824c87737d2b2e4c1e06a5d710f7e8c",
         "name": "Alejandro Sanz",
-        "regions": ["cr", "do", "pa", "gt", "sv"]
+        "regions": ["cr", "do", "pa", "gt", "sv", "us"]
       },
       {
         "artistId": null,
         "artistApiId": "26ce86c6d59eaf4dc19bb506311a5ad9",
         "name": "Thalía",
-        "regions": ["cr", "do", "pa", "gt", "sv"]
+        "regions": ["cr", "do", "pa", "gt", "sv", "us"]
       },
       {
         "artistId": null,
         "artistApiId": "fedd6faeb49709ab3cbb671ae7258c5c",
         "name": "Kany Garcia",
-        "regions": ["cr", "do", "pa", "gt", "sv"]
+        "regions": ["cr", "do", "pa", "gt", "sv", "us"]
       },
       {
         "artistId": null,
         "artistApiId": "17a213a9c20aaebf9d7046c0af75829b",
         "name": "Fonseca",
-        "regions": ["cr", "do", "pa", "gt", "sv"]
+        "regions": ["cr", "do", "pa", "gt", "sv", "us"]
       },
       {
         "artistId": null,
         "artistApiId": "58ea5d8f5b00b2f207febb72cf3b7df2",
         "name": "Chayanne",
-        "regions": ["cr", "do", "pa", "gt", "sv"]
+        "regions": ["cr", "do", "pa", "gt", "sv", "us"]
       },
       {
         "artistId": null,
         "artistApiId": "9ea417dbcc68be95a5267494fcd4a80c",
         "name": "Carlos Rivera",
-        "regions": ["cr", "do", "pa", "gt", "sv"]
+        "regions": ["cr", "do", "pa", "gt", "sv", "us"]
       },
       {
         "artistId": null,
         "artistApiId": "fcdbb967eebbaf74967cf5d0f974cd22",
         "name": "Marc Anthony",
-        "regions": ["cr", "do", "pa", "gt", "sv"]
+        "regions": ["cr", "do", "pa", "gt", "sv", "us"]
       },
       {
         "artistId": null,
         "artistApiId": "903011ae023e183268d6d1adcd29dd01",
         "name": "Kapo",
-        "regions": ["cr", "do", "pa", "gt", "sv"]
+        "regions": ["cr", "do", "pa", "gt", "sv", "us"]
       },
       {
         "artistId": null,
         "artistApiId": "e2d2980fffe5506e406a2b20bea4a31c",
         "name": "Pedro Capó",
-        "regions": ["cr", "do", "pa", "gt", "sv"]
+        "regions": ["cr", "do", "pa", "gt", "sv", "us"]
       },
       {
         "artistId": null,
         "artistApiId": "dd93ca7ce045ee0cb3f1083cf578442a",
         "name": "Boza",
-        "regions": ["cr", "do", "pa", "gt", "sv"]
+        "regions": ["cr", "do", "pa", "gt", "sv", "us"]
       },
       {
         "artistId": null,
         "artistApiId": "b0e3fde8bc2da65052a4057917e23227",
         "name": "Kenia Os",
-        "regions": ["cr", "do", "pa", "gt", "sv"]
+        "regions": ["cr", "do", "pa", "gt", "sv", "us"]
       },
       {
         "artistId": null,
         "artistApiId": "184b0d93def16fe16e978eab337ffc9b",
         "name": "Yeri Mua",
-        "regions": ["cr", "do", "pa", "gt", "sv"]
+        "regions": ["cr", "do", "pa", "gt", "sv", "us"]
       },
       {
         "artistId": null,
         "artistApiId": "c0c6be747c04aec1d2094d20443bcf03",
         "name": "Mon laferte",
-        "regions": ["cr", "do", "pa", "gt", "sv"]
+        "regions": ["cr", "do", "pa", "gt", "sv", "us"]
       },
       {
         "artistId": null,
         "artistApiId": "ba0169f559c26f7403a0419e787cf071",
         "name": "Natalia Lafourcade",
-        "regions": ["cr", "do", "pa", "gt", "sv"]
+        "regions": ["cr", "do", "pa", "gt", "sv", "us"]
       },
       {
         "artistId": null,
         "artistApiId": "56b838c0f7a74eeecdc2ea722d8035c6",
         "name": "Maffio",
-        "regions": ["cr", "do", "pa", "gt", "sv"]
+        "regions": ["cr", "do", "pa", "gt", "sv", "us"]
       },
       {
         "artistId": null,
         "artistApiId": "536643e10aebeedde6105298bceee273",
         "name": "J Noa",
-        "regions": ["cr", "do", "pa", "gt", "sv"]
+        "regions": ["cr", "do", "pa", "gt", "sv", "us"]
       },
       {
         "artistId": null,
         "artistApiId": "df51b14ce1eb52ff5421173925a142fb",
         "name": "Sebas Barcenas",
-        "regions": ["cr", "do", "pa", "gt", "sv"]
+        "regions": ["cr", "do", "pa", "gt", "sv", "us"]
       },
       {
         "artistId": null,
         "artistApiId": "3eae43530c129131ebacf3a68d8aea1c",
         "name": "Diego el Cigala",
-        "regions": ["cr", "do", "pa", "gt", "sv"]
+        "regions": ["cr", "do", "pa", "gt", "sv", "us"]
       },
       {
         "artistId": null,
         "artistApiId": "ac435ae08ff6e97135d0a6e0f6a2b083",
         "name": "Diego Torres",
-        "regions": ["cr", "do", "pa", "gt", "sv"]
+        "regions": ["cr", "do", "pa", "gt", "sv", "us"]
       },
       {
         "artistId": null,
         "artistApiId": "4980650f4d6bc31d9fa7a547668100d2",
         "name": "Prince Royce",
-        "regions": ["cr", "do", "pa", "gt", "sv"]
+        "regions": ["cr", "do", "pa", "gt", "sv", "us"]
       },
       {
         "artistId": null,
         "artistApiId": "f120a2c74527e19ebf6b7bc3d655c986",
         "name": "Romeo Santos",
-        "regions": ["cr", "do", "pa", "gt", "sv"]
+        "regions": ["cr", "do", "pa", "gt", "sv", "us"]
       },
       {
         "artistId": null,
         "artistApiId": "e16fd08661447fdb950d6274df15b746",
         "name": "Ricardo Arjona",
-        "regions": ["cr", "do", "pa", "gt", "sv"]
+        "regions": ["cr", "do", "pa", "gt", "sv", "us"]
       },
       {
         "artistId": null,
         "artistApiId": "41df3d762f1122a6a957c03b7c1ac73b",
         "name": "Eden Muñoz",
-        "regions": ["cr", "do", "pa", "gt", "sv"]
+        "regions": ["cr", "do", "pa", "gt", "sv", "us"]
       },
       {
         "artistId": null,
         "artistApiId": "bf12dba81c344239645d4ee5758452e0",
         "name": "Fuerza Regida",
-        "regions": ["cr", "do", "pa", "gt", "sv"]
+        "regions": ["cr", "do", "pa", "gt", "sv", "us"]
       },
       {
         "artistId": null,
         "artistApiId": "6d9d148b076391508596d8b9c3d079cb",
         "name": "Trueno",
-        "regions": ["cr", "do", "pa", "gt", "sv"]
+        "regions": ["cr", "do", "pa", "gt", "sv", "us"]
       },
       {
         "artistId": null,
         "artistApiId": "5b58250c076514f7b892f674f3a7717c",
         "name": "Christina Aguilera",
-        "regions": ["cr", "do", "pa", "gt", "sv"]
+        "regions": ["cr", "do", "pa", "gt", "sv", "us"]
       },
       {
         "artistId": null,
         "artistApiId": "43ad762670543047d20a314e7dfbba9b",
         "name": "Bomba Estéreo",
-        "regions": ["cr", "do", "pa", "gt", "sv"]
+        "regions": ["cr", "do", "pa", "gt", "sv", "us"]
       },
       {
         "artistId": null,
         "artistApiId": "9e7cb1c0519e3d7fe54f06dfe129b047",
         "name": "Ozuna",
-        "regions": ["cr", "do", "pa", "gt", "sv"]
+        "regions": ["cr", "do", "pa", "gt", "sv", "us"]
       },
       {
         "artistId": null,
         "artistApiId": "011cb55d3a8916b1901de07702777af8",
         "name": "Ryan Castro",
-        "regions": ["cr", "do", "pa", "gt", "sv"]
+        "regions": ["cr", "do", "pa", "gt", "sv", "us"]
       }
     ]
   ]

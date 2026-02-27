@@ -25,6 +25,7 @@ const REGION_COUNTRY_MAP = {
   pa: ["Panama", "Panamá", "PA", "PAN"],
   gt: ["Guatemala", "GT", "GTM"],
   sv: ["El Salvador", "SV", "SLV"],
+  us: ["United States", "United States of America", "USA", "US", "USA", "USA"],
 };
 
 const MONTH_NAMES_ES = [

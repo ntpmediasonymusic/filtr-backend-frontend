@@ -8,6 +8,7 @@ const COUNTRIES = [
   { code: "pa", name: "Panamá" },
   { code: "gt", name: "Guatemala" },
   { code: "sv", name: "El Salvador" },
+  { code: "us", name: "Estados Unidos" },
 ];
 
 function savePreferredRegion(code) {
@@ -112,6 +113,7 @@ export default function CountryPicker({ isAuthenticated = false }) {
                   c.code === region ? "bg-white/18" : "hover:bg-white/10"
                 }`}
                 onClick={() => selectCountry(c.code)}
+                title={c.name}
               >
                 <span
                   className={`fi fi-${c.code} rounded-sm`}

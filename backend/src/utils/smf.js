@@ -1,165 +1,130 @@
-const axios = require("axios");
+/* eslint-disable react/prop-types */
+import { useEffect, useRef, useState } from "react";
+import { useRegion } from "../../router/RegionContext";
 
-/**
- * Normaliza strings (quita acentos, lower-case, trim)
- */
-function normalizeStr(str = "") {
-  return str
-    .toString()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .trim()
-    .toLowerCase();
-}
 
-const COUNTRY_TO_ISO2 = {
-  "costa rica": "CR",
-  "republica dominicana": "DO",
-  panama: "PA",
-  "el salvador": "SV",
-  guatemala: "GT",
-  honduras: "HN",
-  nicaragua: "NI",
-  belice: "BZ",
-  mexico: "MX",
-  colombia: "CO",
-};
+const COUNTRIES = [
+  { code: "cr", name: "Costa Rica" },
+  { code: "do", name: "Rep. Dominicana" },
+  { code: "pa", name: "Panamá" },
+  { code: "gt", name: "Guatemala" },
+  { code: "sv", name: "El Salvador" },
+  { code: "us", name: "Estados Unidos" },
+];
 
-/**
- * Ladas por país para E.164 (ISO2 -> country calling code sin "+")
- */
-const ISO2_TO_CALLING_CODE = {
-  CR: "506",
-  DO: "1",
-  PA: "507",
-  SV: "503",
-  GT: "502",
-  HN: "504",
-  NI: "505",
-  BZ: "501",
-  MX: "52",
-  CO: "57",
-};
+// (Opcional) si quieres validar inputs al seleccionar:
+const REGION_CODES = COUNTRIES.map((c) => c.code);
 
-function resolveIso2(countryName) {
-  const key = normalizeStr(countryName);
-  return COUNTRY_TO_ISO2[key] || null;
-}
-
-function digitsOnly(str = "") {
-  return str.toString().replace(/\D+/g, "");
-}
-
-function toE164Phone(phoneRaw, iso2) {
-  const phone = digitsOnly(phoneRaw);
-  const callingCode = ISO2_TO_CALLING_CODE[iso2];
-  if (!callingCode || !phone) return null;
-  return `+${callingCode}${phone}`;
-}
-
-/**
- *(x-www-form-urlencoded).
- * @param {object} input
- */
-function buildSmfParams(input) {
-  const submitUrl =
-    process.env.SMF_SUBMIT_URL || "https://subs.sonymusicfans.com/submit";
-
-  const aeApiKey = process.env.SMF_AE_API_KEY;
-  const aeBrandId = process.env.SMF_AE_BRAND_ID;
-  const aeSegmentId = process.env.SMF_AE_SEGMENT_ID;
-  const formId = process.env.SMF_FORM_ID;
-  const aeActivitiesJson = {
-    actions: { formsubmission: 193419, secondaryformsubmission: 0 },
-    mailing_list_optins: {
-      a0S24000009wrLWEAY: 193422,
-      a0STy000002XiqjMAC: 193423,
-    },
-  };
-
-  const sonyListId = process.env.SMF_LIST_ID_SONY;
-  const filtrListId = process.env.SMF_LIST_ID_FILTR;
-
-  if (!aeApiKey || !aeBrandId || !aeSegmentId || !formId || !aeActivitiesJson) {
-    throw new Error(
-      "Faltan variables SMF_* en el .env (AE key / brand / segment / form / activities)."
-    );
-  }
-
-  const iso2 = resolveIso2(input.country);
-  if (!iso2) {
-    throw new Error(
-      `País no soportado o inválido para SMF: "${input.country}"`
-    );
-  }
-
-  const e164 = toE164Phone(input.phone, iso2);
-  if (!e164) {
-    throw new Error(
-      `No se pudo formatear el teléfono a E.164. phone="${input.phone}", iso2="${iso2}"`
-    );
-  }
-  const params = new URLSearchParams();
-
-  params.append("js_url", submitUrl);
-  params.append("ae_segment_id", String(aeSegmentId));
-  params.append("ae_brand_id", String(aeBrandId));
-  params.append("ae_activities", aeActivitiesJson); 
-  params.append("ae", aeApiKey);
-  params.append("form", String(formId));
-
-  // Campos del usuario
-  params.append("field_email_address", input.email);
-  params.append("field_first_name", input.firstName);
-  params.append("field_last_name", input.lastName);
-  params.append("field_country_region", iso2);
-  params.append("field_dob", input.dateOfBirth); // YYYY-MM-DD
-  params.append("field_mobile_phone", e164);
-  params.append("custom_field[Custom_Field_1]", input.favoriteMethod);
-
-  // Mailing lists (opt-ins)
-  if (input.optInSony && sonyListId) {
-    params.append("mailing-list-id[0]", sonyListId);
-  }
-  if (input.optInFiltr && filtrListId) {
-    params.append("mailing-list-id[1]", filtrListId);
-  }
-
-  // Triggered sends
-  params.append("triggered_sends[]", "");
-  if (input.optInSony) params.append("triggered_sends[]", "");
-  if (input.optInFiltr) params.append("triggered_sends[]", "");
-
-  return { submitUrl, params, iso2, e164 };
-}
-
-async function submitSignupToSmf(input, { failSilently = true } = {}) {
+function savePreferredRegion(code) {
   try {
-    const { submitUrl, params } = buildSmfParams(input);
-
-    const resp = await axios.post(submitUrl, params.toString(), {
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      timeout: 10000,
-      withCredentials: false,
-      validateStatus: () => true,
-    });
-
-    if (resp.status < 200 || resp.status >= 300) {
-      const msg = `SMF submit falló: status=${resp.status}`;
-      if (!failSilently) throw new Error(msg);
-      console.error(msg);
-      return { ok: false, status: resp.status };
-    }
-
-    return { ok: true, status: resp.status };
-  } catch (err) {
-    if (!failSilently) throw err;
-    console.error("Error en submitSignupToSmf:", err.message);
-    return { ok: false, error: err.message };
+    localStorage.setItem("filtr_region", code);
+  } catch {
+    /* no-op */
   }
 }
 
-module.exports = {
-  submitSignupToSmf,
-  buildSmfParams, 
-};
+export default function CountryPicker({ isAuthenticated = false }) {
+  const { region, setRegion } = useRegion();
+  const [open, setOpen] = useState(false);
+  const btnRef = useRef(null);
+  const listRef = useRef(null);
+
+  const current = COUNTRIES.find((c) => c.code === region) ?? COUNTRIES[0];
+
+  // Cerrar al hacer click fuera
+  useEffect(() => {
+    function onDocClick(e) {
+      if (!btnRef.current || !listRef.current) return;
+      if (
+        !btnRef.current.contains(e.target) &&
+        !listRef.current.contains(e.target)
+      ) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", onDocClick);
+    return () => document.removeEventListener("mousedown", onDocClick);
+  }, []);
+
+  function onKeyDown(e) {
+    if (e.key === "Escape") setOpen(false);
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      setOpen((o) => !o);
+    }
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setOpen(true);
+      const first = listRef.current?.querySelector('[role="option"]');
+      first?.focus();
+    }
+  }
+
+  function selectCountry(code) {
+    // ✅ hardening: solo permitir regiones conocidas
+    if (!REGION_CODES.includes(code)) return;
+
+    savePreferredRegion(code);
+    setRegion(code);
+    setOpen(false);
+
+    try {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: "change_region", region: code });
+    } catch {
+      /* no-op */
+    }
+  }
+
+  return (
+    <div className="relative" onKeyDown={onKeyDown}>
+      {/* Botón */}
+      <button
+        ref={btnRef}
+        type="button"
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        className={`flex items-center rounded-[12px] ${
+          isAuthenticated ? "px-1" : "px-2"
+        } cursor-pointer`}
+        onClick={() => setOpen((o) => !o)}
+      >
+        <span
+          className={`fi fi-${current.code} rounded-sm`}
+          style={{ width: 20, height: 14 }}
+        />
+      </button>
+
+      {/* Lista */}
+      {open && (
+        <ul
+          ref={listRef}
+          role="listbox"
+          tabIndex={-1}
+          className={`absolute z-50 mt-2 ${
+            isAuthenticated ? "right-[-8.5px]" : "right-[-4.3px]"
+          } rounded-[12px] bg-[#282828]`}
+        >
+          {COUNTRIES.map((c) => (
+            <li key={c.code}>
+              <button
+                role="option"
+                aria-selected={c.code === region}
+                className={`flex w-full items-center rounded-lg px-3 py-2 focus:bg-white/10 outline-none ${
+                  c.code === region ? "bg-white/18" : "hover:bg-white/10"
+                }`}
+                onClick={() => selectCountry(c.code)}
+                title={c.name}
+              >
+                <span
+                  className={`fi fi-${c.code} rounded-sm`}
+                  style={{ width: 20, height: 14 }}
+                />
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
