@@ -270,6 +270,18 @@
         "artistApiId": "011cb55d3a8916b1901de07702777af8",
         "name": "Ryan Castro",
         "regions": ["cr", "do", "pa", "gt", "sv", "us"]
+      },
+      {
+        "artistId": null,
+        "artistApiId": "c226806969348e121401af476e5ee84a",
+        "name": "Tyler, The Creator",
+        "regions": ["cr", "do", "pa", "gt", "sv", "us"]
+      },
+      {
+        "artistId": null,
+        "artistApiId": "ea2ad4ca084b88ce77f53114d6224726",
+        "name": "Eros Ramazzotti",
+        "regions": ["cr", "do", "pa", "gt", "sv", "us"]
       }
     ]
   ]

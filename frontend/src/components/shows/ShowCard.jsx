@@ -19,7 +19,6 @@ import {
 const ENABLE_EXTERNAL_LINK_MODAL = false; // ⬅️ Cambia a true si lo quieres reactivar
 
 const ShowCard = ({
-  // Legacy props (si aún se usan en algún lado)
   artist = "",
   showName = "",
   urlShow = "",
@@ -27,11 +26,14 @@ const ShowCard = ({
   place = { location: "", venue: "" },
   canceled = false,
 
-  // Bandsintown props
   bitEvent = null,
   artistName = "",
-  artistBitUrl = "", // opcional
-  artistApiId = "", // app_id por artista
+  artistBitUrl = "",
+  artistApiId = "",
+
+  // NUEVO: imágenes del artista (desde /artists/:name)
+  artistImageUrl = "",
+  artistThumbUrl = "",
 }) => {
   const [showModal, setShowModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -49,9 +51,11 @@ const ShowCard = ({
   }, []);
 
   const derived = useMemo(() => {
+    const baseArtist = artistName || artist;
+
     if (!bitEvent) {
       return {
-        _artist: artist,
+        _artist: baseArtist,
         _date: date,
         _venue: place?.venue || "",
         _location: place?.location || "",
@@ -59,6 +63,7 @@ const ShowCard = ({
         _isVirtual: false,
         _canceled: canceled,
         _title: showName || "",
+        _image: artistImageUrl || artistThumbUrl || "",
         ctas: {},
       };
     }
@@ -90,7 +95,7 @@ const ShowCard = ({
     const waitlistUrl = buildWaitlistUrl(bitEvent?.url || "", artistApiId);
 
     return {
-      _artist: artistName || artist,
+      _artist: baseArtist,
       _date: bitEvent?.datetime || date,
       _venue: venueName,
       _location: locParts,
@@ -98,6 +103,7 @@ const ShowCard = ({
       _isVirtual: isLivestream(bitEvent),
       _canceled: canceled,
       _title: bitEvent?.title || showName || "",
+      _image: artistImageUrl || artistThumbUrl || "",
       ctas: { followUrl, notifyUrl, rsvpUrl, pmcUrl, waitlistUrl },
     };
   }, [
@@ -111,6 +117,8 @@ const ShowCard = ({
     showName,
     artistBitUrl,
     artistApiId,
+    artistImageUrl,
+    artistThumbUrl,
   ]);
 
   const openExternal = (url) => {
@@ -120,8 +128,6 @@ const ShowCard = ({
 
   const handleProtectedOpen = (e, url) => {
     if (!url) return;
-
-    // Para que el link NO navegue en la misma pestaña si hacemos window.open.
     e?.preventDefault?.();
 
     if (!loggedIn) {
@@ -129,7 +135,6 @@ const ShowCard = ({
       return;
     }
 
-    // Modal opcional (desactivado por default)
     if (
       ENABLE_EXTERNAL_LINK_MODAL &&
       localStorage.getItem("externalLinkDontShow") !== "true"
@@ -147,115 +152,148 @@ const ShowCard = ({
     setShowModal(false);
   };
 
+  const fallbackLetter = (derived._artist || "?")
+    .trim()
+    .charAt(0)
+    .toUpperCase();
+
   return (
     <>
-      <div className="flex flex-col w-full xl:w-[360px] bg-[#262627] rounded-lg p-4 gap-5">
-        {/* Info */}
-        <div className="flex items-center gap-3">
-          <MapMarker className="mt-[2px]" />
-          <div className="flex flex-col text-white text-sm leading-tight">
-            {derived._isVirtual ? (
-              <>
-                <span>Evento virtual</span>
-                {derived._venue ? <span>{derived._venue}</span> : null}
-              </>
-            ) : (
-              <>
-                <span>{derived._location || ""}</span>
-                <span>{derived._venue || ""}</span>
-              </>
-            )}
-          </div>
-        </div>
-
-        <div className="flex flex-col gap-2">
-          <h2 className="text-[22px] md:text-[26px] font-black text-white leading-tight">
-            {useFormattedDate(derived._date)}
-          </h2>
-          <h3 className="text-[18px] md:text-[22px] font-medium text-white leading-tight line-clamp-1">
-            {derived._artist}
-          </h3>
-        </div>
-
-        {/* Link principal */}
-        {derived._urlTickets && (
-          <a
-            href={derived._urlTickets}
-            onClick={(e) => handleProtectedOpen(e, derived._urlTickets)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group text-[#00DAF0] hover:text-[#7cf3ff] transition"
-          >
-            <div className="flex items-center gap-2 text-lg">
-              <IoTicketOutline />
-              <span className="text-md underline underline-offset-2">
-                Ver evento
-              </span>
+      <div className="flex flex-col w-full xl:w-[360px] bg-[#262627] rounded-lg overflow-hidden">
+        {/* Hero Image */}
+        <div className="relative w-full h-[220px] bg-black/30">
+          {derived._image ? (
+            <img
+              src={derived._image}
+              alt={`Imagen de ${derived._artist}`}
+              loading="lazy"
+              className="w-full h-full object-cover"
+              referrerPolicy="no-referrer"
+              onError={(e) => {
+                // si falla la imagen, ocultarla
+                e.currentTarget.style.display = "none";
+              }}
+            />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center text-white/80 text-5xl font-black">
+              {fallbackLetter}
             </div>
-          </a>
-        )}
+          )}
 
-        {/* CTAs */}
-        <div className="flex flex-wrap gap-2">
-          {derived.ctas.followUrl ? (
+          {/* overlay suave */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#262627] via-transparent to-transparent" />
+        </div>
+
+        <div className="flex flex-col p-4 gap-5">
+          {/* Info */}
+          <div className="flex items-center gap-3">
+            <MapMarker className="mt-[2px]" />
+            <div className="flex flex-col text-white text-sm leading-tight">
+              {derived._isVirtual ? (
+                <>
+                  <span>Evento virtual</span>
+                  {derived._venue ? <span>{derived._venue}</span> : null}
+                </>
+              ) : (
+                <>
+                  <span>{derived._location || ""}</span>
+                  <span>{derived._venue || ""}</span>
+                </>
+              )}
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <h2 className="text-[22px] md:text-[26px] font-black text-white leading-tight">
+              {useFormattedDate(derived._date)}
+            </h2>
+            <h3 className="text-[18px] md:text-[22px] font-medium text-white leading-tight line-clamp-1">
+              {derived._artist}
+            </h3>
+          </div>
+
+          {/* Link principal */}
+          {derived._urlTickets && (
             <a
-              href={derived.ctas.followUrl}
-              onClick={(e) => handleProtectedOpen(e, derived.ctas.followUrl)}
+              href={derived._urlTickets}
+              onClick={(e) => handleProtectedOpen(e, derived._urlTickets)}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-xl border border-white/10 px-3 py-1.5 text-sm text-white hover:bg-white/5 transition"
+              className="group text-[#00DAF0] hover:text-[#7cf3ff] transition"
             >
-              Follow
+              <div className="flex items-center gap-2 text-lg">
+                <IoTicketOutline />
+                <span className="text-md underline underline-offset-2">
+                  Ver evento
+                </span>
+              </div>
             </a>
-          ) : null}
+          )}
 
-          {derived.ctas.notifyUrl ? (
-            <a
-              href={derived.ctas.notifyUrl}
-              onClick={(e) => handleProtectedOpen(e, derived.ctas.notifyUrl)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-xl border border-white/10 px-3 py-1.5 text-sm text-white hover:bg-white/5 transition"
-            >
-              Notify Me
-            </a>
-          ) : null}
+          {/* CTAs */}
+          <div className="flex flex-wrap gap-2">
+            {derived.ctas.followUrl ? (
+              <a
+                href={derived.ctas.followUrl}
+                onClick={(e) => handleProtectedOpen(e, derived.ctas.followUrl)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-xl border border-white/10 px-3 py-1.5 text-sm text-white hover:bg-white/5 transition"
+              >
+                Follow
+              </a>
+            ) : null}
 
-          {derived.ctas.rsvpUrl ? (
-            <a
-              href={derived.ctas.rsvpUrl}
-              onClick={(e) => handleProtectedOpen(e, derived.ctas.rsvpUrl)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-xl border border-white/10 px-3 py-1.5 text-sm text-white hover:bg-white/5 transition"
-            >
-              RSVP
-            </a>
-          ) : null}
+            {derived.ctas.notifyUrl ? (
+              <a
+                href={derived.ctas.notifyUrl}
+                onClick={(e) => handleProtectedOpen(e, derived.ctas.notifyUrl)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-xl border border-white/10 px-3 py-1.5 text-sm text-white hover:bg-white/5 transition"
+              >
+                Notify Me
+              </a>
+            ) : null}
 
-          {derived.ctas.waitlistUrl ? (
-            <a
-              href={derived.ctas.waitlistUrl}
-              onClick={(e) => handleProtectedOpen(e, derived.ctas.waitlistUrl)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-xl border border-white/10 px-3 py-1.5 text-sm text-white hover:bg-white/5 transition"
-            >
-              Waitlist
-            </a>
-          ) : null}
+            {derived.ctas.rsvpUrl ? (
+              <a
+                href={derived.ctas.rsvpUrl}
+                onClick={(e) => handleProtectedOpen(e, derived.ctas.rsvpUrl)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-xl border border-white/10 px-3 py-1.5 text-sm text-white hover:bg-white/5 transition"
+              >
+                RSVP
+              </a>
+            ) : null}
 
-          {derived.ctas.pmcUrl ? (
-            <a
-              href={derived.ctas.pmcUrl}
-              onClick={(e) => handleProtectedOpen(e, derived.ctas.pmcUrl)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-xl border border-white/10 px-3 py-1.5 text-sm text-white hover:bg-white/5 transition"
-            >
-              Play My City
-            </a>
-          ) : null}
+            {derived.ctas.waitlistUrl ? (
+              <a
+                href={derived.ctas.waitlistUrl}
+                onClick={(e) =>
+                  handleProtectedOpen(e, derived.ctas.waitlistUrl)
+                }
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-xl border border-white/10 px-3 py-1.5 text-sm text-white hover:bg-white/5 transition"
+              >
+                Waitlist
+              </a>
+            ) : null}
+
+            {derived.ctas.pmcUrl ? (
+              <a
+                href={derived.ctas.pmcUrl}
+                onClick={(e) => handleProtectedOpen(e, derived.ctas.pmcUrl)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-xl border border-white/10 px-3 py-1.5 text-sm text-white hover:bg-white/5 transition"
+              >
+                Play My City
+              </a>
+            ) : null}
+          </div>
         </div>
       </div>
 

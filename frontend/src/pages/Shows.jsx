@@ -1,18 +1,21 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import ShowCard from "../components/shows/ShowCard";
 import ShowsHeader from "../components/shows/ShowsHeader";
 import PageHeader from "../components/ui/PageHeader";
 import { useRegion } from "../router/RegionContext";
 
-import { fetchArtistEventsByName } from "../api/bandsintown";
+import {
+  fetchArtistEventsByName,
+  fetchArtistInfoByName,
+} from "../api/bandsintown";
+
 import bitArtistsData from "../data/bitArtists.json";
 import SearchIcon from "../assets/icons/SearchIcon";
-import { IoClose } from "react-icons/io5";
-import { IoChevronBack, IoChevronForward } from "react-icons/io5";
+import { IoClose, IoChevronBack, IoChevronForward } from "react-icons/io5";
 
 const PAGE_SIZE = 20;
+const PAGINATION_SCROLL_OFFSET = 200;
 
-// Mapeo simple región -> países esperados en venue.country
 const REGION_COUNTRY_MAP = {
   cr: ["Costa Rica", "CR", "CRI"],
   do: [
@@ -25,7 +28,6 @@ const REGION_COUNTRY_MAP = {
   pa: ["Panama", "Panamá", "PA", "PAN"],
   gt: ["Guatemala", "GT", "GTM"],
   sv: ["El Salvador", "SV", "SLV"],
-  us: ["United States", "United States of America", "USA", "US", "USA", "USA"],
 };
 
 const MONTH_NAMES_ES = [
@@ -63,7 +65,6 @@ function formatDateForSearch(dt) {
   if (!dt) return "";
   const d = new Date(dt);
   if (Number.isNaN(d.getTime())) return String(dt);
-  // formato simple para búsqueda (YYYY-MM-DD)
   const yyyy = d.getFullYear();
   const mm = String(d.getMonth() + 1).padStart(2, "0");
   const dd = String(d.getDate()).padStart(2, "0");
@@ -75,7 +76,6 @@ function monthNameForSearch(dt) {
   const d = new Date(dt);
   if (Number.isNaN(d.getTime())) return "";
   const month = MONTH_NAMES_ES[d.getMonth()] || "";
-  // opcional: soportar "setiembre"
   if (month === "septiembre") return "septiembre setiembre";
   return month;
 }
@@ -85,21 +85,22 @@ const Shows = () => {
 
   const [loading, setLoading] = useState(true);
 
-  // rows: [{ ev, artistName, artistApiId }]
+  // rows: [{ ev, artistName, artistApiId, artistImageUrl, artistThumbUrl, artistBitUrl? }]
   const [rows, setRows] = useState([]);
 
-  // UI state
+  const [scopeMode, setScopeMode] = useState("nearby"); // nearby | all
   const [sortMode, setSortMode] = useState("closest"); // closest | farthest
   const [q, setQ] = useState("");
   const [artistFilter, setArtistFilter] = useState("all");
   const [page, setPage] = useState(1);
 
-  // Lista de artistas (no la filtramos por región, porque TODOS tienen cr/do/pa/gt/sv hoy)
+  const gridRef = useRef(null);
+  const hasMountedPageRef = useRef(false);
+
   const artistList = useMemo(() => {
     return (bitArtistsData?.bitArtists?.[0] || []).filter(Boolean);
   }, []);
 
-  // Cargar eventos por artista con su artistApiId
   useEffect(() => {
     let cancelled = false;
 
@@ -110,17 +111,23 @@ const Shows = () => {
       try {
         const results = await Promise.allSettled(
           artistList.map(async (a) => {
-            const events = await fetchArtistEventsByName(
-              a.name,
-              a.artistApiId,
-              {
+            const [events, artistInfo] = await Promise.all([
+              fetchArtistEventsByName(a.name, a.artistApiId, {
                 date: "upcoming",
-              },
-            );
+              }),
+              fetchArtistInfoByName(a.name, a.artistApiId),
+            ]);
+
+            const artistImageUrl = artistInfo?.image_url || "";
+            const artistThumbUrl = artistInfo?.thumb_url || "";
+
             return events.map((ev) => ({
               ev,
               artistName: a.name,
               artistApiId: a.artistApiId,
+              artistBitUrl: a.artistBitUrl || "",
+              artistImageUrl,
+              artistThumbUrl,
             }));
           }),
         );
@@ -129,7 +136,6 @@ const Shows = () => {
           r.status === "fulfilled" ? r.value : [],
         );
 
-        // Siempre: próximos primero (base)
         flat.sort(
           (a, b) =>
             new Date(a.ev.datetime).getTime() -
@@ -150,24 +156,19 @@ const Shows = () => {
     };
   }, [artistList]);
 
-  // Lista de artistas para select
   const artistOptions = useMemo(() => {
     const names = artistList.map((a) => a.name).filter(Boolean);
     return Array.from(new Set(names)).sort((a, b) => a.localeCompare(b));
   }, [artistList]);
 
-  // Filtrado + orden final (primero región actual, luego sortMode)
   const filteredRows = useMemo(() => {
     const query = normalizeText(q.trim());
-
     let list = rows;
 
-    // Filtrar por artista select
     if (artistFilter !== "all") {
       list = list.filter((r) => r.artistName === artistFilter);
     }
 
-    // Búsqueda global: artista, ciudad, país, fecha, mes
     if (query) {
       list = list.filter(({ ev, artistName }) => {
         const city = ev?.venue?.city || "";
@@ -183,14 +184,13 @@ const Shows = () => {
       });
     }
 
-    // Particionar: región actual primero
     const inRegion = [];
     const outRegion = [];
+
     for (const item of list) {
       (eventMatchesRegion(item.ev, region) ? inRegion : outRegion).push(item);
     }
 
-    // Orden por fecha según sortMode
     const sorter =
       sortMode === "farthest"
         ? (a, b) =>
@@ -203,10 +203,13 @@ const Shows = () => {
     inRegion.sort(sorter);
     outRegion.sort(sorter);
 
-    return [...inRegion, ...outRegion];
-  }, [rows, q, artistFilter, region, sortMode]);
+    if (scopeMode === "nearby") {
+      return inRegion;
+    }
 
-  // Paginación (20)
+    return [...inRegion, ...outRegion];
+  }, [rows, q, artistFilter, region, sortMode, scopeMode]);
+
   const totalPages = useMemo(() => {
     return Math.max(1, Math.ceil(filteredRows.length / PAGE_SIZE));
   }, [filteredRows.length]);
@@ -216,10 +219,33 @@ const Shows = () => {
     return filteredRows.slice(start, start + PAGE_SIZE);
   }, [filteredRows, page]);
 
-  // Si cambia filtro/búsqueda/orden, regresar a página 1
   useEffect(() => {
     setPage(1);
-  }, [q, artistFilter, sortMode, region]);
+  }, [q, artistFilter, sortMode, scopeMode, region]);
+
+  // Scroll al inicio del grid al cambiar de página (excepto primer render)
+  useEffect(() => {
+    if (!hasMountedPageRef.current) {
+      hasMountedPageRef.current = true;
+      return;
+    }
+
+    if (gridRef.current) {
+      const gridTop =
+        gridRef.current.getBoundingClientRect().top + window.pageYOffset;
+      const targetTop = Math.max(0, gridTop - PAGINATION_SCROLL_OFFSET);
+
+      window.scrollTo({
+        top: targetTop,
+        behavior: "smooth",
+      });
+    }
+  }, [page]);
+
+  // Al cargar Shows: ir al tope de la página
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>
@@ -231,34 +257,57 @@ const Shows = () => {
         <ShowsHeader />
       </div>
 
-      {/* Controls */}
       <div className="px-6 mt-6 flex flex-col gap-3">
-        <div className="flex flex-col md:flex-row gap-3 md:items-center md:justify-between">
-          {/* Orden */}
-          <div className="flex gap-2">
-            <button
-              className={`text-xs sm:text-sm md:text-base rounded-xl border border-white/10 px-3 py-2 ${
-                sortMode === "closest"
-                  ? "bg-[#5C0F8B] text-white"
-                  : "bg-[#5C0F8B]/30 text-white/40 hover:bg-[#5C0F8B]/40"
-              }`}
-              onClick={() => setSortMode("closest")}
-            >
-              Más próximos
-            </button>
-            <button
-              className={`text-xs sm:text-sm md:text-base rounded-xl border border-white/10 px-3 py-2 ${
-                sortMode === "farthest"
-                  ? "bg-[#5C0F8B] text-white"
-                  : "bg-[#5C0F8B]/30 text-white/40 hover:bg-[#5C0F8B]/40"
-              }`}
-              onClick={() => setSortMode("farthest")}
-            >
-              Más lejanos
-            </button>
+        <div className="flex flex-col md:flex-row gap-5 md:items-center md:justify-between">
+          <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-0">
+              {/* Toggle alcance */}
+              <button
+                className={`text-xs sm:text-sm md:text-base rounded-l-xl border border-white/10 px-3 py-2 ${
+                  scopeMode === "nearby"
+                    ? "bg-[#19A74E] text-white"
+                    : "bg-[#19A74E]/20 text-white/50 hover:bg-[#19A74E]/30"
+                }`}
+                onClick={() => setScopeMode("nearby")}
+              >
+                Cerca de mí
+              </button>
+              <button
+                className={`text-xs sm:text-sm md:text-base border rounded-r-xl border-white/10 px-3 py-2 ${
+                  scopeMode === "all"
+                    ? "bg-[#19A74E] text-white"
+                    : "bg-[#19A74E]/20 text-white/50 hover:bg-[#19A74E]/30"
+                }`}
+                onClick={() => setScopeMode("all")}
+              >
+                Todos los eventos
+              </button>
+            </div>
+            <div className="flex flex-wrap gap-0">
+              {/* Toggle orden */}
+              <button
+                className={`text-xs sm:text-sm md:text-base rounded-l-xl border border-white/10 px-3 py-2 ${
+                  sortMode === "closest"
+                    ? "bg-[#5C0F8B] text-white"
+                    : "bg-[#5C0F8B]/30 text-white/40 hover:bg-[#5C0F8B]/40"
+                }`}
+                onClick={() => setSortMode("closest")}
+              >
+                Más próximos
+              </button>
+              <button
+                className={`text-xs sm:text-sm md:text-base rounded-r-xl border border-white/10 px-3 py-2 ${
+                  sortMode === "farthest"
+                    ? "bg-[#5C0F8B] text-white"
+                    : "bg-[#5C0F8B]/30 text-white/40 hover:bg-[#5C0F8B]/40"
+                }`}
+                onClick={() => setSortMode("farthest")}
+              >
+                Más lejanos
+              </button>
+            </div>
           </div>
 
-          {/* Select artista */}
           <div className="flex items-center gap-2">
             <label className="text-xs sm:text-sm md:text-base text-white/70">
               Artista:
@@ -278,17 +327,17 @@ const Shows = () => {
           </div>
         </div>
 
-        {/* Search */}
         <div className="flex items-center gap-2">
           <div className="flex-1 min-w-0 flex items-center bg-[#131517] rounded-full px-2 sm:px-4 py-2 gap-1 sm:gap-2 border-2 border-[#19A74E] w-full sm:w-100">
             <SearchIcon className="text-[#19A74E] w-full max-w-6 min-w-3" />
             <input
               value={q}
               onChange={(e) => setQ(e.target.value)}
-              placeholder="Buscar por artista, ciudad, país, fecha"
+              placeholder="Buscar por artista, ciudad, país, fecha o mes"
               className="flex-1 min-w-0 truncate bg-transparent focus:outline-none text-white placeholder:text-gray-400 text-xs sm:text-sm md:text-base"
             />
           </div>
+
           {q ? (
             <button
               onClick={() => setQ("")}
@@ -300,32 +349,55 @@ const Shows = () => {
           ) : null}
         </div>
 
-        {/* Meta */}
         <div className="text-xs sm:text-sm md:text-base rounded-xl text-white/60">
           Mostrando {filteredRows.length} eventos · Región prioritaria:{" "}
           <span className="uppercase">{region || "—"}</span>
         </div>
+
+        {/* Logo Bandsintown */}
+        <div className="flex justify-center md:justify-end mt-1">
+          <img
+            src="/assets/images/bandsintown_logo.png"
+            alt="Bandsintown"
+            className="h-6 sm:h-7 md:h-8 w-auto object-contain"
+            loading="lazy"
+          />
+        </div>
       </div>
 
-      {/* Grid */}
-      <div className="grid px-6 xl:px-6 justify-items-center grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 2xl:grid-cols-4 gap-x-[14px] xl:gap-x-[24px] gap-y-[30px] my-8 md:my-10">
+      <div
+        ref={gridRef}
+        className="grid px-6 xl:px-6 justify-items-center grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 2xl:grid-cols-4 gap-x-[14px] xl:gap-x-[24px] gap-y-[30px] my-8 md:my-10"
+      >
         {loading
           ? Array.from({ length: 6 }).map((_, i) => (
               <div
                 key={`skeleton-${i}`}
-                className="w-full xl:w-[360px] h-[220px] bg-[#262627] rounded-lg p-4 animate-pulse"
+                className="w-full xl:w-[360px] h-[260px] bg-[#262627] rounded-lg p-4 animate-pulse"
               >
                 <div className="w-full h-full bg-gray-700 rounded" />
               </div>
             ))
-          : pagedRows.map(({ ev, artistName, artistApiId }) => (
-              <ShowCard
-                key={`${artistName}-${ev.id}`}
-                bitEvent={ev}
-                artistName={artistName}
-                artistApiId={artistApiId}
-              />
-            ))}
+          : pagedRows.map(
+              ({
+                ev,
+                artistName,
+                artistApiId,
+                artistBitUrl,
+                artistImageUrl,
+                artistThumbUrl,
+              }) => (
+                <ShowCard
+                  key={`${artistName}-${ev.id}`}
+                  bitEvent={ev}
+                  artistName={artistName}
+                  artistApiId={artistApiId}
+                  artistBitUrl={artistBitUrl}
+                  artistImageUrl={artistImageUrl}
+                  artistThumbUrl={artistThumbUrl}
+                />
+              ),
+            )}
       </div>
 
       {!loading && filteredRows.length <= 0 && (
@@ -334,7 +406,6 @@ const Shows = () => {
         </p>
       )}
 
-      {/* Pagination */}
       {!loading && filteredRows.length > 0 && (
         <div className="px-6 pb-16 flex items-center justify-center gap-3">
           <button

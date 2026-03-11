@@ -5,9 +5,8 @@ const API_BASE = "https://rest.bandsintown.com";
  *  In-memory cache (vive mientras la SPA esté abierta)
  *  ========================= */
 const _cache = new Map(); // key -> { ts, value }
-const DEFAULT_TTL_MS = 15 * 60 * 1000; // 15 min (ajústalo)
+const DEFAULT_TTL_MS = 15 * 60 * 1000; // 15 min
 
-/** key helper */
 function cacheKey(parts) {
   return parts.join("|");
 }
@@ -49,6 +48,51 @@ function encodeArtistName(artistName) {
 }
 
 /**
+ * ARTIST INFO por nombre (para image_url / thumb_url)
+ * opts:
+ *  - ttlMs: override TTL del cache
+ *  - force: true para ignorar cache
+ */
+async function fetchArtistInfoByName(artistName, artistApiId, opts = {}) {
+  const appIdRaw = artistApiId || import.meta.env.VITE_BANDSINTOWN_APP_ID;
+  const appId = encodeURIComponent(appIdRaw);
+  const ttlMs = opts.ttlMs ?? DEFAULT_TTL_MS;
+  const force = !!opts.force;
+
+  const encoded = encodeArtistName(artistName);
+  const url = `${API_BASE}/artists/${encoded}?app_id=${appId}`;
+
+  const key = cacheKey(["artistInfoByName", artistName, appIdRaw]);
+
+  if (!force) {
+    const cached = getCache(key, ttlMs);
+    if (cached) return cached;
+  }
+
+  const res = await fetch(url, {
+    headers: { Accept: "application/json" },
+    cache: "default",
+  });
+
+  if (!res.ok) return null;
+
+  const json = await res.json();
+  if (!json || typeof json !== "object") return null;
+
+  const normalized = {
+    id: json.id ?? null,
+    name: json.name ?? artistName,
+    url: json.url ? withTracking(json.url, artistApiId) : "",
+    image_url: json.image_url || "",
+    thumb_url: json.thumb_url || "",
+    facebook_page_url: json.facebook_page_url || "",
+    tracker_count: json.tracker_count ?? null,
+  };
+
+  return setCache(key, normalized);
+}
+
+/**
  * Listar EVENTOS por nombre de artista usando su artistApiId (app_id)
  * opts:
  *  - date: "past" | "upcoming" | "all"
@@ -65,7 +109,6 @@ async function fetchArtistEventsByName(artistName, artistApiId, opts = {}) {
   const encoded = encodeArtistName(artistName);
   const url = `${API_BASE}/artists/${encoded}/events?app_id=${appId}&date=${date}`;
 
-  // Cache key por artista + appId + date
   const key = cacheKey(["eventsByName", artistName, appIdRaw, date]);
 
   if (!force) {
@@ -75,8 +118,6 @@ async function fetchArtistEventsByName(artistName, artistApiId, opts = {}) {
 
   const res = await fetch(url, {
     headers: { Accept: "application/json" },
-    // importante: NO uses "no-store" si quieres que el navegador ayude
-    // Aun así, nuestro cache ya evita re-fetch entre navegación.
     cache: "default",
   });
 
@@ -119,26 +160,42 @@ function eventLocalDate(ev) {
   });
 }
 
-/** CTAs (por ahora placeholders) */
-function buildFollowUrl(artistUrl, artistApiId) {
-  return artistUrl ? withTracking(artistUrl, artistApiId) : "";
+function addTrigger(url, trigger) {
+  if (!url || !trigger) return url || "";
+  try {
+    const u = new URL(url);
+    u.searchParams.set("trigger", trigger);
+    return u.toString();
+  } catch {
+    const sep = url.includes("?") ? "&" : "?";
+    return `${url}${sep}trigger=${encodeURIComponent(trigger)}`;
+  }
 }
-function buildNotifyUrl(eventOrArtistUrl, artistApiId) {
-  return eventOrArtistUrl ? withTracking(eventOrArtistUrl, artistApiId) : "";
+
+/** CTAs (siguen abriendo Bandsintown; triggers ayudan a “caer” a la acción) */
+function buildFollowUrl(artistUrl, artistApiId) {
+  const base = artistUrl ? withTracking(artistUrl, artistApiId) : "";
+  return addTrigger(base, "track");
 }
 function buildRsvpUrl(eventUrl, artistApiId) {
+  const base = eventUrl ? withTracking(eventUrl, artistApiId) : "";
+  return addTrigger(base, "rsvp_going");
+}
+function buildNotifyUrl(eventUrl, artistApiId) {
+  const base = eventUrl ? withTracking(eventUrl, artistApiId) : "";
+  return addTrigger(base, "notify_me");
+}
+function buildWaitlistUrl(eventUrl, artistApiId) {
   return eventUrl ? withTracking(eventUrl, artistApiId) : "";
 }
 function buildPlayMyCityUrl(artistUrl, artistApiId) {
   return artistUrl ? withTracking(artistUrl, artistApiId) : "";
 }
-function buildWaitlistUrl(eventUrl, artistApiId) {
-  return eventUrl ? withTracking(eventUrl, artistApiId) : "";
-}
 
 export {
   withTracking,
   encodeArtistName,
+  fetchArtistInfoByName,
   fetchArtistEventsByName,
   isLivestream,
   eventLocalDate,
@@ -147,5 +204,5 @@ export {
   buildRsvpUrl,
   buildPlayMyCityUrl,
   buildWaitlistUrl,
-  clearBandsintownCache, 
+  clearBandsintownCache,
 };

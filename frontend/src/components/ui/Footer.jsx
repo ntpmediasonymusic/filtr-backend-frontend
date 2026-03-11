@@ -70,8 +70,16 @@ const Footer = () => {
           Política de Privacidad
         </RegionLink>
       </div>
-      <span className="text-gray-200 mt-3">
-        © 2025 Filtr | Todos los derechos reservados.
+      <span className="text-gray-200 mt-3 text-center">
+        © 2026 Filtr | Todos los derechos reservados | Desarrollado por{" "}
+        <a
+          href="https://beyonderagency.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:text-gray-300 transition-colors underline"
+        >
+          Beyonder
+        </a>
       </span>
     </footer>
   );
