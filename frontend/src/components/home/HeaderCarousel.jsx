@@ -10,27 +10,19 @@ const HeaderCarousel = () => {
   const imageMap = [
     {
       desktop:
+        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-13.png",
+      mobile:
+        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-13.png",
+      alt: "Ca7riel & Paco Amoroso | Free Spirits",
+      link: "https://sme.wyng.com/69b333463c8d69ec335a8305",
+    },
+    {
+      desktop:
         "/assets/images/home-page-banner/desktop/home-page-banner-desktop-12.png",
       mobile:
         "/assets/images/home-page-banner/mobile/home-page-banner-mobile-12.png",
       alt: "El amor no pasa de moda",
       link: "https://www.somosfiltr.com/genres",
-    },
-    {
-      desktop:
-        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-11.png",
-      mobile:
-        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-11.png",
-      alt: "Filtr | Vinilos POP",
-      link: "https://www.somosfiltr.com/prizes",
-    },
-    {
-      desktop:
-        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-9.png",
-      mobile:
-        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-9.png",
-      alt: "Doja Cat | Vinyl Contest",
-      link: "https://www.somosfiltr.com/prizes",
     },
     {
       desktop:
@@ -142,14 +134,6 @@ const HeaderCarousel = () => {
         "/assets/images/home-page-banner/mobile/home-page-banner-mobile-12.png",
       alt: "El amor no pasa de moda",
       link: "https://www.somosfiltr.com/genres",
-    },
-    {
-      desktop:
-        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-9.png",
-      mobile:
-        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-9.png",
-      alt: "Doja Cat | Vinyl Contest",
-      link: "https://www.somosfiltr.com/prizes",
     },
     {
       desktop:

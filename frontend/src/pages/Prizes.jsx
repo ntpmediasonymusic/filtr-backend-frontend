@@ -17,65 +17,58 @@ const Prizes = () => {
   const imageMap = [
     {
       desktop:
-        "/assets/images/prizes-banners/desktop/prizes-banner-desktop-7.png",
-      mobile: "/assets/images/prizes-banners/mobile/prizes-banner-mobile-7.png",
-      artist: "Filtr",
-      details: "Vinilos POP",
-      link: "https://sme.wyng.com/697a65b4400d654e11be2988",
-    },
-    {
-      desktop:
-        "/assets/images/prizes-banners/desktop/prizes-banner-desktop-5.png",
-      mobile: "/assets/images/prizes-banners/mobile/prizes-banner-mobile-5.png",
-      artist: "Doja Cat",
-      details: "Vinyl Contest",
-      link: "https://sme.wyng.com/6944b3ddb12cc1392b73ad64",
+        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-13.png",
+      mobile:
+        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-13.png",
+      artist: "Ca7riel & Paco Amoroso",
+      details: "Free Spirits",
+      link: "https://sme.wyng.com/69b333463c8d69ec335a8305",
     },
   ];
   const imageMapDo = [
-    {
-      desktop:
-        "/assets/images/prizes-banners/desktop/prizes-banner-desktop-5.png",
-      mobile: "/assets/images/prizes-banners/mobile/prizes-banner-mobile-5.png",
-      artist: "Doja Cat",
-      details: "Vinyl Contest",
-      link: "https://sme.wyng.com/6944b3ddb12cc1392b73ad64",
-    },
+    // {
+    //   desktop:
+    //     "/assets/images/prizes-banners/desktop/prizes-banner-desktop-5.png",
+    //   mobile: "/assets/images/prizes-banners/mobile/prizes-banner-mobile-5.png",
+    //   artist: "Doja Cat",
+    //   details: "Vinyl Contest",
+    //   link: "https://sme.wyng.com/6944b3ddb12cc1392b73ad64",
+    // },
   ];
 
   const imageMapUs = imageMapDo;
 
   const imageMapPa = [
-    {
-      desktop:
-        "/assets/images/prizes-banners/desktop/prizes-banner-desktop-5.png",
-      mobile: "/assets/images/prizes-banners/mobile/prizes-banner-mobile-5.png",
-      artist: "Doja Cat",
-      details: "Vinyl Contest",
-      link: "https://sme.wyng.com/6944b3ddb12cc1392b73ad64",
-    },
+    // {
+    //   desktop:
+    //     "/assets/images/prizes-banners/desktop/prizes-banner-desktop-5.png",
+    //   mobile: "/assets/images/prizes-banners/mobile/prizes-banner-mobile-5.png",
+    //   artist: "Doja Cat",
+    //   details: "Vinyl Contest",
+    //   link: "https://sme.wyng.com/6944b3ddb12cc1392b73ad64",
+    // },
   ];
 
   const imageMapGt = [
-    {
-      desktop:
-        "/assets/images/prizes-banners/desktop/prizes-banner-desktop-5.png",
-      mobile: "/assets/images/prizes-banners/mobile/prizes-banner-mobile-5.png",
-      artist: "Doja Cat",
-      details: "Vinyl Contest",
-      link: "https://sme.wyng.com/6944b3ddb12cc1392b73ad64",
-    },
+    // {
+    //   desktop:
+    //     "/assets/images/prizes-banners/desktop/prizes-banner-desktop-5.png",
+    //   mobile: "/assets/images/prizes-banners/mobile/prizes-banner-mobile-5.png",
+    //   artist: "Doja Cat",
+    //   details: "Vinyl Contest",
+    //   link: "https://sme.wyng.com/6944b3ddb12cc1392b73ad64",
+    // },
   ];
 
   const imageMapSv = [
-    {
-      desktop:
-        "/assets/images/prizes-banners/desktop/prizes-banner-desktop-5.png",
-      mobile: "/assets/images/prizes-banners/mobile/prizes-banner-mobile-5.png",
-      artist: "Doja Cat",
-      details: "Vinyl Contest",
-      link: "https://sme.wyng.com/6944b3ddb12cc1392b73ad64",
-    },
+    // {
+    //   desktop:
+    //     "/assets/images/prizes-banners/desktop/prizes-banner-desktop-5.png",
+    //   mobile: "/assets/images/prizes-banners/mobile/prizes-banner-mobile-5.png",
+    //   artist: "Doja Cat",
+    //   details: "Vinyl Contest",
+    //   link: "https://sme.wyng.com/6944b3ddb12cc1392b73ad64",
+    // },
   ];
 
   const imageMapRegion =
