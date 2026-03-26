@@ -15,15 +15,15 @@ const Prizes = () => {
   const { region } = useRegion();
 
   const imageMap = [
-    {
-      desktop:
-        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-13.png",
-      mobile:
-        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-13.png",
-      artist: "Ca7riel & Paco Amoroso",
-      details: "Free Spirits",
-      link: "https://sme.wyng.com/69b333463c8d69ec335a8305",
-    },
+    // {
+    //   desktop:
+    //     "/assets/images/home-page-banner/desktop/home-page-banner-desktop-13.png",
+    //   mobile:
+    //     "/assets/images/home-page-banner/mobile/home-page-banner-mobile-13.png",
+    //   artist: "Ca7riel & Paco Amoroso",
+    //   details: "Free Spirits",
+    //   link: "https://sme.wyng.com/69b333463c8d69ec335a8305",
+    // },
   ];
   const imageMapDo = [
     // {
@@ -132,7 +132,7 @@ const Prizes = () => {
                     desktop={item.desktop}
                     mobile={item.mobile}
                     alt={`${item.artist} - ${item.details}`}
-                    details={item.details}   
+                    details={item.details}
                   />
                 </a>
               ) : (
@@ -141,18 +141,25 @@ const Prizes = () => {
                     desktop={item.desktop}
                     mobile={item.mobile}
                     alt={`${item.artist} - ${item.details}`}
-                    details={item.details}   
+                    details={item.details}
                   />
                 </div>
               )}
             </div>
           ))}
         </div>
+        {imageMapRegion.length <= 0 && (
+          <p className="text-gray-500 text-sm md:text-2xl sm:text-lg text-center pb-20 md:pb-20">
+            No hay premios disponibles en este momento.
+          </p>
+        )}
         {/* Modal de Login */}
         {showLoginModal && (
           <LoginModal
             onClose={() => setShowLoginModal(false)}
-            message={"Para acceder a los premios primero debes de iniciar sesión"}
+            message={
+              "Para acceder a los premios primero debes de iniciar sesión"
+            }
           />
         )}
       </div>

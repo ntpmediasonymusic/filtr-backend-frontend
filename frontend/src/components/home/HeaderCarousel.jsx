@@ -8,14 +8,14 @@ const HeaderCarousel = () => {
   const { region } = useRegion();
 
   const imageMap = [
-    {
-      desktop:
-        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-13.png",
-      mobile:
-        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-13.png",
-      alt: "Ca7riel & Paco Amoroso | Free Spirits",
-      link: "https://sme.wyng.com/69b333463c8d69ec335a8305",
-    },
+    // {
+    //   desktop:
+    //     "/assets/images/home-page-banner/desktop/home-page-banner-desktop-13.png",
+    //   mobile:
+    //     "/assets/images/home-page-banner/mobile/home-page-banner-mobile-13.png",
+    //   alt: "Ca7riel & Paco Amoroso | Free Spirits",
+    //   link: "https://sme.wyng.com/69b333463c8d69ec335a8305",
+    // },
     {
       desktop:
         "/assets/images/home-page-banner/desktop/home-page-banner-desktop-12.png",
