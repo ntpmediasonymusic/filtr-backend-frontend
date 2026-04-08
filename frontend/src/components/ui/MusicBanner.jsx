@@ -1,56 +1,103 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRegion } from "../../router/RegionContext";
+import { fetchBanners } from "../../api/fetchStrapiCMS";
+
+const PLACEMENTS = {
+  generos: "genres_header",
+  moods: "moods_header",
+  trending: "trending_header",
+};
 
 const MusicBanner = ({ type = "generos" }) => {
-  // Mapeo de tipos a nombres de archivo reales
-  const imageMap = {
-    generos: {
-      desktop:
-        "/assets/images/page-banner-header/page-banner-header-v2/desktop/generos-page-banner-header-desktop.png",
-      mobile:
-        "/assets/images/page-banner-header/page-banner-header-v2/mobile/generos-page-banner-header-mobile.png",
-    },
-    moods: {
-      desktop:
-        "/assets/images/page-banner-header/page-banner-header-v2/desktop/moods-page-banner-header-desktop.png",
-      mobile:
-        "/assets/images/page-banner-header/page-banner-header-v2/mobile/moods-page-banner-header-mobile.png",
-    },
-    trending: {
-      desktop:
-        "/assets/images/page-banner-header/page-banner-header-v2/desktop/tranding-page-banner-header-desktop.png",
-      mobile:
-        "/assets/images/page-banner-header/page-banner-header-v2/mobile/trending-page-banner-header-mobile.png",
-    },
-    shows: {
-      desktop:
-        "/assets/images/shows-banner-header/desktop/shows-banner-header-desktop-1.png",
-      mobile:
-        "/assets/images/shows-banner-header/mobile/shows-banner-header-mobile-1.png",
-    },
-    premios: {
-      desktop:
-        "/assets/images/page-banner-header/page-banner-header-v2/desktop/premios-page-banner-header-desktop.png",
-      mobile:
-        "/assets/images/page-banner-header/page-banner-header-v2/mobile/premios-page-banner-header-mobile.png",
-    },
-  };
+  const { region } = useRegion();
+  const placement = PLACEMENTS[type] || PLACEMENTS.generos;
 
-  const images = imageMap[type] || imageMap.generos;
+  const [banner, setBanner] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let cancel = false;
+
+    (async () => {
+      setLoading(true);
+      try {
+        const items = await fetchBanners(region, placement);
+        if (!cancel) setBanner(items?.[0] || null);
+      } catch (err) {
+        console.error("MusicBanner CMS error:", err);
+        if (!cancel) setBanner(null);
+      } finally {
+        if (!cancel) setLoading(false);
+      }
+    })();
+
+    return () => {
+      cancel = true;
+    };
+  }, [region, placement]);
+
+  // Si no hay banner, no renderizamos nada
+  if (!loading && !banner) return null;
+
+  // Normalización aquí también por si quieres decidir antes de renderizar
+  const normalized = banner
+    ? {
+        desktop: banner.desktop || banner.mobile || "",
+        mobile: banner.mobile || banner.desktop || "",
+        alt: banner.alt || `Banner ${type}`,
+        link: banner.link,
+      }
+    : null;
+
+  const hasAny = Boolean(normalized?.desktop || normalized?.mobile);
 
   return (
     <div className="px-6 pb-5 md:pb-10">
-      <MusicBannerImage
-        desktop={images.desktop}
-        mobile={images.mobile}
-        alt={`Banner ${type}`}
-      />
+      {normalized?.link && normalized.link !== "#" && hasAny ? (
+        <a href={normalized.link} target="_blank" rel="noopener noreferrer">
+          <MusicBannerImage
+            desktop={normalized.desktop}
+            mobile={normalized.mobile}
+            alt={normalized.alt}
+            loading={loading}
+          />
+        </a>
+      ) : (
+        <MusicBannerImage
+          desktop={normalized?.desktop}
+          mobile={normalized?.mobile}
+          alt={normalized?.alt || `Banner ${type}`}
+          loading={loading}
+        />
+      )}
     </div>
   );
 };
 
-function MusicBannerImage({ desktop, mobile, alt }) {
+function MusicBannerImage({ desktop = "", mobile = "", alt = "", loading }) {
   const [loaded, setLoaded] = useState(false);
+
+  // Reglas de respaldo: si falta una, usa la otra; si faltan ambas, placeholder.
+  const desktopSrc = desktop || mobile || "";
+  const mobileSrc = mobile || desktop || "";
+  const hasAny = Boolean(desktopSrc || mobileSrc);
+
+  // Si no hay ninguna imagen, solo placeholder vacío
+  if (!hasAny) {
+    return (
+      <div
+        className="
+          relative w-full overflow-hidden bg-gray-700 rounded-[10px]
+          before:block before:pt-[26.5%] md:before:pt-[20%]
+        "
+      >
+        <div className="absolute inset-0 animate-pulse bg-gray-600" />
+      </div>
+    );
+  }
+
+  const showSkeleton = loading || !loaded;
 
   return (
     <div
@@ -59,14 +106,13 @@ function MusicBannerImage({ desktop, mobile, alt }) {
         before:block before:pt-[26.5%] md:before:pt-[20%]
       "
     >
-      {/* Skeleton mientras carga */}
-      {!loaded && (
+      {showSkeleton && (
         <div className="absolute inset-0 animate-pulse bg-gray-600" />
       )}
       <picture className="absolute inset-0 w-full h-full">
-        <source media="(min-width:768px)" srcSet={desktop} />
+        <source media="(min-width:768px)" srcSet={desktopSrc} />
         <img
-          src={mobile}
+          src={mobileSrc}
           alt={alt}
           onLoad={() => setLoaded(true)}
           loading="lazy"

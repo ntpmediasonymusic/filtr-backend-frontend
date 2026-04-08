@@ -70,7 +70,6 @@ export async function fetchBanners(region, placement) {
   params.set("filters[$and][1][$or][3][$and][1][end_at][$gte]", nowISO);
 
   const url = `${CMS_URL}/api/banners?${params.toString()}`;
-  console.log("Fetching CMS URL:", url);
 
   const res = await fetch(url, {
     headers: {
@@ -79,7 +78,6 @@ export async function fetchBanners(region, placement) {
   });
 
   const contentType = res.headers.get("content-type") || "";
-  console.log("CMS status:", res.status, "content-type:", contentType);
 
   if (!res.ok) {
     const text = await res.text();
