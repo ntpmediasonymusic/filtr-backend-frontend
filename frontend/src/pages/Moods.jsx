@@ -1,34 +1,63 @@
 import { useEffect, useState } from "react";
 import PlaylistsContainerGrid from "../components/ui/PlaylistsContainerGrid";
 import { usePlaylists } from "../context/PlaylistContext";
-import moodsData from "../data/moods.json";
 import MoodsHeader from "../components/moods/MoodsHeader";
 import PageHeader from "../components/ui/PageHeader";
 import { useSearch } from "../context/SearchContext";
 import Filter from "../components/filter/filter";
 import MusicBanner from "../components/ui/MusicBanner";
+import { fetchMoods } from "../api/fetchStrapiCMS";
 
 const Moods = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
   const { playlists } = usePlaylists();
-
-  const [selectedMood, setSelectedMood] = useState(moodsData.moods[0]);
-
   const { searchQuery } = useSearch();
-  
-  // Si hay búsqueda activa, mostrar el componente Filter
+
+  const [moods, setMoods] = useState([]);
+  const [selectedMood, setSelectedMood] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      setLoading(true);
+      try {
+        const data = await fetchMoods();
+        if (cancelled) return;
+        const normalized = data.map((m) => ({
+          name: m.name,
+          desktopImage: m.desktop,
+          mobileImage: m.mobile,
+        }));
+        setMoods(normalized);
+        setSelectedMood(normalized[0] || null);
+      } catch (e) {
+        console.error("fetchMoods error:", e);
+        if (!cancelled) {
+          setMoods([]);
+          setSelectedMood(null);
+        }
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   if (searchQuery && searchQuery.trim() !== "") {
     return <Filter />;
   }
 
-  // Si hay un mood seleccionado, filtrar. Si no, mostrar todas las playlists
   const filteredPlaylists = selectedMood
     ? playlists.filter(
         (playlist) =>
           Array.isArray(playlist.moods) &&
-          playlist.moods.some((mood) => mood === selectedMood.name)
+          playlist.moods.some((mood) => mood === selectedMood.name),
       )
     : playlists;
 
@@ -42,11 +71,11 @@ const Moods = () => {
 
       <div className="flex flex-col px-6 pb-[50px] md:pb-[50px] gap-[35px] md:gap-[80px]">
         <MoodsHeader
-          moods={moodsData.moods}
+          loading={loading}
+          moods={moods}
           selectedMood={selectedMood}
           setSelectedMood={setSelectedMood}
         />
-
         <PlaylistsContainerGrid currentPlaylists={filteredPlaylists} />
       </div>
     </>
