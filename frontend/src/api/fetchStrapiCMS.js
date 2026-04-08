@@ -70,10 +70,34 @@ export async function fetchBanners(region, placement) {
   params.set("filters[$and][1][$or][3][$and][0][start_at][$lte]", nowISO);
   params.set("filters[$and][1][$or][3][$and][1][end_at][$gte]", nowISO);
 
-  const res = await fetch(`${CMS_URL}/api/banners?${params.toString()}`, {
+  // const res = await fetch(`${CMS_URL}/api/banners?${params.toString()}`, {
+  //   headers: { Authorization: `Bearer ${CMS_TOKEN}` },
+  // });
+  if (!res.ok) throw new Error(`Strapi error ${res.status}`);
+
+
+
+ const url = `${CMS_URL}/api/banners?${params.toString()}`;
+  console.log("Fetching CMS URL:", url);
+
+  const res = await fetch(url, {
     headers: { Authorization: `Bearer ${CMS_TOKEN}` },
   });
-  if (!res.ok) throw new Error(`Strapi error ${res.status}`);
+
+  const contentType = res.headers.get("content-type") || "";
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Strapi error ${res.status}: ${text.slice(0, 300)}`);
+  }
+
+  if (!contentType.includes("application/json")) {
+    const text = await res.text();
+    throw new Error(
+      `Expected JSON but got ${contentType || "unknown content-type"}: ${text.slice(0, 300)}`,
+    );
+  }
+
+
 
   const { data } = await res.json();
 
