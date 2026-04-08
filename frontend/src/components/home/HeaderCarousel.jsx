@@ -1,170 +1,35 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { useRegion } from "../../router/RegionContext";
+import { fetchBanners } from "../../api/fetchStrapiCMS";
 
 const HeaderCarousel = () => {
   const { region } = useRegion();
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const imageMap = [
-    // {
-    //   desktop:
-    //     "/assets/images/home-page-banner/desktop/home-page-banner-desktop-13.png",
-    //   mobile:
-    //     "/assets/images/home-page-banner/mobile/home-page-banner-mobile-13.png",
-    //   alt: "Ca7riel & Paco Amoroso | Free Spirits",
-    //   link: "https://sme.wyng.com/69b333463c8d69ec335a8305",
-    // },
-    {
-      desktop:
-        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-12.png",
-      mobile:
-        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-12.png",
-      alt: "El amor no pasa de moda",
-      link: "https://www.somosfiltr.com/genres",
-    },
-    {
-      desktop:
-        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-5.png",
-      mobile:
-        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-5.png",
-      alt: "Y2K",
-      link: "https://open.spotify.com/playlist/2XvmYFOs59zc1F1hWTqwgJ",
-    },
-    {
-      desktop:
-        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-4.jpg",
-      mobile:
-        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-4.jpg",
-      alt: "Hip-Hop",
-      link: "https://open.spotify.com/playlist/2tX56rjkc0SlJ8DNhGtkDZ?si=39f0ba5ddf2e4297&nd=1&dlsi=b9c5031430ed4db0",
-    },
-  ];
+  useEffect(() => {
+    let cancelled = false;
 
-  const imageMapDo = [
-    {
-      desktop:
-        "/assets/images/home-page-banner/do/desktop/home-page-banner-desktop-4.png",
-      mobile:
-        "/assets/images/home-page-banner/do/mobile/home-page-banner-mobile-4.png",
-      alt: "PASÓ FILTRO: Aprobado por Alofoke",
-      link: "https://open.spotify.com/playlist/2njtU0pVZvudkZFmsdnGvu?si=fa13270b8dc74bef&nd=1&dlsi=ef3f0e2f858a474a",
-    },
-    {
-      desktop:
-        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-12.png",
-      mobile:
-        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-12.png",
-      alt: "El amor no pasa de moda",
-      link: "https://www.somosfiltr.com/genres",
-    },
-    {
-      desktop:
-        "/assets/images/home-page-banner/do/desktop/home-page-banner-desktop-2.png",
-      mobile:
-        "/assets/images/home-page-banner/do/mobile/home-page-banner-mobile-2.png",
-      alt: "Top RD",
-      link: "https://open.spotify.com/playlist/4eGkMMoNpngwyZJ9fNlnV5?si=f1e2357123cf43ce&nd=1&dlsi=af7adb77ff684cfd",
-    },
-  ];
+    (async () => {
+      try {
+        setLoading(true);
+        const data = await fetchBanners(region, "home_header");
+        if (!cancelled) setItems(data || []);
+      } catch (e) {
+        console.error("CMS banners error:", e);
+        if (!cancelled) setItems([]);
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    })();
 
-  // ✅ US usa el mismo contenido que DO
-  const imageMapUs = imageMapDo;
-
-  const imageMapPa = [
-    {
-      desktop:
-        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-12.png",
-      mobile:
-        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-12.png",
-      alt: "El amor no pasa de moda",
-      link: "https://www.somosfiltr.com/genres",
-    },
-    {
-      desktop:
-        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-5.png",
-      mobile:
-        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-5.png",
-      alt: "Y2K",
-      link: "https://open.spotify.com/playlist/2XvmYFOs59zc1F1hWTqwgJ",
-    },
-    {
-      desktop:
-        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-4.jpg",
-      mobile:
-        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-4.jpg",
-      alt: "Hip-Hop",
-      link: "https://open.spotify.com/playlist/2tX56rjkc0SlJ8DNhGtkDZ?si=39f0ba5ddf2e4297&nd=1&dlsi=b9c5031430ed4db0",
-    },
-  ];
-
-  const imageMapGt = [
-    {
-      desktop:
-        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-12.png",
-      mobile:
-        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-12.png",
-      alt: "El amor no pasa de moda",
-      link: "https://www.somosfiltr.com/genres",
-    },
-    {
-      desktop:
-        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-5.png",
-      mobile:
-        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-5.png",
-      alt: "Y2K",
-      link: "https://open.spotify.com/playlist/2XvmYFOs59zc1F1hWTqwgJ",
-    },
-    {
-      desktop:
-        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-4.jpg",
-      mobile:
-        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-4.jpg",
-      alt: "Hip-Hop",
-      link: "https://open.spotify.com/playlist/2tX56rjkc0SlJ8DNhGtkDZ?si=39f0ba5ddf2e4297&nd=1&dlsi=b9c5031430ed4db0",
-    },
-  ];
-
-  const imageMapSv = [
-    {
-      desktop:
-        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-12.png",
-      mobile:
-        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-12.png",
-      alt: "El amor no pasa de moda",
-      link: "https://www.somosfiltr.com/genres",
-    },
-    {
-      desktop:
-        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-5.png",
-      mobile:
-        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-5.png",
-      alt: "Y2K",
-      link: "https://open.spotify.com/playlist/2XvmYFOs59zc1F1hWTqwgJ",
-    },
-    {
-      desktop:
-        "/assets/images/home-page-banner/desktop/home-page-banner-desktop-4.jpg",
-      mobile:
-        "/assets/images/home-page-banner/mobile/home-page-banner-mobile-4.jpg",
-      alt: "Hip-Hop",
-      link: "https://open.spotify.com/playlist/2tX56rjkc0SlJ8DNhGtkDZ?si=39f0ba5ddf2e4297&nd=1&dlsi=b9c5031430ed4db0",
-    },
-  ];
-
-  const imageMapRegion =
-    region === "do"
-      ? imageMapDo
-      : region === "us"
-        ? imageMapUs
-        : region === "pa"
-          ? imageMapPa
-          : region === "gt"
-            ? imageMapGt
-            : region === "sv"
-              ? imageMapSv
-              : imageMap;
+    return () => {
+      cancelled = true;
+    };
+  }, [region]);
 
   const PrevArrow = () => (
     <svg
@@ -185,7 +50,6 @@ const HeaderCarousel = () => {
       </g>
     </svg>
   );
-
   const NextArrow = () => (
     <svg
       viewBox="0 0 44 44"
@@ -206,6 +70,17 @@ const HeaderCarousel = () => {
     </svg>
   );
 
+  if (loading) {
+    return (
+      <div className="relative">
+        <div className="relative w-full overflow-hidden bg-gray-700 before:block before:pt-[26.5%] md:before:pt-[20.2%]">
+          <div className="absolute inset-0 animate-pulse bg-gray-600" />
+        </div>
+      </div>
+    );
+  }
+  if (!items.length) return null;
+
   return (
     <div className="relative">
       <Carousel
@@ -223,7 +98,7 @@ const HeaderCarousel = () => {
           hasPrev && (
             <button
               onClick={onClick}
-              className="absolute z-12 left-1 top-1/2 transform -translate-y-1/2 p-0.5 md:p-2 rounded-full hover:opacity-80 w-10 h-10 md:w-16 md:h-16"
+              className="absolute z-12 left-1 top-1/2 -translate-y-1/2 p-0.5 md:p-2 rounded-full hover:opacity-80 w-10 h-10 md:w-16 md:h-16"
               aria-label="Anterior"
             >
               <PrevArrow />
@@ -234,7 +109,7 @@ const HeaderCarousel = () => {
           hasNext && (
             <button
               onClick={onClick}
-              className="absolute z-12 right-1 top-1/2 transform -translate-y-1/2 p-0.5 md:p-2 rounded-full hover:opacity-80 w-10 h-10 md:w-16 md:h-16"
+              className="absolute z-12 right-1 top-1/2 -translate-y-1/2 p-0.5 md:p-2 rounded-full hover:opacity-80 w-10 h-10 md:w-16 md:h-16"
               aria-label="Siguiente"
             >
               <NextArrow />
@@ -242,58 +117,70 @@ const HeaderCarousel = () => {
           )
         }
       >
-        {imageMapRegion.map(({ desktop, mobile, alt, link }, i) => (
-          <div key={i} className="flex items-center justify-center w-full">
-            {link ? (
-              <a
-                href={link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full"
-              >
-                <HeaderCarouselImage
-                  desktop={desktop}
-                  mobile={mobile}
-                  alt={alt}
-                />
-              </a>
-            ) : (
-              <HeaderCarouselImage
-                desktop={desktop}
-                mobile={mobile}
-                alt={alt}
-              />
-            )}
-          </div>
-        ))}
+        {items.map(({ desktop, mobile, alt, link }, i) => {
+          const hasLink = !!link && link !== "#";
+          const node = (
+            <HeaderCarouselImage
+              key={i}
+              desktop={desktop}
+              mobile={mobile}
+              alt={alt || ""}
+            />
+          );
+          return (
+            <div key={i} className="flex items-center justify-center w-full">
+              {hasLink ? (
+                <a
+                  href={link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full"
+                >
+                  {node}
+                </a>
+              ) : (
+                node
+              )}
+            </div>
+          );
+        })}
       </Carousel>
     </div>
   );
 };
 
-function HeaderCarouselImage({ desktop, mobile, alt }) {
+function HeaderCarouselImage({ desktop = "", mobile = "", alt = "" }) {
   const [loaded, setLoaded] = useState(false);
 
+  // Si falta una, usa la otra para ambos; si faltan ambas, placeholder.
+  const desktopSrc = desktop || mobile || "";
+  const mobileSrc = mobile || desktop || "";
+  const hasAny = Boolean(desktopSrc || mobileSrc);
+
+  // Si no hay ninguna imagen, solo placeholder vacío
+  if (!hasAny) {
+    return (
+      <div className="relative w-full overflow-hidden bg-gray-700 before:block before:pt-[26.5%] md:before:pt-[20.2%] rounded-none">
+        <div className="absolute inset-0 animate-pulse bg-gray-600" />
+      </div>
+    );
+  }
+
   return (
-    <div
-      className="relative w-full overflow-hidden bg-gray-700
-                 before:block before:pt-[26.5%] md:before:pt-[20.2%] rounded-none"
-    >
+    <div className="relative w-full overflow-hidden bg-gray-700 before:block before:pt-[26.5%] md:before:pt-[20.2%] rounded-none">
       {!loaded && (
         <div className="absolute inset-0 animate-pulse bg-gray-600" />
       )}
       <picture className="absolute inset-0 w-full h-full">
-        <source media="(min-width:768px)" srcSet={desktop} />
+        <source media="(min-width:768px)" srcSet={desktopSrc} />
         <img
-          src={mobile}
+          src={mobileSrc}
           alt={alt}
           onLoad={() => setLoaded(true)}
           loading="lazy"
-          className={`
-            absolute inset-0 w-full h-full object-cover
-            transition-opacity duration-500
-            ${loaded ? "opacity-100" : "opacity-0"}
-          `}
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+            loaded ? "opacity-100" : "opacity-0"
+          }`}
         />
       </picture>
     </div>
