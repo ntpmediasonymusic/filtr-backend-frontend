@@ -47,7 +47,7 @@ export async function fetchBanners(region, placement) {
   const normRegion = String(region || "")
     .trim()
     .toLowerCase();
-  const nowISO = new Date().toISOString(); // UTC
+  const nowISO = new Date().toISOString();
 
   const params = new URLSearchParams({
     "filters[placement][$eq]": placement,
@@ -60,7 +60,6 @@ export async function fetchBanners(region, placement) {
   params.set("filters[$and][0][$or][0][regions][code][$eqi]", normRegion);
   params.set("filters[$and][0][$or][1][regions][id][$null]", "true");
 
-  // Fechas
   params.set("filters[$and][1][$or][0][$and][0][start_at][$null]", "true");
   params.set("filters[$and][1][$or][0][$and][1][end_at][$null]", "true");
   params.set("filters[$and][1][$or][1][$and][0][start_at][$null]", "true");
@@ -70,21 +69,18 @@ export async function fetchBanners(region, placement) {
   params.set("filters[$and][1][$or][3][$and][0][start_at][$lte]", nowISO);
   params.set("filters[$and][1][$or][3][$and][1][end_at][$gte]", nowISO);
 
-  // const res = await fetch(`${CMS_URL}/api/banners?${params.toString()}`, {
-  //   headers: { Authorization: `Bearer ${CMS_TOKEN}` },
-  // });
-  if (!res.ok) throw new Error(`Strapi error ${res.status}`);
-
-
-
- const url = `${CMS_URL}/api/banners?${params.toString()}`;
+  const url = `${CMS_URL}/api/banners?${params.toString()}`;
   console.log("Fetching CMS URL:", url);
 
   const res = await fetch(url, {
-    headers: { Authorization: `Bearer ${CMS_TOKEN}` },
+    headers: {
+      Authorization: `Bearer ${CMS_TOKEN}`,
+    },
   });
 
   const contentType = res.headers.get("content-type") || "";
+  console.log("CMS status:", res.status, "content-type:", contentType);
+
   if (!res.ok) {
     const text = await res.text();
     throw new Error(`Strapi error ${res.status}: ${text.slice(0, 300)}`);
@@ -93,11 +89,9 @@ export async function fetchBanners(region, placement) {
   if (!contentType.includes("application/json")) {
     const text = await res.text();
     throw new Error(
-      `Expected JSON but got ${contentType || "unknown content-type"}: ${text.slice(0, 300)}`,
+      `Expected JSON but got ${contentType || "unknown"}: ${text.slice(0, 300)}`,
     );
   }
-
-
 
   const { data } = await res.json();
 
