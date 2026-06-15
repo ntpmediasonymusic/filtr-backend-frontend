@@ -16,7 +16,7 @@ import {
   buildWaitlistUrl,
 } from "../../api/bandsintown";
 
-const ENABLE_EXTERNAL_LINK_MODAL = false; // ⬅️ Cambia a true si lo quieres reactivar
+const ENABLE_EXTERNAL_LINK_MODAL = false; // ⬅️ Cambia a true si lo quieres reactivar.
 
 const ShowCard = ({
   artist = "",
