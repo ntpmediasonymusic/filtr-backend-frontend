@@ -9,6 +9,7 @@ import MoodsIcon from "../../../assets/icons/MoodsIcon";
 import ShowsIcon from "../../../assets/icons/ShowsIcon";
 import TrendIcon from "../../../assets/icons/TrendIcon";
 import WinWinIcon from "../../../assets/icons/WinWinIcon";
+import MarketCartIcon from "../../../assets/icons/MarketCartIcon";
 import { useSearch } from "../../../context/SearchContext";
 import RegionNavLink from "../../../router/RegionNavLink";
 
@@ -62,6 +63,7 @@ const NavMenu = () => {
     { name: "Moods", icon: <MoodsIcon />, route: "/moods" },
     { name: "Trending", icon: <TrendIcon />, route: "/trending" },
     { name: "Shows", icon: <ShowsIcon />, route: "/shows" },
+    { name: "Merch", icon: <MarketCartIcon />, route: "/merch" },
     { name: "Premios", icon: <WinWinIcon />, route: "/prizes" },
   ];
 

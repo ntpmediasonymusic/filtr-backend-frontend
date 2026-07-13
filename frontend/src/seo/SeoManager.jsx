@@ -25,6 +25,7 @@ const TITLES_BY_PATH = {
   "/quizzes": "Quizzes",
   "/shows": "Shows",
   "/trending": "Trending",
+  "/merch": "Merch",
   "/prizes": "Premios",
   "/login": "Acceder",
   "/signup": "Registrarse",

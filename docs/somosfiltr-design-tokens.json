@@ -1,0 +1,271 @@
+{
+  "$schema": "informal — extracted manually from SomosFiltr frontend source, no build-time theme file exists",
+  "meta": {
+    "project": "SomosFiltr / Filtr",
+    "extractedFrom": "filtr-frontend-backend/frontend (React + Tailwind CSS v4)",
+    "note": "No formal design-token file existed prior to this document. Values below are taken from repeated inline Tailwind classes / inline styles across components. Any value not present verbatim in the source is marked with \"source\": \"inferred\" and a note explaining the inference."
+  },
+  "colors": {
+    "brand": {
+      "magenta": {
+        "value": "#CA249C",
+        "source": "code",
+        "note": "Also appears lowercase as #ca249c and as rgb(202,36,156). Primary CTA color and left stop of the header/footer gradient.",
+        "refs": ["frontend/src/components/ui/forms/LoginForm.jsx:265", "frontend/src/components/ui/Footer.jsx:12"]
+      },
+      "blue": {
+        "value": "#004FD4",
+        "source": "code",
+        "note": "Also appears as rgb(0,79,212). Right stop of the header/footer gradient.",
+        "refs": ["frontend/src/components/ui/Footer.jsx:12", "frontend/src/components/ui/navMenu/NavMenu.jsx:55"]
+      },
+      "cyan": {
+        "value": "#00DAF0",
+        "source": "code",
+        "note": "Active nav link, search bar border/icon, ticket link color.",
+        "refs": ["frontend/src/components/ui/navMenu/NavMenuItem.jsx:20", "frontend/src/components/ui/PageHeader.jsx:152"]
+      },
+      "lime": {
+        "value": "#CFDD28",
+        "source": "code",
+        "note": "Secondary accent text (beta banner headings, \"¡Entra ya!\").",
+        "refs": ["frontend/src/pages/Login.jsx:16", "frontend/src/components/ui/modal/CookieConsentBanner.jsx:142"]
+      },
+      "spotifyGreen": {
+        "value": "#1DB954",
+        "source": "code",
+        "note": "Spotify's own brand color, used only for the \"Continuar con Spotify\" button — not a Filtr brand color.",
+        "refs": ["frontend/src/components/ui/forms/LoginForm.jsx:278"]
+      },
+      "mintCta": {
+        "value": "#B9F2CD",
+        "hover": "#a8e3bc",
+        "source": "code",
+        "note": "Used once, as the CTA button inside LoginModal.",
+        "refs": ["frontend/src/components/ui/modal/LoginModal.jsx:37"]
+      }
+    },
+    "background": {
+      "page": {
+        "value": "#131517",
+        "source": "code",
+        "refs": ["frontend/src/router/RegionLayout.jsx:44"]
+      },
+      "surfacePlaylistCard": {
+        "value": "#282534",
+        "source": "code",
+        "refs": ["frontend/src/components/ui/PlaylistCard.jsx:217"]
+      },
+      "surfaceShowCard": {
+        "value": "#262627",
+        "source": "code",
+        "refs": ["frontend/src/components/shows/ShowCard.jsx:162"]
+      },
+      "surfaceMenuModal": {
+        "value": "#282828",
+        "source": "code",
+        "refs": [
+          "frontend/src/components/ui/navMenu/MobileMenu.jsx:23",
+          "frontend/src/components/ui/modal/LoginModal.jsx:29",
+          "frontend/src/components/ui/modal/CookieConsentBanner.jsx:111"
+        ]
+      },
+      "arrowButton": {
+        "value": "#252733",
+        "source": "code",
+        "refs": ["frontend/src/components/home/MainCategoryPreview.jsx:69"]
+      },
+      "formCard": {
+        "value": "#FFFFFF",
+        "source": "code",
+        "note": "Auth/account forms deliberately break the dark theme with a white card.",
+        "refs": ["frontend/src/components/ui/forms/LoginForm.jsx:182"]
+      },
+      "skeleton": {
+        "value": "tailwind gray-700 (#374151)",
+        "pulse": "tailwind gray-600 (#4B5563)",
+        "source": "inferred",
+        "note": "Values are Tailwind's default palette for gray-700/gray-600, not custom hex declared in the project."
+      }
+    },
+    "text": {
+      "onDark": { "value": "#FFFFFF", "source": "code" },
+      "onDarkMuted": { "value": "tailwind gray-400 (#9CA3AF)", "source": "inferred" },
+      "onLight": { "value": "tailwind gray-700 (#374151)", "source": "inferred", "note": "Input text color on white form cards." },
+      "onLightPrimary": { "value": "#131517", "source": "code", "note": "Reused page-background color as near-black text on white form cards." },
+      "error": { "value": "tailwind red-600 (#DC2626)", "source": "inferred" },
+      "success": { "value": "tailwind green-600 (#16A34A)", "source": "inferred" },
+      "placeholder": { "value": "tailwind gray-400 (#9CA3AF)", "source": "inferred" }
+    },
+    "border": {
+      "input": { "value": "#262627", "source": "code", "refs": ["frontend/src/components/ui/forms/LoginForm.jsx:190"] },
+      "focusRing": { "value": "#00DAF0", "source": "code", "note": "Implemented as a static 2px border, not a focus: ring utility.", "refs": ["frontend/src/components/ui/PageHeader.jsx:152"] },
+      "subtle": { "value": "rgba(255,255,255,0.10)", "source": "code", "note": "Tailwind border-white/10.", "refs": ["frontend/src/components/shows/ShowCard.jsx:241"] }
+    },
+    "states": {
+      "hoverOpacitySolidButton": { "value": "0.9", "source": "code", "note": "hover:opacity-90 on primary/secondary solid buttons." },
+      "hoverOpacityTextLink": { "value": "0.6", "source": "code", "note": "hover:opacity-60 on header login/signup links." },
+      "hoverOpacityCircleButton": { "value": "0.8", "source": "code", "note": "hover:opacity-80 on carousel arrow buttons." },
+      "hoverBgSubtle": { "value": "rgba(255,255,255,0.05)", "source": "code", "note": "hover:bg-white/5 on outline CTA buttons." },
+      "disabledOpacity": { "value": "0.5", "source": "code", "note": "Applied conditionally via JS className logic, not the CSS :disabled pseudo-class." },
+      "favoriteActive": { "value": "tailwind red-500 (#EF4444)", "source": "inferred", "note": "Filled heart icon when a playlist is favorited." }
+    }
+  },
+  "typography": {
+    "fontFamily": {
+      "bodyDefault": {
+        "value": "Tailwind v4 default sans-serif stack (ui-sans-serif, system-ui, -apple-system, \"Segoe UI\", Roboto, ...)",
+        "source": "inferred",
+        "note": "No global font-family override was found in index.css or any layout component. This is Tailwind's built-in default, not an explicit project decision."
+      },
+      "heading": {
+        "value": "'Montserrat', sans-serif",
+        "source": "code",
+        "note": "Declared as --font-montserrat in src/index.css and applied via the font-montserrat utility class on section titles and the page welcome message.",
+        "refs": ["frontend/src/index.css:12", "frontend/src/components/ui/PageHeader.jsx:96"]
+      },
+      "decorativeUnused": {
+        "value": ["'Modak', system-ui", "'Oi', serif", "'Climate Crisis', sans-serif"],
+        "source": "code",
+        "note": "Declared as CSS custom properties and loaded via Google Fonts, but no component in the current codebase applies font-modak / font-oi / font-climateCrisis. Treat as reserved/unused, not part of the live visual identity."
+      }
+    },
+    "fontSize": {
+      "h1Welcome": { "value": { "base": "18px (text-lg)", "md": "28px (text-[28px])" }, "source": "code", "refs": ["frontend/src/components/ui/PageHeader.jsx:96"] },
+      "h1Auth": { "value": { "base": "24px (text-2xl)", "md": "30px (text-3xl)" }, "source": "code", "refs": ["frontend/src/pages/Login.jsx:10"] },
+      "h2Section": { "value": { "base": "18px (text-lg)", "md": "24px (text-2xl)" }, "source": "code", "refs": ["frontend/src/components/home/MainCategoryPreview.jsx:99"] },
+      "h2ShowDate": { "value": { "base": "22px", "md": "26px" }, "source": "code", "refs": ["frontend/src/components/shows/ShowCard.jsx:207"] },
+      "h3ShowArtist": { "value": { "base": "18px", "md": "22px" }, "source": "code", "refs": ["frontend/src/components/shows/ShowCard.jsx:210"] },
+      "modalTitle": { "value": "20px (text-xl)", "source": "code", "refs": ["frontend/src/components/ui/modal/LoginModal.jsx:33"] },
+      "body": { "value": { "base": "14px (text-sm)", "sm": "16px (text-base)" }, "source": "code" },
+      "caption": { "value": { "base": "12px (text-xs)", "sm": "14px (text-sm)" }, "source": "code", "note": "Used for field validation errors." },
+      "button": { "value": { "base": "14px (text-sm)", "sm": "16px (text-base)" }, "source": "code" },
+      "trendingRank": { "value": { "base": "100px", "md": "150px" }, "source": "code", "refs": ["frontend/src/components/trending/TrendingPlaylistCard.jsx:81"] }
+    },
+    "fontWeight": {
+      "normal": { "value": 400, "source": "code", "note": "font-normal — inactive desktop nav links." },
+      "medium": { "value": 500, "source": "code", "note": "font-medium — mobile nav links, show-card artist name." },
+      "semibold": { "value": 600, "source": "code", "note": "font-semibold — most button labels and emphasized links." },
+      "bold": { "value": 700, "source": "code", "note": "font-bold — most headings/titles." },
+      "black": { "value": 900, "source": "code", "note": "font-black — show-card date, trending rank number, artist fallback initial." }
+    },
+    "lineHeight": {
+      "tight": { "value": "Tailwind leading-tight utility (~1.25)", "source": "inferred", "note": "Used on large headings; project never sets a raw numeric line-height." },
+      "none": { "value": "Tailwind leading-none utility (1)", "source": "inferred", "note": "Used on nav item labels." },
+      "normal": { "value": "Tailwind leading-normal utility (~1.5)", "source": "inferred", "note": "Default for body text; not explicitly overridden." }
+    },
+    "letterSpacing": {
+      "default": { "value": "normal (0)", "source": "inferred", "note": "No tracking-* utility class exists anywhere in the frontend source — confirmed absence, not a declared value." }
+    }
+  },
+  "spacing": {
+    "pagePaddingX": { "value": "24px (px-6)", "source": "code", "note": "Dominant horizontal page padding across Home/Genres/Shows/Prizes." },
+    "sectionGapY": { "value": "50px (gap-[50px] / py-[50px])", "source": "code", "refs": ["frontend/src/pages/Home.jsx:37"] },
+    "cardPadding": { "value": "12px (p-3)", "source": "code", "note": "Playlist card inner padding.", "refs": ["frontend/src/components/ui/PlaylistCard.jsx:217"] },
+    "formCardPaddingMobile": { "value": "20-24px (p-5 / p-6)", "source": "code" },
+    "formCardPaddingDesktop": { "value": "40px (sm:p-10 / sm:p-[40px])", "source": "code", "refs": ["frontend/src/components/ui/forms/LoginForm.jsx:182"] },
+    "inputPadding": { "value": "12-16px (p-3 sm:p-4)", "source": "code" },
+    "buttonPaddingY": { "value": "10-12px (py-2.5 sm:py-3)", "source": "code" },
+    "gridGapPlaylists": { "value": { "x": "14px (gap-x-[14px])", "xXl": "24px (xl:gap-x-[24px])", "y": "30px (gap-y-[30px])" }, "source": "code", "refs": ["frontend/src/components/ui/PlaylistsContainerGrid.jsx:8"] },
+    "navOffsetTop": { "value": { "base": "50px (mt-[50px])", "md": "80px (md:mt-[80px])" }, "source": "code", "note": "Content offset compensating for the fixed navbar.", "refs": ["frontend/src/router/RegionLayout.jsx:53"] }
+  },
+  "borderRadius": {
+    "sm": { "value": "8px (rounded-lg / rounded-[8px])", "source": "code", "note": "Dominant radius for cards, buttons, and inputs." },
+    "md": { "value": "12px (rounded-[12px])", "source": "code", "note": "Mobile nav dropdown, country picker menu." },
+    "lg": { "value": "16px (rounded-[16px])", "source": "code", "note": "Modals (LoginModal, CookieConsentBanner)." },
+    "xl": { "value": "22px (rounded-[22px])", "source": "code", "note": "Auth form white cards." },
+    "pill": { "value": "24px+ (rounded-2xl / rounded-3xl)", "source": "code", "note": "Genre/mood selectable tiles, ComingSoon block, prize banners." },
+    "full": { "value": "9999px (rounded-full)", "source": "code", "note": "Search bar, circular arrow buttons, avatar." }
+  },
+  "shadow": {
+    "nav": { "value": "shadow-md (Tailwind default)", "source": "code", "refs": ["frontend/src/components/ui/navMenu/NavMenu.jsx:75"] },
+    "dropdown": { "value": "shadow-lg (Tailwind default)", "source": "code", "refs": ["frontend/src/components/ui/navMenu/MobileMenu.jsx:23"] },
+    "modal": { "value": "shadow-xl / shadow-2xl (Tailwind default)", "source": "code", "refs": ["frontend/src/components/ui/modal/CookieConsentBanner.jsx:112", "frontend/src/components/ui/modal/LoginModal.jsx:29"] },
+    "note": "No custom box-shadow values (color/blur/spread) are declared anywhere; all shadows use Tailwind's built-in shadow-* scale unmodified."
+  },
+  "buttons": {
+    "primary": {
+      "background": "#CA249C",
+      "text": "#FFFFFF",
+      "fontWeight": "semibold",
+      "borderRadius": "8px (rounded-lg)",
+      "paddingY": "10-12px",
+      "hover": "opacity: 0.9",
+      "source": "code",
+      "refs": ["frontend/src/components/ui/forms/LoginForm.jsx:265"]
+    },
+    "secondary": {
+      "background": "#1DB954",
+      "text": "#FFFFFF",
+      "fontWeight": "semibold",
+      "borderRadius": "8px (rounded-lg)",
+      "hover": "opacity: 0.9",
+      "source": "code",
+      "note": "Third-party (Spotify) brand color, not a Filtr-native secondary color.",
+      "refs": ["frontend/src/components/ui/forms/LoginForm.jsx:278"]
+    },
+    "confirmLight": {
+      "background": "#B9F2CD",
+      "text": "#000000",
+      "fontWeight": "semibold",
+      "borderRadius": "8px (rounded-[8px])",
+      "hover": "background: #a8e3bc",
+      "source": "code",
+      "refs": ["frontend/src/components/ui/modal/LoginModal.jsx:37"]
+    },
+    "outline": {
+      "background": "transparent",
+      "text": "#FFFFFF",
+      "border": "1px solid rgba(255,255,255,0.10)",
+      "borderRadius": "12px (rounded-xl)",
+      "paddingY": "6px (py-1.5)",
+      "paddingX": "12px (px-3)",
+      "fontSize": "14px (text-sm)",
+      "hover": "background: rgba(255,255,255,0.05)",
+      "source": "code",
+      "refs": ["frontend/src/components/shows/ShowCard.jsx:241"]
+    },
+    "ghostLink": {
+      "background": "transparent",
+      "text": "inherits (white on dark, brand or near-black on light)",
+      "decoration": "underline, underline-offset: 2px",
+      "source": "code"
+    },
+    "destructive": {
+      "background": "transparent",
+      "text": "tailwind red-600",
+      "decoration": "underline, underline-offset: 2px",
+      "source": "code",
+      "note": "\"Eliminar mi cuenta\" button in EditAccountForm.",
+      "refs": ["frontend/src/components/ui/forms/EditAccountForm.jsx:552"]
+    },
+    "disabled": {
+      "opacity": "0.5",
+      "cursor": "not-allowed",
+      "source": "code",
+      "note": "Applied conditionally in JS className strings, never via the CSS :disabled pseudo-class or a Tailwind disabled: variant."
+    },
+    "heightInferred": {
+      "value": "~44-48px",
+      "source": "inferred",
+      "note": "No fixed button height exists in the codebase. Value inferred from py-3 (12px top+bottom) plus a 16-20px line-height of the base/sm text size."
+    }
+  },
+  "layout": {
+    "container": {
+      "pagePaddingX": "24px (px-6)",
+      "formsMaxWidth": "800px (max-w-[800px])",
+      "modalsMaxWidth": "500px (max-w-[500px]) / 32rem (max-w-lg)",
+      "gridsMaxWidth": "80% of viewport at 2xl (2xl:max-w-[80%])",
+      "source": "code",
+      "note": "There is no single global .container class or Tailwind theme.container config; each surface declares its own max-width."
+    },
+    "breakpoints": {
+      "sm": { "value": "640px", "source": "inferred", "note": "Tailwind default — tailwind.config.js does not override theme.screens." },
+      "md": { "value": "768px", "source": "inferred" },
+      "lg": { "value": "1024px", "source": "inferred" },
+      "xl": { "value": "1280px", "source": "inferred" },
+      "2xl": { "value": "1536px", "source": "inferred" }
+    }
+  }
+}

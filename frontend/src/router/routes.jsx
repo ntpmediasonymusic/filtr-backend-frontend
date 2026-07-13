@@ -7,6 +7,7 @@ import Quizzes from "../pages/Quizzes";
 import Shows from "../pages/Shows";
 import Trending from "../pages/Trending";
 import Prizes from "../pages/Prizes";
+import Merch from "../pages/Merch";
 import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
 import EditAccount from "../pages/EditAccount";
@@ -18,7 +19,7 @@ import TermsAndConditions from "../pages/TermsAndConditions";
 import PrivacyPolicy from "../pages/PrivacyPolicy";
 import { RegionlessRedirect, RootRedirect } from "./RegionlessRedirect";
 
-export const REGIONS = ["cr", "do", "pa"];
+export const REGIONS = ["cr", "do", "pa", "gt", "sv", "us"];
 
 export const router = createBrowserRouter([
   // 1) raíz siempre a /cr
@@ -35,6 +36,7 @@ export const router = createBrowserRouter([
       { path: "quizzes", element: <Quizzes /> },
       { path: "shows", element: <Shows /> },
       { path: "trending", element: <Trending /> },
+      { path: "merch", element: <Merch /> },
       { path: "prizes", element: <Prizes /> },
       { path: "login", element: <Login /> },
       { path: "signup", element: <SignUp /> },

@@ -1,0 +1,366 @@
+{
+  "collection": {
+    "id": "merch-vinyl-demo",
+    "name": "Vinyl",
+    "slug": "vinyl",
+    "defaultCurrency": "USD",
+    "status": "demo",
+    "source": "temporary-json",
+    "shopifyApiReady": false,
+    "categories": [
+      {
+        "id": "artists",
+        "label": "Artistas",
+        "type": "dropdown",
+        "enabled": true
+      },
+      {
+        "id": "accessories",
+        "label": "Accesorios",
+        "type": "category",
+        "enabled": true,
+        "isEmpty": true
+      },
+      {
+        "id": "cd",
+        "label": "CD",
+        "type": "category",
+        "enabled": true,
+        "isEmpty": true
+      },
+      {
+        "id": "vinyl",
+        "label": "Vinilos",
+        "type": "category",
+        "enabled": true,
+        "isEmpty": false
+      }
+    ],
+    "filters": {
+      "availability": [
+        {
+          "id": "in-stock",
+          "label": "En stock",
+          "value": "in_stock"
+        },
+        {
+          "id": "out-of-stock",
+          "label": "Fuera de stock",
+          "value": "out_of_stock"
+        }
+      ],
+      "price": {
+        "currency": "USD",
+        "min": 0,
+        "max": null
+      }
+    },
+    "sortOptions": [
+      {
+        "id": "featured",
+        "label": "Destacados",
+        "value": "featured"
+      },
+      {
+        "id": "most-relevant",
+        "label": "Más relevantes",
+        "value": "most_relevant"
+      },
+      {
+        "id": "best-selling",
+        "label": "Más vendidos",
+        "value": "best_selling"
+      },
+      {
+        "id": "title-ascending",
+        "label": "Alfabéticamente, A-Z",
+        "value": "title_ascending"
+      },
+      {
+        "id": "title-descending",
+        "label": "Alfabéticamente, Z-A",
+        "value": "title_descending"
+      },
+      {
+        "id": "price-ascending",
+        "label": "Precio, menor a mayor",
+        "value": "price_ascending"
+      },
+      {
+        "id": "price-descending",
+        "label": "Precio, mayor a menor",
+        "value": "price_descending"
+      },
+      {
+        "id": "date-ascending",
+        "label": "Fecha, antiguo a reciente",
+        "value": "date_ascending"
+      },
+      {
+        "id": "date-descending",
+        "label": "Fecha, reciente a antiguo",
+        "value": "date_descending"
+      }
+    ],
+    "products": [
+      {
+        "id": "navidad-melancolica-red-vinyl-lp-store-exclusive",
+        "title": "Navidad Melancólica - Red Vinyl LP (Store Exclusive)",
+        "slug": "navidad-melancolica-red-vinyl-lp-store-exclusive",
+        "artist": {
+          "name": "Thalia",
+          "slug": "thalia"
+        },
+        "productType": "vinyl",
+        "category": "vinyl",
+        "price": {
+          "amount": 29.98,
+          "currency": "USD"
+        },
+        "images": [
+          {
+            "src": "/assets/images/merch/article-navidadMeloancolica-1.webp",
+            "alt": "Navidad Melancólica - Red Vinyl LP by Thalia"
+          }
+        ],
+        "inventory": {
+          "quantity": 24,
+          "status": "in_stock"
+        },
+        "purchaseUrl": "https://merch.sonymusiclatin.com/products/navidad-melancolica-red-vinyl-lp-store-exclusive",
+        "releaseDate": "2024-11-01",
+        "createdAt": "2024-11-01T10:00:00Z",
+        "salesCount": 82,
+        "featuredRank": 1,
+        "isFeatured": true,
+        "tags": [
+          "vinyl",
+          "lp",
+          "red-vinyl",
+          "store-exclusive",
+          "thalia"
+        ]
+      },
+      {
+        "id": "todo-suena-mejor-en-cumbia-mystery-color-vinyl-lp-d2c-exclusive",
+        "title": "TODO SUENA MEJOR EN CUMBIA - Mystery Color Vinyl LP (D2C Exclusive)",
+        "slug": "todo-suena-mejor-en-cumbia-mystery-color-vinyl-lp-d2c-exclusive",
+        "artist": {
+          "name": "Thalia",
+          "slug": "thalia"
+        },
+        "productType": "vinyl",
+        "category": "vinyl",
+        "price": {
+          "amount": 29.98,
+          "currency": "USD"
+        },
+        "images": [
+          {
+            "src": "/assets/images/merch/article-thaliaSweetartVinyl-1.webp",
+            "alt": "TODO SUENA MEJOR EN CUMBIA - Mystery Color Vinyl LP by Thalia"
+          },
+          {
+            "src": "/assets/images/merch/article-thaliaSweetartVinyl-2.webp",
+            "alt": "TODO SUENA MEJOR EN CUMBIA vinyl alternate image 2"
+          },
+          {
+            "src": "/assets/images/merch/article-thaliaSweetartVinyl-3.webp",
+            "alt": "TODO SUENA MEJOR EN CUMBIA vinyl alternate image 3"
+          },
+          {
+            "src": "/assets/images/merch/article-thaliaSweetartVinyl-4.webp",
+            "alt": "TODO SUENA MEJOR EN CUMBIA vinyl alternate image 4"
+          }
+        ],
+        "inventory": {
+          "quantity": 18,
+          "status": "in_stock"
+        },
+        "purchaseUrl": "https://merch.sonymusiclatin.com/products/todo-suena-mejor-en-cumbia-mystery-color-vinyl-lp-d2c-exclusive",
+        "releaseDate": "2024-09-20",
+        "createdAt": "2024-09-20T10:00:00Z",
+        "salesCount": 76,
+        "featuredRank": 2,
+        "isFeatured": true,
+        "tags": [
+          "vinyl",
+          "lp",
+          "mystery-color",
+          "d2c-exclusive",
+          "thalia"
+        ]
+      },
+      {
+        "id": "thalias-mixtape-magenta-vinyl-lp",
+        "title": "Thalia's Mixtape - Magenta Vinyl LP",
+        "slug": "thalias-mixtape-magenta-vinyl-lp",
+        "artist": {
+          "name": "Thalia",
+          "slug": "thalia"
+        },
+        "productType": "vinyl",
+        "category": "vinyl",
+        "price": {
+          "amount": 26.98,
+          "currency": "USD"
+        },
+        "images": [
+          {
+            "src": "/assets/images/merch/article-thaliaMIxtapeVinyl-1.webp",
+            "alt": "Thalia's Mixtape - Magenta Vinyl LP"
+          },
+          {
+            "src": "/assets/images/merch/article-thaliaMIxtapeVinyl-2.webp",
+            "alt": "Thalia's Mixtape vinyl alternate image 2"
+          }
+        ],
+        "inventory": {
+          "quantity": 31,
+          "status": "in_stock"
+        },
+        "purchaseUrl": "https://merch.sonymusiclatin.com/products/thalias-mixtape-vinyl-lp",
+        "releaseDate": "2023-04-28",
+        "createdAt": "2023-04-28T10:00:00Z",
+        "salesCount": 134,
+        "featuredRank": 3,
+        "isFeatured": true,
+        "tags": [
+          "vinyl",
+          "lp",
+          "magenta-vinyl",
+          "thalia"
+        ]
+      },
+      {
+        "id": "todo-suena-mejor-en-cumbia-mystery-color-vinyl-lp-autographed-d2c-exclusive",
+        "title": "TODO SUENA MEJOR EN CUMBIA - Mystery Color Vinyl LP (Autographed - D2C Exclusive)",
+        "slug": "todo-suena-mejor-en-cumbia-mystery-color-vinyl-lp-autographed-d2c-exclusive",
+        "artist": {
+          "name": "Thalia",
+          "slug": "thalia"
+        },
+        "productType": "vinyl",
+        "category": "vinyl",
+        "price": {
+          "amount": 39.98,
+          "currency": "USD"
+        },
+        "images": [
+          {
+            "src": "/assets/images/merch/article-thaliaAutographedSweetart-1.webp",
+            "alt": "TODO SUENA MEJOR EN CUMBIA autographed vinyl by Thalia"
+          }
+        ],
+        "inventory": {
+          "quantity": 7,
+          "status": "in_stock"
+        },
+        "purchaseUrl": "https://merch.sonymusiclatin.com/products/todo-suena-mejor-en-cumbia-mystery-color-vinyl-lp-autographed-d2c-exclusive",
+        "releaseDate": "2024-09-20",
+        "createdAt": "2024-09-21T10:00:00Z",
+        "salesCount": 48,
+        "featuredRank": 4,
+        "isFeatured": false,
+        "tags": [
+          "vinyl",
+          "lp",
+          "mystery-color",
+          "autographed",
+          "d2c-exclusive",
+          "thalia"
+        ]
+      },
+      {
+        "id": "desamorfosis-clear-2lp-vinyl",
+        "title": "desAMORfosis - Clear 2LP Vinyl",
+        "slug": "desamorfosis-clear-2lp-vinyl",
+        "artist": {
+          "name": "Thalia",
+          "slug": "thalia"
+        },
+        "productType": "vinyl",
+        "category": "vinyl",
+        "price": {
+          "amount": 27.98,
+          "currency": "USD"
+        },
+        "images": [
+          {
+            "src": "/assets/images/merch/article-thaliadesamorfosisvinyl-1.webp",
+            "alt": "desAMORfosis - Clear 2LP Vinyl by Thalia"
+          },
+          {
+            "src": "/assets/images/merch/article-thaliadesamorfosisvinyl-2.webp",
+            "alt": "desAMORfosis clear vinyl alternate image 2"
+          },
+          {
+            "src": "/assets/images/merch/article-thaliadesamorfosisvinyl-3.webp",
+            "alt": "desAMORfosis clear vinyl alternate image 3"
+          }
+        ],
+        "inventory": {
+          "quantity": 15,
+          "status": "in_stock"
+        },
+        "purchaseUrl": "https://merch.sonymusiclatin.com/products/desamorfosis-clear-2lp-vinyl",
+        "releaseDate": "2021-05-14",
+        "createdAt": "2021-05-14T10:00:00Z",
+        "salesCount": 96,
+        "featuredRank": 5,
+        "isFeatured": false,
+        "tags": [
+          "vinyl",
+          "2lp",
+          "clear-vinyl",
+          "thalia"
+        ]
+      },
+      {
+        "id": "rauw-alejandro-vice-versa-vinyl-2lp",
+        "title": "Rauw Alejandro - VICE VERSA Vinyl 2LP",
+        "slug": "rauw-alejandro-vice-versa-vinyl-2lp",
+        "artist": {
+          "name": "Rauw Alejandro",
+          "slug": "rauw-alejandro"
+        },
+        "productType": "vinyl",
+        "category": "vinyl",
+        "price": {
+          "amount": 36.98,
+          "currency": "USD"
+        },
+        "images": [
+          {
+            "src": "/assets/images/merch/article-rawAlejandroVIceversa-1.webp",
+            "alt": "Rauw Alejandro - VICE VERSA Vinyl 2LP"
+          },
+          {
+            "src": "/assets/images/merch/article-rawAlejandroVIceversa-2.webp",
+            "alt": "VICE VERSA vinyl alternate image 2"
+          },
+          {
+            "src": "/assets/images/merch/article-rawAlejandroVIceversa-3.webp",
+            "alt": "VICE VERSA vinyl alternate image 3"
+          }
+        ],
+        "inventory": {
+          "quantity": 0,
+          "status": "out_of_stock"
+        },
+        "purchaseUrl": "https://merch.sonymusiclatin.com/products/vice-versa-vinyl-2lp",
+        "releaseDate": "2021-06-25",
+        "createdAt": "2021-06-25T10:00:00Z",
+        "salesCount": 121,
+        "featuredRank": 6,
+        "isFeatured": false,
+        "tags": [
+          "vinyl",
+          "2lp",
+          "rauw-alejandro",
+          "vice-versa"
+        ]
+      }
+    ]
+  }
+}

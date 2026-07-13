@@ -1,0 +1,626 @@
+/*
+ * SomosFiltr — Shopify visual-reference stylesheet
+ * ---------------------------------------------------------------
+ * NOT a drop-in replacement for the SomosFiltr React frontend.
+ * This is a standalone reference for a developer building the
+ * "Merch" section as a Shopify theme, so the storefront visually
+ * matches somosfiltr.com as closely as possible.
+ *
+ * Source of truth: docs/somosfiltr-design-system.md and
+ * docs/somosfiltr-design-tokens.json (extracted from the live
+ * React + Tailwind frontend, which has no formal theme file).
+ *
+ * Values marked "inferred" in the tokens JSON are flagged here
+ * with a comment; do not treat them as pixel-perfect guarantees.
+ * ---------------------------------------------------------------
+ */
+
+:root {
+  /* ---- Brand colors ---- */
+  --sf-color-brand-magenta: #CA249C;
+  --sf-color-brand-blue: #004FD4;
+  --sf-color-brand-cyan: #00DAF0;
+  --sf-color-brand-lime: #CFDD28;
+  --sf-color-brand-spotify: #1DB954; /* third-party brand color, not native Filtr */
+
+  /* ---- Backgrounds ---- */
+  --sf-color-bg-page: #131517;
+  --sf-color-bg-surface-1: #282534; /* playlist / product card */
+  --sf-color-bg-surface-2: #262627; /* show / detail card */
+  --sf-color-bg-surface-3: #282828; /* menus, modals */
+  --sf-color-bg-arrow-button: #252733;
+  --sf-color-bg-form-card: #FFFFFF; /* auth/checkout-style forms break the dark theme */
+  --sf-color-bg-skeleton: #374151; /* tailwind gray-700, inferred */
+  --sf-color-bg-skeleton-pulse: #4B5563; /* tailwind gray-600, inferred */
+
+  /* ---- Text ---- */
+  --sf-color-text-on-dark: #FFFFFF;
+  --sf-color-text-on-dark-muted: #9CA3AF; /* tailwind gray-400, inferred */
+  --sf-color-text-on-light: #374151; /* tailwind gray-700, inferred */
+  --sf-color-text-on-light-primary: #131517;
+  --sf-color-text-error: #DC2626; /* tailwind red-600, inferred */
+  --sf-color-text-success: #16A34A; /* tailwind green-600, inferred */
+  --sf-color-text-placeholder: #9CA3AF;
+
+  /* ---- Borders / states ---- */
+  --sf-color-border-input: #262627;
+  --sf-color-border-focus: #00DAF0;
+  --sf-color-border-subtle: rgba(255, 255, 255, 0.10);
+  --sf-state-hover-opacity-solid: 0.9;
+  --sf-state-hover-opacity-link: 0.6;
+  --sf-state-hover-opacity-circle: 0.8;
+  --sf-state-hover-bg-subtle: rgba(255, 255, 255, 0.05);
+  --sf-state-disabled-opacity: 0.5;
+  --sf-color-favorite-active: #EF4444; /* tailwind red-500, inferred */
+
+  /* ---- Gradients ---- */
+  --sf-gradient-brand: linear-gradient(
+    to right,
+    var(--sf-color-brand-magenta) 0%,
+    var(--sf-color-brand-magenta) 20%,
+    var(--sf-color-brand-blue) 70%,
+    var(--sf-color-brand-blue) 100%
+  );
+
+  /* ---- Typography ---- */
+  --sf-font-body: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; /* Tailwind default stack, inferred — no override in source */
+  --sf-font-heading: 'Montserrat', sans-serif;
+  /* Declared but unused in the current live site — do not load unless design explicitly asks for them */
+  --sf-font-decorative-modak: 'Modak', system-ui;
+  --sf-font-decorative-oi: 'Oi', serif;
+  --sf-font-decorative-climate-crisis: 'Climate Crisis', sans-serif;
+
+  --sf-fs-h1: 28px;       /* desktop; mobile ~18px */
+  --sf-fs-h1-mobile: 18px;
+  --sf-fs-h2: 24px;       /* desktop; mobile ~18px */
+  --sf-fs-h2-mobile: 18px;
+  --sf-fs-h3: 22px;       /* desktop; mobile ~18px */
+  --sf-fs-h3-mobile: 18px;
+  --sf-fs-body: 16px;     /* desktop; mobile ~14px */
+  --sf-fs-body-mobile: 14px;
+  --sf-fs-caption: 14px;  /* desktop; mobile ~12px */
+  --sf-fs-caption-mobile: 12px;
+  --sf-fs-button: 16px;   /* desktop; mobile ~14px */
+
+  --sf-fw-normal: 400;
+  --sf-fw-medium: 500;
+  --sf-fw-semibold: 600;
+  --sf-fw-bold: 700;
+  --sf-fw-black: 900;
+
+  --sf-lh-tight: 1.25;  /* inferred from Tailwind leading-tight */
+  --sf-lh-none: 1;      /* inferred from Tailwind leading-none */
+  --sf-lh-normal: 1.5;  /* inferred from Tailwind leading-normal */
+  --sf-letter-spacing: normal; /* confirmed: no tracking-* utility anywhere in source */
+
+  /* ---- Spacing ---- */
+  --sf-space-page-x: 24px;
+  --sf-space-section-y: 50px;
+  --sf-space-card-padding: 12px;
+  --sf-space-form-card-padding-mobile: 20px;
+  --sf-space-form-card-padding-desktop: 40px;
+  --sf-space-input-padding: 16px;
+  --sf-space-button-padding-y: 12px;
+  --sf-space-button-padding-x: 24px;
+  --sf-grid-gap-x: 14px;
+  --sf-grid-gap-x-xl: 24px;
+  --sf-grid-gap-y: 30px;
+
+  /* ---- Radii ---- */
+  --sf-radius-sm: 8px;    /* buttons, inputs, cards */
+  --sf-radius-md: 12px;   /* dropdowns */
+  --sf-radius-lg: 16px;   /* modals */
+  --sf-radius-xl: 22px;   /* auth/form cards */
+  --sf-radius-pill: 24px; /* genre/mood tiles */
+  --sf-radius-full: 9999px; /* search bar, avatars, circular buttons */
+  --sf-radius-card: var(--sf-radius-sm);
+
+  /* ---- Shadows (Tailwind defaults, unmodified) ---- */
+  --sf-shadow-nav: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+  --sf-shadow-dropdown: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
+  --sf-shadow-modal: 0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1);
+
+  /* ---- Buttons ---- */
+  --sf-button-height: 48px; /* inferred: no fixed height in source, derived from py-3 + base line-height */
+  --sf-button-radius: var(--sf-radius-sm);
+
+  /* ---- Layout ---- */
+  --sf-container-forms-max: 800px;
+  --sf-container-modal-max: 500px;
+  --sf-container-grid-max: 80%; /* only applied at 2xl breakpoint in source */
+  --sf-nav-offset-mobile: 50px;
+  --sf-nav-offset-desktop: 80px;
+
+  /* ---- Breakpoints (reference only — not usable as CSS values) ---- */
+  --sf-bp-sm: 640px;
+  --sf-bp-md: 768px;
+  --sf-bp-lg: 1024px;
+  --sf-bp-xl: 1280px;
+  --sf-bp-2xl: 1536px;
+}
+
+/* =================================================================
+ * Base
+ * ================================================================= */
+
+.sf-page {
+  background-color: var(--sf-color-bg-page);
+  color: var(--sf-color-text-on-dark);
+  font-family: var(--sf-font-body);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.sf-container {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: var(--sf-space-page-x);
+}
+
+@media (min-width: 1536px) {
+  .sf-container--grid {
+    max-width: var(--sf-container-grid-max);
+  }
+}
+
+/* =================================================================
+ * Header / Nav
+ * ================================================================= */
+
+.sf-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  color: var(--sf-color-text-on-dark);
+  background-image: var(--sf-gradient-brand);
+  box-shadow: var(--sf-shadow-nav);
+  transition: padding 200ms ease-in-out;
+}
+
+.sf-header--scrolled {
+  padding-block: 4px;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+.sf-header__logo img {
+  width: 160px; /* w-40 */
+}
+
+@media (min-width: 768px) {
+  .sf-header__logo img {
+    width: 200px; /* w-50 */
+  }
+}
+
+.sf-nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 122px;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-size: var(--sf-fs-body);
+  font-weight: var(--sf-fw-normal);
+  color: var(--sf-color-text-on-dark);
+  line-height: var(--sf-lh-none);
+  transition: color 200ms, border-color 200ms;
+  text-decoration: none;
+}
+
+.sf-nav-link:hover {
+  opacity: var(--sf-state-hover-opacity-link);
+}
+
+.sf-nav-link--active {
+  color: var(--sf-color-brand-cyan);
+  border-color: var(--sf-color-brand-cyan);
+  font-weight: var(--sf-fw-normal);
+  padding: 11px; /* compensates for the 1px border so layout doesn't shift */
+}
+
+/* =================================================================
+ * Footer
+ * ================================================================= */
+
+.sf-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px;
+  background-color: var(--sf-color-brand-blue);
+  background-image: var(--sf-gradient-brand);
+  color: var(--sf-color-text-on-dark);
+}
+
+.sf-footer__link {
+  color: inherit;
+  text-decoration: underline;
+  transition: color 200ms;
+}
+
+.sf-footer__link:hover {
+  color: #D1D5DB; /* tailwind gray-300, inferred */
+}
+
+/* =================================================================
+ * Titles
+ * ================================================================= */
+
+.sf-title {
+  font-family: var(--sf-font-heading);
+  font-weight: var(--sf-fw-bold);
+  font-size: var(--sf-fs-h1-mobile);
+  line-height: var(--sf-lh-tight);
+  color: var(--sf-color-text-on-dark);
+  letter-spacing: var(--sf-letter-spacing);
+}
+
+@media (min-width: 768px) {
+  .sf-title {
+    font-size: var(--sf-fs-h1);
+  }
+}
+
+.sf-subtitle {
+  font-family: var(--sf-font-heading);
+  font-weight: var(--sf-fw-bold);
+  font-size: var(--sf-fs-h2-mobile);
+  line-height: var(--sf-lh-tight);
+  color: var(--sf-color-text-on-dark);
+}
+
+@media (min-width: 768px) {
+  .sf-subtitle {
+    font-size: var(--sf-fs-h2);
+  }
+}
+
+/* =================================================================
+ * Links
+ * ================================================================= */
+
+.sf-link {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font-weight: var(--sf-fw-semibold);
+  color: inherit;
+  cursor: pointer;
+}
+
+.sf-link--brand {
+  color: var(--sf-color-brand-magenta);
+}
+
+/* =================================================================
+ * Buttons
+ * ================================================================= */
+
+.sf-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: var(--sf-button-height);
+  padding: var(--sf-space-button-padding-y) var(--sf-space-button-padding-x);
+  border-radius: var(--sf-button-radius);
+  font-size: var(--sf-fs-button);
+  font-weight: var(--sf-fw-semibold);
+  text-transform: uppercase; /* source uses uppercase copy directly; formalized here as CSS */
+  border: none;
+  cursor: pointer;
+  transition: opacity 200ms, background-color 200ms;
+}
+
+.sf-button:disabled,
+.sf-button[aria-disabled="true"] {
+  opacity: var(--sf-state-disabled-opacity);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.sf-button-primary {
+  background-color: var(--sf-color-brand-magenta);
+  color: var(--sf-color-text-on-dark);
+}
+
+.sf-button-primary:hover {
+  opacity: var(--sf-state-hover-opacity-solid);
+}
+
+.sf-button-secondary {
+  background-color: var(--sf-color-brand-spotify);
+  color: var(--sf-color-text-on-dark);
+}
+
+.sf-button-secondary:hover {
+  opacity: var(--sf-state-hover-opacity-solid);
+}
+
+.sf-button-outline {
+  background-color: transparent;
+  color: var(--sf-color-text-on-dark);
+  border: 1px solid var(--sf-color-border-subtle);
+  border-radius: 12px;
+  padding: 6px 12px;
+  font-size: 14px;
+  text-transform: none;
+  font-weight: var(--sf-fw-normal);
+  width: auto;
+  min-height: unset;
+}
+
+.sf-button-outline:hover {
+  background-color: var(--sf-state-hover-bg-subtle);
+}
+
+.sf-button-ghost {
+  background-color: transparent;
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font-weight: var(--sf-fw-semibold);
+  width: auto;
+  min-height: unset;
+  padding: 0;
+  text-transform: none;
+}
+
+.sf-button-destructive {
+  background-color: transparent;
+  color: var(--sf-color-text-error);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font-weight: var(--sf-fw-medium);
+  width: auto;
+  min-height: unset;
+  padding: 0;
+  text-transform: none;
+}
+
+/* =================================================================
+ * Product grid / cards (modeled on PlaylistsContainerGrid + PlaylistCard)
+ * ================================================================= */
+
+.sf-product-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--sf-grid-gap-x) var(--sf-grid-gap-y);
+  justify-items: center;
+}
+
+@media (min-width: 768px) {
+  .sf-product-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .sf-product-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1280px) {
+  .sf-product-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    column-gap: var(--sf-grid-gap-x-xl);
+  }
+}
+
+.sf-product-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 256px; /* lg:w-64 */
+  background-color: var(--sf-color-bg-surface-1);
+  border-radius: var(--sf-radius-card);
+  padding: var(--sf-space-card-padding);
+  gap: 10px;
+}
+
+.sf-product-card__image-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1; /* replaces the before:pt-[100%] padding-top hack used in source */
+  border-radius: var(--sf-radius-card);
+  overflow: hidden;
+  background-color: var(--sf-color-bg-skeleton);
+}
+
+.sf-product-card__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 500ms;
+}
+
+.sf-product-card__image--loaded {
+  opacity: 1;
+}
+
+.sf-product-card__skeleton {
+  position: absolute;
+  inset: 0;
+  background-color: var(--sf-color-bg-skeleton-pulse);
+  animation: sf-pulse 1.5s ease-in-out infinite;
+}
+
+.sf-product-card__title {
+  color: var(--sf-color-text-on-dark);
+  text-align: left;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 3rem;
+}
+
+@keyframes sf-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* =================================================================
+ * Forms / Inputs (modeled on LoginForm / SignUpForm)
+ * ================================================================= */
+
+.sf-form-card {
+  background-color: var(--sf-color-bg-form-card);
+  padding: var(--sf-space-form-card-padding-mobile);
+  border-radius: var(--sf-radius-xl);
+  max-width: var(--sf-container-forms-max);
+  width: 100%;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (min-width: 640px) {
+  .sf-form-card {
+    padding: var(--sf-space-form-card-padding-desktop);
+    gap: 20px;
+  }
+}
+
+.sf-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--sf-color-bg-form-card);
+  border: 1px solid var(--sf-color-border-input);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+@media (min-width: 640px) {
+  .sf-input-wrap {
+    padding: 16px;
+    gap: 12px;
+  }
+}
+
+.sf-input {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--sf-color-text-on-light);
+  font-size: var(--sf-fs-body-mobile);
+}
+
+@media (min-width: 640px) {
+  .sf-input {
+    font-size: var(--sf-fs-body);
+  }
+}
+
+.sf-input::placeholder {
+  color: var(--sf-color-text-placeholder);
+}
+
+.sf-input-icon {
+  color: var(--sf-color-brand-magenta);
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.sf-form-error {
+  margin-top: 4px;
+  font-size: var(--sf-fs-caption-mobile);
+  color: var(--sf-color-text-error);
+}
+
+@media (min-width: 640px) {
+  .sf-form-error {
+    font-size: var(--sf-fs-caption);
+  }
+}
+
+/* =================================================================
+ * Search bar (modeled on PageHeader)
+ * ================================================================= */
+
+.sf-search-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+  background-color: var(--sf-color-bg-page);
+  border: 2px solid var(--sf-color-border-focus);
+  border-radius: var(--sf-radius-full);
+  padding: 8px 16px;
+  max-width: 400px;
+}
+
+.sf-search-bar input {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--sf-color-text-on-dark);
+}
+
+.sf-search-bar input::placeholder {
+  color: var(--sf-color-text-on-dark-muted);
+}
+
+/* =================================================================
+ * Filter chips (modeled on GenresHeader tiles — for artist/type filters)
+ * ================================================================= */
+
+.sf-filter-chip {
+  cursor: pointer;
+  border-radius: 16px;
+  border: 2px solid transparent;
+  overflow: hidden;
+  transition: transform 300ms, border-color 300ms;
+}
+
+.sf-filter-chip:hover,
+.sf-filter-chip--selected {
+  border-color: var(--sf-color-text-on-dark);
+  transform: scale(1.05);
+}
+
+/* =================================================================
+ * Modal (modeled on LoginModal)
+ * ================================================================= */
+
+.sf-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 40;
+}
+
+.sf-modal {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  max-width: var(--sf-container-modal-max);
+  background-color: var(--sf-color-bg-surface-3);
+  padding: 32px;
+  border-radius: var(--sf-radius-lg);
+  box-shadow: var(--sf-shadow-modal);
+  color: var(--sf-color-text-on-dark);
+}
