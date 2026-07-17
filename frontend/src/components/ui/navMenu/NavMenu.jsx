@@ -9,7 +9,7 @@ import MoodsIcon from "../../../assets/icons/MoodsIcon";
 import ShowsIcon from "../../../assets/icons/ShowsIcon";
 import TrendIcon from "../../../assets/icons/TrendIcon";
 import WinWinIcon from "../../../assets/icons/WinWinIcon";
-import MarketCartIcon from "../../../assets/icons/MarketCartIcon";
+// import MarketCartIcon from "../../../assets/icons/MarketCartIcon"; // oculto temporalmente junto con el ítem Merch
 import { useSearch } from "../../../context/SearchContext";
 import RegionNavLink from "../../../router/RegionNavLink";
 
@@ -63,7 +63,7 @@ const NavMenu = () => {
     { name: "Moods", icon: <MoodsIcon />, route: "/moods" },
     { name: "Trending", icon: <TrendIcon />, route: "/trending" },
     { name: "Shows", icon: <ShowsIcon />, route: "/shows" },
-    { name: "Merch", icon: <MarketCartIcon />, route: "/merch" },
+    // { name: "Merch", icon: <MarketCartIcon />, route: "/merch" }, // oculto temporalmente, reactivar en el futuro
     { name: "Premios", icon: <WinWinIcon />, route: "/prizes" },
   ];
 

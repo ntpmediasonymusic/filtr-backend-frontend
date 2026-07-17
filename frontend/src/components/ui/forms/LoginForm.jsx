@@ -42,6 +42,8 @@ useEffect(() => {
 
   autoLoginTriggeredRef.current = true; // evitar duplicados (StrictMode, etc.)
 
+  let cancelled = false;
+
   setSpotifyToken(tokenFromUrl);
   setIsSpotifyFlow(true);
 
@@ -75,11 +77,14 @@ useEffect(() => {
       };
 
       const { data } = await login(payload);
+      if (cancelled) return;
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
       await refreshPlaylists();
+      if (cancelled) return;
       navigate("/");
     } catch (err) {
+      if (cancelled) return;
       console.error("Error en auto-login con Spotify:", err);
       setIsSpotifyFlow(false);
       const msg =
@@ -87,12 +92,16 @@ useEffect(() => {
         "No se pudo iniciar sesión con Spotify. Intenta de nuevo.";
       setApiError(msg);
     } finally {
-      setIsLoading(false);
+      if (!cancelled) setIsLoading(false);
     }
   };
 
   doAutoLogin();
-}, [searchParams, login, refreshPlaylists, navigate]);
+
+  return () => {
+    cancelled = true;
+  };
+}, [searchParams, refreshPlaylists, navigate]);
 
   const validate = () => {
     const errs = {};

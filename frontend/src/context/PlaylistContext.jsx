@@ -1,5 +1,5 @@
 // filtr-frontend/src/context/PlaylistContext.jsx
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useState } from "react";
 import { fetchUpdatedPlaylists } from "../api/fetchPlaylists";
 import { useSortedPlaylists } from "../hooks/playlists/useSortedPlaylists";
 import { useRegion } from "../router/RegionContext";
@@ -17,11 +17,11 @@ export const PlaylistProvider = ({ children }) => {
   const filterByRegion = (list, r) =>
     list.filter((pl) => Array.isArray(pl.region) && pl.region.includes(r));
 
-  const refreshPlaylists = async () => {
+  const refreshPlaylists = useCallback(async () => {
     const updated = await fetchUpdatedPlaylists(sortedPlaylists);
     setAllPlaylists(updated);
     setPlaylists(filterByRegion(updated, region)); // aplica filtro actual
-  };
+  }, [sortedPlaylists, region]);
 
   useEffect(() => {
     refreshPlaylists();

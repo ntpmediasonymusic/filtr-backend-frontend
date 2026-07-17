@@ -2,7 +2,9 @@ import { useEffect } from "react";
 import LoginForm from "../components/ui/forms/LoginForm";
 
 const Login = () => {
-  useEffect(() => window.scrollTo(0, 0), []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col items-center px-6 py-[50px] md:py-[50px]">

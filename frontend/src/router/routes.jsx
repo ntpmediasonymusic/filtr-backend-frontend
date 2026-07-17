@@ -17,18 +17,20 @@ import ForgotPassword from "../pages/ForgotPassword";
 import ResetPassword from "../pages/ResetPassword";
 import TermsAndConditions from "../pages/TermsAndConditions";
 import PrivacyPolicy from "../pages/PrivacyPolicy";
+import ErrorPage from "../pages/ErrorPage";
 import { RegionlessRedirect, RootRedirect } from "./RegionlessRedirect";
 
 export const REGIONS = ["cr", "do", "pa", "gt", "sv", "us"];
 
 export const router = createBrowserRouter([
   // 1) raíz siempre a /cr
-  { path: "/", element: <RootRedirect /> },
+  { path: "/", element: <RootRedirect />, errorElement: <ErrorPage /> },
 
   // 2) rutas agrupadas por región
   {
     path: "/:region",
     element: <RegionLayout />,
+    errorElement: <ErrorPage />,
     children: [
       { index: true, element: <Home /> },
       { path: "genres", element: <Genres /> },

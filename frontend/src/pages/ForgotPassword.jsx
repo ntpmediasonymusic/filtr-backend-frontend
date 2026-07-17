@@ -2,7 +2,9 @@ import { useEffect } from "react";
 import ForgotPasswordForm from "../components/ui/forms/ForgotPasswordForm";
 
 const ForgotPassword = () => {
-  useEffect(() => window.scrollTo(0, 0), []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col items-center px-6 py-[50px] md:py-[50px]">
