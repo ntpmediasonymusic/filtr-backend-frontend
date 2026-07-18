@@ -79,7 +79,7 @@ const Footer = () => {
           className="hover:text-gray-300 transition-colors underline"
         >
           Beyonder
-        </a>
+        </a>.
       </span>
     </footer>
   );
