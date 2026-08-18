@@ -52,7 +52,10 @@ export default function SeoManager({
   const { region } = useRegion();
   const location = useLocation();
   const normalizedPath = normalizePathname(location.pathname);
-  const base = overrideTitle ?? (TITLES_BY_PATH[normalizedPath] ?? "Filtr");
+  const base =
+    overrideTitle ??
+    (TITLES_BY_PATH[normalizedPath] ??
+      (normalizedPath.startsWith("/shows/") ? "Shows" : "Filtr"));
   const finalTitle = base === "Filtr" ? base : `${base} | Filtr`;
   const description = overrideDescription ?? (DESC_BY_REGION[region] ?? "Filtr: playlists, shows y premios de la música en tu país.");
   const parts = location.pathname.split("/").filter(Boolean);

@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import ShowCard from "../components/shows/ShowCard";
 import ShowsHeader from "../components/shows/ShowsHeader";
 import PageHeader from "../components/ui/PageHeader";
@@ -12,6 +13,10 @@ import {
 import bitArtistsData from "../data/bitArtists.json";
 import SearchIcon from "../assets/icons/SearchIcon";
 import { IoClose, IoChevronBack, IoChevronForward } from "react-icons/io5";
+import { getArtistSlug, findArtistBySlug } from "../utils/artistSlug";
+
+// Lista de artistas: dato estatico, se calcula una sola vez fuera del componente.
+const ARTIST_LIST = (bitArtistsData?.bitArtists?.[0] || []).filter(Boolean);
 
 const PAGE_SIZE = 20;
 const PAGINATION_SCROLL_OFFSET = 200;
@@ -90,6 +95,8 @@ function monthNameForSearch(dt) {
 
 const Shows = () => {
   const { region } = useRegion();
+  const { artistSlug } = useParams();
+  const navigate = useNavigate();
 
   const [loading, setLoading] = useState(true);
 
@@ -99,15 +106,51 @@ const Shows = () => {
   const [scopeMode, setScopeMode] = useState("nearby"); // nearby | all
   const [sortMode, setSortMode] = useState("closest"); // closest | farthest
   const [q, setQ] = useState("");
-  const [artistFilter, setArtistFilter] = useState("all");
+  // Se inicializa a partir del slug en la URL (deep link) para que el select
+  // y el filtro ya muestren el artista correcto desde el primer render.
+  const [artistFilter, setArtistFilter] = useState(() => {
+    const match = findArtistBySlug(ARTIST_LIST, artistSlug);
+    return match ? match.name : "all";
+  });
   const [page, setPage] = useState(1);
 
   const gridRef = useRef(null);
   const hasMountedPageRef = useRef(false);
 
-  const artistList = useMemo(() => {
-    return (bitArtistsData?.bitArtists?.[0] || []).filter(Boolean);
-  }, []);
+  const artistList = ARTIST_LIST;
+
+  // Mantiene el filtro sincronizado con la URL: cubre navegación atrás/adelante,
+  // enlaces compartidos y slugs inexistentes (fallback seguro a /:region/shows).
+  useEffect(() => {
+    if (!artistSlug) {
+      setArtistFilter("all");
+      return;
+    }
+
+    const match = findArtistBySlug(artistList, artistSlug);
+
+    if (!match) {
+      setArtistFilter("all");
+      navigate(`/${region}/shows`, { replace: true });
+      return;
+    }
+
+    setArtistFilter(match.name);
+  }, [artistSlug, artistList, region, navigate]);
+
+  const handleArtistFilterChange = (e) => {
+    const value = e.target.value;
+    setArtistFilter(value);
+
+    if (value === "all") {
+      navigate(`/${region}/shows`);
+      return;
+    }
+
+    const artist = artistList.find((a) => a.name === value);
+    const slug = artist ? getArtistSlug(artist) : "";
+    navigate(slug ? `/${region}/shows/${slug}` : `/${region}/shows`);
+  };
 
   useEffect(() => {
     let cancelled = false;
@@ -322,7 +365,7 @@ const Shows = () => {
             </label>
             <select
               value={artistFilter}
-              onChange={(e) => setArtistFilter(e.target.value)}
+              onChange={handleArtistFilterChange}
               className="text-xs sm:text-sm md:text-base rounded-xl bg-[#CFDD28] text-black/80 px-3 py-2"
             >
               <option value="all">Todos</option>

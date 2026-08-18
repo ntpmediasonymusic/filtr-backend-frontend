@@ -37,6 +37,7 @@ export const router = createBrowserRouter([
       { path: "moods", element: <Moods /> },
       { path: "quizzes", element: <Quizzes /> },
       { path: "shows", element: <Shows /> },
+      { path: "shows/:artistSlug", element: <Shows /> },
       { path: "trending", element: <Trending /> },
       { path: "merch", element: <Merch /> },
       { path: "prizes", element: <Prizes /> },

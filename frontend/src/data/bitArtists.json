@@ -282,6 +282,12 @@
         "artistApiId": "ea2ad4ca084b88ce77f53114d6224726",
         "name": "Eros Ramazzotti",
         "regions": ["cr", "do", "pa", "gt", "sv", "us"]
+      },
+      {
+        "artistId": null,
+        "artistApiId": "0059700d7b7f9408b64c3f2ab25af60b",
+        "name": "Jorge Drexler",
+        "regions": ["cr", "do", "pa", "gt", "sv", "us"]
       }
     ]
   ]
