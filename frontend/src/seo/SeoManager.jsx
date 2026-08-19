@@ -25,6 +25,7 @@ const TITLES_BY_PATH = {
   "/quizzes": "Quizzes",
   "/shows": "Shows",
   "/trending": "Trending",
+  "/galeria": "Galería",
   "/merch": "Merch",
   "/prizes": "Premios",
   "/login": "Acceder",
@@ -55,7 +56,11 @@ export default function SeoManager({
   const base =
     overrideTitle ??
     (TITLES_BY_PATH[normalizedPath] ??
-      (normalizedPath.startsWith("/shows/") ? "Shows" : "Filtr"));
+      (normalizedPath.startsWith("/shows/")
+        ? "Shows"
+        : normalizedPath.startsWith("/galeria/")
+          ? "Galería"
+          : "Filtr"));
   const finalTitle = base === "Filtr" ? base : `${base} | Filtr`;
   const description = overrideDescription ?? (DESC_BY_REGION[region] ?? "Filtr: playlists, shows y premios de la música en tu país.");
   const parts = location.pathname.split("/").filter(Boolean);

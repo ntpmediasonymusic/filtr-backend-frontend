@@ -14,6 +14,7 @@ import VerificationEmailSent from "./VerificationEmailSent";
 import ClipLoader from "react-spinners/ClipLoader";
 import RegionLink from "../../../router/RegionLink";
 import { FaSpotify } from "react-icons/fa";
+import { consumePostAuthRedirect } from "../../../utils/postAuthRedirect";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -82,7 +83,7 @@ useEffect(() => {
       localStorage.setItem("user", JSON.stringify(data.user));
       await refreshPlaylists();
       if (cancelled) return;
-      navigate("/");
+      navigate(consumePostAuthRedirect() || "/");
     } catch (err) {
       if (cancelled) return;
       console.error("Error en auto-login con Spotify:", err);
@@ -139,7 +140,7 @@ useEffect(() => {
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
       await refreshPlaylists();
-      navigate("/");
+      navigate(consumePostAuthRedirect() || "/");
     } catch (err) {
       const status = err.response?.status;
       const msg = err.response?.data?.message || "Error inesperado.";

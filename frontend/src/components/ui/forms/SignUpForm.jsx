@@ -15,6 +15,7 @@ import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { usePlaylists } from "../../../context/PlaylistContext";
+import { consumePostAuthRedirect } from "../../../utils/postAuthRedirect";
 
 const SignUpForm = () => {
   const navigate = useNavigate();
@@ -416,8 +417,8 @@ const handleSubmit = async (e) => {
         );
       }
 
-      // Redirigir al home (o a donde quieras)
-      navigate("/");
+      // Redirigir al home, o al destino que el usuario intentaba visitar
+      navigate(consumePostAuthRedirect() || "/");
       return;
     }
 

@@ -11,7 +11,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "optimize:gallery": "node src/scripts/optimize-gallery-images.mjs"
   },
   "dependencies": {
     "@tailwindcss/line-clamp": "^0.4.4",
@@ -41,6 +42,7 @@
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.16",
     "globals": "^15.14.0",
+    "sharp": "^0.35.3",
     "vite": "^6.0.5"
   }
 }

@@ -7,6 +7,7 @@ export default function MerchDropdown({
   renderLabel,
   children,
   panelClassName = "",
+  panelZIndexClassName = "z-50",
   usePortal = false,
 }) {
   const [open, setOpen] = useState(false);
@@ -62,7 +63,7 @@ export default function MerchDropdown({
       style={usePortal && coords ? { top: coords.top, left: coords.left } : undefined}
       className={`${
         usePortal ? "fixed" : "absolute mt-2"
-      } z-50 bg-[#282828] rounded-[12px] shadow-lg p-3 ${panelClassName}`}
+      } ${panelZIndexClassName} bg-[#282828] rounded-[12px] shadow-lg p-3 ${panelClassName}`}
     >
       {typeof children === "function"
         ? children({ close: () => setOpen(false) })
@@ -79,7 +80,7 @@ export default function MerchDropdown({
         aria-expanded={open}
         aria-label={label}
         onClick={handleToggle}
-        className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm text-white bg-white/5 hover:bg-white/10 border border-white/10 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#00DAF0]"
+        className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm text-white bg-white/5 hover:bg-white/10 border border-white/10 transition cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#00DAF0]"
       >
         {renderLabel ? renderLabel() : <span>{label}</span>}
         <svg

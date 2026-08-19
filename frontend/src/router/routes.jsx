@@ -6,6 +6,8 @@ import Moods from "../pages/Moods";
 import Quizzes from "../pages/Quizzes";
 import Shows from "../pages/Shows";
 import Trending from "../pages/Trending";
+import Gallery from "../pages/Gallery";
+import GalleryEvent from "../pages/GalleryEvent";
 import Prizes from "../pages/Prizes";
 import Merch from "../pages/Merch";
 import Login from "../pages/Login";
@@ -39,6 +41,8 @@ export const router = createBrowserRouter([
       { path: "shows", element: <Shows /> },
       { path: "shows/:artistSlug", element: <Shows /> },
       { path: "trending", element: <Trending /> },
+      { path: "galeria", element: <Gallery /> },
+      { path: "galeria/:slug", element: <GalleryEvent /> },
       { path: "merch", element: <Merch /> },
       { path: "prizes", element: <Prizes /> },
       { path: "login", element: <Login /> },

@@ -7,7 +7,7 @@ export default function MerchEmptyState({ message, actionLabel, onAction }) {
         <button
           type="button"
           onClick={onAction}
-          className="text-sm font-semibold px-4 py-2 rounded-lg bg-[#CA249C] text-white hover:opacity-90 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#00DAF0]"
+          className="text-sm font-semibold px-4 py-2 rounded-lg bg-[#CA249C] text-white hover:opacity-90 transition cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#00DAF0]"
         >
           {actionLabel}
         </button>

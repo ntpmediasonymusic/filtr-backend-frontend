@@ -2,8 +2,9 @@
 
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { setPostAuthRedirect } from "../../../utils/postAuthRedirect";
 
-const LoginModal = ({ onClose, message }) => {
+const LoginModal = ({ onClose, message, redirectTo }) => {
   const ref = useRef(null);
   const navigate = useNavigate();
 
@@ -33,7 +34,10 @@ const LoginModal = ({ onClose, message }) => {
             <h3 className="text-white text-xl font-bold mb-4">{message}</h3>
 
             <button
-              onClick={() => navigate("/login")}
+              onClick={() => {
+                if (redirectTo) setPostAuthRedirect(redirectTo);
+                navigate("/login");
+              }}
               className="w-full bg-[#B9F2CD] text-black py-3 px-6 rounded-[8px] font-semibold hover:bg-[#a8e3bc] transition-all duration-200 cursor-pointer"
             >
               INICIAR SESIÓN

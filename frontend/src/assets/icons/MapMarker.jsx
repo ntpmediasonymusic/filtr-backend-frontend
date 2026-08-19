@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-function MapMarker({ width = "20", height = "26", color = "#00DAF0" }) {
+function MapMarker({ width = "20", height = "26", color = "#00DAF0", className = "" }) {
   return (
     <svg
       width={width}
@@ -7,6 +7,7 @@ function MapMarker({ width = "20", height = "26", color = "#00DAF0" }) {
       viewBox="0 0 20 26"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className={className}
     >
       <path
         d="M19 10.9512C19 18.122 10 24.2683 10 24.2683C10 24.2683 1 18.122 1 10.9512C1 8.50605 1.94821 6.16102 3.63604 4.43203C5.32387 2.70303 7.61305 1.73169 10 1.73169C12.3869 1.73169 14.6761 2.70303 16.364 4.43203C18.0518 6.16102 19 8.50605 19 10.9512Z"

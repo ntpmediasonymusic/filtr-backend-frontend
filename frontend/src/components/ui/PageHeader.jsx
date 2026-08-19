@@ -7,6 +7,7 @@ import { FaSignInAlt, FaUserPlus } from "react-icons/fa";
 import { useSearch } from "../../context/SearchContext";
 import RegionNavLink from "../../router/RegionNavLink";
 import CountryPicker from "./CountryPicker";
+import { getAuthSession } from "../../utils/auth";
 
 const PageHeader = ({ welcomeMsg }) => {
   const { searchQuery, setSearchQuery } = useSearch();
@@ -15,29 +16,10 @@ const PageHeader = ({ welcomeMsg }) => {
   const wrapperRef = useRef(null);
   const searchInputRef = useRef(null);
 
-  // Helper para leer exp del JWT
-  const getTokenExp = (bearerToken) => {
-    try {
-      const token = bearerToken.split(" ")[1];
-      const payload = token.split(".")[1];
-      const decoded = JSON.parse(window.atob(payload));
-      return decoded.exp;
-    } catch {
-      return null;
-    }
-  };
-
-  // Comprueba si hay token válido y extrae user
-  const token = localStorage.getItem("token");
-  let isAuthenticated = false;
-  let user = null;
-  if (token) {
-    const exp = getTokenExp(token);
-    if (exp && exp * 1000 > Date.now()) {
-      isAuthenticated = true;
-      user = JSON.parse(localStorage.getItem("user") || "{}");
-    }
-  }
+  // Comprueba si hay token válido (con expiración) y extrae user
+  const session = getAuthSession();
+  const isAuthenticated = session.authenticated;
+  const user = session.user || {};
 
   useEffect(() => {
     const handleClickOutside = (e) => {

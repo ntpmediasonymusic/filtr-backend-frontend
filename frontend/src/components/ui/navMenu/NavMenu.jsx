@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
+import { FiCamera } from "react-icons/fi";
 import NavMenuItem from "./NavMenuItem";
 import MobileMenu from "./MobileMenu";
 import logo from "../../../assets/images/filtr_logo_white.svg";
@@ -9,7 +10,7 @@ import MoodsIcon from "../../../assets/icons/MoodsIcon";
 import ShowsIcon from "../../../assets/icons/ShowsIcon";
 import TrendIcon from "../../../assets/icons/TrendIcon";
 import WinWinIcon from "../../../assets/icons/WinWinIcon";
-// import MarketCartIcon from "../../../assets/icons/MarketCartIcon"; // oculto temporalmente junto con el ítem Merch
+import MarketCartIcon from "../../../assets/icons/MarketCartIcon";
 import { useSearch } from "../../../context/SearchContext";
 import RegionNavLink from "../../../router/RegionNavLink";
 
@@ -63,8 +64,9 @@ const NavMenu = () => {
     { name: "Moods", icon: <MoodsIcon />, route: "/moods" },
     { name: "Trending", icon: <TrendIcon />, route: "/trending" },
     { name: "Shows", icon: <ShowsIcon />, route: "/shows" },
-    // { name: "Merch", icon: <MarketCartIcon />, route: "/merch" }, // oculto temporalmente, reactivar en el futuro
+    { name: "Merch", icon: <MarketCartIcon />, route: "/merch" },
     { name: "Premios", icon: <WinWinIcon />, route: "/prizes" },
+    { name: "Galería", icon: <FiCamera />, route: "/galeria" },
   ];
 
   return (
@@ -93,7 +95,10 @@ const NavMenu = () => {
       </div>
 
       {/* Desktop Menu */}
-      <div className="hidden md:flex space-x-1">
+      {/* Con 8 ítems el menú necesita bastante ancho (~1236px); a partir de
+          "xl" ya no se corta contra la ventana. Si en pantallas más chicas
+          que aparecen aquí como "desktop" se sigue viendo apretado, subir a 2xl. */}
+      <div className="hidden xl:flex space-x-1">
         {menuOptions.map((option) => (
           <NavMenuItem
             key={option.name}
@@ -106,7 +111,7 @@ const NavMenu = () => {
       </div>
 
       {/* Mobile Menu Toggle */}
-      <div className="md:hidden">
+      <div className="xl:hidden">
         <button onClick={toggleMenu}>
           {isOpen ? <FaTimes size={28} /> : <FaBars size={28} />}
         </button>

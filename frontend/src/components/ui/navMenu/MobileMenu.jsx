@@ -20,7 +20,7 @@ const MobileMenu = ({ menuOptions, toggleMenu }) => {
     <div
       className={`absolute ${
         isScrolled || window.scrollY > 0 ? "top-11" : "top-18"
-      } right-0 w-2/3 bg-[#282828] rounded-[12px] p-4 flex flex-col space-y-4 md:hidden z-10 shadow-lg`}
+      } right-0 w-2/3 bg-[#282828] rounded-[12px] p-4 flex flex-col space-y-4 xl:hidden z-10 shadow-lg`}
     >
       {menuOptions.map((option) => (
         <div key={option.name} className="relative">
